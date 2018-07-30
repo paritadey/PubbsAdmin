@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Pubbs Admin</string>
+    <string name="server_error">Server Error</string>
+    <string name="url">http://pubbs.in/api/1.0/admincontroller.php</string>
+    <string name="sharedPreferences">pubbsAdmin</string>
+    <string name="invalid_auth">Invalid authentication</string>
+    <string name="search_title">Search</string>
+    <string name="rupee_symbol">\u20B9</string>
+    <string name="title_activity_dash_board">DashBoardActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="holdtimes">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>120</item>
+        <item>180</item>
+        <item>240</item>
+        <item>300</item>
+        <item>360</item>
+    </string-array>
+</resources>

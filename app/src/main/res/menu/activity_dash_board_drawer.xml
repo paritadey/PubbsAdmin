@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item1"
+            android:title="Area, Station &amp; Cycles" />
+        <item
+            android:id="@+id/item2"
+            android:title="Rates" />
+        <item
+            android:id="@+id/item3"
+            android:title="Track Rides" />
+        <item
+            android:id="@+id/item4"
+            android:title="View Reports" />
+        <item
+            android:id="@+id/item5"
+            android:title="Term &amp; Condition" />
+    </group>
+</menu>
