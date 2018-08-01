@@ -1,23 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/item1"
-            android:title="Area, Station &amp; Cycles" />
-        <item
-            android:id="@+id/item2"
-            android:title="Rates" />
-        <item
-            android:id="@+id/item3"
-            android:title="Track Rides" />
-        <item
-            android:id="@+id/item4"
-            android:title="View Reports" />
-        <item
-            android:id="@+id/item5"
-            android:title="Term &amp; Condition" />
-    </group>
+    <!-- <group android:checkableBehavior="single">
+         <item
+             android:id="@+id/item1"
+             android:title="Area, Station &amp; Cycles" />
+         <item
+             android:id="@+id/item2"
+             android:title="Rates" />
+         <item
+             android:id="@+id/item3"
+             android:title="Track Rides" />
+         <item
+             android:id="@+id/item4"
+             android:title="View Reports" />
+         <item
+             android:id="@+id/item5"
+             android:title="Term &amp; Condition" />
+     </group>-->
+    <item android:title="Manage Bicycles"
+        app:actionViewClass="android.widget.Button">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/redistribution"
+                    android:title="Redistribution" />
+                <item
+                    android:id="@+id/repair"
+                    android:title="Repair" />
+                <item
+                    android:id="@+id/recharge_battery"
+                    android:title="Recharge Battery"
+                    app:actionLayout="@layout/menu_counter" />
+                <item
+                    android:id="@+id/add_new_bicycle"
+                    android:title="Add New Bicycle" />
+                <item
+                    android:id="@+id/remove_bicycle"
+                    android:title="Remove Bicycle" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Manage Users">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/my_users"
+                    android:title="My Users" />
+                <item
+                    android:id="@+id/support_user"
+                    android:title="Support to Users" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Manage Stations">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/add_station"
+                    android:title="Add New Station"/>
+                <item
+                    android:id="@+id/edit_station"
+                    android:title="Edit Station" />
+                <item
+                    android:id="@+id/delete_station"
+                    android:title="Delete Station" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Main Admin Option">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/service"
+                    android:title="Start / Stop Service" />
+                <item
+                    android:id="@+id/manage_operator"
+                    android:title="Manage Operators" />
+                <item
+                    android:id="@+id/contact_super_admin"
+                    android:title="Contact Super Admin" />
+            </group>
+        </menu>
+    </item>
+
 </menu>
