@@ -1,73 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/selectArea"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddNewStation">
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="wrap_content">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:layout_constraintTop_toTopOf="parent"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <RelativeLayout
-            android:id="@+id/toolbar_text"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/twenty_four_dp">
-
-            <TextView
-                android:id="@+id/select_area_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/twenty_four_dp"
-                android:text="@string/select_area"
-                android:textAlignment="center"
-                android:textSize="@dimen/fourteen_sp" />
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:layout_constraintTop_toTopOf="parent">
 
             <RelativeLayout
-                android:id="@+id/search_bar_layout"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@+id/select_area_tv"
-                android:layout_marginEnd="@dimen/twenty_four_dp"
-                android:layout_marginTop="@dimen/twenty_four_dp"
-                android:background="@drawable/white_border"
-                android:elevation="10dp">
+                android:id="@+id/toolbar_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/twenty_four_dp">
 
                 <ImageView
-                    android:id="@+id/ic_magnify"
-                    android:layout_width="@dimen/thirty_dp"
-                    android:layout_height="@dimen/thirty_dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/ten_dp"
-                    app:srcCompat="@drawable/ic_search_black_24dp" />
-
-                <EditText
-                    android:id="@+id/input_search"
-                    android:layout_width="match_parent"
+                    android:id="@+id/back_button"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/eight_dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/ic_magnify"
-                    android:hint="@string/search_suggestion"
-                    android:imeOptions="actionSearch"
-                    android:textColor="#000"
-                    android:textColorHint="@android:color/black"
+                    android:layout_alignBottom="@+id/select_area_tv"
+                    android:layout_alignParentStart="true"
+                    app:srcCompat="@drawable/ic_arrow_back_24dp" />
+
+                <TextView
+                    android:id="@+id/select_area_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/one_thirty_dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/select_area"
+                    android:textAlignment="center"
                     android:textSize="@dimen/fourteen_sp" />
 
-            </RelativeLayout>
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+                <RelativeLayout
+                    android:id="@+id/search_bar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/select_area_tv"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
+                    android:layout_marginStart="@dimen/sixteen_dp"
+                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:background="@drawable/white_border"
+                    android:elevation="10dp">
 
-</android.support.constraint.ConstraintLayout>
+
+                    <EditText
+                        android:id="@+id/input_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/eight_dp"
+                        android:layout_marginStart="@dimen/eight_dp"
+                        android:hint="@string/search_suggestion"
+                        android:imeOptions="actionSearch"
+                        android:backgroundTint="@color/white"
+                        android:textColor="#000"
+                        android:textColorHint="@android:color/black"
+                        android:textSize="@dimen/fourteen_sp" />
+
+                    <ImageView
+                        android:id="@+id/ic_magnify"
+                        android:layout_width="@dimen/thirty_dp"
+                        android:layout_height="@dimen/thirty_dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/ten_dp"
+                        app:srcCompat="@drawable/ic_search_black_24dp" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+    <include
+        android:id="@+id/mapAreaLayout"
+        layout="@layout/select_area_map" />
+
+    <RelativeLayout
+        android:id="@+id/design_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:paddingBottom="@dimen/eight_dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        app:behavior_hideable="false"
+        app:elevation="4dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <TextView
+            android:id="@+id/bottomsheet_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bottom_sheet_tv"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fourteen_sp" />
+
+        <ImageView
+            android:id="@+id/up_arrow"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="@dimen/eight_dp"
+            android:background="@drawable/ic_expand_less_white_24dp" />
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

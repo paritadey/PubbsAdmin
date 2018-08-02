@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddNewStation"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/MyNoActionBar"></activity>
     </application>
 
 </manifest>
