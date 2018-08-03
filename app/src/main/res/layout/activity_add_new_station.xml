@@ -10,7 +10,8 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/four_dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -45,7 +46,8 @@
                     android:padding="@dimen/four_dp"
                     android:text="@string/select_area"
                     android:textAlignment="center"
-                    android:textSize="@dimen/fourteen_sp" />
+                    android:textSize="@dimen/fourteen_sp"
+                    android:textColor="@color/white"/>
 
                 <RelativeLayout
                     android:id="@+id/search_bar_layout"
@@ -55,7 +57,7 @@
                     android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginStart="@dimen/sixteen_dp"
                     android:layout_marginTop="@dimen/tweleve_dp"
-                    android:background="@drawable/white_border"
+                    android:background="@drawable/black_border"
                     android:elevation="10dp">
 
 
@@ -66,11 +68,11 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/eight_dp"
                         android:layout_marginStart="@dimen/eight_dp"
+                        android:backgroundTint="@color/grey_800"
                         android:hint="@string/search_suggestion"
                         android:imeOptions="actionSearch"
-                        android:backgroundTint="@color/white"
-                        android:textColor="#000"
-                        android:textColorHint="@android:color/black"
+                        android:textColor="#fff"
+                        android:textColorHint="@android:color/white"
                         android:textSize="@dimen/fourteen_sp" />
 
                     <ImageView
@@ -87,9 +89,30 @@
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-    <include
-        android:id="@+id/mapAreaLayout"
-        layout="@layout/select_area_map" />
+
+    <FrameLayout
+        android:id="@+id/map_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/map_gps"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_gps_fixed_24dp" />
+
+    </FrameLayout>
 
     <RelativeLayout
         android:id="@+id/design_bottom_sheet"

@@ -66,9 +66,6 @@ public class DashBoardActivity extends AppCompatActivity
         if (sharedPreferences.contains("login")) {
             getFragmentManager()
                     .beginTransaction()
-                    .setCustomAnimations(R.animator.slide_left_enter,
-                            R.animator.slide_right_enter, R.animator.slide_right_exit,
-                            R.animator.slide_left_exit)
                     .add(R.id.myFrame, new DashboardFragment())
                     .commitAllowingStateLoss();
         } else {

@@ -54,7 +54,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_expand_more_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/device/ic_gps_fixed_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -64,8 +64,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="e2ddff" />
-                            <entry key="outputName" value="ic_expand_more_24dp" />
+                            <entry key="color" value="060306" />
+                            <entry key="outputName" value="ic_gps_fixed_24dp" />
                             <entry key="sourceFile" value="F:\downloads\upload-user.svg" />
                           </map>
                         </option>
