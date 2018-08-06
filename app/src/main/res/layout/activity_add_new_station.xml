@@ -61,18 +61,20 @@
                     android:elevation="10dp">
 
 
-                    <EditText
+                    <AutoCompleteTextView
                         android:id="@+id/input_search"
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/two_sixty_four_dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/eight_dp"
                         android:layout_marginStart="@dimen/eight_dp"
-                        android:backgroundTint="@color/grey_800"
                         android:hint="@string/search_suggestion"
                         android:imeOptions="actionSearch"
-                        android:textColor="#fff"
-                        android:textColorHint="@android:color/white"
+                        android:background="@color/white"
+                        android:paddingStart="@dimen/four_dp"
+                        android:textColor="#000"
+                        android:backgroundTint="@color/white"
+                        android:textColorHint="@android:color/black"
                         android:textSize="@dimen/fourteen_sp" />
 
                     <ImageView

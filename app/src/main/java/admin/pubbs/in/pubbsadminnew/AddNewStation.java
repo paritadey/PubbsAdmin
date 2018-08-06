@@ -1,6 +1,9 @@
 package admin.pubbs.in.pubbsadminnew;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -15,17 +18,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,7 +42,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddNewStation extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
+public class AddNewStation extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
 
     ImageView backButton;
     CoordinatorLayout selectArea;
@@ -49,7 +57,12 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    EditText inputSearch;
+    AutoCompleteTextView inputSearch;
+    private GoogleApiClient mGoogleApiClient;
+    private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(new LatLng(-40, -168), new LatLng(71, 136));
+    private PlaceAutocompleteAdapter placeAutocompleteAdapter;
+    Context mContext;
+    View v;
 
 
     @Override
@@ -79,13 +92,46 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
         mapGps.setOnClickListener(this);
     }
 
+    @SuppressLint("ResourceType")
     private void init() {
         inputSearch = findViewById(R.id.input_search);
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(this, this)
+                .build();
+
+        placeAutocompleteAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient,
+                LAT_LNG_BOUNDS, null);
+
+        inputSearch.setAdapter(placeAutocompleteAdapter);
+        inputSearch.setThreshold(1);
+
         search = findViewById(R.id.ic_magnify);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                geoLocate();
+                //geoLocate();
+                hideSoftKeyboard(mContext,v);
+                Log.d(TAG, "geoLocate: geolocating");
+                String searchString = inputSearch.getText().toString();
+                List<Address> addressList = null;
+                if (searchString != null || !searchString.equals("")) {
+                    Geocoder geocoder = new Geocoder(AddNewStation.this);
+                    try {
+                        addressList = geocoder.getFromLocationName(searchString, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Address address = null;
+                    if (addressList != null) {
+                        address = addressList.get(0);
+                    }
+                    LatLng latLng = new LatLng(address != null ? address.getLatitude() : 0, address != null ? address.getLongitude() : 0);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(searchString));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                }
             }
         });
         /*inputSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -269,9 +315,21 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
             Address address = list.get(0);
 
             Log.d(TAG, "geoLocate: found a location: " + address.toString());
+            //Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
+
             moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM,
                     address.getAddressLine(0));
         }
+
     }
 
+    private void hideSoftKeyboard(Context context, View view){
+        InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }

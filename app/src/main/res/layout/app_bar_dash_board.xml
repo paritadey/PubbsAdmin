@@ -55,11 +55,11 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/eight_dp"
                         android:layout_marginStart="@dimen/eight_dp"
-                        android:backgroundTint="@color/grey_800"
+                        android:backgroundTint="@color/white"
                         android:hint="@string/search_suggestion"
                         android:imeOptions="actionSearch"
-                        android:textColor="#fff"
-                        android:textColorHint="@android:color/white"
+                        android:textColor="#000"
+                        android:textColorHint="@android:color/black"
                         android:textSize="@dimen/fourteen_sp" />
 
                     <ImageView

@@ -55,8 +55,10 @@
     <dimen name="one_sixty_dp">160dp</dimen>
     <dimen name="one_eighty_dp">180dp</dimen>
     <dimen name="two_hundred_dp">200dp</dimen>
+    <dimen name="two_sixty_four_dp">264dp</dimen>
     <dimen name="three_hundred_dp">300dp</dimen>
     <dimen name="three_fifty_dp">350dp</dimen>
     <dimen name="four_hundred_dp">400dp</dimen>
     <dimen name="five_hundred_dp">500dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
 </resources>

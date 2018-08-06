@@ -71,13 +71,14 @@ public class DashBoardActivity extends AppCompatActivity
         } else {
             toggle.setDrawerIndicatorEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            getFragmentManager()
+            /*getFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.animator.slide_left_enter,
                             R.animator.slide_right_enter, R.animator.slide_right_exit,
                             R.animator.slide_left_exit)
                     .add(R.id.myFrame, new LoginFragment())
-                    .commitAllowingStateLoss();
+                    .commitAllowingStateLoss();*/
+            startActivity(new Intent(DashBoardActivity.this, SignInUp.class));
         }
 
     }
