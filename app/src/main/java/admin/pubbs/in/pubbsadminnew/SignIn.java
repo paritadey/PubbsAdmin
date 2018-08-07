@@ -62,7 +62,7 @@ public class SignIn extends Fragment implements AsyncResponse {
                 JSONObject jo = new JSONObject();
                 try {
                     jo.put("method", "auth");
-                    jo.put("login_id", login.getText().toString().trim());
+                    jo.put("login_id", userid.getText().toString().trim());
                     jo.put("password", password.getText().toString().trim());
                 } catch (JSONException e) {
                     e.printStackTrace();

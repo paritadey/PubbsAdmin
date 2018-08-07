@@ -21,8 +21,21 @@
 
         <activity
             android:name=".DashBoardActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddNewStation"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar" />
+        <activity
+            android:name=".SignInUp"
+            android:label="@string/title_activity_sign_in_up"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginScreen" />
+        <activity
+            android:name=".SplashScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,14 +43,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddNewStation"
-            android:theme="@style/MyNoActionBar"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".SignInUp"
-            android:label="@string/title_activity_sign_in_up"
-            android:theme="@style/LoginScreen"
-            android:screenOrientation="portrait"></activity>
+            android:name=".OtpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar" />
+        <activity android:name=".VerifyOtp"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"></activity>
     </application>
 
 </manifest>
