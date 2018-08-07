@@ -52,4 +52,7 @@
     <string name="all_bicycle">All Bicycles</string>
     <string name="title_activity_sign_in_up">SignInUp</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="mobile_tv">Mobile</string>
+    <string name="password_tv">Password</string>
+    <string name="login_btn">Log In</string>
 </resources>

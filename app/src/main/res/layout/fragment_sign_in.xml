@@ -1,8 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignIn">
 
-</FrameLayout>
+    <RelativeLayout
+        android:id="@+id/layout_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginEnd="@dimen/twenty_four_dp"
+        android:layout_marginStart="@dimen/twenty_four_dp"
+        android:layout_marginTop="@dimen/sixty_four_dp"
+        android:background="@drawable/edittext_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/mobile_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/sixteen_dp"
+            android:text="@string/mobile_tv"
+            android:textColor="@color/grey_400" />
+
+        <EditText
+            android:id="@+id/user_id"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/four_dp"
+            android:backgroundTint="@color/white"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sixteen_sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginEnd="@dimen/twenty_four_dp"
+        android:layout_marginStart="@dimen/twenty_four_dp"
+        android:layout_marginTop="@dimen/twenty_four_dp"
+        android:background="@drawable/edittext_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_mobile">
+
+        <TextView
+            android:id="@+id/password_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/sixteen_dp"
+            android:text="@string/password_tv"
+            android:textColor="@color/grey_400" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/four_dp"
+            android:backgroundTint="@color/white"
+            android:password="true"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sixteen_sp" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="@dimen/one_fifty_dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/twenty_four_dp"
+        android:layout_marginTop="@dimen/twenty_four_dp"
+        android:background="@drawable/button_bg"
+        android:text="@string/login_btn"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/fourteen_sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_password" />
+</android.support.constraint.ConstraintLayout>
