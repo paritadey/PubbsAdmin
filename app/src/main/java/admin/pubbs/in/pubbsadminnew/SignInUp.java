@@ -2,6 +2,7 @@ package admin.pubbs.in.pubbsadminnew;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -47,10 +48,16 @@ public class SignInUp extends AppCompatActivity {
 
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabOne.setText("Log In");
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/AvenirLTStd-Book.otf");
+        tabOne.setTypeface(type);
+        tabOne.setLetterSpacing(0.1f);
         tabLayout.getTabAt(0).setCustomView(tabOne);
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabTwo.setText("Sign Up");
+        Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/AvenirLTStd-Book.otf");
+        tabTwo.setTypeface(type1);
+        tabTwo.setLetterSpacing(0.1f);
         tabLayout.getTabAt(1).setCustomView(tabTwo);
 
     }

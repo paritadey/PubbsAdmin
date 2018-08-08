@@ -17,7 +17,7 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/twenty_four_dp">
+            android:paddingBottom="@dimen/twenty_four_dp">
 
             <RelativeLayout
                 android:id="@+id/layout_fullname"
@@ -27,7 +27,6 @@
                 android:layout_marginStart="@dimen/twenty_four_dp"
                 android:layout_marginTop="@dimen/sixty_four_dp"
                 android:background="@drawable/edittext_bg"
-                android:elevation="@dimen/two_dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -62,7 +61,6 @@
                 android:layout_marginStart="@dimen/twenty_four_dp"
                 android:layout_marginTop="@dimen/sixteen_dp"
                 android:background="@drawable/edittext_bg"
-                android:elevation="@dimen/two_dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_fullname">
@@ -100,7 +98,6 @@
                 android:layout_marginStart="@dimen/twenty_four_dp"
                 android:layout_marginTop="@dimen/sixteen_dp"
                 android:background="@drawable/edittext_bg"
-                android:elevation="@dimen/two_dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_mobile">
@@ -136,7 +133,6 @@
                 android:layout_marginStart="@dimen/twenty_four_dp"
                 android:layout_marginTop="@dimen/sixteen_dp"
                 android:background="@drawable/edittext_bg"
-                android:elevation="@dimen/two_dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_email">
@@ -172,7 +168,6 @@
                 android:layout_marginStart="@dimen/twenty_four_dp"
                 android:layout_marginTop="@dimen/sixteen_dp"
                 android:background="@drawable/edittext_bg"
-                android:elevation="@dimen/two_dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_address">
@@ -209,7 +204,6 @@
                 android:layout_marginStart="@dimen/twenty_four_dp"
                 android:layout_marginTop="@dimen/sixteen_dp"
                 android:background="@drawable/edittext_bg"
-                android:elevation="@dimen/two_dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_password">
@@ -242,11 +236,10 @@
             <Button
                 android:id="@+id/otp_btn"
                 android:layout_width="@dimen/one_fifty_dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/thirty_six_dp"
                 android:layout_marginEnd="@dimen/twenty_four_dp"
                 android:layout_marginTop="@dimen/twenty_four_dp"
                 android:background="@drawable/button_bg"
-                android:elevation="@dimen/two_dp"
                 android:text="@string/get_otp"
                 android:textAllCaps="false"
                 android:textColor="@color/white"

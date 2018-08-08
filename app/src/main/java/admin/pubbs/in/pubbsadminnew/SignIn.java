@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 
@@ -24,6 +26,7 @@ public class SignIn extends Fragment implements AsyncResponse {
     ProgressDialog pd;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    TextView mobileTv,passwordTv;
 
     public SignIn() {
     }
@@ -43,9 +46,20 @@ public class SignIn extends Fragment implements AsyncResponse {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_sign_in, container, false);
+        Typeface type = Typeface.createFromAsset(getContext().getAssets(),"fonts/AvenirLTStd-Book.otf");
+        mobileTv = rootView.findViewById(R.id.mobile_tv);
+        mobileTv.setTypeface(type);
         userid = rootView.findViewById(R.id.user_id);
+        userid.setTypeface(type);
+        userid.setLetterSpacing(0.1f);
+        passwordTv = rootView.findViewById(R.id.password_tv);
+        passwordTv.setTypeface(type);
         password = rootView.findViewById(R.id.password);
+        password.setTypeface(type);
+        password.setLetterSpacing(0.1f);
         login = rootView.findViewById(R.id.login_btn);
+        login.setTypeface(type);
+        login.setLetterSpacing(0.1f);
         login.setOnClickListener(view -> {
             userid.setError(null);
             password.setError(null);

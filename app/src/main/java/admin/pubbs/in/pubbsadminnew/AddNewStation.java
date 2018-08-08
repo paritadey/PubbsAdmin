@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -63,7 +65,7 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
     private PlaceAutocompleteAdapter placeAutocompleteAdapter;
     Context mContext;
     View v;
-
+    TextView selectAreaTv, bottomsheetText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,15 +88,24 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/AvenirLTStd-Book.otf");
         backButton = findViewById(R.id.back_button);
         mapGps = findViewById(R.id.map_gps);
         backButton.setOnClickListener(this);
         mapGps.setOnClickListener(this);
+        selectAreaTv = findViewById(R.id.select_area_tv);
+        selectAreaTv.setTypeface(type);
+        selectAreaTv.setLetterSpacing(0.1f);
+        bottomsheetText = findViewById(R.id.bottomsheet_text);
+        bottomsheetText.setTypeface(type);
+        bottomsheetText.setLetterSpacing(0.1f);
     }
 
     @SuppressLint("ResourceType")
     private void init() {
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/AvenirLTStd-Book.otf");
         inputSearch = findViewById(R.id.input_search);
+        inputSearch.setTypeface(type);
         mGoogleApiClient = new GoogleApiClient
                 .Builder(this)
                 .addApi(Places.GEO_DATA_API)

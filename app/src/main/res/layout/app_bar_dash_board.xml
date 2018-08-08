@@ -8,7 +8,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -24,13 +24,13 @@
                 android:layout_marginBottom="@dimen/twenty_four_dp">
 
                 <TextView
-                    android:id="@+id/select_area_tv"
+                    android:id="@+id/all_bicycle_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="@dimen/sixty_four_dp"
-                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:layout_marginTop="@dimen/eight_dp"
                     android:padding="@dimen/four_dp"
                     android:text="@string/all_bicycle"
                     android:textAlignment="center"
@@ -40,25 +40,28 @@
                 <RelativeLayout
                     android:id="@+id/search_bar_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/select_area_tv"
+                    android:layout_height="@dimen/thirty_six_dp"
+                    android:layout_below="@+id/all_bicycle_tv"
                     android:layout_marginEnd="@dimen/twenty_four_dp"
-                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:alpha="0.3"
+                    android:layout_marginTop="@dimen/eight_dp"
                     android:background="@drawable/black_border"
                     android:elevation="10dp">
 
 
-                    <EditText
+                    <AutoCompleteTextView
                         android:id="@+id/input_search"
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/two_sixty_four_dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/eight_dp"
                         android:layout_marginStart="@dimen/eight_dp"
-                        android:backgroundTint="@color/white"
                         android:hint="@string/search_suggestion"
                         android:imeOptions="actionSearch"
+                        android:background="@color/white"
+                        android:paddingStart="@dimen/four_dp"
                         android:textColor="#000"
+                        android:backgroundTint="@color/white"
                         android:textColorHint="@android:color/black"
                         android:textSize="@dimen/fourteen_sp" />
 

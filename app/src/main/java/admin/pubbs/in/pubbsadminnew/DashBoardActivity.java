@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
@@ -24,12 +25,17 @@ public class DashBoardActivity extends AppCompatActivity
     SharedPreferences sharedPreferences;
     NavigationView navigationView;
     ImageView close;
+    TextView allBicycleTv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/AvenirLTStd-Book.otf");
+        allBicycleTv = findViewById(R.id.all_bicycle_tv);
+        allBicycleTv.setTypeface(type);
+        allBicycleTv.setLetterSpacing(0.1f);
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(

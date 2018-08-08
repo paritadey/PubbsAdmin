@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:elevation="@dimen/four_dp">
 
         <android.support.v7.widget.Toolbar
@@ -41,37 +41,38 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginStart="@dimen/one_thirty_dp"
-                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:layout_marginStart="@dimen/one_twenty_dp"
+                    android:layout_marginTop="@dimen/eight_dp"
                     android:padding="@dimen/four_dp"
                     android:text="@string/select_area"
                     android:textAlignment="center"
                     android:textSize="@dimen/fourteen_sp"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
                 <RelativeLayout
                     android:id="@+id/search_bar_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="@dimen/thirty_six_dp"
                     android:layout_below="@+id/select_area_tv"
                     android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginStart="@dimen/sixteen_dp"
-                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:alpha="0.3"
+                    android:layout_marginTop="@dimen/eight_dp"
                     android:background="@drawable/black_border"
                     android:elevation="10dp">
 
 
                     <AutoCompleteTextView
                         android:id="@+id/input_search"
-                        android:layout_width="@dimen/two_sixty_four_dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="260dp"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/eight_dp"
                         android:layout_marginStart="@dimen/eight_dp"
                         android:hint="@string/search_suggestion"
                         android:imeOptions="actionSearch"
                         android:background="@color/white"
-                        android:paddingStart="@dimen/four_dp"
+                        android:paddingStart="@dimen/eight_dp"
                         android:textColor="#000"
                         android:backgroundTint="@color/white"
                         android:textColorHint="@android:color/black"
@@ -106,11 +107,11 @@
 
         <ImageView
             android:id="@+id/map_gps"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="start"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|end|bottom"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="@dimen/eighty_dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_gps_fixed_24dp" />
 
@@ -119,12 +120,12 @@
     <RelativeLayout
         android:id="@+id/design_bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/sixty_dp"
         android:background="@color/black"
         android:paddingBottom="@dimen/eight_dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/eight_dp"
         app:behavior_hideable="false"
         app:elevation="4dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
@@ -135,6 +136,7 @@
             android:layout_height="wrap_content"
             android:text="@string/bottom_sheet_tv"
             android:textColor="@color/white"
+            android:layout_marginTop="@dimen/four_dp"
             android:textSize="@dimen/fourteen_sp" />
 
         <ImageView

@@ -41,6 +41,8 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback,As
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("Dashboard");
         View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
+       // Typeface type = Typeface.createFromAsset(getContext().getAssets(),"fonts/AvenirLTStd-Book.otf");
+
         mapView = (MapView) v.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         try {

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -13,18 +14,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SplashScreen extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     Context context;
     boolean internet;
+    TextView appName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         sharedpreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
+        appName = findViewById(R.id.app_name);
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/AvenirLTStd-Book.otf");
+        appName.setTypeface(type);
+        appName.setLetterSpacing(0.1f);
         internet = isConnectingToInternet(context);
         if (internet == true) {
             final Handler handler = new Handler();

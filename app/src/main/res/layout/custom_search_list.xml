@@ -11,7 +11,7 @@
 
     <TextView android:id="@android:id/text1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/thirty_six_dp"
         android:layout_marginTop="6dip"
         android:textColor="@color/black"
         android:textAppearance="?android:attr/textAppearanceListItem"
@@ -20,7 +20,7 @@
 
     <TextView android:id="@android:id/text2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/thirty_dp"
         android:layout_below="@android:id/text1"
         android:textColor="@color/grey_500"
         android:layout_alignStart="@android:id/text1"

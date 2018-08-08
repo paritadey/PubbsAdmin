@@ -67,4 +67,5 @@
     <string name="edit_number">Edit Number</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="submit_otp">Submit OTP</string>
+    <string name="accident">Meet an Accident !</string>
 </resources>

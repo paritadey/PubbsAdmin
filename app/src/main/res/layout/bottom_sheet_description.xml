@@ -7,39 +7,43 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/scroll_view"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-         <RelativeLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/description_header"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/black"
-            android:paddingBottom="@dimen/eight_dp"
-            android:paddingStart="@dimen/sixteen_dp"
-            android:paddingTop="@dimen/sixteen_dp"
-            android:text="@string/select_area_description"
-            android:textColor="@color/white"
-            android:textSize="@dimen/fourteen_sp" />
+            android:layout_height="fill_parent">
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/eight_dp"
-            android:paddingStart="@dimen/sixteen_dp"
-            android:paddingTop="@dimen/eight_dp"
-            android:text="@string/description"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/fourteen_sp"
-            android:layout_below="@+id/description_header" />
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/description_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/black"
+                    android:paddingBottom="@dimen/eight_dp"
+                    android:paddingStart="@dimen/sixteen_dp"
+                    android:paddingTop="@dimen/sixteen_dp"
+                    android:text="@string/select_area_description"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fourteen_sp" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/description_header"
+                    android:paddingBottom="@dimen/eight_dp"
+                    android:paddingStart="@dimen/sixteen_dp"
+                    android:paddingTop="@dimen/eight_dp"
+                    android:text="@string/description"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/fourteen_sp" />
+            </RelativeLayout>
         </ScrollView>
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
