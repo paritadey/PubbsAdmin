@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/singin"
     tools:context=".SignIn">
 
     <RelativeLayout
@@ -24,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/twenty_four_dp"
-            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_marginTop="@dimen/tweleve_dp"
             android:text="@string/mobile_tv"
             android:textColor="@color/grey_400" />
 
@@ -37,7 +38,8 @@
             android:backgroundTint="@color/white"
             android:singleLine="true"
             android:textColor="@color/black"
-            android:textSize="@dimen/fourteen_sp" />
+            android:textSize="@dimen/fourteen_sp"
+            android:textCursorDrawable="@drawable/custom_cursor"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -58,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/twenty_four_dp"
-            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_marginTop="@dimen/tweleve_dp"
             android:text="@string/password_tv"
             android:textColor="@color/grey_400" />
 
@@ -72,7 +74,8 @@
             android:password="true"
             android:singleLine="true"
             android:textColor="@color/black"
-            android:textSize="@dimen/fourteen_sp" />
+            android:textSize="@dimen/eleven_sp"
+            android:textCursorDrawable="@drawable/custom_cursor"/>
 
     </RelativeLayout>
 

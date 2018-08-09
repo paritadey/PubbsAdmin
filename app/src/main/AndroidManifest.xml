@@ -46,9 +46,11 @@
             android:name=".OtpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
-        <activity android:name=".VerifyOtp"
+        <activity
+            android:name=".VerifyOtp"
             android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar"></activity>
+            android:theme="@style/MyNoActionBar" />
+        <activity android:name=".Redistribution"></activity>
     </application>
 
 </manifest>

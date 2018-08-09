@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/otpActivity"
     tools:context=".OtpActivity">
     <include
         android:id="@+id/otp_appbar"

@@ -95,10 +95,8 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
         mapGps.setOnClickListener(this);
         selectAreaTv = findViewById(R.id.select_area_tv);
         selectAreaTv.setTypeface(type);
-        selectAreaTv.setLetterSpacing(0.1f);
         bottomsheetText = findViewById(R.id.bottomsheet_text);
         bottomsheetText.setTypeface(type);
-        bottomsheetText.setLetterSpacing(0.1f);
     }
 
     @SuppressLint("ResourceType")

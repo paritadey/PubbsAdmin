@@ -35,7 +35,6 @@ public class DashBoardActivity extends AppCompatActivity
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/AvenirLTStd-Book.otf");
         allBicycleTv = findViewById(R.id.all_bicycle_tv);
         allBicycleTv.setTypeface(type);
-        allBicycleTv.setLetterSpacing(0.1f);
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -118,7 +117,7 @@ public class DashBoardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.redistribution) {
-
+            startActivity(new Intent(DashBoardActivity.this, Redistribution.class));
         } else if (id == R.id.repair) {
 
         } else if (id == R.id.recharge_battery) {

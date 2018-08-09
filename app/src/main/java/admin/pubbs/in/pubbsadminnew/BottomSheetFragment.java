@@ -40,15 +40,12 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         Typeface type = Typeface.createFromAsset(getContext().getAssets(),"fonts/AvenirLTStd-Book.otf");
         descriptionHeader = view.findViewById(R.id.description_header);
         descriptionHeader.setTypeface(type);
-        descriptionHeader.setLetterSpacing(0.1f);
 
         description = view.findViewById(R.id.description);
         description.setTypeface(type);
-        description.setLetterSpacing(0.05f);
 
         areaNow = view.findViewById(R.id.area_now);
         areaNow.setTypeface(type);
-        areaNow.setLetterSpacing(0.1f);
 
         ImageView showMap = (ImageView) view.findViewById(R.id.show_map);
         showMap.setOnClickListener(new View.OnClickListener() {

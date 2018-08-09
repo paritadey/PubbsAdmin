@@ -1,12 +1,14 @@
 package admin.pubbs.in.pubbsadminnew;
 
 import android.app.Fragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.google.android.gms.maps.CameraUpdate;
@@ -28,12 +30,13 @@ import org.json.JSONObject;
  * Created by LORD on 9/17/2017.
  */
 
-public class DashboardFragment extends Fragment implements OnMapReadyCallback,AsyncResponse {
+public class DashboardFragment extends Fragment implements OnMapReadyCallback, AsyncResponse, View.OnClickListener {
 
     MapView mapView;
     GoogleMap gmap;
     Handler handler = new Handler();
     final int delay = 5000; //milliseconds
+    TextView cycleId, cycleUsername, cycleUserPhone, call, locate;
 
 
     @Nullable
@@ -41,8 +44,20 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback,As
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("Dashboard");
         View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
-       // Typeface type = Typeface.createFromAsset(getContext().getAssets(),"fonts/AvenirLTStd-Book.otf");
+        Typeface type = Typeface.createFromAsset(getActivity().getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
 
+        cycleId = v.findViewById(R.id.cycle_id);
+        cycleId.setTypeface(type);
+        cycleUsername = v.findViewById(R.id.cycle_user_name);
+        cycleUsername.setTypeface(type);
+        cycleUserPhone = v.findViewById(R.id.cycle_user_phone);
+        cycleUserPhone.setTypeface(type);
+        call = v.findViewById(R.id.call);
+        call.setTypeface(type);
+        call.setOnClickListener(this);
+        locate = v.findViewById(R.id.locate);
+        locate.setTypeface(type);
+        locate.setOnClickListener(this);
         mapView = (MapView) v.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         try {
@@ -57,13 +72,13 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback,As
 
     @Override
     public void onResponse(JSONObject jsonObject) {
-        if(jsonObject.has("method")){
+        if (jsonObject.has("method")) {
             gmap.clear();
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             try {
-                if (jsonObject.getString("method").equals("trackrides")){
-                    JSONArray ja=jsonObject.getJSONArray("data");
-                    if (ja.length()>0) {
+                if (jsonObject.getString("method").equals("trackrides")) {
+                    JSONArray ja = jsonObject.getJSONArray("data");
+                    if (ja.length() > 0) {
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
                             LatLng ll = new LatLng(jo.getDouble("lat"), jo.getDouble("lng"));
@@ -89,7 +104,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback,As
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        gmap=googleMap;
+        gmap = googleMap;
         googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
@@ -98,6 +113,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback,As
         });
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -111,17 +127,29 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback,As
         handler.removeCallbacks(trackRide);
     }
 
-    private Runnable trackRide=new Runnable() {
+    private Runnable trackRide = new Runnable() {
         @Override
         public void run() {
-            JSONObject jo=new JSONObject();
+            JSONObject jo = new JSONObject();
             try {
-                jo.put("method","trackrides");
+                jo.put("method", "trackrides");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            new SendRequest(getString(R.string.url),jo,DashboardFragment.this,getActivity()).executeJsonRequest();
+            new SendRequest(getString(R.string.url), jo, DashboardFragment.this, getActivity()).executeJsonRequest();
             handler.postDelayed(trackRide, delay);
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.call:
+                break;
+            case R.id.locate:
+                break;
+            default:
+                break;
+        }
+    }
 }

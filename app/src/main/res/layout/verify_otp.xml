@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/twenty_four_dp"
-            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_marginTop="@dimen/tweleve_dp"
             android:text="@string/otp"
             android:textColor="@color/grey_400" />
 
@@ -73,7 +73,8 @@
             android:backgroundTint="@color/white"
             android:singleLine="true"
             android:textColor="@color/black"
-            android:textSize="@dimen/fourteen_sp" />
+            android:textSize="@dimen/fourteen_sp"
+            android:textCursorDrawable="@drawable/custom_cursor"/>
     </RelativeLayout>
 
     <Button

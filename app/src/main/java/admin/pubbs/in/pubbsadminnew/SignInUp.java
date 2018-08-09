@@ -48,18 +48,32 @@ public class SignInUp extends AppCompatActivity {
 
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabOne.setText("Log In");
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/AvenirLTStd-Book.otf");
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/AvenirNextLTPro-Bold.otf");
+
         tabOne.setTypeface(type);
-        tabOne.setLetterSpacing(0.1f);
         tabLayout.getTabAt(0).setCustomView(tabOne);
+        tabLayout.setSelected(true);
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabTwo.setText("Sign Up");
-        Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/AvenirLTStd-Book.otf");
+        Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/AvenirNextLTPro-Bold.otf");
         tabTwo.setTypeface(type1);
-        tabTwo.setLetterSpacing(0.1f);
         tabLayout.getTabAt(1).setCustomView(tabTwo);
 
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tabLayout.setBackgroundColor(getResources().getColor(R.color.grey_800));
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tabLayout.setBackgroundColor(getResources().getColor(R.color.black));
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
