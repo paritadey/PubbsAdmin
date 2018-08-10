@@ -4,15 +4,12 @@ import android.Manifest;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -25,7 +22,6 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.google.zxing.Result;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -67,7 +63,7 @@ public class ScanQRFragment extends Fragment implements ZXingScannerView.ResultH
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-       menu.clear();
+        menu.clear();
     }
 
     @Override
