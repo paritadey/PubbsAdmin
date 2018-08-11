@@ -72,4 +72,5 @@
     <string name="add_bicycle">Add bicycle to a station</string>
     <string name="draw_redistribution">Draw for redistribution</string>
     <string name="scan_tv">Scan the QR code to add in reserve</string>
+    <string name="proceed">Proceed</string>
 </resources>

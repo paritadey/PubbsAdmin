@@ -46,8 +46,8 @@
                     android:padding="@dimen/four_dp"
                     android:text="@string/select_area"
                     android:textAlignment="center"
-                    android:textSize="@dimen/fourteen_sp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fourteen_sp" />
 
                 <RelativeLayout
                     android:id="@+id/search_bar_layout"
@@ -56,25 +56,25 @@
                     android:layout_below="@+id/select_area_tv"
                     android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginStart="@dimen/sixteen_dp"
-                    android:alpha="0.3"
                     android:layout_marginTop="@dimen/eight_dp"
+                    android:alpha="0.3"
                     android:background="@drawable/black_border"
                     android:elevation="10dp">
 
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/input_search"
                         android:layout_width="260dp"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/eight_dp"
                         android:layout_marginStart="@dimen/eight_dp"
+                        android:background="@color/white"
+                        android:backgroundTint="@color/white"
                         android:hint="@string/search_suggestion"
                         android:imeOptions="actionSearch"
-                        android:background="@color/white"
                         android:paddingStart="@dimen/eight_dp"
                         android:textColor="#000"
-                        android:backgroundTint="@color/white"
                         android:textColorHint="@android:color/black"
                         android:textSize="@dimen/fourteen_sp" />
 
@@ -110,11 +110,26 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="right|end|bottom"
-            android:layout_marginRight="10dp"
             android:layout_marginBottom="@dimen/eighty_dp"
+            android:layout_marginRight="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_gps_fixed_24dp" />
 
+        <Button
+            android:id="@+id/proceed_btn"
+            android:layout_width="@dimen/one_fifty_dp"
+            android:layout_height="@dimen/thirty_six_dp"
+            android:layout_gravity="right|end|bottom"
+            android:layout_marginBottom="@dimen/eighty_dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_bg"
+            android:elevation="@dimen/two_dp"
+            android:scaleType="centerCrop"
+            android:text="@string/proceed"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fourteen_sp"
+            android:visibility="gone" />
     </FrameLayout>
 
     <RelativeLayout
@@ -134,9 +149,9 @@
             android:id="@+id/bottomsheet_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/four_dp"
             android:text="@string/bottom_sheet_tv"
             android:textColor="@color/white"
-            android:layout_marginTop="@dimen/four_dp"
             android:textSize="@dimen/fourteen_sp" />
 
         <ImageView

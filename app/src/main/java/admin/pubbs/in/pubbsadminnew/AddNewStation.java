@@ -18,10 +18,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,14 +32,16 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -44,7 +49,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddNewStation extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
+public class AddNewStation extends AppCompatActivity implements View.OnClickListener,
+        OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
 
     ImageView backButton;
     CoordinatorLayout selectArea;
@@ -59,13 +65,16 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    AutoCompleteTextView inputSearch;
-    private GoogleApiClient mGoogleApiClient;
-    private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(new LatLng(-40, -168), new LatLng(71, 136));
-    private PlaceAutocompleteAdapter placeAutocompleteAdapter;
+    EditText inputSearch;
     Context mContext;
     View v;
     TextView selectAreaTv, bottomsheetText;
+    boolean polygonCreation = false;
+    public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
+    public ArrayList<LatLng> stationList = new ArrayList<LatLng>();
+    Button procced;
+    String stationName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +97,8 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/AvenirLTStd-Book.otf");
+        Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
         backButton = findViewById(R.id.back_button);
         mapGps = findViewById(R.id.map_gps);
         backButton.setOnClickListener(this);
@@ -97,32 +107,21 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
         selectAreaTv.setTypeface(type);
         bottomsheetText = findViewById(R.id.bottomsheet_text);
         bottomsheetText.setTypeface(type);
+        procced = findViewById(R.id.proceed_btn);
+        procced.setTypeface(type2);
     }
 
     @SuppressLint("ResourceType")
     private void init() {
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/AvenirLTStd-Book.otf");
+        Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         inputSearch = findViewById(R.id.input_search);
         inputSearch.setTypeface(type);
-        mGoogleApiClient = new GoogleApiClient
-                .Builder(this)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(this, this)
-                .build();
-
-        placeAutocompleteAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient,
-                LAT_LNG_BOUNDS, null);
-
-        inputSearch.setAdapter(placeAutocompleteAdapter);
-        inputSearch.setThreshold(1);
-
         search = findViewById(R.id.ic_magnify);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //geoLocate();
-                hideSoftKeyboard(mContext,v);
+                hideSoftKeyboard(mContext, v);
                 Log.d(TAG, "geoLocate: geolocating");
                 String searchString = inputSearch.getText().toString();
                 List<Address> addressList = null;
@@ -143,19 +142,6 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
-        /*inputSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH
-                        || actionId == EditorInfo.IME_ACTION_DONE
-                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
-                    geoLocate();
-                }
-
-                return false;
-            }
-        });*/
     }
 
     private void setUpToolbar() {
@@ -203,10 +189,89 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
+            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() { //placeing a dynamic marker
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.circumference);
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(latLng);
+                    markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+                    markerOptions.icon(icon);
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                    mMap.addMarker(markerOptions);
+                    Log.d(TAG, "Area added");
+                    markerList.add(latLng);
+                    showArrayList(markerList);
+                    drawPolygon(markerList);
+
+                }
+            });
 
             init();
         }
 
+    }
+
+    public void showArrayList(ArrayList<LatLng> list) {
+        for (int i = 0; i < list.size(); i++) {
+            Log.d(TAG, "markers: " + list.get(i));
+        }
+    }
+
+    public void drawPolygon(ArrayList<LatLng> myLatLng) {
+        Log.d(TAG, "Drawing polygon");
+        if (myLatLng.size() >= 5) {
+            PolygonOptions polygonOptions = new PolygonOptions();
+            polygonOptions.addAll(myLatLng);
+            polygonOptions.strokeColor(getResources().getColor(R.color.blue_300));
+            polygonOptions.strokeWidth(5);
+            polygonOptions.fillColor(getResources().getColor(R.color.blue_100));
+            Polygon polygon = mMap.addPolygon(polygonOptions);
+
+            Log.d(TAG, "Polygon created");
+            procced.setVisibility(View.VISIBLE);
+            polygonCreation = true;
+        }
+        drawStation(polygonCreation);
+
+    }
+
+    public void drawStation(boolean drawStation) {
+        if (drawStation == true) {
+            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.station);
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(latLng);
+                    markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+                    markerOptions.icon(icon);
+                   // String station = showStationLayout();
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                    mMap.addMarker(markerOptions);
+                    Log.d(TAG, "Station added");
+                    stationList.add(latLng);
+                    showArrayList(stationList);
+
+                }
+            });
+        }
+    }
+
+    public String showStationLayout() {
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View inflatedLayout = inflater.inflate(R.layout.custom_marker_title, null, false);
+        EditText markerTitle = (EditText) inflatedLayout.findViewById(R.id.marker_title);
+        Button addStation = (Button) inflatedLayout.findViewById(R.id.add_station);
+        RelativeLayout stationLayout = (RelativeLayout) inflatedLayout.findViewById(R.id.stationLayout);
+        addStation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stationName = markerTitle.getText().toString();
+                stationLayout.setVisibility(View.GONE);
+            }
+        });
+        return stationName;
     }
 
     private void getDeviceLocation() {
@@ -332,7 +397,7 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
 
     }
 
-    private void hideSoftKeyboard(Context context, View view){
+    private void hideSoftKeyboard(Context context, View view) {
         InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }

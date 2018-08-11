@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:id="@+id/stationLayout">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_bg">
+
+        <EditText
+            android:id="@+id/marker_title"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/four_dp"
+            android:layout_marginTop="@dimen/two_dp"
+            android:backgroundTint="@color/white"
+            android:paddingStart="@dimen/tweleve_dp"
+            android:singleLine="true"
+            android:text="Name your station"
+            android:textColor="@color/black"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:textSize="@dimen/fourteen_sp" />
+
+        <Button
+            android:id="@+id/add_station"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/marker_title"
+            android:layout_alignParentEnd="true"
+            android:layout_alignRight="@id/marker_title"
+            android:layout_marginEnd="@dimen/four_dp"
+            android:layout_marginStart="@dimen/two_dp"
+            android:layout_marginTop="@dimen/two_dp"
+            android:background="@drawable/button_bg"
+            android:drawableStart="@drawable/ic_add"
+            android:paddingStart="@dimen/two_dp"
+            android:text="Add"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+</RelativeLayout>
