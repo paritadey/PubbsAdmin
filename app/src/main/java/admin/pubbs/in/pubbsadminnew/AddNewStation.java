@@ -118,6 +118,7 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
         inputSearch.setTypeface(type);
         search = findViewById(R.id.ic_magnify);
         search.setOnClickListener(new View.OnClickListener() {
+            BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.marker);
             @Override
             public void onClick(View v) {
                 //geoLocate();
@@ -137,7 +138,7 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
                         address = addressList.get(0);
                     }
                     LatLng latLng = new LatLng(address != null ? address.getLatitude() : 0, address != null ? address.getLongitude() : 0);
-                    mMap.addMarker(new MarkerOptions().position(latLng).title(searchString));
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(searchString).icon(icon));
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 }
             }
@@ -161,6 +162,9 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.map_gps:
                 getDeviceLocation();
+                break;
+            case R.id.proceed_btn:
+                startActivity(new Intent(AddNewStation.this, RateChart.class));
                 break;
             default:
                 break;
@@ -229,7 +233,11 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
             Polygon polygon = mMap.addPolygon(polygonOptions);
 
             Log.d(TAG, "Polygon created");
+            String areaName= generateArea();
+            Log.d(TAG, "Area Name: "+areaName);
+
             procced.setVisibility(View.VISIBLE);
+            procced.setOnClickListener(this);
             polygonCreation = true;
         }
         drawStation(polygonCreation);
@@ -241,12 +249,13 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                 @Override
                 public void onMapClick(LatLng latLng) {
+                    String stationName = generateStation();
                     BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.station);
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(latLng);
                     markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                     markerOptions.icon(icon);
-                   // String station = showStationLayout();
+                    markerOptions.snippet(stationName);
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                     mMap.addMarker(markerOptions);
                     Log.d(TAG, "Station added");
@@ -258,6 +267,28 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    public String generateStation(){
+        String stationName= "station_";
+        String station;
+        int max=999;
+        int min = 1;
+        int randomNum= (int)(Math.random() * ( max - min )) + min;
+        station= stationName+randomNum;
+        Log.d(TAG, "Station Number: "+station);
+        return station;
+
+    }
+    public String generateArea(){
+        String areaName= "area_";
+        String area;
+        int max=999;
+        int min = 1;
+        int randomNum= (int)(Math.random() * ( max - min )) + min;
+        area= areaName+randomNum;
+        Log.d(TAG, "Area Number: "+area);
+        return area;
+
+    }
     public String showStationLayout() {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View inflatedLayout = inflater.inflate(R.layout.custom_marker_title, null, false);

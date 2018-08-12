@@ -53,6 +53,10 @@
         <activity
             android:name=".Redistribution"
             android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar" />
+        <activity
+            android:name=".RateChart"
+            android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"></activity>
     </application>
 

@@ -73,4 +73,12 @@
     <string name="draw_redistribution">Draw for redistribution</string>
     <string name="scan_tv">Scan the QR code to add in reserve</string>
     <string name="proceed">Proceed</string>
+    <string name="title_activity_rate_chart">Rate Chart</string>
+    <string name="time_slab">Time Slab</string>
+    <string name="price_tv">Price</string>
+    <string name="increment">+</string>
+    <string name="decrement">-</string>
+    <string name="display">5</string>
+    <string name="rupee">₹</string>
+
 </resources>
