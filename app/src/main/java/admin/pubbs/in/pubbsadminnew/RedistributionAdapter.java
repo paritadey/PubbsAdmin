@@ -23,7 +23,7 @@ public class RedistributionAdapter extends RecyclerView.Adapter<RedistributionAd
             Typeface type2 = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
             bicycleId = (TextView) view.findViewById(R.id.bicycle_id);
-            bicycleId.setTypeface(type2);
+            bicycleId.setTypeface(type1);
             addToStation = (TextView) view.findViewById(R.id.add_to_station);
             addToStation.setTypeface(type1);
         }

@@ -44,25 +44,24 @@
                     android:layout_below="@+id/bicycle_tv"
                     android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginTop="@dimen/eight_dp"
-                    android:alpha="0.3"
                     android:background="@drawable/black_border"
                     android:elevation="10dp">
 
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/input_search"
-                        android:layout_width="@dimen/two_sixty_four_dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="264dp"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/eight_dp"
                         android:layout_marginStart="@dimen/eight_dp"
                         android:background="@color/white"
-                        android:backgroundTint="@color/white"
+                        android:backgroundTint="@android:color/transparent"
                         android:hint="@string/add_bicycle"
                         android:imeOptions="actionSearch"
-                        android:paddingStart="@dimen/four_dp"
-                        android:textColor="#000"
-                        android:textColorHint="@android:color/black"
+                        android:paddingStart="@dimen/eight_dp"
+                        android:textColor="@color/color_grey_01"
+                        android:textColorHint="@color/color_grey_01"
                         android:textSize="@dimen/fourteen_sp" />
 
                     <ImageView

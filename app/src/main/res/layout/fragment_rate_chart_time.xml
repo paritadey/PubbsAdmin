@@ -8,80 +8,588 @@
     android:layout_height="match_parent"
     tools:context=".RateChartTime">
 
-    <TextView
-        android:id="@+id/time_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/twenty_four_dp"
-        android:layout_marginStart="@dimen/seventy_four_dp"
-        android:layout_marginTop="@dimen/one_hundred_dp"
-        android:text="@string/time_slab"
-        android:textColor="@color/black"
-        android:textSize="@dimen/fourteen_sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <com.travijuu.numberpicker.library.NumberPicker
-        android:id="@+id/number_picker"
-        android:layout_width="180dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="@dimen/twenty_four_dp"
-        android:layout_marginStart="@dimen/twenty_four_dp"
-        android:layout_marginTop="@dimen/twenty_four_dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/time_tv"
-        numberpicker:custom_layout="@layout/number_picker_custom_layout"
-        numberpicker:focusable="false"
-        numberpicker:max="240"
-        numberpicker:min="5"
-        numberpicker:unit="1"
-        numberpicker:value="5" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/sixteen_dp">
 
-    <TextView
-        android:id="@+id/price_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/fifty_dp"
-        android:layout_marginTop="@dimen/one_hundred_dp"
-        android:text="@string/price_tv"
-        android:textColor="@color/black"
-        android:textSize="@dimen/fourteen_sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/eighty_dp"
+                android:layout_marginTop="@dimen/thirty_dp"
+                android:text="@string/time_slab"
+                android:textColor="@color/black"
+                android:textSize="@dimen/fourteen_sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
-        android:id="@+id/layout_price"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="@dimen/twenty_four_dp"
-        android:layout_marginTop="@dimen/twenty_four_dp"
-        android:background="@drawable/edittext_bg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/price_tv">
+            <com.travijuu.numberpicker.library.NumberPicker
+                android:id="@+id/number_picker_1"
+                android:layout_width="190dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_four_dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/time_tv"
+                numberpicker:custom_layout="@layout/number_picker_custom_layout"
+                numberpicker:focusable="false"
+                numberpicker:max="8"
+                numberpicker:min="5"
+                numberpicker:unit="1"
+                numberpicker:value="5" />
 
-        <TextView
-            android:id="@+id/rupee_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/fourty_dp"
-            android:layout_marginTop="@dimen/tweleve_dp"
-            android:text="@string/rupee"
-            android:textColor="@color/black"
-            android:textSize="@dimen/fourteen_sp" />
+            <TextView
+                android:id="@+id/price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/fifty_dp"
+                android:layout_marginTop="@dimen/thirty_dp"
+                android:text="@string/price_tv"
+                android:textColor="@color/black"
+                android:textSize="@dimen/fourteen_sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/rupees"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/fifty_dp"
-            android:layout_marginTop="@dimen/two_dp"
-            android:backgroundTint="@color/white"
-            android:singleLine="true"
-            android:text="5"
-            android:textColor="@color/black"
-            android:textCursorDrawable="@drawable/custom_cursor"
-            android:textSize="@dimen/fourteen_sp" />
+            <RelativeLayout
+                android:id="@+id/layout_price"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_four_dp"
+                android:background="@drawable/edittext_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/price_tv">
 
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/rupee_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/thirty_dp"
+                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:text="@string/rupee"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp" />
 
+                <EditText
+                    android:id="@+id/rupees"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fourty_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:backgroundTint="@color/white"
+                    android:singleLine="true"
+                    android:text="5"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
+
+            </RelativeLayout>
+
+            <com.travijuu.numberpicker.library.NumberPicker
+                android:id="@+id/number_picker_2"
+                android:layout_width="190dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/number_picker_1"
+                numberpicker:custom_layout="@layout/number_picker_custom_layout"
+                numberpicker:focusable="false"
+                numberpicker:max="15"
+                numberpicker:min="9"
+                numberpicker:unit="1"
+                numberpicker:value="9" />
+
+            <RelativeLayout
+                android:id="@+id/layout_price_2"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                android:background="@drawable/edittext_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_price">
+
+                <TextView
+                    android:id="@+id/rupee_tv_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/thirty_dp"
+                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:text="@string/rupee"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp" />
+
+                <EditText
+                    android:id="@+id/rupees_2"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fourty_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:backgroundTint="@color/white"
+                    android:singleLine="true"
+                    android:text="10"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
+            </RelativeLayout>
+
+            <com.travijuu.numberpicker.library.NumberPicker
+                android:id="@+id/number_picker_3"
+                android:layout_width="190dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/number_picker_2"
+                numberpicker:custom_layout="@layout/number_picker_custom_layout"
+                numberpicker:focusable="false"
+                numberpicker:max="25"
+                numberpicker:min="16"
+                numberpicker:unit="1"
+                numberpicker:value="16" />
+
+            <RelativeLayout
+                android:id="@+id/layout_price_3"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                android:background="@drawable/edittext_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_price_2">
+
+                <TextView
+                    android:id="@+id/rupee_tv_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/thirty_dp"
+                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:text="@string/rupee"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp" />
+
+                <EditText
+                    android:id="@+id/rupees_3"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fourty_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:backgroundTint="@color/white"
+                    android:singleLine="true"
+                    android:text="18"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
+            </RelativeLayout>
+
+            <com.travijuu.numberpicker.library.NumberPicker
+                android:id="@+id/number_picker_4"
+                android:layout_width="190dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/number_picker_3"
+                numberpicker:custom_layout="@layout/number_picker_custom_layout"
+                numberpicker:focusable="false"
+                numberpicker:max="40"
+                numberpicker:min="26"
+                numberpicker:unit="1"
+                numberpicker:value="26" />
+
+            <RelativeLayout
+                android:id="@+id/layout_price_4"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                android:background="@drawable/edittext_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_price_3">
+
+                <TextView
+                    android:id="@+id/rupee_tv_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/thirty_dp"
+                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:text="@string/rupee"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp" />
+
+                <EditText
+                    android:id="@+id/rupees_4"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fourty_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:backgroundTint="@color/white"
+                    android:singleLine="true"
+                    android:text="25"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
+            </RelativeLayout>
+
+            <com.travijuu.numberpicker.library.NumberPicker
+                android:id="@+id/number_picker_5"
+                android:layout_width="190dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/number_picker_4"
+                numberpicker:custom_layout="@layout/number_picker_custom_layout"
+                numberpicker:focusable="false"
+                numberpicker:max="60"
+                numberpicker:min="41"
+                numberpicker:unit="1"
+                numberpicker:value="41" />
+
+            <RelativeLayout
+                android:id="@+id/layout_price_5"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                android:background="@drawable/edittext_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_price_4">
+
+                <TextView
+                    android:id="@+id/rupee_tv_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/thirty_dp"
+                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:text="@string/rupee"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp" />
+
+                <EditText
+                    android:id="@+id/rupees_5"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fourty_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:backgroundTint="@color/white"
+                    android:singleLine="true"
+                    android:text="32"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
+            </RelativeLayout>
+
+            <com.travijuu.numberpicker.library.NumberPicker
+                android:id="@+id/number_picker_6"
+                android:layout_width="190dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/number_picker_5"
+                numberpicker:custom_layout="@layout/number_picker_custom_layout"
+                numberpicker:focusable="false"
+                numberpicker:max="120"
+                numberpicker:min="61"
+                numberpicker:unit="1"
+                numberpicker:value="61" />
+
+            <RelativeLayout
+                android:id="@+id/layout_price_6"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                android:background="@drawable/edittext_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_price_5">
+
+                <TextView
+                    android:id="@+id/rupee_tv_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/thirty_dp"
+                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:text="@string/rupee"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp" />
+
+                <EditText
+                    android:id="@+id/rupees_6"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fourty_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:backgroundTint="@color/white"
+                    android:singleLine="true"
+                    android:text="40"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
+            </RelativeLayout>
+
+            <com.travijuu.numberpicker.library.NumberPicker
+                android:id="@+id/number_picker_7"
+                android:layout_width="190dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/number_picker_6"
+                numberpicker:custom_layout="@layout/number_picker_custom_layout"
+                numberpicker:focusable="false"
+                numberpicker:max="240"
+                numberpicker:min="121"
+                numberpicker:unit="1"
+                numberpicker:value="121" />
+
+            <RelativeLayout
+                android:id="@+id/layout_price_7"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                android:background="@drawable/edittext_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_price_6">
+
+                <TextView
+                    android:id="@+id/rupee_tv_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/thirty_dp"
+                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:text="@string/rupee"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp" />
+
+                <EditText
+                    android:id="@+id/rupees_7"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fourty_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:backgroundTint="@color/white"
+                    android:singleLine="true"
+                    android:text="40"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
+            </RelativeLayout>
+
+            <com.travijuu.numberpicker.library.NumberPicker
+                android:id="@+id/number_picker_8"
+                android:layout_width="190dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/number_picker_7"
+                numberpicker:custom_layout="@layout/number_picker_custom_layout"
+                numberpicker:focusable="false"
+                numberpicker:max="480"
+                numberpicker:min="241"
+                numberpicker:unit="1"
+                numberpicker:value="241" />
+
+            <RelativeLayout
+                android:id="@+id/layout_price_8"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                android:background="@drawable/edittext_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_price_7">
+
+                <TextView
+                    android:id="@+id/rupee_tv_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/thirty_dp"
+                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:text="@string/rupee"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp" />
+
+                <EditText
+                    android:id="@+id/rupees_8"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fourty_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:backgroundTint="@color/white"
+                    android:singleLine="true"
+                    android:text="80"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
+            </RelativeLayout>
+
+            <com.travijuu.numberpicker.library.NumberPicker
+                android:id="@+id/number_picker_9"
+                android:layout_width="190dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/number_picker_8"
+                numberpicker:custom_layout="@layout/number_picker_custom_layout"
+                numberpicker:focusable="false"
+                numberpicker:max="720"
+                numberpicker:min="481"
+                numberpicker:unit="1"
+                numberpicker:value="481" />
+
+            <RelativeLayout
+                android:id="@+id/layout_price_9"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                android:background="@drawable/edittext_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_price_8">
+
+                <TextView
+                    android:id="@+id/rupee_tv_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/thirty_dp"
+                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:text="@string/rupee"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp" />
+
+                <EditText
+                    android:id="@+id/rupees_9"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fourty_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:backgroundTint="@color/white"
+                    android:singleLine="true"
+                    android:text="98"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
+            </RelativeLayout>
+            <com.travijuu.numberpicker.library.NumberPicker
+                android:id="@+id/number_picker_10"
+                android:layout_width="190dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/number_picker_9"
+                numberpicker:custom_layout="@layout/number_picker_custom_layout"
+                numberpicker:focusable="false"
+                numberpicker:max="1080"
+                numberpicker:min="721"
+                numberpicker:unit="1"
+                numberpicker:value="721" />
+            <RelativeLayout
+                android:id="@+id/layout_price_10"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                android:background="@drawable/edittext_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_price_9">
+
+                <TextView
+                    android:id="@+id/rupee_tv_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/thirty_dp"
+                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:text="@string/rupee"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp" />
+
+                <EditText
+                    android:id="@+id/rupees_10"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fourty_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:backgroundTint="@color/white"
+                    android:singleLine="true"
+                    android:text="115"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
+            </RelativeLayout>
+            <com.travijuu.numberpicker.library.NumberPicker
+                android:id="@+id/number_picker_11"
+                android:layout_width="190dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/number_picker_10"
+                numberpicker:custom_layout="@layout/number_picker_custom_layout"
+                numberpicker:focusable="false"
+                numberpicker:max="1440"
+                numberpicker:min="1081"
+                numberpicker:unit="1"
+                numberpicker:value="1081" />
+            <RelativeLayout
+                android:id="@+id/layout_price_11"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_eight_dp"
+                android:background="@drawable/edittext_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_price_10">
+
+                <TextView
+                    android:id="@+id/rupee_tv_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/thirty_dp"
+                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:text="@string/rupee"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp" />
+
+                <EditText
+                    android:id="@+id/rupees_11"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fourty_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:backgroundTint="@color/white"
+                    android:singleLine="true"
+                    android:text="125"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
+            </RelativeLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

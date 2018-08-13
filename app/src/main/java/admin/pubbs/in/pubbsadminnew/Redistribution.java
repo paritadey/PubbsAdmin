@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +21,7 @@ public class Redistribution extends AppCompatActivity {
     private List<RedistributionList> redistributionList = new ArrayList<>();
     ImageView scanQr;
     private TextView bicycleTv, drawRedistribution, scanQrTv;
-    AutoCompleteTextView inputSearch;
+    EditText inputSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
