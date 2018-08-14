@@ -22,6 +22,8 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
     private ViewPager viewPager;
     ImageView back;
     TextView rateTv;
+    ImageView upArrow;
+    TextView bottomsheetText;
 
 
     @Override
@@ -31,7 +33,8 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-
+        bottomsheetText = findViewById(R.id.bottomsheet_text);
+        bottomsheetText.setTypeface(type);
         back = findViewById(R.id.back_button);
         back.setOnClickListener(this);
         rateTv = findViewById(R.id.rate_chart_tv);
@@ -39,6 +42,14 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         createTabIcons();
+        upArrow = findViewById(R.id.up_arrow);
+        upArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new BottomSheetFragment().show(getSupportFragmentManager(), "dialog");
+
+            }
+        });
 
     }
 

@@ -80,5 +80,19 @@
     <string name="decrement">-</string>
     <string name="display">5</string>
     <string name="rupee">₹</string>
-
+    <string name="bottom_sheet_rate">Need help for Adding Rate Chart ?</string>
+    <string name="manage_system">Manage System</string>
+    <string name="all_set">All Set !</string>
+    <string name="manage_ur_system">Manage your system</string>
+    <string name="more_efficiently">more efficiently .</string>
+    <string name="max_ride_time">Maximum ride time</string>
+    <string name="max_hold_time">Maximum hold time</string>
+    <string name="min_amount_wallet">Minimum Amount rider should have in wallet</string>
+    <string name="min_amount">₹ 20</string>
+    <string name="ride_msg">Know more about ride time and hold time</string>
+    <string name="repair_bicycle">Add bicycle to repair</string>
+    <string name="repair_bicycle_tv">Repair Bicycle</string>
+    <string name="draw_repair">Draw for Repair</string>
+    <string name="search_user">Search with user name or user ID</string>
+    <string name="user_list">User List</string>
 </resources>

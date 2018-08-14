@@ -57,6 +57,17 @@
         <activity
             android:name=".RateChart"
             android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar" />
+        <activity
+            android:name=".ManageSystem"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar" />
+        <activity
+            android:name=".Repair"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar" />
+        <activity android:name=".MyUsers"
+            android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"></activity>
     </application>
 

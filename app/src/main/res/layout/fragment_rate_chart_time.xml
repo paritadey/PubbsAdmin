@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RateChartTime">
@@ -11,12 +10,13 @@
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:scrollbars="none">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/sixteen_dp">
+            android:paddingBottom="@dimen/eighty_dp">
 
             <TextView
                 android:id="@+id/time_tv"
@@ -493,6 +493,7 @@
                     android:textCursorDrawable="@drawable/custom_cursor"
                     android:textSize="@dimen/fourteen_sp" />
             </RelativeLayout>
+
             <com.travijuu.numberpicker.library.NumberPicker
                 android:id="@+id/number_picker_10"
                 android:layout_width="190dp"
@@ -508,6 +509,7 @@
                 numberpicker:min="721"
                 numberpicker:unit="1"
                 numberpicker:value="721" />
+
             <RelativeLayout
                 android:id="@+id/layout_price_10"
                 android:layout_width="80dp"
@@ -541,6 +543,7 @@
                     android:textCursorDrawable="@drawable/custom_cursor"
                     android:textSize="@dimen/fourteen_sp" />
             </RelativeLayout>
+
             <com.travijuu.numberpicker.library.NumberPicker
                 android:id="@+id/number_picker_11"
                 android:layout_width="190dp"
@@ -556,6 +559,7 @@
                 numberpicker:min="1081"
                 numberpicker:unit="1"
                 numberpicker:value="1081" />
+
             <RelativeLayout
                 android:id="@+id/layout_price_11"
                 android:layout_width="80dp"
@@ -590,6 +594,21 @@
                     android:textSize="@dimen/fourteen_sp" />
             </RelativeLayout>
 
+            <Button
+                android:id="@+id/proceed_btn"
+                android:layout_width="@dimen/one_fifty_dp"
+                android:layout_height="@dimen/thirty_six_dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/twenty_four_dp"
+                android:background="@drawable/button_bg"
+                android:elevation="@dimen/two_dp"
+                android:scaleType="centerCrop"
+                android:text="@string/proceed"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fourteen_sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_price_11" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

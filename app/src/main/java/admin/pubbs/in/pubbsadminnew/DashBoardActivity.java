@@ -119,14 +119,14 @@ public class DashBoardActivity extends AppCompatActivity
         if (id == R.id.redistribution) {
             startActivity(new Intent(DashBoardActivity.this, Redistribution.class));
         } else if (id == R.id.repair) {
-
+            startActivity(new Intent(DashBoardActivity.this, Repair.class));
         } else if (id == R.id.recharge_battery) {
             setMenuCounter(R.id.recharge_battery, 3);
         } else if (id == R.id.add_new_bicycle) {
         } else if (id == R.id.remove_bicycle) {
 
         } else if (id == R.id.my_users) {
-
+            startActivity(new Intent(DashBoardActivity.this, MyUsers.class));
         } else if (id == R.id.support_user) {
             setMenuCounter(R.id.support_user, 3);
         } else if (id == R.id.add_station) {

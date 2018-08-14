@@ -237,6 +237,7 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
             Log.d(TAG, "Area Name: "+areaName);
 
             procced.setVisibility(View.VISIBLE);
+            procced.setEnabled(false);
             procced.setOnClickListener(this);
             polygonCreation = true;
         }
@@ -261,7 +262,7 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
                     Log.d(TAG, "Station added");
                     stationList.add(latLng);
                     showArrayList(stationList);
-
+                    procced.setEnabled(true);
                 }
             });
         }

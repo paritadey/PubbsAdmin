@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/eight_dp">
+
+    <ImageView
+        android:id="@+id/user"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginTop="@dimen/twenty_dp"
+        app:srcCompat="@drawable/ic_rounded_user" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/twenty_four_dp"
+        android:layout_marginTop="@dimen/twenty_four_dp"
+        android:layout_toRightOf="@id/user"
+        android:padding="@dimen/two_dp"
+        android:text="Tiphane Michael"
+        android:textColor="@color/color_black_01"
+        android:textSize="@dimen/sixteen_sp" />
+
+    <TextView
+        android:id="@+id/user_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/eight_dp"
+        android:layout_marginStart="@dimen/fifty_dp"
+        android:layout_marginTop="@dimen/thirty_dp"
+        android:layout_toRightOf="@+id/user_name"
+        android:text="ID : 325TY56K"
+        android:textColor="@color/color_blue_02"
+        android:textSize="@dimen/fourteen_sp" />
+
+    <TextView
+        android:id="@+id/user_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_name"
+        android:layout_marginBottom="@dimen/eight_dp"
+        android:layout_marginStart="@dimen/twenty_four_dp"
+        android:layout_marginTop="@dimen/two_dp"
+        android:layout_toRightOf="@id/user"
+        android:padding="@dimen/two_dp"
+        android:text="9876543210"
+        android:textColor="@color/color_grey_01"
+        android:textSize="@dimen/sixteen_sp" />
+
+    <TextView
+        android:id="@+id/text_required"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_phone"
+        android:layout_marginBottom="@dimen/eight_dp"
+        android:layout_marginStart="@dimen/twenty_four_dp"
+        android:layout_marginTop="@dimen/two_dp"
+        android:layout_toRightOf="@id/user"
+        android:padding="@dimen/two_dp"
+        android:text="If there is one more extra line"
+        android:textColor="@color/color_grey_01"
+        android:textSize="@dimen/tweleve_sp" />
+
+</RelativeLayout>
