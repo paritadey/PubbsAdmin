@@ -1,5 +1,6 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ public class Repair extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RepairAdapter repairAdapter;
     private List<RepairList> repairList = new ArrayList<>();
-    ImageView scanQr;
+    ImageView scanQr, back;
     private TextView bicycleTv, drawRedistribution, scanQrTv;
     EditText inputSearch;
 
@@ -31,6 +32,7 @@ public class Repair extends AppCompatActivity {
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
+        back = findViewById(R.id.back_button);
         bicycleTv = findViewById(R.id.bicycle_tv);
         bicycleTv.setTypeface(type1);
         inputSearch = findViewById(R.id.input_search);
@@ -65,6 +67,14 @@ public class Repair extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Repair.this, DashBoardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
         prepareBicycleData();

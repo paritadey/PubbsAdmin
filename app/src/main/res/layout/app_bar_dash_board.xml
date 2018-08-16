@@ -30,7 +30,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="@dimen/sixty_four_dp"
-                    android:layout_marginTop="@dimen/eight_dp"
+                    android:layout_marginTop="@dimen/tweleve_dp"
                     android:padding="@dimen/four_dp"
                     android:text="@string/all_bicycle"
                     android:textAlignment="center"
@@ -62,6 +62,7 @@
                         android:paddingStart="@dimen/eight_dp"
                         android:textColor="@color/color_grey_01"
                         android:textColorHint="@color/color_grey_01"
+                        android:textCursorDrawable="@drawable/custom_cursor"
                         android:textSize="@dimen/fourteen_sp" />
 
                     <ImageView

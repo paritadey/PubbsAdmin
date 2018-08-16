@@ -9,68 +9,72 @@
     <include
         layout="@layout/app_bar_user"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/sixty_dp"/>
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/qr_bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sixty_dp"
-        android:layout_marginBottom="4dp"
+        android:layout_height="@dimen/sixty_four_dp"
         android:background="@color/white"
-        android:elevation="@dimen/eight_dp"
-        android:paddingBottom="@dimen/eight_dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/eight_dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints">
+        android:padding="@dimen/eight_dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
             android:id="@+id/sort_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/twenty_four_dp"
-            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_marginTop="@dimen/tweleve_dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_sort" />
 
         <TextView
             android:id="@+id/sort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/sixty_dp"
+            android:layout_marginTop="@dimen/tweleve_dp"
             android:padding="@dimen/four_dp"
             android:text="Sort"
             android:textColor="@color/black"
-            android:textSize="@dimen/fourteen_sp" />
+            android:textSize="@dimen/fourteen_sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="@dimen/one_dp"
+            android:layout_height="@dimen/sixty_four_dp"
+            android:background="@color/color_grey_02"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ImageView
             android:id="@+id/filter_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="230dp"
-            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_marginEnd="@dimen/eighty_dp"
+            android:layout_marginTop="@dimen/tweleve_dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_filter" />
 
         <TextView
             android:id="@+id/filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/thirty_dp"
+            android:layout_marginEnd="@dimen/thirty_six_dp"
+            android:layout_marginTop="@dimen/tweleve_dp"
             android:padding="@dimen/four_dp"
             android:text="Filter"
             android:textColor="@color/black"
-            android:textSize="@dimen/fourteen_sp" />
-        <View
-            android:layout_width="@dimen/two_dp"
-            android:layout_height="@dimen/twenty_four_dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/one_sixty_dp"
-            android:layout_marginTop="@dimen/ten_dp"
-            android:background="@color/color_grey_02" />
+            android:textSize="@dimen/fourteen_sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
+
 </android.support.constraint.ConstraintLayout>

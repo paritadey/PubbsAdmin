@@ -53,7 +53,8 @@
         <activity
             android:name=".Redistribution"
             android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar" />
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".RateChart"
             android:screenOrientation="portrait"
@@ -65,10 +66,17 @@
         <activity
             android:name=".Repair"
             android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar" />
-        <activity android:name=".MyUsers"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".MyUsers"
             android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar"></activity>
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".UserProfile"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginScreen"></activity>
     </application>
 
 </manifest>

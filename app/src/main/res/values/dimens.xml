@@ -7,6 +7,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <!--Dimenion initialization-PARITA-->
+    <dimen name="one_dp">1dp</dimen>
     <dimen name="two_dp">2dp</dimen>
     <dimen name="four_dp">4dp</dimen>
     <dimen name="six_dp">6dp</dimen>
@@ -52,6 +53,7 @@
     <dimen name="one_twenty_dp">120dp</dimen>
     <dimen name="one_twenty_four_dp">124dp</dimen>
     <dimen name="one_thirty_dp">130dp</dimen>
+    <dimen name="one_fourty_dp">140dp</dimen>
     <dimen name="one_fifty_dp">150dp</dimen>
     <dimen name="one_sixty_dp">160dp</dimen>
     <dimen name="one_eighty_dp">180dp</dimen>
