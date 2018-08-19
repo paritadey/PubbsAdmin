@@ -3,6 +3,7 @@ package admin.pubbs.in.pubbsadminnew;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,6 +21,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,6 +77,7 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
     public ArrayList<LatLng> stationList = new ArrayList<LatLng>();
     Button procced;
     String stationName;
+    String area_name, station_name;
 
 
     @Override
@@ -109,6 +113,7 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
         bottomsheetText.setTypeface(type);
         procced = findViewById(R.id.proceed_btn);
         procced.setTypeface(type2);
+        procced.setOnClickListener(this);
     }
 
     @SuppressLint("ResourceType")
@@ -119,6 +124,7 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
         search = findViewById(R.id.ic_magnify);
         search.setOnClickListener(new View.OnClickListener() {
             BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.marker);
+
             @Override
             public void onClick(View v) {
                 //geoLocate();
@@ -224,7 +230,7 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
 
     public void drawPolygon(ArrayList<LatLng> myLatLng) {
         Log.d(TAG, "Drawing polygon");
-        if (myLatLng.size() >= 5) {
+        if (myLatLng.size() >= 6) {
             PolygonOptions polygonOptions = new PolygonOptions();
             polygonOptions.addAll(myLatLng);
             polygonOptions.strokeColor(getResources().getColor(R.color.blue_300));
@@ -232,16 +238,80 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
             polygonOptions.fillColor(getResources().getColor(R.color.blue_100));
             Polygon polygon = mMap.addPolygon(polygonOptions);
 
+            selectAreaDialog();
             Log.d(TAG, "Polygon created");
-            String areaName= generateArea();
-            Log.d(TAG, "Area Name: "+areaName);
+            String areaNumber = generateArea();
+            Log.d(TAG, "Area Number: " + areaNumber);
 
-            procced.setVisibility(View.VISIBLE);
-            procced.setEnabled(false);
-            procced.setOnClickListener(this);
             polygonCreation = true;
         }
         drawStation(polygonCreation);
+
+    }
+
+    private void selectAreaDialog() {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_add_area_layout, null);
+
+        final TextView areaHeader = (TextView) dialogView.findViewById(R.id.area_header);
+        areaHeader.setTypeface(type1);
+        final EditText areaName = (EditText) dialogView.findViewById(R.id.area_name);
+        areaName.setTypeface(type1);
+        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+                if (areaName.getText().toString().isEmpty()) {
+                    areaName.startAnimation(animShake);
+                } else {
+                    area_name = areaName.getText().toString().trim();
+                    Log.d(TAG, "Area Name : " + area_name);
+                    dialogBuilder.dismiss();
+                }
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+
+    }
+
+    public void selectStationDialog() {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_add_station_layout, null);
+
+        final TextView stationHeader = (TextView) dialogView.findViewById(R.id.station_header);
+        stationHeader.setTypeface(type1);
+        final EditText stationName = (EditText) dialogView.findViewById(R.id.station_name);
+        stationName.setTypeface(type1);
+        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+                if (stationName.getText().toString().isEmpty()) {
+                    stationName.startAnimation(animShake);
+                } else {
+                    station_name = stationName.getText().toString().trim();
+                    Log.d(TAG, "Station Name : " + station_name);
+                    dialogBuilder.dismiss();
+                }
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
 
     }
 
@@ -250,6 +320,7 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                 @Override
                 public void onMapClick(LatLng latLng) {
+                    selectStationDialog();
                     String stationName = generateStation();
                     BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.station);
                     MarkerOptions markerOptions = new MarkerOptions();
@@ -262,34 +333,37 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
                     Log.d(TAG, "Station added");
                     stationList.add(latLng);
                     showArrayList(stationList);
-                    procced.setEnabled(true);
+                    procced.setVisibility(View.VISIBLE);
+
                 }
             });
         }
     }
 
-    public String generateStation(){
-        String stationName= "station_";
+    public String generateStation() {
+        String stationNumber = "station_";
         String station;
-        int max=999;
+        int max = 999;
         int min = 1;
-        int randomNum= (int)(Math.random() * ( max - min )) + min;
-        station= stationName+randomNum;
-        Log.d(TAG, "Station Number: "+station);
+        int randomNum = (int) (Math.random() * (max - min)) + min;
+        station = stationNumber + randomNum;
+        Log.d(TAG, "Station Number: " + station);
         return station;
 
     }
-    public String generateArea(){
-        String areaName= "area_";
+
+    public String generateArea() {
+        String areaNumber = "area_";
         String area;
-        int max=999;
+        int max = 999;
         int min = 1;
-        int randomNum= (int)(Math.random() * ( max - min )) + min;
-        area= areaName+randomNum;
-        Log.d(TAG, "Area Number: "+area);
+        int randomNum = (int) (Math.random() * (max - min)) + min;
+        area = areaNumber + randomNum;
+        Log.d(TAG, "Area Number: " + area);
         return area;
 
     }
+
     public String showStationLayout() {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View inflatedLayout = inflater.inflate(R.layout.custom_marker_title, null, false);
