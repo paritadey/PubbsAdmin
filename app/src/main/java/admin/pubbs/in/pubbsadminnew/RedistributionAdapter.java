@@ -15,7 +15,7 @@ public class RedistributionAdapter extends RecyclerView.Adapter<RedistributionAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView bicycleId;
-        public TextView addToStation;
+        public TextView addToStation, text_required;
 
         public MyViewHolder(View view) {
             super(view);
@@ -26,6 +26,8 @@ public class RedistributionAdapter extends RecyclerView.Adapter<RedistributionAd
             bicycleId.setTypeface(type1);
             addToStation = (TextView) view.findViewById(R.id.add_to_station);
             addToStation.setTypeface(type1);
+            text_required = view.findViewById(R.id.text_required);
+            text_required.setTypeface(type1);
         }
     }
     public RedistributionAdapter(List<RedistributionList> redistributionlist) {

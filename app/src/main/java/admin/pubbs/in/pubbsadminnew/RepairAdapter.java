@@ -14,7 +14,7 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView bicycleId;
-        public TextView addToRepair;
+        public TextView addToRepair, text_required;
 
         public MyViewHolder(View view) {
             super(view);
@@ -25,6 +25,8 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.MyViewHold
             bicycleId.setTypeface(type1);
             addToRepair = (TextView) view.findViewById(R.id.add_to_repair);
             addToRepair.setTypeface(type1);
+            text_required = view.findViewById(R.id.text_required);
+            text_required.setTypeface(type1);
         }
     }
     public RepairAdapter(List<RepairList> repairlist) {

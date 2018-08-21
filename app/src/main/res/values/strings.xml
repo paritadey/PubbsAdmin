@@ -96,4 +96,10 @@
     <string name="search_user">Search with user name or user ID</string>
     <string name="user_list">User List</string>
     <string name="title_activity_user_profile">UserProfile</string>
+    <string name="redistribution_tv">Redistribution</string>
+    <string name="scan_qr_code">Please Scan the QR code</string>
+    <string name="else_number">Else enter the number</string>
+    <string name="on_bicycle">of the bicycle.</string>
+    <string name="bicycle_id_tv">Enter the bicycle number below.</string>
+    <string name="ride_time_msg">Know more about ride time and hold time</string>
 </resources>

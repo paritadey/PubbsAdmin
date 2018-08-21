@@ -36,7 +36,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
     GoogleMap gmap;
     Handler handler = new Handler();
     final int delay = 5000; //milliseconds
-    TextView cycleId, cycleUsername, cycleUserPhone, call, locate;
+    TextView cycleId, cycleUsername, cycleUserPhone, call, locate, accident;
 
 
     @Nullable
@@ -44,20 +44,23 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("Dashboard");
         View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        Typeface type = Typeface.createFromAsset(getActivity().getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
+        Typeface type1 = Typeface.createFromAsset(getActivity().getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
+        Typeface type2 = Typeface.createFromAsset(getActivity().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
         cycleId = v.findViewById(R.id.cycle_id);
-        cycleId.setTypeface(type);
+        cycleId.setTypeface(type1);
         cycleUsername = v.findViewById(R.id.cycle_user_name);
-        cycleUsername.setTypeface(type);
+        cycleUsername.setTypeface(type1);
         cycleUserPhone = v.findViewById(R.id.cycle_user_phone);
-        cycleUserPhone.setTypeface(type);
+        cycleUserPhone.setTypeface(type1);
         call = v.findViewById(R.id.call);
-        call.setTypeface(type);
+        call.setTypeface(type1);
         call.setOnClickListener(this);
         locate = v.findViewById(R.id.locate);
-        locate.setTypeface(type);
+        locate.setTypeface(type1);
         locate.setOnClickListener(this);
+        accident = v.findViewById(R.id.accident);
+        accident.setTypeface(type2);
         mapView = (MapView) v.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         try {

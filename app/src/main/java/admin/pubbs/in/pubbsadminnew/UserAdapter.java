@@ -15,7 +15,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
     private List<UserList> userlist;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView username, userphone, userid ;
+        public TextView username, userphone, userid, text_required ;
         public RelativeLayout userListLayout;
 
         public MyViewHolder(View view) {
@@ -29,6 +29,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
             userid.setTypeface(type1);
             userphone = (TextView)view.findViewById(R.id.user_phone);
             userphone.setTypeface(type1);
+            text_required = (TextView)view.findViewById(R.id.text_required);
+            text_required.setTypeface(type1);
             userListLayout = view.findViewById(R.id.user_list_layout);
         }
     }

@@ -279,6 +279,8 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
 
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
+        dialogBuilder.setCancelable(false);
+
 
     }
 
@@ -312,7 +314,7 @@ public class AddNewStation extends AppCompatActivity implements View.OnClickList
 
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
-
+        dialogBuilder.setCancelable(false);
     }
 
     public void drawStation(boolean drawStation) {

@@ -1,6 +1,7 @@
 package admin.pubbs.in.pubbsadminnew;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -35,7 +36,11 @@ public class RateChartTime extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_rate_chart_time, container, false);
+        Typeface type1 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
         proceed = rootView.findViewById(R.id.proceed_btn);
+        proceed.setTypeface(type2);
         numberPickerOne = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_1);
         numberPickerTwo = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_2);
         numberPickerThree = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_3);
