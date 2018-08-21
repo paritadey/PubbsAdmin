@@ -25,7 +25,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AddNewStation"
+            android:name=".AddNewArea"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
         <activity
@@ -78,9 +78,12 @@
             android:name=".UserProfile"
             android:screenOrientation="portrait"
             android:theme="@style/LoginScreen" />
-        <activity android:name=".ScanQRActivity"
+        <activity
+            android:name=".ScanQRActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar"></activity>
+            android:theme="@style/MyNoActionBar" />
+        <activity android:name=".EditStation" />
+        <activity android:name=".AddNewStation"></activity>
     </application>
 
 </manifest>

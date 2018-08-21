@@ -34,7 +34,7 @@
             android:paddingLeft="@dimen/four_dp"
             android:paddingRight="@dimen/four_dp"
             android:layout_height="match_parent"
-            android:text="hr"
+            android:text="mins"
             android:paddingTop="@dimen/ten_dp" />
 
     </LinearLayout>

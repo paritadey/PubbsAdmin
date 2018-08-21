@@ -60,8 +60,11 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
+                    android:id="@+id/add_area"
+                    android:title="Add New Area"/>
+                <item
                     android:id="@+id/add_station"
-                    android:title="Add New Area/Station"/>
+                    android:title="Add New Station"/>
                 <item
                     android:id="@+id/edit_station"
                     android:title="Edit Station" />

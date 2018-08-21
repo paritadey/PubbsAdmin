@@ -1,7 +1,10 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -30,7 +33,9 @@ public class UserProfile extends AppCompatActivity {
     ImageView back;
     TextView userDetails, userID, userIMEI;
     String androidid;
+    Context context;
 
+    @TargetApi(Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +81,8 @@ public class UserProfile extends AppCompatActivity {
             }
         });
         androidid = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        userIMEI.setText("Device ID: "+"\t"+androidid);
-        Log.d(TAG, "Device id:"+androidid);
+        userIMEI.setText("Device ID: " + "\t" + androidid);
+        Log.d(TAG, "slot :" + userIMEI);
     }
 
 

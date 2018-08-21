@@ -19,7 +19,7 @@ public class RateChartTime extends Fragment {
     private final String TAG = "RateChartTime";
     com.travijuu.numberpicker.library.NumberPicker numberPickerOne, numberPickerTwo, numberPickerThree, numberPickerFour, numberPickerFive, numberPickerSix;
     private TextView timeTv, priceTv;
-    com.travijuu.numberpicker.library.NumberPicker numberPickerSeven, numberPickerEight, numberPickerNine, numberPickerTen, numberPickerEleven;
+    com.travijuu.numberpicker.library.NumberPicker numberPickerSeven, numberPickerEight;
     private EditText rupees;
     private Button proceed;
 
@@ -49,9 +49,6 @@ public class RateChartTime extends Fragment {
         numberPickerSix = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_6);
         numberPickerSeven = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_7);
         numberPickerEight = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_8);
-        numberPickerNine = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_9);
-        numberPickerTen = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_10);
-        numberPickerEleven = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_11);
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,27 +111,6 @@ public class RateChartTime extends Fragment {
             public void valueChanged(int value, ActionEnum action) {
                 int message = value;
                 Log.d(TAG, "Number Picker 8 value: " + message);
-            }
-        });
-        numberPickerNine.setValueChangedListener(new ValueChangedListener() {
-            @Override
-            public void valueChanged(int value, ActionEnum action) {
-                int message = value;
-                Log.d(TAG, "Number Picker 9 value: " + message);
-            }
-        });
-        numberPickerTen.setValueChangedListener(new ValueChangedListener() {
-            @Override
-            public void valueChanged(int value, ActionEnum action) {
-                int message = value;
-                Log.d(TAG, "Number Picker 10 value: " + message);
-            }
-        });
-        numberPickerEleven.setValueChangedListener(new ValueChangedListener() {
-            @Override
-            public void valueChanged(int value, ActionEnum action) {
-                int message = value;
-                Log.d(TAG, "Number Picker 11 value: " + message);
             }
         });
         return rootView;

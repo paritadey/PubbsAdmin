@@ -132,11 +132,13 @@ public class DashBoardActivity extends AppCompatActivity
         } else if (id == R.id.my_users) {
             startActivity(new Intent(DashBoardActivity.this, MyUsers.class));
         } else if (id == R.id.support_user) {
-            setMenuCounter(R.id.support_user, 3);
-        } else if (id == R.id.add_station) {
-            startActivity(new Intent(DashBoardActivity.this, AddNewStation.class));
 
-        } else if (id == R.id.edit_station) {
+        } else if (id == R.id.add_area) {
+            startActivity(new Intent(DashBoardActivity.this, AddNewArea.class));
+        } else if(id == R.id.add_station){
+
+        }
+        else if (id == R.id.edit_station) {
 
         } else if (id == R.id.delete_station) {
 

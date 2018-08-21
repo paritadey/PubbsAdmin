@@ -67,7 +67,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.back_button:
                 Log.d(TAG, "Back button pressed");
-                Intent intent = new Intent(ManageSystem.this, AddNewStation.class);
+                Intent intent = new Intent(ManageSystem.this, AddNewArea.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;

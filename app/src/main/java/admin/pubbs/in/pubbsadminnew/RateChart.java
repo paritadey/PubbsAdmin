@@ -89,7 +89,7 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(RateChart.this, AddNewStation.class);
+        Intent intent = new Intent(RateChart.this, AddNewArea.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
@@ -106,7 +106,7 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button:
-                Intent intent = new Intent(RateChart.this, AddNewStation.class);
+                Intent intent = new Intent(RateChart.this, AddNewArea.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
