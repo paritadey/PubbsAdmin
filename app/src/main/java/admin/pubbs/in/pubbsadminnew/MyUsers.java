@@ -1,5 +1,6 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -8,15 +9,25 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyUsers extends AppCompatActivity {
+public class MyUsers extends AppCompatActivity implements AsyncResponse{//, SearchView.OnQueryTextListener {
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<UserList> userList = new ArrayList<>();
@@ -69,7 +80,51 @@ public class MyUsers extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        prepareUserData();
+        inputSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filter(s.toString());
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+               // loadData();
+            }
+        });
+        // prepareUserData();
+    }
+    private void filter(String text) {
+        //new array list that will hold the filtered data
+        List<UserList> filterdNames = new ArrayList<>();
+
+        //looping through existing elements
+        for (UserList s : userList) {
+            final String searchText = s.getUserName().toLowerCase();
+            if (text.contains(searchText)) {
+                filterdNames.add(s);
+            }
+        }
+        userAdapter.filterList(filterdNames);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
+
+
+    private void loadData() {
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("method", "getalluser");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new SendRequest(getResources().getString(R.string.url), jo, MyUsers.this, getApplicationContext()).executeJsonRequest();
     }
 
     private void prepareUserData() {
@@ -98,6 +153,60 @@ public class MyUsers extends AppCompatActivity {
         userList.add(user);
 
         userAdapter.notifyDataSetChanged();
+    }
+
+    private void showDialog(String message) {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+
+        final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
+        serverProblem.setTypeface(type1);
+        serverProblem.setText(message);
+        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+        dialogBuilder.setCancelable(false);
+    }
+
+    @Override
+    public void onResponse(JSONObject jsonObject) {
+        //showDialog("Downloading data from server !");
+        userList.clear();
+        if (jsonObject.has("method")) {
+            try {
+                if (jsonObject.getString("method").equals("getalluser") && jsonObject.getBoolean("success")) {
+                    JSONArray ja = jsonObject.getJSONArray("data");
+                    if (ja.length() > 0) {
+                        for (int i = 0; i < ja.length(); i++) {
+                            JSONObject jo = ja.getJSONObject(i);
+                            UserList user = new UserList(jo.getString("name"), jo.getString("mobile"), jo.getString("id"));
+                            userList.add(user);
+                        }
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        userAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResponseError(VolleyError error) {
+       // AppConfig.alertMsg(getApplicationContext(), getResources().getString(R.string.server_error));
+        showDialog("Server Error !");
     }
 
 }

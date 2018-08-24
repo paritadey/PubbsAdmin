@@ -2,11 +2,11 @@ package admin.pubbs.in.pubbsadminnew;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -14,9 +14,19 @@ import java.util.List;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> {
     private List<UserList> userlist;
 
+   /* public void setFilter(List<UserList> userList){
+        userlist=new ArrayList<>();
+        userlist.addAll(userList);
+        notifyDataSetChanged();
+    }*/
+   public void filterList(List<UserList> userList) {
+       this.userlist = userList;
+       notifyDataSetChanged();
+   }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView username, userphone, userid, text_required ;
-        public RelativeLayout userListLayout;
+        public TextView username, userphone, userid, text_required, userIdTv ;
+        public ConstraintLayout userListLayout;
 
         public MyViewHolder(View view) {
             super(view);
@@ -32,6 +42,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
             text_required = (TextView)view.findViewById(R.id.text_required);
             text_required.setTypeface(type1);
             userListLayout = view.findViewById(R.id.user_list_layout);
+            userIdTv = (TextView)view.findViewById(R.id.user_id_tv);
+            userIdTv.setTypeface(type1);
         }
     }
     public UserAdapter(List<UserList> userlist) {
