@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +20,10 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.HashMap;
 
 
-public class SignIn extends Fragment implements AsyncResponse {
+public class SignIn extends Fragment {//implements AsyncResponse {
     EditText userid, password;
     Button login;
     ProgressDialog pd;
@@ -32,6 +31,13 @@ public class SignIn extends Fragment implements AsyncResponse {
     SharedPreferences.Editor editor;
     TextView mobileTv, passwordTv;
     RelativeLayout layoutMobile, layoutPassword;
+    String finalResult;
+    String HttpURL = "http://pubbs.in/api/1.0/admin_login.php";
+    Boolean CheckEditText;
+    ProgressDialog progressDialog;
+    HashMap<String, String> hashMap = new HashMap<>();
+    HttpParse httpParse = new HttpParse();
+
 
     public SignIn() {
     }
@@ -53,7 +59,7 @@ public class SignIn extends Fragment implements AsyncResponse {
         View rootView = inflater.inflate(R.layout.fragment_sign_in, container, false);
         Typeface type1 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
-        Typeface type3 = Typeface.createFromAsset(getContext().getAssets(),"fonts/AvenirNextLTPro-Bold.otf");
+        Typeface type3 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
         mobileTv = rootView.findViewById(R.id.mobile_tv);
         mobileTv.setTypeface(type1);
@@ -93,50 +99,70 @@ public class SignIn extends Fragment implements AsyncResponse {
                     showSnackbar(view_layout, message, duration);
                 }
             } else {
-                pd.setMessage("Loading...");
-                pd.show();
-                JSONObject jo = new JSONObject();
-                try {
-                    jo.put("method", "auth");
-                    jo.put("login_id", userid.getText().toString().trim());
-                    jo.put("password", password.getText().toString().trim());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                new SendRequest(getResources().getString(R.string.url), jo, SignIn.this, getActivity())
-                        .executeJsonRequest();
+                String adminmobile = userid.getText().toString();
+                String admin_password = password.getText().toString();
+                UserLoginFunction(adminmobile, admin_password);
             }
         });
 
         return rootView;
     }
 
-    @Override
-    public void onResponse(JSONObject jsonObject) {
-        pd.dismiss();
-        if (jsonObject.has("method")) {
-            try {
-                if (jsonObject.getString("method").equals("auth") && jsonObject.getBoolean("success")) {
-                    editor.putBoolean("login", true);
-                    editor.commit();
-                    startActivity(new Intent(getActivity(), DashBoardActivity.class));
-                } else {
-                    AppConfig.alertMsg(getActivity(), getResources().getString(R.string.invalid_auth));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
-    public void onResponseError(VolleyError error) {
-        AppConfig.alertMsg(getActivity(), getResources().getString(R.string.server_error));
-        pd.dismiss();
-    }
-
     public void showSnackbar(View view, String message, int duration) {
         Snackbar.make(view, message, duration).show();
+    }
+
+    public void UserLoginFunction(final String adminmobile, final String adminpassword) {
+
+        class UserLoginClass extends AsyncTask<String, Void, String> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+
+                progressDialog = ProgressDialog.show(getContext(), "Connecting to the server", "Fetching data...", true, true);
+            }
+
+            @Override
+            protected void onPostExecute(String httpResponseMsg) {
+
+                super.onPostExecute(httpResponseMsg);
+
+                progressDialog.dismiss();
+
+                if (httpResponseMsg.equalsIgnoreCase("Login Successful")) {
+
+                    editor.putString("adminmobile", adminmobile);
+                    editor.putString("password", adminpassword);
+                    editor.putBoolean("login",true);
+                    editor.commit();
+                    Log.d("SignIn.java", "SharedPreference stored the value");
+                    Intent intent = new Intent(getActivity(), DashBoardActivity.class);
+                    startActivity(intent);
+
+                } else {
+
+                    Log.d("Signin", "server result: " + httpResponseMsg);
+                }
+
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                hashMap.put("adminmobile", params[0]);
+
+                hashMap.put("password", params[1]);
+
+                finalResult = httpParse.postRequest(hashMap, HttpURL);
+
+                return finalResult;
+            }
+        }
+
+        UserLoginClass userLoginClass = new UserLoginClass();
+
+        userLoginClass.execute(adminmobile, adminpassword);
     }
 
 }

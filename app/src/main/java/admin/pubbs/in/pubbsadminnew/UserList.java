@@ -1,14 +1,15 @@
 package admin.pubbs.in.pubbsadminnew;
 
 public class UserList {
-    private String userName, userPhone, userId;
+    private String userName, userPhone, userId, userImei;
     public UserList(){
 
     }
-    public UserList(String userName, String userPhone, String userId){
+    public UserList(String userName, String userPhone, String userId, String userImei){
         this.userName = userName;
         this.userPhone = userPhone;
         this.userId = userId;
+        this.userImei = userImei;
     }
     public String getUserName(){return userName;}
     public void setUserName(String userName){
@@ -22,4 +23,6 @@ public class UserList {
     public void setUserId(String userId){
         this.userId=userId;
     }
+    public String getUserImei(){return userImei;}
+    public void setUserImei(String userImei){this.userImei=userImei;}
 }

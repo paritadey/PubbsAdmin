@@ -83,7 +83,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
         <activity android:name=".EditStation" />
-        <activity android:name=".AddNewStation"></activity>
+        <activity android:name=".AddNewStation" />
+        <activity android:name=".AddNewBicycle"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>

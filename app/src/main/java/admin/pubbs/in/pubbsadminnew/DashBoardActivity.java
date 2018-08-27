@@ -28,10 +28,14 @@ public class DashBoardActivity extends AppCompatActivity
     ImageView close;
     TextView allBicycleTv;
     EditText inputSearch;
+    private String TAG = DashBoardActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
+       /* Intent intent=getIntent();
+        String admin_mobile = intent.getStringExtra("adminmobile");
+        Log.d(TAG, "admin :"+admin_mobile);*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/AvenirLTStd-Book.otf");
@@ -127,6 +131,7 @@ public class DashBoardActivity extends AppCompatActivity
         } else if (id == R.id.recharge_battery) {
             setMenuCounter(R.id.recharge_battery, 3);
         } else if (id == R.id.add_new_bicycle) {
+            startActivity(new Intent(DashBoardActivity.this, AddNewBicycle.class));
         } else if (id == R.id.remove_bicycle) {
 
         } else if (id == R.id.my_users) {

@@ -2,6 +2,7 @@
     <string name="app_name">Pubbs Admin</string>
     <string name="server_error">Server Error</string>
     <string name="url">http://pubbs.in/api/1.0/admincontroller.php</string>
+    <string name="url_login">http://pubbs.in/api/1.0/admin_login.php</string>
     <string name="sharedPreferences">pubbsAdmin</string>
     <string name="invalid_auth">Invalid authentication</string>
     <string name="search_title">Search</string>

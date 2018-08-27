@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
-public class SignUp extends Fragment {
+public class SignUp extends Fragment{
 
     EditText fullname, phone, address, email, password, confirmPassword;
     Button getOtp;
@@ -165,7 +165,7 @@ public class SignUp extends Fragment {
                         Log.d(TAG, "Admin details: " + adminFullName + "--" + adminEmail + "--" +
                                 adminPhoneNumber + "--" + adminAddress + "--" + adminPassword);
                         AdminRegisterFunction(adminFullName, adminEmail, adminPhoneNumber, adminAddress, adminPassword);
-                       /* final Handler handler = new Handler();
+                        /*final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             public void run() {
                                 startActivity(new Intent(getActivity(), OtpActivity.class));

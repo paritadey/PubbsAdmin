@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -28,7 +27,7 @@ public class UserProfile extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private String TAG = UserProfile.class.getSimpleName();
-    String userName, userId, userPhone;
+    String userName, userId, userPhone, userImei;
     android.support.v7.widget.Toolbar toolbar;
     ImageView back;
     TextView userDetails, userID, userIMEI;
@@ -54,16 +53,17 @@ public class UserProfile extends AppCompatActivity {
         userName = intent.getStringExtra("username");
         userId = intent.getStringExtra("userid");
         userPhone = intent.getStringExtra("userphone");
-        Log.d(TAG, "User name, id, phone: " + userName + "-" + userId + "-" + userPhone);
+        userImei = intent.getStringExtra("userimei");
+        Log.d(TAG, "User name, id, phone: " + userName + "-" + userId + "-" + userPhone + "-" + userImei);
         userDetails = findViewById(R.id.user_details);
         userDetails.setText(userName + "\t" + "\t" + userPhone);
         userDetails.setTypeface(type2);
         userID = findViewById(R.id.user_id);
-        userID.setText(userId);
+        userID.setText("ID : "+"\t"+userId);
         userID.setTypeface(type2);
         userIMEI = findViewById(R.id.user_ime);
         userIMEI.setTypeface(type2);
-
+        userIMEI.setText("IMEI :"+"\t"+userImei);
         back = findViewById(R.id.back_button);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -80,9 +80,9 @@ public class UserProfile extends AppCompatActivity {
                 startActivity(back);
             }
         });
-        androidid = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+      /*  androidid = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         userIMEI.setText("Device ID: " + "\t" + androidid);
-        Log.d(TAG, "slot :" + userIMEI);
+        Log.d(TAG, "slot :" + userIMEI);*/
     }
 
 

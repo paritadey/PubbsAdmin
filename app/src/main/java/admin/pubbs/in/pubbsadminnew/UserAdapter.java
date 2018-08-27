@@ -14,11 +14,6 @@ import java.util.List;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> {
     private List<UserList> userlist;
 
-   /* public void setFilter(List<UserList> userList){
-        userlist=new ArrayList<>();
-        userlist.addAll(userList);
-        notifyDataSetChanged();
-    }*/
    public void filterList(List<UserList> userList) {
        this.userlist = userList;
        notifyDataSetChanged();
@@ -62,9 +57,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
         holder.username.setText(user.getUserName());
         holder.userid.setText(user.getUserId());
         holder.userphone.setText(user.getUserPhone());
+        holder.text_required.setText(user.getUserImei());
         String userName = user.getUserName();//holder.username.getText().toString();
         String userPhone = user.getUserPhone();//holder.userphone.getText().toString();
         String userId = user.getUserId();//holder.userid.getText().toString();
+        String userIMEI = user.getUserImei();
         holder.userListLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +69,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
                 user_profile.putExtra("username", userName);
                 user_profile.putExtra("userid", userId);
                 user_profile.putExtra("userphone", userPhone);
+                user_profile.putExtra("userimei", userIMEI);
                 v.getContext().startActivity(user_profile);
             }
         });
