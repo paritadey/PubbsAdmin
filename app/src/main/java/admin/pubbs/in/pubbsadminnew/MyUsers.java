@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -27,13 +28,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyUsers extends AppCompatActivity implements AsyncResponse{//, SearchView.OnQueryTextListener {
+public class MyUsers extends AppCompatActivity implements AsyncResponse {//, SearchView.OnQueryTextListener {
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<UserList> userList = new ArrayList<>();
     EditText inputSearch;
     TextView userListTv, filter, sort;
     ImageView back;
+    ProgressBar circularProgressbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse{//, Sear
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
+        circularProgressbar = findViewById(R.id.circularProgressbar);
         back = findViewById(R.id.back_button);
         inputSearch = findViewById(R.id.input_search);
         userListTv = findViewById(R.id.user_list_tv);
@@ -85,18 +88,21 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse{//, Sear
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 filter(s.toString());
 
             }
+
             @Override
             public void afterTextChanged(Editable s) {
-               // loadData();
+                // loadData();
             }
         });
         // prepareUserData();
     }
+
     private void filter(String text) {
         //new array list that will hold the filtered data
         List<UserList> filterdNames = new ArrayList<>();
@@ -110,6 +116,7 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse{//, Sear
         }
         userAdapter.filterList(filterdNames);
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -118,6 +125,7 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse{//, Sear
 
 
     private void loadData() {
+        circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "getalluser");
@@ -144,6 +152,13 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse{//, Sear
             @Override
             public void onClick(View view) {
                 dialogBuilder.dismiss();
+                if (circularProgressbar.isEnabled()) {
+                    circularProgressbar.setVisibility(View.GONE);
+                }
+                Intent intent = new Intent(MyUsers.this, DashBoardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
             }
         });
 
@@ -155,6 +170,7 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse{//, Sear
     @Override
     public void onResponse(JSONObject jsonObject) {
         //showDialog("Downloading data from server !");
+        circularProgressbar.setVisibility(View.GONE);
         userList.clear();
         if (jsonObject.has("method")) {
             try {
@@ -178,7 +194,7 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse{//, Sear
 
     @Override
     public void onResponseError(VolleyError error) {
-       // AppConfig.alertMsg(getApplicationContext(), getResources().getString(R.string.server_error));
+        // AppConfig.alertMsg(getApplicationContext(), getResources().getString(R.string.server_error));
         showDialog("Server Error !");
     }
 

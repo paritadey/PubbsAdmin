@@ -84,10 +84,22 @@
             android:theme="@style/MyNoActionBar" />
         <activity android:name=".EditStation" />
         <activity android:name=".AddNewStation" />
-        <activity android:name=".AddNewBicycle"
+        <activity
+            android:name=".AddNewBicycle"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AddBicycle"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar" />
+        <activity
+            android:name=".AddBicycleQRActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar" />
+        <activity android:name=".RemoveBicycle"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"></activity>
     </application>
 
 </manifest>

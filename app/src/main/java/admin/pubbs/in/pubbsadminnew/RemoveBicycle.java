@@ -3,7 +3,6 @@ package admin.pubbs.in.pubbsadminnew;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -27,7 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
+public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
     private RecyclerView recyclerView;
     private AddNewBicycleAdapter addNewBicycleAdapter;
     private List<RedistributionList> redistributionList = new ArrayList<>();
@@ -36,32 +35,21 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
     EditText inputSearch;
     ProgressBar circularProgressbar;
 
-    FloatingActionButton addBicycle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_bicycle);
+        setContentView(R.layout.activity_remove_bicycle);
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        circularProgressbar = findViewById(R.id.circularProgressbar);
         back = findViewById(R.id.back_button);
         bicycleTv = findViewById(R.id.bicycle_tv);
         bicycleTv.setTypeface(type1);
         inputSearch = findViewById(R.id.input_search);
         inputSearch.setTypeface(type1);
-
-        circularProgressbar = findViewById(R.id.circularProgressbar);
-        addBicycle = findViewById(R.id.add_bicycle);
-        addBicycle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AddNewBicycle.this, AddBicycle.class));
-            }
-        });
         recyclerView = findViewById(R.id.recycler_view);
         addNewBicycleAdapter = new AddNewBicycleAdapter(redistributionList);
         recyclerView.setHasFixedSize(true);
@@ -83,7 +71,7 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddNewBicycle.this, DashBoardActivity.class);
+                Intent intent = new Intent(RemoveBicycle.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -105,11 +93,12 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new SendRequest(getResources().getString(R.string.url), jo, AddNewBicycle.this,
+        new SendRequest(getResources().getString(R.string.url), jo, RemoveBicycle.this,
                 getApplicationContext()).executeJsonRequest();
     }
 
     private void showDialog(String message) {
+
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
@@ -129,7 +118,7 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
                 if (circularProgressbar.isEnabled()) {
                     circularProgressbar.setVisibility(View.GONE);
                 }
-                Intent intent = new Intent(AddNewBicycle.this, DashBoardActivity.class);
+                Intent intent = new Intent(RemoveBicycle.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }

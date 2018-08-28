@@ -103,4 +103,6 @@
     <string name="on_bicycle">of the bicycle.</string>
     <string name="bicycle_id_tv">Enter the bicycle number below.</string>
     <string name="ride_time_msg">Know more about ride time and hold time</string>
+    <string name="add_bicycle_tv">Add New Bicycle</string>
+    <string name="bottom_sheet_add_bicycle">Need help for adding bicycle ?</string>
 </resources>

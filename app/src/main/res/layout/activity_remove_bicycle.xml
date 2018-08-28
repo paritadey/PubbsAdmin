@@ -4,13 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddNewBicycle">
-
+    tools:context=".RemoveBicycle">
     <include
         layout="@layout/app_bar_addnewbicycle"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
     <ProgressBar
         android:id="@+id/circularProgressbar"
         style="?android:attr/progressBarStyleHorizontal"
@@ -27,13 +25,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_bicycle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/twenty_four_dp"
-        android:layout_marginEnd="@dimen/twenty_four_dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add_bicycle" />
 </android.support.constraint.ConstraintLayout>

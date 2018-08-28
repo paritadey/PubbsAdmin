@@ -133,7 +133,7 @@ public class DashBoardActivity extends AppCompatActivity
         } else if (id == R.id.add_new_bicycle) {
             startActivity(new Intent(DashBoardActivity.this, AddNewBicycle.class));
         } else if (id == R.id.remove_bicycle) {
-
+            startActivity(new Intent(DashBoardActivity.this, RemoveBicycle.class));
         } else if (id == R.id.my_users) {
             startActivity(new Intent(DashBoardActivity.this, MyUsers.class));
         } else if (id == R.id.support_user) {

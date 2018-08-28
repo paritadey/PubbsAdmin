@@ -64,9 +64,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_add_bicycle" />
-                            <entry key="sourceFile" value="F:\downloads\filter (1).svg" />
+                            <entry key="outputName" value="ic_wallet" />
+                            <entry key="sourceFile" value="F:\downloads\wallet.svg" />
                           </map>
                         </option>
                       </PersistentState>
