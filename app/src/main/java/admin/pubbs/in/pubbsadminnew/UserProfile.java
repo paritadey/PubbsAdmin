@@ -59,11 +59,11 @@ public class UserProfile extends AppCompatActivity {
         userDetails.setText(userName + "\t" + "\t" + userPhone);
         userDetails.setTypeface(type2);
         userID = findViewById(R.id.user_id);
-        userID.setText("ID : "+"\t"+userId);
+        userID.setText("ID : " + "\t" + userId);
         userID.setTypeface(type2);
         userIMEI = findViewById(R.id.user_ime);
         userIMEI.setTypeface(type2);
-        userIMEI.setText("IMEI :"+"\t"+userImei);
+        userIMEI.setText("IMEI :" + "\t" + userImei);
         back = findViewById(R.id.back_button);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -75,14 +75,11 @@ public class UserProfile extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back = new Intent(UserProfile.this, MyUsers.class);
+                Intent back = new Intent(UserProfile.this, DashBoardActivity.class);
                 back.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(back);
             }
         });
-      /*  androidid = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        userIMEI.setText("Device ID: " + "\t" + androidid);
-        Log.d(TAG, "slot :" + userIMEI);*/
     }
 
 
@@ -144,7 +141,26 @@ public class UserProfile extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return mFragmentList.get(position);
+            Bundle data = new Bundle();
+            data.putString("userPhone", userPhone);
+            switch (position) {
+                case 0:
+                    UserProfileWallet frag_1 = new UserProfileWallet();
+                    frag_1.setArguments(data);
+                    return frag_1;
+                case 1:
+                    UserProfileTrips frag_2 = new UserProfileTrips();
+                    frag_2.setArguments(data);
+                    return frag_2;
+                case 2:
+                    UserProfilePlans frag_3 = new UserProfilePlans();
+                    frag_3.setArguments(data);
+                    return frag_3;
+
+                default:
+                    return mFragmentList.get(position);
+
+            }
         }
 
         @Override

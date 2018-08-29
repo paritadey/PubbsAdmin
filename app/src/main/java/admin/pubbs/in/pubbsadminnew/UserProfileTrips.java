@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ public class UserProfileTrips extends Fragment {
     private RecyclerView recyclerView;
     private UserProfileTripsAdapter userProfileTripsAdapter;
     private List<UserProfileTripsList> userProfileTripsLists = new ArrayList<>();
+    private String TAG = UserProfileWallet.class.getSimpleName();
+    String userName, userPhone, userId;
 
     public UserProfileTrips() {
     }
@@ -30,6 +33,10 @@ public class UserProfileTrips extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Bundle args = getArguments();
+        userPhone = args.getString("userPhone");
+        Log.d(TAG, "User phone: "+userPhone);
+
         View rootView = inflater.inflate(R.layout.fragment_user_profile_trips, container, false);
         recyclerView = rootView.findViewById(R.id.recycler_view);
         userProfileTripsAdapter = new UserProfileTripsAdapter(userProfileTripsLists);
