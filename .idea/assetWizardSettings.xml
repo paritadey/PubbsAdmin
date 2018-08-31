@@ -66,8 +66,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_wallet" />
-                            <entry key="sourceFile" value="F:\downloads\wallet.svg" />
+                            <entry key="outputName" value="ic_area" />
+                            <entry key="sourceFile" value="F:\downloads\radar.svg" />
                           </map>
                         </option>
                       </PersistentState>

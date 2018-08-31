@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
-
+/*created by Parita Dey*/
 public class AddNewBicycleAdapter extends RecyclerView.Adapter<AddNewBicycleAdapter.MyViewHolder> {
     private List<RedistributionList> redistributionlist;
 

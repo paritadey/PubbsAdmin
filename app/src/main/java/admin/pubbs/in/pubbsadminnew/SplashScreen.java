@@ -14,9 +14,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/*created by Parita Dey*/
 public class SplashScreen extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     Context context;
@@ -29,7 +33,7 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         sharedpreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
         appName = findViewById(R.id.app_name);
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/AvenirLTStd-Book.otf");
+        Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         appName.setTypeface(type);
         appName.setLetterSpacing(0.1f);
         internet = isConnectingToInternet(context);
@@ -45,19 +49,38 @@ public class SplashScreen extends AppCompatActivity {
                 }
             }, 4000);
         } else {
-            final AlertDialog alertDialog = new AlertDialog.Builder(SplashScreen.this).create();
-            alertDialog.setTitle("Connection Problem");
-            alertDialog.setMessage("Please connect to the internet !!!");
-
-            alertDialog.setIcon(R.drawable.ic_logo);
-            alertDialog.setButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    alertDialog.cancel();
-                }
-            });
-            alertDialog.show();
+            selectAreaDialog("Connection Problem !", "Please connect to the internet.");
         }
 
+    }
+
+    private void selectAreaDialog(String title, String message) {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+
+        final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
+        serverProblem.setTypeface(type1);
+        serverProblem.setText(title);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
+        extraLine.setTypeface(type1);
+        extraLine.setText(message);
+        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+
+        dialogBuilder.setIcon(R.drawable.ic_logo);
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+        dialogBuilder.setCancelable(false);
     }
 
     private boolean isConnectingToInternet(Context applicationContext) {

@@ -107,6 +107,8 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
         View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
 
         final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
+        final TextView extraLine = (TextView)dialogView.findViewById(R.id.extra_line);
+        extraLine.setTypeface(type1);
         serverProblem.setTypeface(type1);
         serverProblem.setText(message);
         Button ok = (Button) dialogView.findViewById(R.id.ok_btn);

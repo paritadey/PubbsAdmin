@@ -242,10 +242,11 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
             Log.d(TAG, "Polygon created");
             String areaNumber = generateArea();
             Log.d(TAG, "Area Number: " + areaNumber);
+            procced.setVisibility(View.VISIBLE);
 
-            polygonCreation = true;
+           // polygonCreation = true;
         }
-        drawStation(polygonCreation);
+      //  drawStation(polygonCreation);
 
     }
 
@@ -335,7 +336,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
                     Log.d(TAG, "Station added");
                     stationList.add(latLng);
                     showArrayList(stationList);
-                    procced.setVisibility(View.VISIBLE);
+                    //procced.setVisibility(View.VISIBLE);
 
                 }
             });

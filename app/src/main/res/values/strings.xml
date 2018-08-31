@@ -105,4 +105,7 @@
     <string name="ride_time_msg">Know more about ride time and hold time</string>
     <string name="add_bicycle_tv">Add New Bicycle</string>
     <string name="bottom_sheet_add_bicycle">Need help for adding bicycle ?</string>
+    <string name="opening_hour">Opening Hour </string>
+    <string name="closing_hour">Closing Hour </string>
+    <string name="geofencing_fine">Geofencing Fine</string>
 </resources>

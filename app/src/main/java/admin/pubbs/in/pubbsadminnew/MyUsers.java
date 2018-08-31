@@ -144,6 +144,8 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
         View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
 
         final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
+        final TextView extraLine = (TextView)dialogView.findViewById(R.id.extra_line);
+        extraLine.setTypeface(type1);
         serverProblem.setTypeface(type1);
         serverProblem.setText(message);
         Button ok = (Button) dialogView.findViewById(R.id.ok_btn);

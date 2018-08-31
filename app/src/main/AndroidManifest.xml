@@ -59,7 +59,8 @@
         <activity
             android:name=".RateChart"
             android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar" />
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ManageSystem"
             android:screenOrientation="portrait"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/manage_system"
     tools:context=".ManageSystem">
 
     <android.support.design.widget.AppBarLayout
@@ -217,6 +218,7 @@
                     android:textCursorDrawable="@drawable/custom_cursor"
                     android:textSize="@dimen/fourteen_sp" />
             </RelativeLayout>
+
 
             <Button
                 android:id="@+id/proceed_btn"

@@ -10,7 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
-
+/*created by Parita Dey*/
 public class CustomDivider extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{

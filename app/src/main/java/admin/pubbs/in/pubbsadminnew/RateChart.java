@@ -56,7 +56,7 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
     private void createTabIcons() {
 
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabOne.setText("Distance");
+        tabOne.setText("Area");
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
         tabOne.setTypeface(type);
@@ -97,7 +97,7 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new RateChartDistance(), "Distance");
+        adapter.addFragment(new RateChartArea(), "Area");
         adapter.addFragment(new RateChartTime(), "Time");
         viewPager.setAdapter(adapter);
     }

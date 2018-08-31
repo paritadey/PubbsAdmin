@@ -18,6 +18,7 @@ import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
+/*created by Parita Dey*/
 public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler, View.OnClickListener {
     private ZXingScannerView mScannerView;
     ImageView upArrow, back;

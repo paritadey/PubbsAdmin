@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/manage_area_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RateChartArea">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/eighty_dp">
+
+            <TextView
+                android:id="@+id/opening_hour_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/sixteen_dp"
+                android:layout_marginStart="@dimen/sixteen_dp"
+                android:layout_marginTop="@dimen/sixteen_dp"
+                android:padding="@dimen/four_dp"
+                android:text="@string/opening_hour"
+                android:textColor="@color/black"
+                android:textSize="@dimen/fourteen_sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/opening_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen_dp"
+                android:layout_marginTop="@dimen/sixteen_dp"
+                app:layout_constraintLeft_toRightOf="@id/opening_hour_tv"
+                app:layout_constraintTop_toBottomOf="@id/layout_min_wallet"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_stopwatch" />
+
+            <RelativeLayout
+                android:id="@+id/layout_opening_hour"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/sixteen_dp"
+                android:background="@drawable/edittext_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/opening_hour_tv">
+
+                <TextView
+                    android:id="@+id/opening_hour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/two_dp"
+                    android:layout_marginEnd="@dimen/sixteen_dp"
+                    android:layout_marginStart="@dimen/sixteen_dp"
+                    android:layout_marginTop="@dimen/eight_dp"
+                    android:backgroundTint="@color/white"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/closing_hour_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/sixteen_dp"
+                android:layout_marginStart="@dimen/sixteen_dp"
+                android:layout_marginTop="@dimen/sixteen_dp"
+                android:padding="@dimen/four_dp"
+                android:text="@string/closing_hour"
+                android:textColor="@color/black"
+                android:textSize="@dimen/fourteen_sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_opening_hour" />
+
+            <ImageView
+                android:id="@+id/closing_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen_dp"
+                android:layout_marginTop="@dimen/one_fifteen_dp"
+                app:layout_constraintLeft_toRightOf="@id/closing_hour_tv"
+                app:layout_constraintTop_toBottomOf="@+id/layout_opening_hour"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_stopwatch" />
+
+            <RelativeLayout
+                android:id="@+id/layout_closing_hour"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/sixteen_dp"
+                android:background="@drawable/edittext_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/closing_hour_tv">
+
+                <TextView
+                    android:id="@+id/closing_hour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/two_dp"
+                    android:layout_marginEnd="@dimen/sixteen_dp"
+                    android:layout_marginStart="@dimen/sixteen_dp"
+                    android:layout_marginTop="@dimen/eight_dp"
+                    android:backgroundTint="@color/white"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/geofencing_fine_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/sixteen_dp"
+                android:layout_marginStart="@dimen/sixteen_dp"
+                android:layout_marginTop="@dimen/sixteen_dp"
+                android:padding="@dimen/four_dp"
+                android:text="@string/geofencing_fine"
+                android:textColor="@color/black"
+                android:textSize="@dimen/fourteen_sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_closing_hour" />
+
+            <RelativeLayout
+                android:id="@+id/layout_geofencing_fine"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/sixteen_dp"
+                android:background="@drawable/edittext_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/geofencing_fine_tv">
+
+                <EditText
+                    android:id="@+id/geofencing_fine"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
+                    android:layout_marginStart="@dimen/twenty_four_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:backgroundTint="@color/white"
+                    android:padding="@dimen/eight_dp"
+                    android:singleLine="true"
+                    android:text="10"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
+
+                <TextView
+                    android:id="@+id/rupees_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/geofencing_fine"
+                    android:layout_marginStart="@dimen/fifty_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:padding="@dimen/eight_dp"
+                    android:text="Rupees" />
+            </RelativeLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

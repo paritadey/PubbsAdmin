@@ -50,6 +50,8 @@
     <dimen name="eighty_six_dp">86dp</dimen>
     <dimen name="ninty_dp">90dp</dimen>
     <dimen name="one_hundred_dp">100dp</dimen>
+    <dimen name="one_ten_dp">110dp</dimen>
+    <dimen name="one_fifteen_dp">115dp</dimen>
     <dimen name="one_twenty_dp">120dp</dimen>
     <dimen name="one_twenty_four_dp">124dp</dimen>
     <dimen name="one_thirty_dp">130dp</dimen>
