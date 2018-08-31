@@ -1,4 +1,5 @@
 package admin.pubbs.in.pubbsadminnew;
+/*created by Parita Dey*/
 
 public class UserList {
     private String userName, userPhone, userId, userImei;

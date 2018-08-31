@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+/*created by Parita Dey*/
 
 public class UserProfileTrips extends Fragment {
     private RecyclerView recyclerView;

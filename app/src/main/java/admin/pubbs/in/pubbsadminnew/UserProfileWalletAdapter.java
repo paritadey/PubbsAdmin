@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+/*created by Parita Dey*/
 
 public class UserProfileWalletAdapter extends RecyclerView.Adapter<UserProfileWalletAdapter.MyViewHolder> {
     private List<UserProfileWalletList> userProfileWalletLists;

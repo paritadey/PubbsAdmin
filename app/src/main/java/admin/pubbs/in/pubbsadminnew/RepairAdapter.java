@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+/*created by Parita Dey*/
 
 public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.MyViewHolder> {
     private List<RepairList> repairlist;

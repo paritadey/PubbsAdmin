@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+/*created by Parita Dey*/
 
 public class RateChart extends AppCompatActivity implements View.OnClickListener {
     private TabLayout tabLayout;

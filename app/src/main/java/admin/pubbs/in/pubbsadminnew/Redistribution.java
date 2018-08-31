@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*created by Parita Dey*/
 public class Redistribution extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RedistributionAdapter redistributionAdapter;

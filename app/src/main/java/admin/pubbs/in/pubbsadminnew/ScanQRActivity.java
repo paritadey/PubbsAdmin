@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+/*created by Parita Dey*/
 
 public class ScanQRActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler, View.OnClickListener {
     private ZXingScannerView mScannerView;

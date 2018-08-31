@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
+/*created by Parita Dey*/
 
 public class SignUp extends Fragment{
 

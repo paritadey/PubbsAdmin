@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+/*created by Parita Dey*/
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> {
     private List<UserList> userlist;

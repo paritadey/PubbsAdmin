@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/*created by Parita Dey*/
 
 public class UserProfilePlans extends Fragment {
     private String TAG = UserProfilePlans.class.getSimpleName();

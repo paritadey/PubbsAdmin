@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+/*created by Parita Dey*/
 
 public class OtpActivity extends AppCompatActivity implements View.OnClickListener {
 

@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+/*created by Parita Dey*/
 
 public class UserProfile extends AppCompatActivity {
     private TabLayout tabLayout;

@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+/*created by Parita Dey*/
 public class ManageSystem extends AppCompatActivity implements View.OnClickListener {
 
     private TextView bottomSheetTv, manageSytem, allSetTv, manageYourSystem, moreEfficient, maxRideTv, maxHoldtv, minWalletTv;
