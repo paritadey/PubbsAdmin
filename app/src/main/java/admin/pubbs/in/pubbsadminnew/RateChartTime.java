@@ -3,6 +3,7 @@ package admin.pubbs.in.pubbsadminnew;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,8 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.travijuu.numberpicker.library.Enums.ActionEnum;
 import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
+
+import java.util.ArrayList;
 /*created by Parita Dey*/
 
 public class RateChartTime extends Fragment {
@@ -23,6 +27,9 @@ public class RateChartTime extends Fragment {
     com.travijuu.numberpicker.library.NumberPicker numberPickerSeven, numberPickerEight;
     private EditText rupees;
     private Button proceed;
+    public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
+    String areaNumber, area_Name, adminMobile;
+    ConstraintLayout ratechartTime;
 
     public RateChartTime() {
     }
@@ -39,7 +46,14 @@ public class RateChartTime extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_rate_chart_time, container, false);
         Typeface type1 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+        Bundle args = getArguments();
+        markerList = args.getParcelableArrayList("markerList");
+        areaNumber = args.getString("areaNumber");
+        area_Name = args.getString("area_Name");
+        adminMobile = args.getString("adminMobile");
+        Log.d(TAG, "Area Details:"+markerList+"\t"+areaNumber+"\t"+area_Name+"\t"+adminMobile);
 
+        ratechartTime = rootView.findViewById(R.id.ratechartTime);
         proceed = rootView.findViewById(R.id.proceed_btn);
         proceed.setTypeface(type2);
         numberPickerOne = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_1);

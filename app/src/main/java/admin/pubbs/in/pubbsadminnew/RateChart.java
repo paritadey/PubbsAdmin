@@ -9,10 +9,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,9 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
     TextView rateTv;
     ImageView upArrow;
     TextView bottomsheetText;
-
+    public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
+    String areaNumber, area_Name, adminMobile;
+    private String TAG = RateChart.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,14 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
+
+        Intent intent = getIntent();
+        markerList = (ArrayList<LatLng>) getIntent().getSerializableExtra("markerList");
+        areaNumber = intent.getStringExtra("areaNumber");
+        area_Name = intent.getStringExtra("area_Name");
+        adminMobile = intent.getStringExtra("adminMobile");
+        Log.d(TAG, "Area Values:" + markerList + "\t" + area_Name + "\t" + areaNumber + "\t" + adminMobile);
+
         bottomsheetText = findViewById(R.id.bottomsheet_text);
         bottomsheetText.setTypeface(type);
         back = findViewById(R.id.back_button);
@@ -128,7 +141,23 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
 
         @Override
         public Fragment getItem(int position) {
-            return mFragmentList.get(position);
+            Bundle data = new Bundle();
+            data.putParcelableArrayList("markerList", markerList);
+            data.putString("areaNumber", areaNumber);
+            data.putString("area_Name", area_Name);
+            data.putString("adminMobile", adminMobile);
+            switch (position) {
+                case 0:
+                    RateChartArea frag_area = new RateChartArea();
+                    frag_area.setArguments(data);
+                    return frag_area;
+                case 1:
+                    RateChartTime frag_time = new RateChartTime();
+                    frag_time.setArguments(data);
+                    return frag_time;
+                default:
+                    return mFragmentList.get(position);
+            }
         }
 
         @Override
@@ -146,6 +175,5 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
             return mFragmentTitleList.get(position);
         }
     }
-
 
 }

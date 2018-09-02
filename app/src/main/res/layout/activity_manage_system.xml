@@ -2,9 +2,9 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/manage_system"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/manage_system"
     tools:context=".ManageSystem">
 
     <android.support.design.widget.AppBarLayout
@@ -92,151 +92,309 @@
         android:id="@+id/manage_system_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/twenty_four_dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.constraint.ConstraintLayout
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
 
-            <TextView
-                android:id="@+id/maximum_ride_tv"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/sixteen_dp"
-                android:layout_marginStart="@dimen/sixteen_dp"
-                android:layout_marginTop="@dimen/sixteen_dp"
-                android:padding="@dimen/four_dp"
-                android:text="@string/max_ride_time"
-                android:textColor="@color/black"
-                android:textSize="@dimen/fourteen_sp"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/eighty_dp">
 
-            <RelativeLayout
-                android:id="@+id/layout_max_ride"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/twenty_four_dp"
-                android:layout_marginStart="@dimen/twenty_four_dp"
-                android:layout_marginTop="@dimen/sixteen_dp"
-                android:background="@drawable/edittext_bg"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/maximum_ride_tv">
-
-                <EditText
-                    android:id="@+id/max_time"
+                <TextView
+                    android:id="@+id/maximum_ride_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/sixteen_dp"
+                    android:layout_marginStart="@dimen/sixteen_dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/max_ride_time"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_max_ride"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginStart="@dimen/twenty_four_dp"
-                    android:layout_marginTop="@dimen/two_dp"
-                    android:backgroundTint="@color/white"
-                    android:singleLine="true"
-                    android:text="1440 mins"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/custom_cursor"
-                    android:textSize="@dimen/fourteen_sp" />
-            </RelativeLayout>
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:background="@drawable/edittext_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/maximum_ride_tv">
 
-            <TextView
-                android:id="@+id/maximum_hold_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/sixteen_dp"
-                android:layout_marginStart="@dimen/sixteen_dp"
-                android:layout_marginTop="@dimen/sixteen_dp"
-                android:padding="@dimen/four_dp"
-                android:text="@string/max_hold_time"
-                android:textColor="@color/black"
-                android:textSize="@dimen/fourteen_sp"
-                app:layout_constraintTop_toBottomOf="@id/layout_max_ride" />
+                    <EditText
+                        android:id="@+id/max_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/twenty_four_dp"
+                        android:layout_marginStart="@dimen/twenty_four_dp"
+                        android:layout_marginTop="@dimen/two_dp"
+                        android:backgroundTint="@color/white"
+                        android:singleLine="true"
+                        android:text="1440 mins"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@drawable/custom_cursor"
+                        android:textSize="@dimen/fourteen_sp" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/layout_max_hold"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/twenty_four_dp"
-                android:layout_marginStart="@dimen/twenty_four_dp"
-                android:layout_marginTop="@dimen/sixteen_dp"
-                android:background="@drawable/edittext_bg"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/maximum_hold_tv">
-
-                <EditText
-                    android:id="@+id/max_hold"
+                <TextView
+                    android:id="@+id/maximum_hold_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/sixteen_dp"
+                    android:layout_marginStart="@dimen/sixteen_dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/max_hold_time"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintTop_toBottomOf="@id/layout_max_ride" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_max_hold"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginStart="@dimen/twenty_four_dp"
-                    android:layout_marginTop="@dimen/two_dp"
-                    android:backgroundTint="@color/white"
-                    android:singleLine="true"
-                    android:text="60 mins"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/custom_cursor"
-                    android:textSize="@dimen/fourteen_sp" />
-            </RelativeLayout>
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:background="@drawable/edittext_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/maximum_hold_tv">
 
-            <TextView
-                android:id="@+id/min_wallet_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/sixteen_dp"
-                android:layout_marginStart="@dimen/sixteen_dp"
-                android:layout_marginTop="@dimen/sixteen_dp"
-                android:padding="@dimen/four_dp"
-                android:text="@string/min_amount_wallet"
-                android:textColor="@color/black"
-                android:textSize="@dimen/fourteen_sp"
-                app:layout_constraintTop_toBottomOf="@id/layout_max_hold" />
+                    <EditText
+                        android:id="@+id/max_hold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/twenty_four_dp"
+                        android:layout_marginStart="@dimen/twenty_four_dp"
+                        android:layout_marginTop="@dimen/two_dp"
+                        android:backgroundTint="@color/white"
+                        android:singleLine="true"
+                        android:text="60 mins"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@drawable/custom_cursor"
+                        android:textSize="@dimen/fourteen_sp" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/layout_min_wallet"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/twenty_four_dp"
-                android:layout_marginStart="@dimen/twenty_four_dp"
-                android:layout_marginTop="@dimen/sixteen_dp"
-                android:background="@drawable/edittext_bg"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/min_wallet_tv">
-
-                <EditText
-                    android:id="@+id/min_wallet"
+                <TextView
+                    android:id="@+id/min_wallet_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/sixteen_dp"
+                    android:layout_marginStart="@dimen/sixteen_dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/min_amount_wallet"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintTop_toBottomOf="@id/layout_max_hold" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_min_wallet"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginStart="@dimen/twenty_four_dp"
-                    android:layout_marginTop="@dimen/two_dp"
-                    android:backgroundTint="@color/white"
-                    android:singleLine="true"
-                    android:text="@string/min_amount"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:background="@drawable/edittext_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/min_wallet_tv">
+
+                    <EditText
+                        android:id="@+id/min_wallet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/twenty_four_dp"
+                        android:layout_marginStart="@dimen/twenty_four_dp"
+                        android:layout_marginTop="@dimen/two_dp"
+                        android:backgroundTint="@color/white"
+                        android:singleLine="true"
+                        android:text="@string/min_amount"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@drawable/custom_cursor"
+                        android:textSize="@dimen/fourteen_sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/opening_hour_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/sixteen_dp"
+                    android:layout_marginStart="@dimen/sixteen_dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/opening_hour"
                     android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/custom_cursor"
-                    android:textSize="@dimen/fourteen_sp" />
-            </RelativeLayout>
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_min_wallet" />
 
+                <ImageView
+                    android:id="@+id/opening_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dp"
+                    android:layout_marginTop="310dp"
+                    app:layout_constraintLeft_toRightOf="@id/opening_hour_tv"
+                    app:layout_constraintTop_toBottomOf="@id/layout_min_wallet"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_stopwatch" />
 
-            <Button
-                android:id="@+id/proceed_btn"
-                android:layout_width="@dimen/one_fifty_dp"
-                android:layout_height="@dimen/thirty_six_dp"
-                android:layout_marginRight="@dimen/twenty_four_dp"
-                android:layout_marginTop="@dimen/twenty_four_dp"
-                android:background="@drawable/button_bg"
-                android:elevation="@dimen/two_dp"
-                android:scaleType="centerCrop"
-                android:text="@string/proceed"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/fourteen_sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_min_wallet" />
+                <RelativeLayout
+                    android:id="@+id/layout_opening_hour"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
+                    android:layout_marginStart="@dimen/twenty_four_dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:background="@drawable/edittext_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/opening_hour_tv">
 
-        </android.support.constraint.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/opening_hour"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/two_dp"
+                        android:layout_marginEnd="@dimen/sixteen_dp"
+                        android:layout_marginStart="@dimen/sixteen_dp"
+                        android:layout_marginTop="@dimen/eight_dp"
+                        android:backgroundTint="@color/white"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/fourteen_sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/closing_hour_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/sixteen_dp"
+                    android:layout_marginStart="@dimen/sixteen_dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/closing_hour"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_opening_hour" />
+
+                <ImageView
+                    android:id="@+id/closing_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dp"
+                    android:layout_marginTop="410dp"
+                    app:layout_constraintLeft_toRightOf="@id/closing_hour_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_opening_hour"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_stopwatch" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_closing_hour"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
+                    android:layout_marginStart="@dimen/twenty_four_dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:background="@drawable/edittext_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/closing_hour_tv">
+
+                    <TextView
+                        android:id="@+id/closing_hour"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/two_dp"
+                        android:layout_marginEnd="@dimen/sixteen_dp"
+                        android:layout_marginStart="@dimen/sixteen_dp"
+                        android:layout_marginTop="@dimen/eight_dp"
+                        android:backgroundTint="@color/white"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/fourteen_sp" />
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/geofencing_fine_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/sixteen_dp"
+                    android:layout_marginStart="@dimen/sixteen_dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/geofencing_fine"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_closing_hour" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_geofencing_fine"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
+                    android:layout_marginStart="@dimen/twenty_four_dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:background="@drawable/edittext_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/geofencing_fine_tv">
+
+                    <EditText
+                        android:id="@+id/geofencing_fine"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/twenty_four_dp"
+                        android:layout_marginStart="@dimen/twenty_four_dp"
+                        android:layout_marginTop="@dimen/two_dp"
+                        android:backgroundTint="@color/white"
+                        android:padding="@dimen/eight_dp"
+                        android:singleLine="true"
+                        android:text="10"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@drawable/custom_cursor"
+                        android:textSize="@dimen/fourteen_sp" />
+
+                    <TextView
+                        android:id="@+id/rupees_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/geofencing_fine"
+                        android:layout_marginStart="@dimen/fifty_dp"
+                        android:layout_marginTop="@dimen/two_dp"
+                        android:padding="@dimen/eight_dp"
+                        android:text="Rupees" />
+                </RelativeLayout>
+                <Button
+                    android:id="@+id/proceed_btn"
+                    android:layout_width="@dimen/one_fifty_dp"
+                    android:layout_height="@dimen/thirty_six_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
+                    android:layout_marginTop="@dimen/thirty_six_dp"
+                    android:background="@drawable/button_bg"
+                    android:elevation="@dimen/two_dp"
+                    android:scaleType="centerCrop"
+                    android:text="@string/proceed"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_geofencing_fine" />
+
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
     </FrameLayout>
 
     <RelativeLayout

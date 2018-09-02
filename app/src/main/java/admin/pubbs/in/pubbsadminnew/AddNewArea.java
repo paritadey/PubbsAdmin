@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.location.Address;
@@ -51,6 +52,7 @@ import com.google.android.gms.tasks.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 /*created by Parita Dey*/
 public class AddNewArea extends AppCompatActivity implements View.OnClickListener,
         OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
@@ -78,12 +80,17 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
     Button procced;
     String stationName;
     String area_name, station_name;
-
+    String areaNumber;
+    String area_Name;
+    SharedPreferences sharedPreferences;
+    String adminMobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_area);
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
+        adminMobile = sharedPreferences.getString("adminmobile",null);
         selectArea = findViewById(R.id.selectArea);
         getLocationPermission();
         setUpToolbar();
@@ -170,7 +177,14 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
                 getDeviceLocation();
                 break;
             case R.id.proceed_btn:
-                startActivity(new Intent(AddNewArea.this, RateChart.class));
+                showArrayList(markerList, areaNumber, adminMobile);
+                Log.d(TAG, "Area name:"+area_Name);
+                Intent intent_rate = new Intent(AddNewArea.this, RateChart.class);
+                intent_rate.putExtra("markerList",markerList);
+                intent_rate.putExtra("areaNumber", areaNumber);
+                intent_rate.putExtra("area_Name", area_Name);
+                intent_rate.putExtra("adminMobile", adminMobile);
+                startActivity(intent_rate);
                 break;
             default:
                 break;
@@ -211,9 +225,8 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
                     mMap.addMarker(markerOptions);
                     Log.d(TAG, "Area added");
                     markerList.add(latLng);
-                    showArrayList(markerList);
                     drawPolygon(markerList);
-
+                    //showArrayList(markerList, areaNumber, adminMobile);
                 }
             });
 
@@ -222,10 +235,12 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
 
     }
 
-    public void showArrayList(ArrayList<LatLng> list) {
+    public void showArrayList(ArrayList<LatLng> list, String areaNumber, String adminMobile) {
         for (int i = 0; i < list.size(); i++) {
             Log.d(TAG, "markers: " + list.get(i));
         }
+        Log.d(TAG, "Selected area details:" + areaNumber);
+        Log.d(TAG, "Admin mobile:" + adminMobile);
     }
 
     public void drawPolygon(ArrayList<LatLng> myLatLng) {
@@ -240,17 +255,15 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
 
             selectAreaDialog();
             Log.d(TAG, "Polygon created");
-            String areaNumber = generateArea();
+            areaNumber = generateArea();
             Log.d(TAG, "Area Number: " + areaNumber);
             procced.setVisibility(View.VISIBLE);
-
-           // polygonCreation = true;
+            // polygonCreation = true;
         }
-      //  drawStation(polygonCreation);
-
+        //  drawStation(polygonCreation);
     }
 
-    private void selectAreaDialog() {
+    private String selectAreaDialog() {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
@@ -271,8 +284,8 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
                 if (areaName.getText().toString().isEmpty()) {
                     areaName.startAnimation(animShake);
                 } else {
-                    area_name = areaName.getText().toString().trim();
-                    Log.d(TAG, "Area Name : " + area_name);
+                    area_Name = areaName.getText().toString().trim();
+                    Log.d(TAG, "Area Name : " + area_Name);
                     dialogBuilder.dismiss();
                 }
             }
@@ -281,8 +294,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
         dialogBuilder.setCancelable(false);
-
-
+        return area_Name;
     }
 
     public void selectStationDialog() {
@@ -335,7 +347,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
                     mMap.addMarker(markerOptions);
                     Log.d(TAG, "Station added");
                     stationList.add(latLng);
-                    showArrayList(stationList);
+                    //showArrayList(stationList);
                     //procced.setVisibility(View.VISIBLE);
 
                 }
