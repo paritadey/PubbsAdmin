@@ -81,7 +81,7 @@
                     android:textSize="@dimen/fourteen_sp" />
 
                 <EditText
-                    android:id="@+id/rupees"
+                    android:id="@+id/rupees_1"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/fourty_dp"
@@ -106,7 +106,7 @@
                 app:layout_constraintTop_toBottomOf="@id/number_picker_1"
                 numberpicker:custom_layout="@layout/number_picker_custom_layout"
                 numberpicker:focusable="false"
-                numberpicker:max="2"
+                numberpicker:max="4"
                 numberpicker:min="1"
                 numberpicker:unit="1"
                 numberpicker:value="1" />
@@ -156,10 +156,10 @@
                 app:layout_constraintTop_toBottomOf="@id/number_picker_2"
                 numberpicker:custom_layout="@layout/number_picker_custom_layout"
                 numberpicker:focusable="false"
-                numberpicker:max="3"
-                numberpicker:min="2"
+                numberpicker:max="6"
+                numberpicker:min="4"
                 numberpicker:unit="1"
-                numberpicker:value="2" />
+                numberpicker:value="4" />
 
             <RelativeLayout
                 android:id="@+id/layout_price_3"
@@ -206,10 +206,10 @@
                 app:layout_constraintTop_toBottomOf="@id/number_picker_3"
                 numberpicker:custom_layout="@layout/number_picker_custom_layout"
                 numberpicker:focusable="false"
-                numberpicker:max="4"
-                numberpicker:min="3"
+                numberpicker:max="8"
+                numberpicker:min="6"
                 numberpicker:unit="1"
-                numberpicker:value="3" />
+                numberpicker:value="6" />
 
             <RelativeLayout
                 android:id="@+id/layout_price_4"
@@ -256,10 +256,10 @@
                 app:layout_constraintTop_toBottomOf="@id/number_picker_4"
                 numberpicker:custom_layout="@layout/number_picker_custom_layout"
                 numberpicker:focusable="false"
-                numberpicker:max="5"
-                numberpicker:min="4"
+                numberpicker:max="12"
+                numberpicker:min="9"
                 numberpicker:unit="1"
-                numberpicker:value="4" />
+                numberpicker:value="9" />
 
             <RelativeLayout
                 android:id="@+id/layout_price_5"
@@ -295,7 +295,7 @@
                     android:textSize="@dimen/fourteen_sp" />
             </RelativeLayout>
 
-            <com.travijuu.numberpicker.library.NumberPicker
+            <!--<com.travijuu.numberpicker.library.NumberPicker
                 android:id="@+id/number_picker_6"
                 android:layout_width="190dp"
                 android:layout_height="40dp"
@@ -443,7 +443,7 @@
                     android:textColor="@color/black"
                     android:textCursorDrawable="@drawable/custom_cursor"
                     android:textSize="@dimen/fourteen_sp" />
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <Button
                 android:id="@+id/proceed_btn"
@@ -459,7 +459,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/fourteen_sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_price_8" />
+                app:layout_constraintTop_toBottomOf="@+id/layout_price_5" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

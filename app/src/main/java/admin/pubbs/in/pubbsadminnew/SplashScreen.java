@@ -74,6 +74,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialogBuilder.dismiss();
+                finish();
             }
         });
 

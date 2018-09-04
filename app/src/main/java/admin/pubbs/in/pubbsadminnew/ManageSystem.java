@@ -18,14 +18,20 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.JsonArray;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 /*created by Parita Dey*/
-public class ManageSystem extends AppCompatActivity implements View.OnClickListener {
+public class ManageSystem extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
 
     private TextView bottomSheetTv, manageSytem, allSetTv, manageYourSystem, moreEfficient, maxRideTv, maxHoldtv, minWalletTv;
     private Button proceed;
@@ -40,9 +46,13 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
     private EditText geofencingFine;
     private String amPm;
     public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
-    String areaNumber, area_Name, adminMobile;
-    private String openHr, closeHr, geofenceFine;
+    public JsonArray markers;
+    private String areaNumber, area_Name, adminMobile;
+    private String openHr, closeHr, geofenceFine, max_ride, max_hold, min_wallet;
     RelativeLayout layoutGeofenceFine, layoutClosingHr, layoutOpeningHr;
+    private String rupee1, rupee2, rupee3, rupee4, rupee5;
+    private String numberPicker1, numberPicker2, numberPicker3, numberPicker4, numberPicker5;
+    String markerArray;
 
 
     @Override
@@ -56,6 +66,25 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+        Intent intent = getIntent();
+        markerList = intent.getParcelableArrayListExtra("markerList");
+        areaNumber = intent.getStringExtra("areaNumber");
+        area_Name = intent.getStringExtra("area_Name");
+        adminMobile = intent.getStringExtra("adminMobile");
+        numberPicker1 = intent.getStringExtra("numberPicker1");
+        rupee1 = intent.getStringExtra("rupee1");
+        numberPicker2 = intent.getStringExtra("numberPicker2");
+        rupee2 = intent.getStringExtra("rupee2");
+        numberPicker3 = intent.getStringExtra("numberPicker3");
+        rupee3 = intent.getStringExtra("rupee3");
+        numberPicker4 = intent.getStringExtra("numberPicker4");
+        rupee4 = intent.getStringExtra("rupee4");
+        numberPicker5 = intent.getStringExtra("numberPicker5");
+        rupee5 = intent.getStringExtra("rupee5");
+        Log.d(TAG, "Data from Rate Chart:" + markerList + "\t" + areaNumber + "\t" + area_Name + "\t" + adminMobile);
+        Log.d(TAG, "Data from Number picker and rupees:" + numberPicker1 + ":" + rupee1 + "\t" + numberPicker2 +
+                ":" + rupee2 + "\t" + numberPicker3 + ":" + rupee3 + "\t" + numberPicker4 + ":" + rupee4 + "\t" + numberPicker5 + ":" + rupee5);
+        showinJsonArray(markerList);
         manageSystem = findViewById(R.id.manage_system);
         back = findViewById(R.id.back_button);
         upArrow = findViewById(R.id.up_arrow);
@@ -104,14 +133,14 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
         geofencingFine = findViewById(R.id.geofencing_fine);
         rupeesTv = findViewById(R.id.rupees_tv);
 
-        geofencingFineTv.setTypeface(type1);
-        geofencingFine.setTypeface(type1);
+        geofencingFineTv.setTypeface(type2);
+        geofencingFine.setTypeface(type2);
         rupeesTv.setTypeface(type1);
 
-        closingHrTv.setTypeface(type1);
-        openingHrTv.setTypeface(type1);
-        openingHour.setTypeface(type1);
-        closingHour.setTypeface(type1);
+        closingHrTv.setTypeface(type2);
+        openingHrTv.setTypeface(type2);
+        openingHour.setTypeface(type2);
+        closingHour.setTypeface(type2);
 
         openingTimer.setOnClickListener(this);
         openingHour.setOnClickListener(this);
@@ -120,6 +149,19 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
         closingHour.setOnClickListener(this);
         proceed.setOnClickListener(this);
 
+    }
+
+    private void showinJsonArray(ArrayList<LatLng> markerList) {
+       /* Gson gson = new GsonBuilder().create();
+        markers = gson.toJsonTree(markerList).getAsJsonArray();
+        for(int i=0; i<markerList.size(); i++){
+            Log.d(TAG, "Lat/Lon:"+markers.get(i).getAsJsonObject());
+        }*/
+        markerArray = "";
+        for (LatLng s : markerList) {
+            markerArray += s + ";";
+        }
+        Log.d(TAG, "Large Marker String:" + markerArray);
     }
 
     @Override
@@ -214,27 +256,65 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
             case R.id.proceed_btn:
                 final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                 if (openingHour.getText().toString().isEmpty() || closingHour.getText().toString().isEmpty() || geofencingFine.getText().toString().isEmpty()) {
-                    if (openingHour.getText().toString().isEmpty()) {
+                    if (openingHour.getText().toString().isEmpty() && closingHour.getText().toString().isEmpty() && geofencingFine.getText().toString().isEmpty()) {
+                        layoutOpeningHr.startAnimation(animShake);
+                        layoutClosingHr.startAnimation(animShake);
+                        layoutGeofenceFine.startAnimation(animShake);
+                    } else if (openingHour.getText().toString().isEmpty()) {
                         layoutOpeningHr.startAnimation(animShake);
                     } else if (closingHour.getText().toString().isEmpty()) {
                         layoutClosingHr.startAnimation(animShake);
                     } else if (geofencingFine.getText().toString().isEmpty()) {
                         layoutGeofenceFine.startAnimation(animShake);
-                    } else if (openingHour.getText().toString().isEmpty() && closingHour.getText().toString().isEmpty() && geofencingFine.getText().toString().isEmpty()) {
-                        layoutOpeningHr.startAnimation(animShake);
-                        layoutClosingHr.startAnimation(animShake);
-                        layoutGeofenceFine.startAnimation(animShake);
                     }
                 } else {
+                    max_ride = maxRide.getText().toString();
+                    max_hold = maxHold.getText().toString();
+                    min_wallet = minWallet.getText().toString();
                     openHr = openingHour.getText().toString();
                     closeHr = closingHour.getText().toString();
                     geofenceFine = geofencingFine.getText().toString();
-                    showAreaAddedDialog();
+
+                    sendData(areaNumber, area_Name, markerArray, numberPicker1, rupee1, numberPicker2, rupee2, numberPicker3, rupee3,
+                            numberPicker4, rupee4, numberPicker5, rupee5, openHr, closeHr, max_ride, max_hold, min_wallet, geofenceFine, adminMobile);
                 }
                 break;
             default:
                 break;
         }
+    }
+
+    public void sendData(String areaNumber, String area_Name, String markerArray, String numberPicker1, String rupee1,
+                         String numberPicker2, String rupee2, String numberPicker3, String rupee3, String numberPicker4,
+                         String rupee4, String numberPicker5, String rupee5, String openHr, String closeHr, String max_ride,
+                         String max_hold, String min_wallet, String geofenceFine, String adminMobile) {
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("method", "addnewarea");
+            jo.put("area_id", areaNumber);
+            jo.put("area_name", area_Name);
+            jo.put("area_lat_lon", markerArray);
+            jo.put("rate_chart_one", numberPicker1);
+            jo.put("rate_chart_price_one", rupee1);
+            jo.put("rate_chart_two", numberPicker2);
+            jo.put("rate_chart_price_two", rupee2);
+            jo.put("rate_chart_three", numberPicker3);
+            jo.put("rate_chart_price_three", rupee3);
+            jo.put("rate_chart_four", numberPicker4);
+            jo.put("rate_chart_price_four", rupee4);
+            jo.put("rate_chart_five", numberPicker5);
+            jo.put("rate_chart_price_five", rupee5);
+            jo.put("opening_hour", openHr);
+            jo.put("closing_hour", closeHr);
+            jo.put("max_ride_time", max_ride);
+            jo.put("max_hold_time", max_hold);
+            jo.put("min_wallet_amnt", min_wallet);
+            jo.put("geofencing_fine", geofenceFine);
+            jo.put("adminmobile", adminMobile);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new SendRequest(getResources().getString(R.string.url), jo, ManageSystem.this, getApplicationContext()).executeJsonRequest();
     }
 
     @Override
@@ -251,9 +331,73 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.cycle_added_dialog, null);
         final TextView areaAdd = (TextView) dialogView.findViewById(R.id.area_add_tv);
+        final Button ok = (Button)dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
         areaAdd.setTypeface(type1);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+                Intent intent = new Intent(ManageSystem.this, DashBoardActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+            }
+        });
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
-        dialogBuilder.setCancelable(true);
+        dialogBuilder.setCancelable(false);
     }
+
+    @Override
+    public void onResponse(JSONObject jsonObject) {
+        if (jsonObject.has("method")) {
+            try {
+                if (jsonObject.getString("method").equals("addnewarea") && jsonObject.getBoolean("success")) {
+                    showAreaAddedDialog();
+                } else {
+                    Toast.makeText(getApplicationContext(), "couldn't save try again later", Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onResponseError(VolleyError error) {
+        showDialog("Server Error !");
+    }
+
+    private void showDialog(String message) {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+
+        final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
+        extraLine.setTypeface(type1);
+        serverProblem.setTypeface(type1);
+        serverProblem.setText(message);
+        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+                Intent intent = new Intent(ManageSystem.this, DashBoardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+        dialogBuilder.setCancelable(false);
+    }
+
 }

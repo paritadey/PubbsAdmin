@@ -89,7 +89,7 @@
     <string name="max_ride_time">Maximum ride time</string>
     <string name="max_hold_time">Maximum hold time</string>
     <string name="min_amount_wallet">Minimum Amount rider should have in wallet</string>
-    <string name="min_amount">₹ 20</string>
+    <string name="min_amount">Rupees</string>
     <string name="ride_msg">Know more about ride time and hold time</string>
     <string name="repair_bicycle">Add bicycle to repair</string>
     <string name="repair_bicycle_tv">Repair Bicycle</string>

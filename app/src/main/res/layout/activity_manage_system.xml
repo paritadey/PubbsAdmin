@@ -139,7 +139,7 @@
                         android:layout_marginTop="@dimen/two_dp"
                         android:backgroundTint="@color/white"
                         android:singleLine="true"
-                        android:text="1440 mins"
+                        android:hint="mins/hour"
                         android:textColor="@color/black"
                         android:textCursorDrawable="@drawable/custom_cursor"
                         android:textSize="@dimen/fourteen_sp" />
@@ -179,7 +179,7 @@
                         android:layout_marginTop="@dimen/two_dp"
                         android:backgroundTint="@color/white"
                         android:singleLine="true"
-                        android:text="60 mins"
+                        android:hint="mins/hours"
                         android:textColor="@color/black"
                         android:textCursorDrawable="@drawable/custom_cursor"
                         android:textSize="@dimen/fourteen_sp" />
@@ -219,7 +219,7 @@
                         android:layout_marginTop="@dimen/two_dp"
                         android:backgroundTint="@color/white"
                         android:singleLine="true"
-                        android:text="@string/min_amount"
+                        android:hint="@string/min_amount"
                         android:textColor="@color/black"
                         android:textCursorDrawable="@drawable/custom_cursor"
                         android:textSize="@dimen/fourteen_sp" />

@@ -9,8 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -25,11 +28,13 @@ public class RateChartTime extends Fragment {
     com.travijuu.numberpicker.library.NumberPicker numberPickerOne, numberPickerTwo, numberPickerThree, numberPickerFour, numberPickerFive, numberPickerSix;
     private TextView timeTv, priceTv;
     com.travijuu.numberpicker.library.NumberPicker numberPickerSeven, numberPickerEight;
-    private EditText rupees;
     private Button proceed;
     public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
-    String areaNumber, area_Name, adminMobile;
+    private String areaNumber, area_Name, adminMobile, numberPicker1, numberPicker2, numberPicker3, numberPicker4, numberPicker5, numberPicker6, numberPicker7, numberPicker8;
     ConstraintLayout ratechartTime;
+    private String rupee1, rupee2, rupee3, rupee4, rupee5, rupee6, rupee7, rupee8;
+    EditText rupees_one, rupees_two, rupees_three, rupees_four, rupees_five, rupees_six, rupees_seven, rupees_eight;
+    RelativeLayout layout_price, layout_price_2, layout_price_3, layout_price_4, layout_price_5;
 
     public RateChartTime() {
     }
@@ -51,83 +56,137 @@ public class RateChartTime extends Fragment {
         areaNumber = args.getString("areaNumber");
         area_Name = args.getString("area_Name");
         adminMobile = args.getString("adminMobile");
-        Log.d(TAG, "Area Details:"+markerList+"\t"+areaNumber+"\t"+area_Name+"\t"+adminMobile);
+        Log.d(TAG, "Area Details:" + markerList + "\t" + areaNumber + "\t" + area_Name + "\t" + adminMobile);
+
+        timeTv = rootView.findViewById(R.id.time_tv);
+        timeTv.setTypeface(type1);
+        priceTv = rootView.findViewById(R.id.price_tv);
+        priceTv.setTypeface(type1);
+
+        rupees_one = rootView.findViewById(R.id.rupees_1);
+        rupees_one.setTypeface(type1);
+        rupees_two = rootView.findViewById(R.id.rupees_2);
+        rupees_two.setTypeface(type1);
+        rupees_three = rootView.findViewById(R.id.rupees_3);
+        rupees_three.setTypeface(type1);
+        rupees_four = rootView.findViewById(R.id.rupees_4);
+        rupees_four.setTypeface(type1);
+        rupees_five = rootView.findViewById(R.id.rupees_5);
+        rupees_five.setTypeface(type1);
 
         ratechartTime = rootView.findViewById(R.id.ratechartTime);
         proceed = rootView.findViewById(R.id.proceed_btn);
         proceed.setTypeface(type2);
+
+        layout_price = rootView.findViewById(R.id.layout_price);
+        layout_price_2 = rootView.findViewById(R.id.layout_price_2);
+        layout_price_3 = rootView.findViewById(R.id.layout_price_3);
+        layout_price_4 = rootView.findViewById(R.id.layout_price_4);
+        layout_price_5 = rootView.findViewById(R.id.layout_price_5);
+
         numberPickerOne = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_1);
+        numberPicker1 = String.valueOf(numberPickerOne.getValue());
+        rupee1 = rupees_one.getText().toString();
         numberPickerTwo = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_2);
+        numberPicker2 = String.valueOf(numberPickerTwo.getValue());
+        rupee2 = rupees_two.getText().toString();
         numberPickerThree = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_3);
+        numberPicker3 = String.valueOf(numberPickerThree.getValue());
+        rupee3 = rupees_three.getText().toString();
         numberPickerFour = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_4);
+        numberPicker4 = String.valueOf(numberPickerFour);
+        rupee4 = rupees_four.getText().toString();
         numberPickerFive = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_5);
-        numberPickerSix = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_6);
-        numberPickerSeven = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_7);
-        numberPickerEight = (com.travijuu.numberpicker.library.NumberPicker) rootView.findViewById(R.id.number_picker_8);
-        proceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent manageSystem = new Intent(getActivity(), ManageSystem.class);
-                startActivity(manageSystem);
-            }
-        });
+        numberPicker5 = String.valueOf(numberPickerFive);
+        rupee5 = rupees_five.getText().toString();
+
         numberPickerOne.setValueChangedListener(new ValueChangedListener() {
             @Override
             public void valueChanged(int value, ActionEnum action) {
                 // String actionText = action == ActionEnum.MANUAL ? "manually set" : (action == ActionEnum.INCREMENT ? "incremented" : "decremented");
                 int message = value;// String.format("NumberPicker is %s to %d", actionText, value);
-                Log.d(TAG, "Number Picker 1 value: " + message);
+                numberPicker1 = String.valueOf(message);
+                Log.d(TAG, "Number Picker 1 value: " + message + rupee1);
             }
         });
         numberPickerTwo.setValueChangedListener(new ValueChangedListener() {
             @Override
             public void valueChanged(int value, ActionEnum action) {
                 int message = value;
-                Log.d(TAG, "Number Picker 2 value: " + message);
+                numberPicker2 = String.valueOf(message);
+                Log.d(TAG, "Number Picker 2 value: " + message + rupee2);
             }
         });
         numberPickerThree.setValueChangedListener(new ValueChangedListener() {
             @Override
             public void valueChanged(int value, ActionEnum action) {
                 int message = value;
-                Log.d(TAG, "Number Picker 3 value: " + message);
+                numberPicker3 = String.valueOf(message);
+                Log.d(TAG, "Number Picker 3 value: " + message + rupee3);
             }
         });
         numberPickerFour.setValueChangedListener(new ValueChangedListener() {
             @Override
             public void valueChanged(int value, ActionEnum action) {
                 int message = value;
-                Log.d(TAG, "Number Picker 4 value: " + message);
+                numberPicker4 = String.valueOf(message);
+                Log.d(TAG, "Number Picker 4 value: " + message + rupee4);
             }
         });
         numberPickerFive.setValueChangedListener(new ValueChangedListener() {
             @Override
             public void valueChanged(int value, ActionEnum action) {
                 int message = value;
-                Log.d(TAG, "Number Picker 5 value: " + message);
+                numberPicker5 = String.valueOf(message);
+                Log.d(TAG, "Number Picker 5 value: " + message + rupee5);
             }
         });
-        numberPickerSix.setValueChangedListener(new ValueChangedListener() {
+        proceed.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void valueChanged(int value, ActionEnum action) {
-                int message = value;
-                Log.d(TAG, "Number Picker 6 value: " + message);
+            public void onClick(View v) {
+                final Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
+                if (rupees_one.getText().toString().isEmpty() || rupees_two.getText().toString().isEmpty() || rupees_three.getText().toString().isEmpty()
+                        || rupees_four.getText().toString().isEmpty() || rupees_five.getText().toString().isEmpty()) {
+                    if (rupees_one.getText().toString().isEmpty() && rupees_two.getText().toString().isEmpty() && rupees_three.getText().toString().isEmpty()
+                            && rupees_four.getText().toString().isEmpty() && rupees_five.getText().toString().isEmpty()) {
+                        layout_price.startAnimation(animShake);
+                        layout_price_2.startAnimation(animShake);
+                        layout_price_3.startAnimation(animShake);
+                        layout_price_4.startAnimation(animShake);
+                        layout_price_5.startAnimation(animShake);
+                    } else if (rupees_one.getText().toString().isEmpty()) {
+                        layout_price.startAnimation(animShake);
+                    } else if (rupees_two.getText().toString().isEmpty()) {
+                        layout_price_2.startAnimation(animShake);
+                    } else if (rupees_three.getText().toString().isEmpty()) {
+                        layout_price_3.startAnimation(animShake);
+                    } else if (rupees_four.getText().toString().isEmpty()) {
+                        layout_price_4.startAnimation(animShake);
+                    } else if (rupees_five.getText().toString().isEmpty()) {
+                        layout_price_5.startAnimation(animShake);
+                    }
+                } else {
+
+                    Intent manageSystem = new Intent(getActivity(), ManageSystem.class);
+                    manageSystem.putParcelableArrayListExtra("markerList", markerList);
+                    manageSystem.putExtra("areaNumber", areaNumber);
+                    manageSystem.putExtra("area_Name", area_Name);
+                    manageSystem.putExtra("adminMobile", adminMobile);
+                    manageSystem.putExtra("numberPicker1", numberPicker1);
+                    manageSystem.putExtra("rupee1", rupee1);
+                    manageSystem.putExtra("numberPicker2", numberPicker2);
+                    manageSystem.putExtra("rupee2", rupee2);
+                    manageSystem.putExtra("numberPicker3", numberPicker3);
+                    manageSystem.putExtra("rupee3", rupee3);
+                    manageSystem.putExtra("numberPicker4", numberPicker4);
+                    manageSystem.putExtra("rupee4", rupee4);
+                    manageSystem.putExtra("numberPicker5", numberPicker5);
+                    manageSystem.putExtra("rupee5", rupee5);
+                    startActivity(manageSystem);
+                }
             }
         });
-        numberPickerSeven.setValueChangedListener(new ValueChangedListener() {
-            @Override
-            public void valueChanged(int value, ActionEnum action) {
-                int message = value;
-                Log.d(TAG, "Number Picker 7 value: " + message);
-            }
-        });
-        numberPickerEight.setValueChangedListener(new ValueChangedListener() {
-            @Override
-            public void valueChanged(int value, ActionEnum action) {
-                int message = value;
-                Log.d(TAG, "Number Picker 8 value: " + message);
-            }
-        });
+
         return rootView;
     }
 }
