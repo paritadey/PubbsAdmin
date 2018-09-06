@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -48,6 +49,9 @@ import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +59,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AddStationInMap extends AppCompatActivity implements View.OnClickListener,
-        OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
+        OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener, AsyncResponse {
     private String areaName, areaId, areaLatLng;
     private String TAG = AddStationInMap.class.getSimpleName();
     ImageView backButton;
@@ -84,6 +88,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     ArrayList<LatLng> coordinates = new ArrayList<LatLng>();
     double lat_one, lng_one, lat_two, lng_two, lat_three, lng_three, lat_four, lng_four, lat_five, lng_five, lat_six, lng_six;
     String l1, l2, l3, l4, l5, l6;
+    String stationid;
     double station_latitude, station_longitude;
 
     @Override
@@ -305,13 +310,13 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onMapClick(LatLng latLng) {
                 selectStationDialog();
-                String stationName = generateStation();
+                stationid = generateStation();
                 BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.station);
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
                 markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                 markerOptions.icon(icon);
-                markerOptions.snippet(stationName);
+                markerOptions.snippet(stationid);
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.addMarker(markerOptions);
                 Log.d(TAG, "Station added");
@@ -532,14 +537,32 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
             case R.id.proceed_btn:
+                sendData(adminMobile, areaName, areaId, stationid, stationName, station_latitude, station_longitude);
                 break;
             default:
                 break;
         }
     }
-    public void sendData(String adminMobile, String areaName, String areaId, String stationName, double station_latitude, double station_longitude){
+
+    public void sendData(String adminMobile, String areaName, String areaId,
+                         String stationid, String stationName, double station_latitude, double station_longitude) {
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("method", "addnewstation");
+            jo.put("adminmobile", adminMobile);
+            jo.put("area_name", areaName);
+            jo.put("area_id", areaId);
+            jo.put("station_id", stationid);
+            jo.put("station_name", stationName);
+            jo.put("station_latitude", station_latitude);
+            jo.put("station_longitude", station_longitude);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new SendRequest(getResources().getString(R.string.url), jo, AddStationInMap.this, getApplicationContext()).executeJsonRequest();
 
     }
+
     public void showAreaAddedDialog() {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -547,7 +570,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.station_added_dialog, null);
         final TextView areaAdd = (TextView) dialogView.findViewById(R.id.area_add_tv);
-        final Button ok = (Button)dialogView.findViewById(R.id.ok_btn);
+        final Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
         ok.setTypeface(type2);
         areaAdd.setTypeface(type1);
         ok.setOnClickListener(new View.OnClickListener() {
@@ -560,6 +583,57 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
 
             }
         });
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+        dialogBuilder.setCancelable(false);
+    }
+
+    @Override
+    public void onResponse(JSONObject jsonObject) {
+        if (jsonObject.has("method")) {
+            try {
+                if (jsonObject.getString("method").equals("addnewstation") && jsonObject.getBoolean("success")) {
+                    showAreaAddedDialog();
+                } else {
+                    Toast.makeText(getApplicationContext(), "couldn't save try again later", Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onResponseError(VolleyError error) {
+        showDialog("Server Error !");
+    }
+
+    private void showDialog(String message) {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+
+        final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
+        extraLine.setTypeface(type1);
+        serverProblem.setTypeface(type1);
+        serverProblem.setText(message);
+        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+                Intent intent = new Intent(AddStationInMap.this, DashBoardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+            }
+        });
+
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
         dialogBuilder.setCancelable(false);
