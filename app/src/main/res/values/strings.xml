@@ -108,4 +108,8 @@
     <string name="opening_hour">Opening Hour </string>
     <string name="closing_hour">Closing Hour </string>
     <string name="geofencing_fine">Geofencing Fine</string>
+    <string name="add_new_station">Add New Station</string>
+    <string name="add_station">Add station to area</string>
+    <string name="title_activity_add_new_station_map">Map</string>
+    <string name="station_add">Select Station</string>
 </resources>

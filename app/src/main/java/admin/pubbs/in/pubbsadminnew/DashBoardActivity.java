@@ -141,7 +141,7 @@ public class DashBoardActivity extends AppCompatActivity
         } else if (id == R.id.add_area) {
             startActivity(new Intent(DashBoardActivity.this, AddNewArea.class));
         } else if(id == R.id.add_station){
-
+            startActivity(new Intent(DashBoardActivity.this, AddNewStation.class));
         }
         else if (id == R.id.edit_station) {
 

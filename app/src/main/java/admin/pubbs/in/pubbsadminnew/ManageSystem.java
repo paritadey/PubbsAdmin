@@ -329,7 +329,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.cycle_added_dialog, null);
+        View dialogView = inflater.inflate(R.layout.area_added_dialog, null);
         final TextView areaAdd = (TextView) dialogView.findViewById(R.id.area_add_tv);
         final Button ok = (Button)dialogView.findViewById(R.id.ok_btn);
         ok.setTypeface(type2);

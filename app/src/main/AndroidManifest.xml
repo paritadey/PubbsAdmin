@@ -27,7 +27,8 @@
         <activity
             android:name=".AddNewArea"
             android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar" />
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".SignInUp"
             android:label="@string/title_activity_sign_in_up"
@@ -60,7 +61,7 @@
             android:name=".RateChart"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ManageSystem"
             android:screenOrientation="portrait"
@@ -84,7 +85,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
         <activity android:name=".EditStation" />
-        <activity android:name=".AddNewStation" />
+        <activity
+            android:name=".AddNewStation"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".AddNewBicycle"
             android:screenOrientation="portrait"
@@ -98,9 +103,15 @@
             android:name=".AddBicycleQRActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
-        <activity android:name=".RemoveBicycle"
+        <activity
+            android:name=".RemoveBicycle"
             android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar"></activity>
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".AddStationInMap"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>
