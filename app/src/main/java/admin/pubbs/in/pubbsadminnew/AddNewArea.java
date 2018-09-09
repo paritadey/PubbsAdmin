@@ -91,6 +91,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_add_new_area);
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminMobile = sharedPreferences.getString("adminmobile",null);
+        Log.d(TAG, "Admin Mobile:"+adminMobile);
         selectArea = findViewById(R.id.selectArea);
         getLocationPermission();
         setUpToolbar();
@@ -100,7 +101,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
         upArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new BottomSheetFragment().show(getSupportFragmentManager(), "dialog");
+                new BottomSheetAreaFragment().show(getSupportFragmentManager(), "dialog");
 
             }
         });

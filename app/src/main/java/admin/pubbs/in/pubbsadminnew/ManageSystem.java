@@ -168,7 +168,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.up_arrow:
-                new BottomSheetFragment().show(getSupportFragmentManager(), "dialog");
+                new BottomSheetManageSystemFragment().show(getSupportFragmentManager(), "dialog");
                 break;
             case R.id.back_button:
                 Log.d(TAG, "Back button pressed");

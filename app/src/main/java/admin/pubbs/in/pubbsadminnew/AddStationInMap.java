@@ -90,6 +90,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     String l1, l2, l3, l4, l5, l6;
     String stationid;
     double station_latitude, station_longitude;
+    String stationLatitude, stationLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +104,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         GetPolygonPoints(areaLatLng);
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminMobile = sharedPreferences.getString("adminmobile", null);
+        Log.d(TAG,"Admin Mobile"+ adminMobile);
         selectArea = findViewById(R.id.selectArea);
         getLocationPermission();
         setUpToolbar();
@@ -112,7 +114,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         upArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new BottomSheetFragment().show(getSupportFragmentManager(), "dialog");
+                new BottomSheetAreaFragment().show(getSupportFragmentManager(), "dialog");
 
             }
         });
@@ -321,7 +323,9 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
                 mMap.addMarker(markerOptions);
                 Log.d(TAG, "Station added");
                 station_latitude = latLng.latitude;
+                //stationLatitude = String.valueOf(station_latitude);
                 station_longitude = latLng.longitude;
+                //stationLongitude = String.valueOf(station_longitude);
                 procced.setVisibility(View.VISIBLE);
 
             }
@@ -537,33 +541,36 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
             case R.id.proceed_btn:
-                sendData(adminMobile, areaName, areaId, stationid, stationName, station_latitude, station_longitude);
+                sendData(stationid, station_name, station_latitude, station_longitude,adminMobile, areaName, areaId);
                 break;
             default:
                 break;
         }
     }
 
-    public void sendData(String adminMobile, String areaName, String areaId,
-                         String stationid, String stationName, double station_latitude, double station_longitude) {
+    private void sendData(String station_id, String station_name, double station_latitude, double station_longitude,
+                          String adminmobile, String area_name, String area_id) {
+        Log.d(TAG, "Station Details:"+station_id+"-"+station_name+"-"+station_latitude+
+                "-"+station_longitude+"-"+adminmobile+"-"+area_name+"-"+area_id);
         JSONObject jo = new JSONObject();
         try {
-            jo.put("method", "addnewstation");
-            jo.put("adminmobile", adminMobile);
-            jo.put("area_name", areaName);
-            jo.put("area_id", areaId);
-            jo.put("station_id", stationid);
-            jo.put("station_name", stationName);
+            jo.put("method", "station");
+            jo.put("station_id", station_id);
+            jo.put("station_name", station_name);
             jo.put("station_latitude", station_latitude);
             jo.put("station_longitude", station_longitude);
+            jo.put("adminmobile", adminmobile);
+            jo.put("area_name", area_name);
+            jo.put("area_id", area_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         new SendRequest(getResources().getString(R.string.url), jo, AddStationInMap.this, getApplicationContext()).executeJsonRequest();
 
     }
+//php side is not configured yet
 
-    public void showAreaAddedDialog() {
+    public void showStationAddedDialog() {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
@@ -592,8 +599,8 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     public void onResponse(JSONObject jsonObject) {
         if (jsonObject.has("method")) {
             try {
-                if (jsonObject.getString("method").equals("addnewstation") && jsonObject.getBoolean("success")) {
-                    showAreaAddedDialog();
+                if (jsonObject.getString("method").equals("station") && jsonObject.getBoolean("success")) {
+                    showStationAddedDialog();
                 } else {
                     Toast.makeText(getApplicationContext(), "couldn't save try again later", Toast.LENGTH_SHORT).show();
                 }

@@ -25,7 +25,7 @@
                     android:paddingBottom="@dimen/eight_dp"
                     android:paddingStart="@dimen/sixteen_dp"
                     android:paddingTop="@dimen/sixteen_dp"
-                    android:text="@string/select_area_description"
+                    android:text="@string/select_bicycle"
                     android:textColor="@color/white"
                     android:textSize="@dimen/fourteen_sp" />
 
@@ -37,7 +37,7 @@
                     android:paddingBottom="@dimen/eight_dp"
                     android:paddingStart="@dimen/sixteen_dp"
                     android:paddingTop="@dimen/eight_dp"
-                    android:text="@string/description"
+                    android:text="@string/add_new_bicycle_message"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/fourteen_sp" />
             </RelativeLayout>
@@ -52,14 +52,14 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/area_now"
+            android:id="@+id/bicycle_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/twenty_four_dp"
             android:paddingTop="@dimen/eight_dp"
-            android:text="@string/area"
+            android:text="@string/bicycle"
             android:textAlignment="center"
             android:textColor="@color/grey_500"
             android:textSize="@dimen/fourteen_sp" />

@@ -112,4 +112,27 @@
     <string name="add_station">Add station to area</string>
     <string name="title_activity_add_new_station_map">Map</string>
     <string name="station_add">Select Station</string>
+    <string name="add_new_bicycle_message">To add a new bicycle click "Add Now"  button. \n Scan the QR code and enter the
+        Bicycle ID</string>
+    <string name="add_new_area_message">To add new area, Admin can choose any area by writting the name of the place in the search bar. \n
+    Admin has to choose six coordinates/points in the map of her/his choice. \n
+    A pop-up window will open to set the name of the area. \n
+    Hit OK button and then Proceed button to move forward. \n
+    Set all the timeslabs as well as price for rate chart and press Proceed.\n
+    To create an area of his/her choice, Admin should set the Maximum ride time, Maximum cycle hold time,
+        Minimum amount of money present in the wallet, Opening hour and Closing hour of the service and Geo-Fencing fine\n
+        and then hit Proceed button and Area will be added to the database.
+    </string>
+    <string name="manage_system_message">To create an area of his/her choice, Admin should set the Maximum ride time, Maximum cycle hold time,
+        Minimum amount of money present in the wallet, Opening hour and Closing hour of the service and Geo-Fencing fine\n
+        and then hit Proceed button and Area will be added to the database.
+   </string>
+    <string name="rate_chart_time_message">To set the rate of Bicycle, Admin should set the Timeslabs as well as the Price.\n
+    Admin has to change the custom time number picker and corrosponding price.</string>
+    <string name="select_bicycle">How do you add new bicycle ?</string>
+    <string name="bicycle">Add new bicycle now.</string>
+    <string name="rate_chart_time">How do you set Rate chart on basis of Time ?</string>
+    <string name="rate">Add Rate chart timeslabs and price now.</string>
+    <string name="manage">How do you Manage your area/system ?</string>
+    <string name="system">Add all the constraints for the area.</string>
 </resources>

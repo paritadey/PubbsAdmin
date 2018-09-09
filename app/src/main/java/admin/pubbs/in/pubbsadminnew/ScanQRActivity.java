@@ -92,7 +92,7 @@ public class ScanQRActivity extends AppCompatActivity implements ZXingScannerVie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.up_arrow:
-                new BottomSheetFragment().show(getSupportFragmentManager(), "dialog");
+                new BottomSheetAreaFragment().show(getSupportFragmentManager(), "dialog");
                 break;
             case R.id.back_button:
                 Log.d(TAG, "Back button pressed");

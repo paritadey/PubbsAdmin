@@ -50,7 +50,7 @@ public class AddBicycle extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.up_arrow:
-                new BottomSheetFragment().show(getSupportFragmentManager(), "dialog");
+                new BottomSheetAddNewBicycleFragment().show(getSupportFragmentManager(), "dialog");
                 break;
             case R.id.back_button:
                 Intent intent = new Intent(AddBicycle.this, AddNewBicycle.class);

@@ -60,7 +60,7 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
         upArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new BottomSheetFragment().show(getSupportFragmentManager(), "dialog");
+                new BottomSheetRateChartTimeFragment().show(getSupportFragmentManager(), "dialog");
 
             }
         });

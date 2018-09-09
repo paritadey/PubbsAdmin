@@ -16,9 +16,9 @@ import java.util.List;
 
 public class AddNewStationAdpater extends RecyclerView.Adapter<AddNewStationAdpater.MyViewHolder> {
     private List<AreaList> areaLists;
-    String latlon;
+    //String latlon;
     Context mContext;
-    String areaLatLang, areaname, areaid;
+    //String areaLatLang, areaname, areaid;
     private String TAG = AddNewStationAdpater.class.getSimpleName();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -57,18 +57,18 @@ public class AddNewStationAdpater extends RecyclerView.Adapter<AddNewStationAdpa
         holder.areaName.setText(areaList.getAreaName());
         holder.areaId.setText(areaList.getAreaId());
         holder.areaLatLon.setText(areaList.getAreaLatLon());
-        areaname = holder.areaName.getText().toString();
-        areaid = holder.areaId.getText().toString();
-        latlon = holder.areaLatLon.getText().toString();
+        String areaname =areaList.getAreaName(); //holder.areaName.getText().toString();
+        String areaid = areaList.getAreaId();//holder.areaId.getText().toString();
+        String latlon = areaList.getAreaLatLon();//holder.areaLatLon.getText().toString();
         Log.d(TAG, "LatLong:" + latlon);
-        areaLatLang = Arrays.toString(latlon.split("lat/lng:"));
+        String areaLatLang = Arrays.toString(latlon.split("lat/lng:"));
         Log.d(TAG, "Array of latlng:" + areaLatLang);
         holder.areaLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddStationInMap.class);
-                intent.putExtra("area_name", areaname);
-                intent.putExtra("area_id", areaid);
+                intent.putExtra("area_name", areaid);
+                intent.putExtra("area_id", areaname);
                 intent.putExtra("latlon", areaLatLang);
                 v.getContext().startActivity(intent);
             }
