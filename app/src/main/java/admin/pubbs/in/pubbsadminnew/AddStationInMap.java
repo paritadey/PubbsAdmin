@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -31,7 +33,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.VolleyError;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -49,17 +50,15 @@ import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AddStationInMap extends AppCompatActivity implements View.OnClickListener,
-        OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener, AsyncResponse {
+        OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
     private String areaName, areaId, areaLatLng;
     private String TAG = AddStationInMap.class.getSimpleName();
     ImageView backButton;
@@ -90,7 +89,13 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     String l1, l2, l3, l4, l5, l6;
     String stationid;
     double station_latitude, station_longitude;
+    String finalResult;
+    ProgressDialog progressDialog;
+    String UserUrl = "http://pubbs.in/api/1.0/AdminStation.php";
+    HashMap<String, String> hashMap = new HashMap<>();
+    HttpParse httpParse = new HttpParse();
     String stationLatitude, stationLongitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +109,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         GetPolygonPoints(areaLatLng);
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminMobile = sharedPreferences.getString("adminmobile", null);
-        Log.d(TAG,"Admin Mobile"+ adminMobile);
+        Log.d(TAG, "Admin Mobile" + adminMobile);
         selectArea = findViewById(R.id.selectArea);
         getLocationPermission();
         setUpToolbar();
@@ -323,9 +328,9 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
                 mMap.addMarker(markerOptions);
                 Log.d(TAG, "Station added");
                 station_latitude = latLng.latitude;
-                //stationLatitude = String.valueOf(station_latitude);
+                stationLatitude = String.valueOf(station_latitude);
                 station_longitude = latLng.longitude;
-                //stationLongitude = String.valueOf(station_longitude);
+                stationLongitude = String.valueOf(station_longitude);
                 procced.setVisibility(View.VISIBLE);
 
             }
@@ -541,34 +546,40 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
             case R.id.proceed_btn:
-                sendData(stationid, station_name, station_latitude, station_longitude,adminMobile, areaName, areaId);
+                SendBicycleData(stationid, station_name, stationLatitude, stationLongitude, adminMobile, areaName, areaId);
                 break;
             default:
                 break;
         }
     }
 
-    private void sendData(String station_id, String station_name, double station_latitude, double station_longitude,
-                          String adminmobile, String area_name, String area_id) {
-        Log.d(TAG, "Station Details:"+station_id+"-"+station_name+"-"+station_latitude+
-                "-"+station_longitude+"-"+adminmobile+"-"+area_name+"-"+area_id);
-        JSONObject jo = new JSONObject();
-        try {
-            jo.put("method", "station");
-            jo.put("station_id", station_id);
-            jo.put("station_name", station_name);
-            jo.put("station_latitude", station_latitude);
-            jo.put("station_longitude", station_longitude);
-            jo.put("adminmobile", adminmobile);
-            jo.put("area_name", area_name);
-            jo.put("area_id", area_id);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        new SendRequest(getResources().getString(R.string.url), jo, AddStationInMap.this, getApplicationContext()).executeJsonRequest();
+    public void SendBicycleData(final String station_id, final String station_name, final String station_latitude, final String station_longitude,
+                                final String adminmobile, final String area_name, final String area_id) {
 
+        class AddNewStation extends AsyncTask<String, Void, String> {
+            @Override
+            protected void onPostExecute(String httpResponseMsg) {
+                super.onPostExecute(httpResponseMsg);
+                showDialog(httpResponseMsg.toString());
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                hashMap.put("station_id", params[0]);
+                hashMap.put("station_name", params[1]);
+                hashMap.put("station_latitude", params[2]);
+                hashMap.put("station_longitude", params[3]);
+                hashMap.put("adminmobile", params[4]);
+                hashMap.put("area_name", params[5]);
+                hashMap.put("area_id", params[6]);
+                finalResult = httpParse.postRequest(hashMap, UserUrl);
+                return finalResult;
+            }
+        }
+        AddNewStation addNewStation = new AddNewStation();
+        addNewStation.execute(station_id, station_name, station_latitude, station_longitude, adminmobile, area_name, area_id);
     }
-//php side is not configured yet
 
     public void showStationAddedDialog() {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
@@ -595,25 +606,6 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         dialogBuilder.setCancelable(false);
     }
 
-    @Override
-    public void onResponse(JSONObject jsonObject) {
-        if (jsonObject.has("method")) {
-            try {
-                if (jsonObject.getString("method").equals("station") && jsonObject.getBoolean("success")) {
-                    showStationAddedDialog();
-                } else {
-                    Toast.makeText(getApplicationContext(), "couldn't save try again later", Toast.LENGTH_SHORT).show();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
-    public void onResponseError(VolleyError error) {
-        showDialog("Server Error !");
-    }
 
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
