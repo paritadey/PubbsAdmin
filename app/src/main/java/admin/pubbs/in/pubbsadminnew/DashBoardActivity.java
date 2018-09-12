@@ -146,7 +146,7 @@ public class DashBoardActivity extends AppCompatActivity
         else if (id == R.id.edit_station) {
 
         } else if (id == R.id.delete_station) {
-
+            startActivity(new Intent(DashBoardActivity.this, DeleteStation.class));
         } else if (id == R.id.service) {
 
         } else if (id == R.id.manage_operator) {

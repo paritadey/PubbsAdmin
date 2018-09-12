@@ -28,7 +28,7 @@
             android:name=".AddNewArea"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".SignInUp"
             android:label="@string/title_activity_sign_in_up"
@@ -108,10 +108,19 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".AddStationInMap"
+        <activity
+            android:name=".AddStationInMap"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".DeleteStation"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".DeleteSingleStation"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"></activity>
     </application>
 
 </manifest>

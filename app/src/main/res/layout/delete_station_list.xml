@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/deleteStationLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/eight_dp">
+
+    <ImageView
+        android:id="@+id/station"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/twenty_four_dp"
+        android:layout_marginTop="@dimen/twenty_four_dp"
+        app:srcCompat="@drawable/ic_station" />
+
+    <TextView
+        android:id="@+id/stationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/thirty_dp"
+        android:layout_marginTop="@dimen/twenty_four_dp"
+        android:layout_toRightOf="@id/station"
+        android:padding="@dimen/two_dp"
+        android:text="Station Name"
+        android:textColor="@color/color_black_01"
+        android:textSize="@dimen/sixteen_sp" />
+
+    <TextView
+        android:id="@+id/stationId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/stationName"
+        android:layout_marginBottom="@dimen/eight_dp"
+        android:layout_marginStart="@dimen/thirty_dp"
+        android:layout_marginTop="@dimen/two_dp"
+        android:layout_toRightOf="@id/station"
+        android:padding="@dimen/two_dp"
+        android:text="Station_id"
+        android:textColor="@color/color_grey_01"
+        android:textSize="@dimen/fourteen_sp" />
+
+    <TextView
+        android:id="@+id/area_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/area_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+</RelativeLayout>

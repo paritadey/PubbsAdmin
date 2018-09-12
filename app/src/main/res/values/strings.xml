@@ -135,4 +135,7 @@
     <string name="rate">Add Rate chart timeslabs and price now.</string>
     <string name="manage">How do you Manage your area/system ?</string>
     <string name="system">Add all the constraints for the area.</string>
+    <string name="stations">Stations</string>
+    <string name="delete_station">Delete station from area</string>
+    <string name="delete_sta">delete the station from area !!!</string>
 </resources>
