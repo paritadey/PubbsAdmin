@@ -50,8 +50,8 @@
                     android:backgroundTint="@color/white"
                     android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/fourteen_sp"
-                    android:textCursorDrawable="@drawable/custom_cursor"/>
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -64,7 +64,7 @@
                 android:background="@drawable/edittext_bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_fullname">
+                app:layout_constraintTop_toBottomOf="@+id/layout_fullname">
 
                 <TextView
                     android:id="@+id/mobile_tv"
@@ -87,8 +87,8 @@
                     android:maxLength="10"
                     android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/fourteen_sp"
-                    android:textCursorDrawable="@drawable/custom_cursor"/>
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
 
             </RelativeLayout>
 
@@ -123,8 +123,8 @@
                     android:backgroundTint="@color/white"
                     android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/fourteen_sp"
-                    android:textCursorDrawable="@drawable/custom_cursor"/>
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
 
             </RelativeLayout>
 
@@ -159,8 +159,8 @@
                     android:backgroundTint="@color/white"
                     android:singleLine="false"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/fourteen_sp"
-                    android:textCursorDrawable="@drawable/custom_cursor"/>
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp" />
 
             </RelativeLayout>
 
@@ -196,8 +196,8 @@
                     android:password="true"
                     android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/eleven_sp"
-                    android:textCursorDrawable="@drawable/custom_cursor"/>
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/eleven_sp" />
 
             </RelativeLayout>
 
@@ -221,7 +221,7 @@
                     android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginTop="@dimen/tweleve_dp"
                     android:text="@string/confirm_password"
-                    android:textColor="@color/grey_400"/>
+                    android:textColor="@color/grey_400" />
 
                 <EditText
                     android:id="@+id/confirm_password"
@@ -233,10 +233,21 @@
                     android:password="true"
                     android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/eleven_sp"
-                    android:textCursorDrawable="@drawable/custom_cursor"/>
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/eleven_sp" />
 
             </RelativeLayout>
+
+            <Spinner
+                android:id="@+id/choice"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
+                android:layout_marginTop="@dimen/sixteen_dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_confirm_password" />
 
             <Button
                 android:id="@+id/otp_btn"
@@ -250,7 +261,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/fourteen_sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_confirm_password" />
+                app:layout_constraintTop_toBottomOf="@id/choice" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

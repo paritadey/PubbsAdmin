@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/constraintLayout"
+    tools:context=".AddOperatorArea">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/toolbar_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/twenty_four_dp">
+
+                <TextView
+                    android:id="@+id/add_operator_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/add_operator"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:id="@+id/back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eight_dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/ic_arrow_back_24dp" />
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/fifty_dp"
+                    android:paddingBottom="@dimen/twenty_four_dp">
+
+                    <RelativeLayout
+                        android:id="@+id/layout_fullname"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="@dimen/twenty_four_dp"
+                        android:layout_marginStart="@dimen/twenty_four_dp"
+                        android:layout_marginTop="@dimen/sixty_four_dp"
+                        android:background="@drawable/edittext_bg"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/fullname_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/tweleve_dp"
+                            android:text="@string/fullname_tv"
+                            android:textColor="@color/grey_400" />
+
+                        <EditText
+                            android:id="@+id/fullname"
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/two_dp"
+                            android:backgroundTint="@color/white"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@drawable/custom_cursor"
+                            android:textSize="@dimen/fourteen_sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layout_mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="@dimen/twenty_four_dp"
+                        android:layout_marginStart="@dimen/twenty_four_dp"
+                        android:layout_marginTop="@dimen/sixteen_dp"
+                        android:background="@drawable/edittext_bg"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/layout_fullname">
+
+                        <TextView
+                            android:id="@+id/mobile_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/tweleve_dp"
+                            android:text="@string/mobile_tv"
+                            android:textColor="@color/grey_400" />
+
+                        <EditText
+                            android:id="@+id/mobile"
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/two_dp"
+                            android:backgroundTint="@color/white"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@drawable/custom_cursor"
+                            android:textSize="@dimen/fourteen_sp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layout_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="@dimen/twenty_four_dp"
+                        android:layout_marginStart="@dimen/twenty_four_dp"
+                        android:layout_marginTop="@dimen/sixteen_dp"
+                        android:background="@drawable/edittext_bg"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_mobile">
+
+                        <TextView
+                            android:id="@+id/email_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/tweleve_dp"
+                            android:text="@string/email_tv"
+                            android:textColor="@color/grey_400" />
+
+                        <EditText
+                            android:id="@+id/email"
+                            android:layout_width="240dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/two_dp"
+                            android:backgroundTint="@color/white"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@drawable/custom_cursor"
+                            android:textSize="@dimen/fourteen_sp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layout_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="@dimen/twenty_four_dp"
+                        android:layout_marginStart="@dimen/twenty_four_dp"
+                        android:layout_marginTop="@dimen/sixteen_dp"
+                        android:background="@drawable/edittext_bg"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_email">
+
+                        <TextView
+                            android:id="@+id/address_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/tweleve_dp"
+                            android:text="@string/address"
+                            android:textColor="@color/grey_400" />
+
+                        <EditText
+                            android:id="@+id/address"
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/two_dp"
+                            android:backgroundTint="@color/white"
+                            android:singleLine="false"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@drawable/custom_cursor"
+                            android:textSize="@dimen/fourteen_sp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layout_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="@dimen/twenty_four_dp"
+                        android:layout_marginStart="@dimen/twenty_four_dp"
+                        android:layout_marginTop="@dimen/sixteen_dp"
+                        android:background="@drawable/edittext_bg"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_address">
+
+                        <TextView
+                            android:id="@+id/password_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/tweleve_dp"
+                            android:text="@string/password_tv"
+                            android:textColor="@color/grey_400" />
+
+                        <EditText
+                            android:id="@+id/password"
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/two_dp"
+                            android:backgroundTint="@color/white"
+                            android:password="true"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@drawable/custom_cursor"
+                            android:textSize="@dimen/eleven_sp" />
+
+                    </RelativeLayout>
+
+                    <Spinner
+                        android:id="@+id/choice"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="@dimen/twenty_four_dp"
+                        android:layout_marginStart="@dimen/twenty_four_dp"
+                        android:layout_marginTop="@dimen/sixteen_dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_password"/>
+
+                    <Button
+                        android:id="@+id/add_operator"
+                        android:layout_width="@dimen/one_fifty_dp"
+                        android:layout_height="@dimen/thirty_six_dp"
+                        android:layout_marginEnd="@dimen/twenty_four_dp"
+                        android:layout_marginTop="@dimen/twenty_four_dp"
+                        android:background="@drawable/button_bg"
+                        android:text="@string/add_op"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/fourteen_sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/choice" />
+
+                </android.support.constraint.ConstraintLayout>
+            </ScrollView>
+        </android.support.constraint.ConstraintLayout>
+    </FrameLayout>
+</android.support.constraint.ConstraintLayout>

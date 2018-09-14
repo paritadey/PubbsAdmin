@@ -1,6 +1,8 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,16 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
 /*created by Parita Dey*/
 
-public class SignUp extends Fragment{
+public class SignUp extends Fragment implements AdapterView.OnItemSelectedListener {
 
     EditText fullname, phone, address, email, password, confirmPassword;
     Button getOtp;
@@ -34,6 +39,9 @@ public class SignUp extends Fragment{
     HttpParse httpParse = new HttpParse();
     private String adminFullName, adminPhoneNumber, adminEmail, adminAddress, adminPassword;
     private final String TAG = SignUp.class.getSimpleName();
+    Spinner choice;
+    private static final String[] operator = {"Select Operator", "Sub Admin", "Employee"};
+    String operator_type;
 
     public SignUp() {
     }
@@ -50,6 +58,14 @@ public class SignUp extends Fragment{
         Typeface type1 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        choice = rootView.findViewById(R.id.choice);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, operator);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        choice.setAdapter(adapter);
+        choice.setOnItemSelectedListener(this);
 
         layoutFullname = rootView.findViewById(R.id.layout_fullname);
         layoutMobile = rootView.findViewById(R.id.layout_mobile);
@@ -153,30 +169,63 @@ public class SignUp extends Fragment{
                     }
                 } else {
                     if (confirmPassword.getText().toString().trim().equals(password.getText().toString().trim())) {
-                        View view_layout = rootView.findViewById(R.id.constraintLayout);
-                        String message = "Password matches !!!";
-                        int duration = Snackbar.LENGTH_SHORT;
-                        showSnackbar(view_layout, message, duration);
-                        adminFullName = fullname.getText().toString().trim();
-                        adminPhoneNumber = phone.getText().toString().trim();
-                        adminAddress = address.getText().toString().trim();
-                        adminEmail = email.getText().toString().trim();
-                        adminPassword = password.getText().toString().trim();
+                        if (operator_type.equals("Select Operator") || operator_type.equals("Sub Admin") || operator_type.equals("Employee")) {
+                            showDialog("You are not eligible to Sign Up !!! Please Sign In.");
+                        } else {
+                            View view_layout = rootView.findViewById(R.id.constraintLayout);
+                            String message = "Password matches !!!";
+                            int duration = Snackbar.LENGTH_SHORT;
+                            showSnackbar(view_layout, message, duration);
+                            adminFullName = fullname.getText().toString().trim();
+                            adminPhoneNumber = phone.getText().toString().trim();
+                            adminAddress = address.getText().toString().trim();
+                            adminEmail = email.getText().toString().trim();
+                            adminPassword = password.getText().toString().trim();
 
-                        Log.d(TAG, "Admin details: " + adminFullName + "--" + adminEmail + "--" +
-                                adminPhoneNumber + "--" + adminAddress + "--" + adminPassword);
-                        AdminRegisterFunction(adminFullName, adminEmail, adminPhoneNumber, adminAddress, adminPassword);
+                            Log.d(TAG, "Admin details: " + adminFullName + "--" + adminEmail + "--" +
+                                    adminPhoneNumber + "--" + adminAddress + "--" + adminPassword);
+                            AdminRegisterFunction(adminFullName, adminEmail, adminPhoneNumber, adminAddress, adminPassword);
                         /*final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             public void run() {
                                 startActivity(new Intent(getActivity(), OtpActivity.class));
                             }
                         }, 3000);*/
+                        }
                     }
                 }
             }
         });
         return rootView;
+    }
+    private void showDialog(String message) {
+        Typeface type1 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(getContext()).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+
+        final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
+        extraLine.setTypeface(type1);
+        serverProblem.setTypeface(type1);
+        serverProblem.setText(message);
+        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+                Intent intent = new Intent(getContext(), DashBoardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+        dialogBuilder.setCancelable(false);
     }
 
     public void showSnackbar(View view, String message, int duration) {
@@ -227,4 +276,28 @@ public class SignUp extends Fragment{
         adminRegisterFunctionClass.execute(admin_fullname, admin_email, admin_mobile, admin_address, admin_password);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (position) {
+            case 0:
+                final Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
+                choice.startAnimation(animShake);
+                int duration = Snackbar.LENGTH_SHORT;
+                showSnackbar(view, "Choose Your Option", duration);
+                break;
+            case 1:
+                operator_type = choice.getSelectedItem().toString();
+                Log.d(TAG, "Option:" + operator_type);
+                break;
+            case 2:
+                operator_type = choice.getSelectedItem().toString();
+                Log.d(TAG, "Option:" + operator_type);
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

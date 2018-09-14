@@ -150,7 +150,7 @@ public class DashBoardActivity extends AppCompatActivity
         } else if (id == R.id.service) {
 
         } else if (id == R.id.manage_operator) {
-
+            startActivity(new Intent(DashBoardActivity.this, ManageOperator.class));
         } else if (id == R.id.contact_super_admin) {
 
         }

@@ -242,6 +242,43 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
         }
         Log.d(TAG, "Selected area details:" + areaNumber);
         Log.d(TAG, "Admin mobile:" + adminMobile);
+        showDistance(markerList);
+    }
+
+    //distance is in mile
+    public void showDistance(ArrayList<LatLng> list){
+        for(int i=0; i<list.size(); i++){
+            for (int j=i+1; j<list.size(); j++){
+                LatLng A = list.get(i);
+                LatLng B = list.get(j);
+                double toLat=A.latitude;
+                double toLng=A.longitude;
+                double fromLat=B.latitude;
+                double fromLng=B.longitude;;
+                /*int R = 6371; // km
+                double x = (toLng - fromLng) * Math.cos((toLat + fromLat) / 2);
+                double y = (toLat - fromLat);
+                double distance = Math.sqrt(x * x + y * y) * R;*/
+                double theta =fromLng-toLng; //lon1 - lon2;
+                double dist = Math.sin(deg2rad(fromLat))
+                        * Math.sin(deg2rad(toLat))
+                        + Math.cos(deg2rad(fromLat))
+                        * Math.cos(deg2rad(toLat))
+                        * Math.cos(deg2rad(theta));
+                dist = Math.acos(dist);
+                dist = rad2deg(dist);
+                dist = dist * 60 * 1.1515;
+
+                Log.d(TAG, "Distance of A and B:"+dist+"---------cord_one:"+fromLat+"/"+fromLng+"------------cord_two:"+toLat+"/"+toLng);
+                Log.d(TAG, "\t");
+            }
+        }
+    }
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
     }
 
     public void drawPolygon(ArrayList<LatLng> myLatLng) {

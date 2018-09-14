@@ -66,38 +66,6 @@ public class DeleteStationAdpater extends RecyclerView.Adapter<DeleteStationAdpa
                 v.getContext().startActivity(intent);
             }
         });
-        /*holder.delete_station.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder((Activity) v.getContext());
-                alertDialog.setTitle("Delete this item?");
-                alertDialog.setMessage("Are you sure you want to delete this?");
-                alertDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                JSONObject jo1 = new JSONObject();
-                                try {
-                                    jo1.put("method", "deleteStation");
-                                    jo1.put("station_name", station_name);
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                new SendRequest(url, jo1, DeleteStationAdpater.this, mContext)
-                                        .executeJsonRequest();
-                            }
-                        }
-                );
-                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                alertDialog.show();
-            }
-        });*/
     }
 
     @Override

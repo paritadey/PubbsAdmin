@@ -26,29 +26,28 @@ public class SplashScreen extends AppCompatActivity {
     Context context;
     boolean internet;
     TextView appName;
-
+    String adminmobile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         sharedpreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
+        //adminmobile = sharedpreferences.getString("adminmobile",null);
+       // Log.d("SplashScreen.java", adminmobile);
         appName = findViewById(R.id.app_name);
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         appName.setTypeface(type);
         appName.setLetterSpacing(0.1f);
         internet = isConnectingToInternet(context);
-        if (internet == true) {
+        if (internet == true && sharedpreferences.contains("login")) {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    if (sharedpreferences.contains("login")) {
-                        startActivity(new Intent(SplashScreen.this, DashBoardActivity.class));
-                    } else {
-                        startActivity(new Intent(SplashScreen.this, SignInUp.class));
-                    }
+                    startActivity(new Intent(SplashScreen.this, DashBoardActivity.class));
                 }
             }, 4000);
         } else {
+            startActivity(new Intent(SplashScreen.this, SignInUp.class));
             selectAreaDialog("Connection Problem !", "Please connect to the internet.");
         }
 

@@ -138,4 +138,9 @@
     <string name="stations">Stations</string>
     <string name="delete_station">Delete station from area</string>
     <string name="delete_sta">delete the station from area !!!</string>
+    <string name="manage_operator">Manage Operator</string>
+    <string name="add_operator">Add Operator</string>
+    <string name="edit_operator">Edit Operator</string>
+    <string name="delete_operator">Delete Operator</string>
+    <string name="add_op">Add Operator</string>
 </resources>
