@@ -2,12 +2,14 @@
 package admin.pubbs.in.pubbsadminnew;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,12 +25,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.VolleyError;
+import java.util.HashMap;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-public class AddOperatorArea extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, AsyncResponse {
+public class AddOperatorArea extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     ImageView back;
     TextView addOperatorTv;
@@ -41,6 +40,12 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
     Spinner choice;
     private static final String[] operator = {"Select Operator", "Sub Admin", "Employee"};
     String operator_type, full_name, admin_mobile, admin_email, admin_address, admin_password;
+    String finalResult;
+    ProgressDialog progressDialog;
+    String UserUrl = "http://pubbs.in/api/1.0/Operator.php";
+    HashMap<String, String> hashMap = new HashMap<>();
+    HttpParse httpParse = new HttpParse();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,15 +170,15 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
                         int duration = Snackbar.LENGTH_SHORT;
                         showSnackbar(view_layout, message, duration);
                     }
-                }else {
+                } else {
                     full_name = fullname.getText().toString().trim();
                     admin_mobile = phone.getText().toString().trim();
                     admin_address = address.getText().toString().trim();
                     admin_email = email.getText().toString().trim();
                     admin_password = password.getText().toString().trim();
-                    Log.d(TAG, "Operator details:"+areaName+"-"+areaId+"-"+full_name+"-"+admin_mobile+"-"
-                            +admin_address+"-"+admin_email+"-"+admin_password+"-"+operator_type);
-                    createOperator(areaName, areaId, full_name,admin_mobile, admin_email, admin_password,operator_type);
+                    Log.d(TAG, "Operator details:" + areaName + "-" + areaId + "-" + full_name + "-" + admin_mobile + "-"
+                            + admin_address + "-" + admin_email + "-" + admin_password + "-" + operator_type);
+                    Operator(areaName, areaId, full_name, admin_mobile, admin_email, admin_address, admin_password, operator_type);
                 }
                 break;
             case R.id.back_button:
@@ -185,7 +190,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
     }
 
     private void showDialog(String message) {
-        senSms(admin_mobile,admin_password);
+        sendSms(admin_mobile, admin_password);
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
@@ -215,21 +220,26 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
         dialogBuilder.setCancelable(false);
     }
 
-    public void senSms(String adminmobile, String password){
-        String msg = "Your Login id :"+adminmobile+"Password:"+password;
-        Log.d(TAG, "Message: "+msg);
-        try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(adminmobile, null, msg, null, null);
-            Toast.makeText(getApplicationContext(), "Message Sent",
-                    Toast.LENGTH_LONG).show();
-        } catch (Exception ex) {
-            Toast.makeText(getApplicationContext(),ex.getMessage().toString(),
-                    Toast.LENGTH_LONG).show();
-            ex.printStackTrace();
-        }
+    public void sendSms(String adminmobile, String password) {
+        String msg = "Your Login id for PubbsAdmin application :" + adminmobile + "\n" + "Password:" + password;
+        Log.d(TAG, "Message: " + msg);
+        Intent smsIntent = new Intent(Intent.ACTION_VIEW);
 
+        smsIntent.setData(Uri.parse("smsto:"));
+        smsIntent.setType("vnd.android-dir/mms-sms");
+        smsIntent.putExtra("address", new String(adminmobile));
+        smsIntent.putExtra("sms_body", msg);
+
+        try {
+            startActivity(smsIntent);
+            finish();
+            Log.d("Finished sending SMS...", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(AddOperatorArea.this,
+                    "SMS faild, please try again later.", Toast.LENGTH_SHORT).show();
+        }
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
@@ -250,23 +260,53 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public void createOperator(String area_name, String area_id, String fullname, String adminmobile, String email, String password, String admin_type) {
-        JSONObject jo = new JSONObject();
-        try {
-            jo.put("method", "addoperator");
-            jo.put("area_name", area_name);
-            jo.put("area_id", area_id);
-            jo.put("fullname", fullname);
-            jo.put("adminmobile", adminmobile);
-            jo.put("email", email);
-            jo.put("password", password);
-            jo.put("admin_type", admin_type);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public void Operator(final String area_name, final String area_id, final String fullname, final String adminmobile,
+                         final String email, final String address, final String password, final String admin_type) {
+
+        class OperatorClass extends AsyncTask<String, Void, String> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog = ProgressDialog.show
+                        (AddOperatorArea.this, "Connecting to the server", "Adding Operator...", true, true);
+            }
+
+            @Override
+            protected void onPostExecute(String httpResponseMsg) {
+
+                super.onPostExecute(httpResponseMsg);
+                progressDialog.dismiss();
+                Log.d(TAG, "Asynctask msg:" + httpResponseMsg.toString());
+                if (httpResponseMsg.toString().equals("Operator Already Exist")) {
+                    showOperatorDialog();
+                } else {
+                    showDialog("Server Problem !");
+                }
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                hashMap.put("area_name", params[0]);
+                hashMap.put("area_id", params[1]);
+                hashMap.put("fullname", params[2]);
+                hashMap.put("adminmobile", params[3]);
+                hashMap.put("email", params[4]);
+                hashMap.put("address", params[5]);
+                hashMap.put("password", params[6]);
+                hashMap.put("admin_type", params[7]);
+
+                finalResult = httpParse.postRequest(hashMap, UserUrl);
+
+                return finalResult;
+            }
         }
-        new SendRequest(getResources().getString(R.string.url), jo, AddOperatorArea.this, getApplicationContext()).executeJsonRequest();
 
+        OperatorClass operatorClass = new OperatorClass();
+
+        operatorClass.execute(area_name, area_id, fullname, adminmobile, email, address, password, admin_type);
     }
 
     @Override
@@ -278,25 +318,6 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
         Snackbar.make(view, message, duration).show();
     }
 
-    @Override
-    public void onResponse(JSONObject jsonObject) {
-        if (jsonObject.has("method")) {
-            try {
-                if (jsonObject.getString("method").equals("addoperator") && jsonObject.getBoolean("success")) {
-                    showOperatorDialog();
-                } else {
-                    Toast.makeText(getApplicationContext(), "couldn't save try again later", Toast.LENGTH_SHORT).show();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
-    public void onResponseError(VolleyError error) {
-        showDialog("Server Error !");
-    }
     public void showOperatorDialog() {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -304,17 +325,14 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.operator_add, null);
         final TextView areaAdd = (TextView) dialogView.findViewById(R.id.area_add_tv);
-        final Button ok = (Button)dialogView.findViewById(R.id.ok_btn);
+        final Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
         ok.setTypeface(type2);
         areaAdd.setTypeface(type1);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogBuilder.dismiss();
-                Intent intent = new Intent(AddOperatorArea.this, DashBoardActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-
+                sendSms(admin_mobile, admin_password);
             }
         });
         dialogBuilder.setView(dialogView);
