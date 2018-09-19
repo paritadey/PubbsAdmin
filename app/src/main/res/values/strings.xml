@@ -143,4 +143,7 @@
     <string name="edit_operator">Edit Operator</string>
     <string name="delete_operator">Delete Operator</string>
     <string name="add_op">Add Operator</string>
+    <string name="operator_tv">Operators</string>
+    <string name="delete_operator_tv">Delete Operator from Operator List</string>
+    <string name="delete_opt">delete operator from panel !!!</string>
 </resources>

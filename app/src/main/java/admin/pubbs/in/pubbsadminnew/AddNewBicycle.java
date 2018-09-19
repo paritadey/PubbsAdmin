@@ -2,14 +2,15 @@ package admin.pubbs.in.pubbsadminnew;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -30,13 +31,16 @@ import java.util.List;
 public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
     private RecyclerView recyclerView;
     private AddNewBicycleAdapter addNewBicycleAdapter;
-    private List<RedistributionList> redistributionList = new ArrayList<>();
+    private List<DeleteStationList> deleteStationLists = new ArrayList<>();
     ImageView back;
     private TextView bicycleTv;
     EditText inputSearch;
     ProgressBar circularProgressbar;
+    SharedPreferences sharedPreferences;
+    String adminmobile;
+    private String TAG = AddNewBicycle.class.getSimpleName();
 
-    FloatingActionButton addBicycle;
+    // FloatingActionButton addBicycle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +57,20 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
         bicycleTv.setTypeface(type1);
         inputSearch = findViewById(R.id.input_search);
         inputSearch.setTypeface(type1);
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
+        adminmobile = sharedPreferences.getString("adminmobile", null);
+        Log.d(TAG, "Admin Mobile" + adminmobile);
 
         circularProgressbar = findViewById(R.id.circularProgressbar);
-        addBicycle = findViewById(R.id.add_bicycle);
+        /*addBicycle = findViewById(R.id.add_bicycle);
         addBicycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AddNewBicycle.this, AddBicycle.class));
             }
-        });
+        });*/
         recyclerView = findViewById(R.id.recycler_view);
-        addNewBicycleAdapter = new AddNewBicycleAdapter(redistributionList);
+        addNewBicycleAdapter = new AddNewBicycleAdapter(deleteStationLists);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -73,7 +80,7 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                RedistributionList lists = redistributionList.get(position);
+                DeleteStationList lists = deleteStationLists.get(position);
             }
 
             @Override
@@ -101,12 +108,13 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
         try {
-            jo.put("method", "geteachcycle");
+            jo.put("method", "getstationdetails");
+            jo.put("adminmobile", adminmobile);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new SendRequest(getResources().getString(R.string.url), jo, AddNewBicycle.this,
-                getApplicationContext()).executeJsonRequest();
+        new SendRequest(getResources().getString(R.string.url), jo, AddNewBicycle.this, getApplicationContext()).executeJsonRequest();
+
     }
 
     private void showDialog(String message) {
@@ -145,16 +153,17 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
     @Override
     public void onResponse(JSONObject jsonObject) {
         circularProgressbar.setVisibility(View.GONE);
-        redistributionList.clear();
+        deleteStationLists.clear();
         if (jsonObject.has("method")) {
             try {
-                if (jsonObject.getString("method").equals("geteachcycle") && jsonObject.getBoolean("success")) {
+                if (jsonObject.getString("method").equals("getstationdetails") && jsonObject.getBoolean("success")) {
                     JSONArray ja = jsonObject.getJSONArray("data");
                     if (ja.length() > 0) {
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
-                            RedistributionList list = new RedistributionList(jo.getString("cycle_id"));
-                            redistributionList.add(list);
+                            DeleteStationList user = new DeleteStationList(jo.getString("station_name"),
+                                    jo.getString("station_id"), jo.getString("area_name"), jo.getString("area_id"));
+                            deleteStationLists.add(user);
                         }
                     }
                 }

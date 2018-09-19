@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -23,90 +25,118 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-/*created by Parita Dey*/
 
-public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
+public class DeleteOperatorArea extends AppCompatActivity implements AsyncResponse{
     private RecyclerView recyclerView;
-    private AddNewBicycleAdapter addNewBicycleAdapter;
-    private List<RedistributionList> redistributionList = new ArrayList<>();
+    private DeleteOperatorAdapter deleteOperatorAdapter;
+    private List<DeleteOperatorList> deleteOperatorLists = new ArrayList<>();
     ImageView back;
-    private TextView bicycleTv;
+    private TextView operatorTv;
+    private String TAG = DeleteOperatorArea.class.getSimpleName();
     EditText inputSearch;
     ProgressBar circularProgressbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_remove_bicycle);
+        setContentView(R.layout.activity_delete_operator_area);
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        /*circularProgressbar = findViewById(R.id.circularProgressbar);
+        circularProgressbar = findViewById(R.id.circularProgressbar);
+        operatorTv = findViewById(R.id.delete_operator_tv);
+        operatorTv.setTypeface(type1);
         back = findViewById(R.id.back_button);
-        bicycleTv = findViewById(R.id.bicycle_tv);
-        bicycleTv.setTypeface(type1);
         inputSearch = findViewById(R.id.input_search);
         inputSearch.setTypeface(type1);
-        recyclerView = findViewById(R.id.recycler_view);
-        addNewBicycleAdapter = new AddNewBicycleAdapter(redistributionList);
+        recyclerView = findViewById(R.id.recyclerview);
+        deleteOperatorAdapter = new DeleteOperatorAdapter(deleteOperatorLists);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new CustomDivider(this, LinearLayoutManager.VERTICAL, 8));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(addNewBicycleAdapter);
+        recyclerView.setAdapter(deleteOperatorAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                RedistributionList lists = redistributionList.get(position);
+                DeleteOperatorList lists = deleteOperatorLists.get(position);
             }
 
             @Override
             public void onLongClick(View view, int position) {
             }
-        }));*/
+        }));
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RemoveBicycle.this, DashBoardActivity.class);
+                Intent intent = new Intent(DeleteOperatorArea.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
-
     }
-
     @Override
     public void onResume() {
         super.onResume();
-       // loadData();
+        loadData();
     }
 
     private void loadData() {
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
         try {
-            jo.put("method", "geteachcycle");
+            jo.put("method", "getoperator");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new SendRequest(getResources().getString(R.string.url), jo, RemoveBicycle.this,
+        new SendRequest(getResources().getString(R.string.url), jo, DeleteOperatorArea.this,
                 getApplicationContext()).executeJsonRequest();
     }
 
-    private void showDialog(String message) {
+    @Override
+    public void onResponse(JSONObject jsonObject) {
+        circularProgressbar.setVisibility(View.GONE);
+        deleteOperatorLists.clear();
+        if (jsonObject.has("method")) {
+            try {
+                if (jsonObject.getString("method").equals("getoperator") && jsonObject.getBoolean("success")) {
+                    JSONArray ja = jsonObject.getJSONArray("data");
+                    if (ja.length() > 0) {
+                        for (int i = 0; i < ja.length(); i++) {
+                            JSONObject jo = ja.getJSONObject(i);
+                            DeleteOperatorList user = new DeleteOperatorList(jo.getString("full_name"),
+                                    jo.getString("admin_mobile"), jo.getString("area_name"), jo.getString("admin_type"));
+                            deleteOperatorLists.add(user);
+                        }
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        deleteOperatorAdapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void onResponseError(VolleyError error) {
+        showDialog("Server Problem !");
+    }
+
+    private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
-        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(getApplicationContext()).create();
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
 
         final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
-        final TextView extraLine = (TextView)dialogView.findViewById(R.id.extra_line);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
         extraLine.setTypeface(type1);
         serverProblem.setTypeface(type1);
         serverProblem.setText(message);
@@ -115,11 +145,10 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogBuilder.dismiss();
                 if (circularProgressbar.isEnabled()) {
                     circularProgressbar.setVisibility(View.GONE);
                 }
-                Intent intent = new Intent(RemoveBicycle.this, DashBoardActivity.class);
+                Intent intent = new Intent(DeleteOperatorArea.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -130,31 +159,5 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
         dialogBuilder.setCancelable(false);
     }
 
-    @Override
-    public void onResponse(JSONObject jsonObject) {
-        circularProgressbar.setVisibility(View.GONE);
-        redistributionList.clear();
-        if (jsonObject.has("method")) {
-            try {
-                if (jsonObject.getString("method").equals("geteachcycle") && jsonObject.getBoolean("success")) {
-                    JSONArray ja = jsonObject.getJSONArray("data");
-                    if (ja.length() > 0) {
-                        for (int i = 0; i < ja.length(); i++) {
-                            JSONObject jo = ja.getJSONObject(i);
-                            RedistributionList list = new RedistributionList(jo.getString("cycle_id"));
-                            redistributionList.add(list);
-                        }
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        addNewBicycleAdapter.notifyDataSetChanged();
-    }
 
-    @Override
-    public void onResponseError(VolleyError error) {
-        showDialog("Server Error !");
-    }
 }

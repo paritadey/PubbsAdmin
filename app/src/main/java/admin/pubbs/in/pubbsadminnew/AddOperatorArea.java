@@ -178,7 +178,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
                     admin_password = password.getText().toString().trim();
                     Log.d(TAG, "Operator details:" + areaName + "-" + areaId + "-" + full_name + "-" + admin_mobile + "-"
                             + admin_address + "-" + admin_email + "-" + admin_password + "-" + operator_type);
-                    Operator(areaName, areaId, full_name, admin_mobile, admin_email, admin_address, admin_password, operator_type);
+                    Operator(full_name, admin_email, admin_mobile, admin_address, admin_password, operator_type, areaName, areaId);
                 }
                 break;
             case R.id.back_button:
@@ -261,8 +261,8 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    public void Operator(final String area_name, final String area_id, final String fullname, final String adminmobile,
-                         final String email, final String address, final String password, final String admin_type) {
+    public void Operator(final String adminfullname, final String adminemail, final String adminmobile, final String adminaddress,
+                         final String adminpassword, final String admin_type, final String area_name, final String area_id) {
 
         class OperatorClass extends AsyncTask<String, Void, String> {
 
@@ -279,24 +279,25 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
                 super.onPostExecute(httpResponseMsg);
                 progressDialog.dismiss();
                 Log.d(TAG, "Asynctask msg:" + httpResponseMsg.toString());
-                if (httpResponseMsg.toString().equals("Operator Already Exist")) {
+                showOperatorDialog();
+                /*if (httpResponseMsg.toString().equals("Operator is Successfully Added !!!")) {
                     showOperatorDialog();
                 } else {
                     showDialog("Server Problem !");
-                }
+                }*/
             }
 
             @Override
             protected String doInBackground(String... params) {
 
-                hashMap.put("area_name", params[0]);
-                hashMap.put("area_id", params[1]);
-                hashMap.put("fullname", params[2]);
-                hashMap.put("adminmobile", params[3]);
-                hashMap.put("email", params[4]);
-                hashMap.put("address", params[5]);
-                hashMap.put("password", params[6]);
-                hashMap.put("admin_type", params[7]);
+                hashMap.put("adminfullname", params[0]);
+                hashMap.put("adminemail", params[1]);
+                hashMap.put("adminmobile", params[2]);
+                hashMap.put("adminaddress", params[3]);
+                hashMap.put("adminpassword", params[4]);
+                hashMap.put("admin_type", params[5]);
+                hashMap.put("area_name", params[6]);
+                hashMap.put("area_id", params[7]);
 
                 finalResult = httpParse.postRequest(hashMap, UserUrl);
 
@@ -306,7 +307,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
 
         OperatorClass operatorClass = new OperatorClass();
 
-        operatorClass.execute(area_name, area_id, fullname, adminmobile, email, address, password, admin_type);
+        operatorClass.execute(adminfullname, adminemail, adminmobile, adminaddress, adminpassword, admin_type, area_name, area_id);
     }
 
     @Override

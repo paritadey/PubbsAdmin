@@ -2,12 +2,14 @@ package admin.pubbs.in.pubbsadminnew;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,6 +24,11 @@ public class AddBicycle extends AppCompatActivity implements View.OnClickListene
     private ImageView upArrow;
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
+    String station_name, station_id,area_name,area_id;
+    private String TAG = AddBicycle.class.getSimpleName();
+    SharedPreferences sharedPreferences;
+    String adminmobile, admin_type;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +37,15 @@ public class AddBicycle extends AppCompatActivity implements View.OnClickListene
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
+        adminmobile = sharedPreferences.getString("adminmobile", null);
+        admin_type = sharedPreferences.getString("admin_type", null);
+        Intent intent = getIntent();
+        station_name = intent.getStringExtra("station_name");
+        station_id = intent.getStringExtra("station_id");
+        area_name = intent.getStringExtra("area_name");
+        area_id = intent.getStringExtra("area_id");
+        Log.d(TAG, "Station Details:"+station_name+"-"+station_id+"-"+area_name+"-"+area_id+"-"+adminmobile+"-"+admin_type);
         bottomsheetText = findViewById(R.id.bottomsheet_text);
         bottomsheetText.setTypeface(type1);
         addBicycleTv = findViewById(R.id.add_bicycle_tv);
@@ -73,6 +88,12 @@ public class AddBicycle extends AppCompatActivity implements View.OnClickListene
                     new String[]{Manifest.permission.CAMERA}, ZXING_CAMERA_PERMISSION);
         } else {
             Intent intent = new Intent(this, clss);
+            intent.putExtra("station_name", station_name);
+            intent.putExtra("station_id", station_id);
+            intent.putExtra("area_name", area_name);
+            intent.putExtra("area_id", area_id);
+            intent.putExtra("adminmobile", adminmobile);
+            intent.putExtra("admin_type", admin_type);
             startActivity(intent);
         }
     }

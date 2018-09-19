@@ -15,9 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -38,7 +41,10 @@ public class SignIn extends Fragment {//implements AsyncResponse {
     ProgressDialog progressDialog;
     HashMap<String, String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
-
+    String operator_type;
+    Spinner choice;
+    private String TAG =SignIn.class.getSimpleName();
+    private static final String[] operator = {"Select Operator", "Super Admin", "Sub Admin", "Employee"};
 
     public SignIn() {
     }
@@ -62,6 +68,42 @@ public class SignIn extends Fragment {//implements AsyncResponse {
         Typeface type2 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
+        choice = rootView.findViewById(R.id.choice);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, operator);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        choice.setAdapter(adapter);
+        choice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        final Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
+                        choice.startAnimation(animShake);
+                        int duration = Snackbar.LENGTH_SHORT;
+                        showSnackbar(view, "Choose Your Option", duration);
+                        break;
+                    case 1:
+                        operator_type = choice.getSelectedItem().toString();
+                        Log.d(TAG, "Option:" + operator_type);
+                        break;
+                    case 2:
+                        operator_type = choice.getSelectedItem().toString();
+                        Log.d(TAG, "Option:" + operator_type);
+                        break;
+                    case 3:
+                        operator_type = choice.getSelectedItem().toString();
+                        Log.d(TAG, "Option:"+operator_type);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         mobileTv = rootView.findViewById(R.id.mobile_tv);
         mobileTv.setTypeface(type1);
         userid = rootView.findViewById(R.id.user_id);
@@ -102,7 +144,8 @@ public class SignIn extends Fragment {//implements AsyncResponse {
             } else {
                 String adminmobile = userid.getText().toString();
                 String admin_password = password.getText().toString();
-                UserLoginFunction(adminmobile, admin_password);
+                String admin_type = operator_type;
+                UserLoginFunction(adminmobile, admin_password, admin_type);
             }
         });
 
@@ -113,7 +156,7 @@ public class SignIn extends Fragment {//implements AsyncResponse {
         Snackbar.make(view, message, duration).show();
     }
 
-    public void UserLoginFunction(final String adminmobile, final String adminpassword) {
+    public void UserLoginFunction(final String adminmobile, final String adminpassword, final String admin_type) {
 
         class UserLoginClass extends AsyncTask<String, Void, String> {
 
@@ -135,6 +178,7 @@ public class SignIn extends Fragment {//implements AsyncResponse {
 
                     editor.putString("adminmobile", adminmobile);
                     editor.putString("password", adminpassword);
+                    editor.putString("admin_type", admin_type);
                     editor.putBoolean("login",true);
                     editor.commit();
                     Log.d("SignIn.java", "SharedPreference stored the value");
@@ -155,6 +199,7 @@ public class SignIn extends Fragment {//implements AsyncResponse {
 
                 hashMap.put("password", params[1]);
 
+                hashMap.put("admin_type", params[2]);
                 finalResult = httpParse.postRequest(hashMap, HttpURL);
 
                 return finalResult;
@@ -163,7 +208,7 @@ public class SignIn extends Fragment {//implements AsyncResponse {
 
         UserLoginClass userLoginClass = new UserLoginClass();
 
-        userLoginClass.execute(adminmobile, adminpassword);
+        userLoginClass.execute(adminmobile, adminpassword, admin_type);
     }
 
 }

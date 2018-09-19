@@ -3,25 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-
-    <!-- <group android:checkableBehavior="single">
-         <item
-             android:id="@+id/item1"
-             android:title="Area, Station &amp; Cycles" />
-         <item
-             android:id="@+id/item2"
-             android:title="Rates" />
-         <item
-             android:id="@+id/item3"
-             android:title="Track Rides" />
-         <item
-             android:id="@+id/item4"
-             android:title="View Reports" />
-         <item
-             android:id="@+id/item5"
-             android:title="Term &amp; Condition" />
-     </group>-->
-    <item android:title="Manage Bicycles"
+    <group
+        android:id="@+id/group_1"
+        android:visible="true">
+    <item
+        android:title="Manage Bicycles"
         app:actionViewClass="android.widget.Button">
         <menu>
             <group android:checkableBehavior="single">
@@ -36,14 +22,12 @@
                     android:title="Recharge Battery"
                     app:actionLayout="@layout/menu_counter" />
                 <item
-                    android:id="@+id/add_new_bicycle"
-                    android:title="Add New Bicycle" />
-                <item
                     android:id="@+id/remove_bicycle"
                     android:title="Remove Bicycle" />
             </group>
         </menu>
     </item>
+    </group>
     <item android:title="Manage Users">
         <menu>
             <group android:checkableBehavior="single">
@@ -56,15 +40,18 @@
             </group>
         </menu>
     </item>
-    <item android:title="Manage Stations">
+    <item android:title="Manage Area">
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/add_area"
-                    android:title="Add New Area"/>
+                    android:title="Add New Area" />
                 <item
                     android:id="@+id/add_station"
-                    android:title="Add New Station"/>
+                    android:title="Add New Station" />
+                <item
+                    android:id="@+id/add_new_bicycle"
+                    android:title="Add New Bicycle" />
                 <item
                     android:id="@+id/edit_station"
                     android:title="Edit Station" />
@@ -74,7 +61,7 @@
             </group>
         </menu>
     </item>
-    <item android:title="Main Admin Option">
+    <item android:title="Manage Admin/Employee">
         <menu>
             <group android:checkableBehavior="single">
                 <item
@@ -89,5 +76,4 @@
             </group>
         </menu>
     </item>
-
 </menu>

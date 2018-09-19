@@ -1,5 +1,6 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,25 +12,28 @@ import android.widget.TextView;
 import java.util.List;
 /*created by Parita Dey*/
 public class AddNewBicycleAdapter extends RecyclerView.Adapter<AddNewBicycleAdapter.MyViewHolder> {
-    private List<RedistributionList> redistributionlist;
+    private List<DeleteStationList> deleteStationLists;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView bicycleId;
-        public RelativeLayout cycleLayout;
+        public TextView station_name, station_id, area_name, area_id;
+        public RelativeLayout addBicycleLayout;
 
         public MyViewHolder(View view) {
             super(view);
             Typeface type1 = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
             Typeface type2 = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
-            bicycleId = (TextView) view.findViewById(R.id.bicycle_id);
-            bicycleId.setTypeface(type1);
-            cycleLayout = (RelativeLayout) view.findViewById(R.id.cycle_layout);
+            addBicycleLayout = view.findViewById(R.id.addBicycleLayout);
+            station_name = (TextView) view.findViewById(R.id.stationName);
+            station_name.setTypeface(type1);
+            station_id = (TextView) view.findViewById(R.id.stationId);
+            station_id.setTypeface(type1);
+            area_name = view.findViewById(R.id.area_name);
+            area_id = view.findViewById(R.id.area_id);
         }
     }
 
-    public AddNewBicycleAdapter(List<RedistributionList> redistributionlist) {
-        this.redistributionlist = redistributionlist;
+    public AddNewBicycleAdapter(List<DeleteStationList> deleteStationLists) {
+        this.deleteStationLists = deleteStationLists;
     }
 
     @Override
@@ -42,19 +46,29 @@ public class AddNewBicycleAdapter extends RecyclerView.Adapter<AddNewBicycleAdap
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        RedistributionList redistribution = redistributionlist.get(position);
-        holder.bicycleId.setText(redistribution.getBicycleId());
-        holder.cycleLayout.setOnClickListener(new View.OnClickListener() {
+        DeleteStationList deleteStationList = deleteStationLists.get(position);
+        holder.station_name.setText(deleteStationList.getStation_name());
+        holder.station_id.setText(deleteStationList.getStation_id());
+        String station_name = deleteStationList.getStation_name();
+        String station_id = deleteStationList.getStation_id();
+        String area_name = deleteStationList.getArea_name();
+        String area_id = deleteStationList.getArea_id();
+        holder.addBicycleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(), AddBicycle.class);
+                intent.putExtra("station_name", station_name);
+                intent.putExtra("station_id", station_id);
+                intent.putExtra("area_name", area_name);
+                intent.putExtra("area_id", area_id);
+                v.getContext().startActivity(intent);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return redistributionlist.size();
+        return deleteStationLists.size();
     }
 
 }

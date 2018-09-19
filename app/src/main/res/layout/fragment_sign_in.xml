@@ -78,6 +78,16 @@
             android:textCursorDrawable="@drawable/custom_cursor"/>
 
     </RelativeLayout>
+    <Spinner
+        android:id="@+id/choice"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginEnd="@dimen/twenty_four_dp"
+        android:layout_marginStart="@dimen/twenty_four_dp"
+        android:layout_marginTop="@dimen/sixteen_dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_password"/>
 
     <Button
         android:id="@+id/login_btn"
@@ -92,5 +102,5 @@
         android:textSize="@dimen/fourteen_sp"
         android:elevation="@dimen/two_dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_password" />
+        app:layout_constraintTop_toBottomOf="@id/choice" />
 </android.support.constraint.ConstraintLayout>

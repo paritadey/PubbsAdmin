@@ -62,6 +62,7 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
             case R.id.editOperator_card:
                 break;
             case R.id.deleteOperator_card:
+                startActivity(new Intent(ManageOperator.this, DeleteOperatorArea.class));
                 break;
             case R.id.back_button:
                 Intent intent = new Intent(ManageOperator.this, AddNewBicycle.class);

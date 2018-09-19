@@ -102,9 +102,9 @@ public class DeleteSingleStation extends AppCompatActivity implements View.OnCli
         if (jsonObject.has("method")) {
             try {
                 if (jsonObject.getString("method").equals("deleteStation") && jsonObject.getBoolean("success")) {
-                    showDeletedDialog();
+                    showDeletedDialog("Station is deleted.");
                 } else {
-                    Toast.makeText(getApplicationContext(), "couldn't save try again later", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "couldn't delete try again later", Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -148,7 +148,7 @@ public class DeleteSingleStation extends AppCompatActivity implements View.OnCli
         dialogBuilder.setCancelable(false);
     }
 
-    public void showDeletedDialog() {
+    public void showDeletedDialog(String msg) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
@@ -159,6 +159,7 @@ public class DeleteSingleStation extends AppCompatActivity implements View.OnCli
         final Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
         ok.setTypeface(type2);
         deleteMsg.setTypeface(type1);
+        deleteMsg.setText(msg);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
