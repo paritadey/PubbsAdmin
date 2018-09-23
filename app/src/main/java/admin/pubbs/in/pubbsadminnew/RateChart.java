@@ -111,7 +111,7 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new RateChartArea(), "Area");
+        adapter.addFragment(new RateChartSubscription(), "Area");
         adapter.addFragment(new RateChartTime(), "Time");
         viewPager.setAdapter(adapter);
     }
@@ -148,7 +148,7 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
             data.putString("adminMobile", adminMobile);
             switch (position) {
                 case 0:
-                    RateChartArea frag_area = new RateChartArea();
+                    RateChartSubscription frag_area = new RateChartSubscription();
                     frag_area.setArguments(data);
                     return frag_area;
                 case 1:

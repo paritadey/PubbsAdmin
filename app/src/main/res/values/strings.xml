@@ -146,4 +146,5 @@
     <string name="operator_tv">Operators</string>
     <string name="delete_operator_tv">Delete Operator from Operator List</string>
     <string name="delete_opt">delete operator from panel !!!</string>
+    <string name="subscription">Subscription</string>
 </resources>

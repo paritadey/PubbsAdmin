@@ -146,7 +146,12 @@
             android:name=".DeleteSingleOperator"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
-        <activity android:name=".RechargeBattery"></activity>
+        <activity android:name=".RechargeBattery" />
+        <activity android:name=".SuperAdminShowAdmins" />
+        <activity android:name=".ShowAllAreas" />
+        <activity android:name=".ShowAllStations" />
+        <activity android:name=".FeedBack" />
+        <activity android:name=".Subscription"></activity>
     </application>
 
 </manifest>

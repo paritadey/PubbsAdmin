@@ -25,17 +25,16 @@ import java.util.ArrayList;
 
 public class RateChartTime extends Fragment {
     private final String TAG = "RateChartTime";
-    com.travijuu.numberpicker.library.NumberPicker numberPickerOne, numberPickerTwo, numberPickerThree, numberPickerFour, numberPickerFive, numberPickerSix;
+    com.travijuu.numberpicker.library.NumberPicker numberPickerOne, numberPickerTwo, numberPickerThree, numberPickerFour, numberPickerFive;
     private TextView timeTv, priceTv;
-    com.travijuu.numberpicker.library.NumberPicker numberPickerSeven, numberPickerEight;
     private Button proceed;
     public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
-    private String areaNumber, area_Name, adminMobile, numberPicker1, numberPicker2, numberPicker3, numberPicker4, numberPicker5, numberPicker6, numberPicker7, numberPicker8;
+    private String areaNumber, area_Name, adminMobile, numberPicker1, numberPicker2, numberPicker3, numberPicker4, numberPicker5;
     ConstraintLayout ratechartTime;
-    private String rupee1, rupee2, rupee3, rupee4, rupee5, rupee6, rupee7, rupee8;
-    EditText rupees_one, rupees_two, rupees_three, rupees_four, rupees_five, rupees_six, rupees_seven, rupees_eight;
+    private String rupee1, rupee2, rupee3, rupee4, rupee5;
+    EditText rupees_one, rupees_two, rupees_three, rupees_four, rupees_five;
     RelativeLayout layout_price, layout_price_2, layout_price_3, layout_price_4, layout_price_5;
-
+    String basicPlanAmount, basicPlanMonth, basicPlanMins;
     public RateChartTime() {
     }
 
@@ -56,8 +55,11 @@ public class RateChartTime extends Fragment {
         areaNumber = args.getString("areaNumber");
         area_Name = args.getString("area_Name");
         adminMobile = args.getString("adminMobile");
+        basicPlanAmount = args.getString("basicPlanAmount");
+        basicPlanMonth = args.getString("basicPlanMonth");
+        basicPlanMins = args.getString("basicPlanMins");
         Log.d(TAG, "Area Details:" + markerList + "\t" + areaNumber + "\t" + area_Name + "\t" + adminMobile);
-
+        Log.d(TAG,"From Subscription: "+basicPlanAmount+"*"+basicPlanMonth+"*"+basicPlanMins);
         timeTv = rootView.findViewById(R.id.time_tv);
         timeTv.setTypeface(type1);
         priceTv = rootView.findViewById(R.id.price_tv);

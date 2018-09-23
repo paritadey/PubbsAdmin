@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class BottomSheetRateChartTimeFragment extends BottomSheetDialogFragment {
     private BottomSheetBehavior mBehavior;
-    private TextView descriptionHeader, description, areaNow;
+    private TextView descriptionHeader, description, bicycleNow;
 
     /* @Override
      public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,8 +44,8 @@ public class BottomSheetRateChartTimeFragment extends BottomSheetDialogFragment 
         description = view.findViewById(R.id.description);
         description.setTypeface(type);
 
-        areaNow = view.findViewById(R.id.area_now);
-        areaNow.setTypeface(type);
+        bicycleNow = view.findViewById(R.id.bicycle_now);
+        bicycleNow.setTypeface(type);
 
         ImageView showMap = (ImageView) view.findViewById(R.id.show_map);
         showMap.setOnClickListener(new View.OnClickListener() {

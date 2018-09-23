@@ -31,14 +31,12 @@ public class DashBoardActivity extends AppCompatActivity
     private String TAG = DashBoardActivity.class.getSimpleName();
     TextView phone_number, admin_type;
     String uphone, uadmin;
+    boolean check = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
-       /* Intent intent=getIntent();
-        String admin_mobile = intent.getStringExtra("adminmobile");
-        Log.d(TAG, "admin :"+admin_mobile);*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
@@ -92,17 +90,43 @@ public class DashBoardActivity extends AppCompatActivity
             uadmin = sharedPreferences.getString("admin_type", "null");
             admin_type.setTypeface(type);
             admin_type.setText(uadmin);
+            if (uadmin.equals("Super Admin")) {
+                check = true;
+                navigationView.getMenu().findItem(R.id.manage_area).setTitle("Manage Admin/Employee");
+                // navigationView.getMenu().setGroupVisible(R.id.gr_1, false);
+                navigationView.getMenu().findItem(R.id.add_area).setTitle("Add New Admin");
+                navigationView.getMenu().findItem(R.id.add_station).setTitle("Show all Admin");
+                navigationView.getMenu().findItem(R.id.add_new_bicycle).setTitle("Edit Admin");
+                navigationView.getMenu().findItem(R.id.edit_station).setTitle("Delete Admin");
+                navigationView.getMenu().findItem(R.id.delete_station).setVisible(false);
+                navigationView.getMenu().findItem(R.id.lists).setTitle("View Panel");
+                navigationView.getMenu().findItem(R.id.redistribution).setVisible(false);
+                navigationView.getMenu().findItem(R.id.repair).setTitle("Show all Areas");
+                navigationView.getMenu().findItem(R.id.recharge_battery).setTitle("Show all Stations");
+                navigationView.getMenu().findItem(R.id.remove_bicycle).setVisible(false);
+                navigationView.getMenu().findItem(R.id.manage_users).setTitle("Feedback History");
+                navigationView.getMenu().findItem(R.id.my_users).setTitle("Feedback");
+                navigationView.getMenu().findItem(R.id.support_user).setVisible(false);
+                navigationView.getMenu().findItem(R.id.admin).setTitle("Subscription History");
+                navigationView.getMenu().findItem(R.id.service).setTitle("Subscriptions");
+                navigationView.getMenu().findItem(R.id.manage_operator).setVisible(false);
+                navigationView.getMenu().findItem(R.id.contact_super_admin).setVisible(false);
+            } else if (uadmin.equals("Employee")) {
+                check = false;
+                navigationView.getMenu().findItem(R.id.add_area).setVisible(false);
+                navigationView.getMenu().findItem(R.id.edit_station).setVisible(false);
+                navigationView.getMenu().findItem(R.id.delete_station).setVisible(false);
+                navigationView.getMenu().findItem(R.id.admin).setTitle("Contact");
+                navigationView.getMenu().findItem(R.id.service).setVisible(false);
+                navigationView.getMenu().findItem(R.id.manage_operator).setVisible(false);
+                navigationView.getMenu().findItem(R.id.contact_super_admin).setTitle("Contact Admin");
+            } else if (uadmin.equals("Sub Admin")) {
+                check = false;
+            }
 
         } else {
             toggle.setDrawerIndicatorEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            /*getFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(R.animator.slide_left_enter,
-                            R.animator.slide_right_enter, R.animator.slide_right_exit,
-                            R.animator.slide_left_exit)
-                    .add(R.id.myFrame, new LoginFragment())
-                    .commitAllowingStateLoss();*/
             startActivity(new Intent(DashBoardActivity.this, SignInUp.class));
         }
 
@@ -135,68 +159,97 @@ public class DashBoardActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-       // if (uadmin.equals("Sub Admin")) {
-
-            if (id == R.id.redistribution) {
-                startActivity(new Intent(DashBoardActivity.this, Redistribution.class));
-            } else if (id == R.id.repair) {
-                startActivity(new Intent(DashBoardActivity.this, Repair.class));
-            } else if (id == R.id.recharge_battery) {
-                setMenuCounter(R.id.recharge_battery, 3);
-                startActivity(new Intent(DashBoardActivity.this, RechargeBattery.class));
-            } else if (id == R.id.add_new_bicycle) {
-                startActivity(new Intent(DashBoardActivity.this, AddNewBicycle.class));
-            } else if (id == R.id.remove_bicycle) {
+        switch (id) {
+            case R.id.redistribution:
+                if (check == true) {
+                    // startActivity(new Intent(DashBoardActivity.this, ShowAllAreas.class));
+                    break;
+                } else {
+                    startActivity(new Intent(DashBoardActivity.this, Redistribution.class));
+                    break;
+                }
+            case R.id.repair:
+                if (check == true) {
+                    startActivity(new Intent(DashBoardActivity.this, ShowAllAreas.class));
+                    break;
+                } else {
+                    startActivity(new Intent(DashBoardActivity.this, Repair.class));
+                    break;
+                }
+            case R.id.recharge_battery:
+                if (check == true) {
+                    startActivity(new Intent(DashBoardActivity.this, ShowAllStations.class));
+                    break;
+                } else {
+                    setMenuCounter(R.id.recharge_battery, 3);
+                    startActivity(new Intent(DashBoardActivity.this, RechargeBattery.class));
+                    break;
+                }
+            case R.id.add_new_bicycle:
+                if (check == true) {
+                    //edit Admin/Employee not yet done
+                    break;
+                } else {
+                    startActivity(new Intent(DashBoardActivity.this, AddNewBicycle.class));
+                    break;
+                }
+            case R.id.remove_bicycle:
                 startActivity(new Intent(DashBoardActivity.this, RemoveBicycle.class));
-            }  else if (id == R.id.my_users) {
-                startActivity(new Intent(DashBoardActivity.this, MyUsers.class));
-            } else if (id == R.id.support_user) {
-
-            } else if (id == R.id.add_area) {
-                startActivity(new Intent(DashBoardActivity.this, AddNewArea.class));
-            } else if (id == R.id.add_station) {
-                startActivity(new Intent(DashBoardActivity.this, AddNewStation.class));
-            } else if (id == R.id.edit_station) {
-
-            } else if (id == R.id.delete_station) {
+                break;
+            case R.id.my_users:
+                if (check == true) {
+                    startActivity(new Intent(DashBoardActivity.this, FeedBack.class));
+                    break;
+                } else {
+                    startActivity(new Intent(DashBoardActivity.this, MyUsers.class));
+                    break;
+                }
+            case R.id.support_user:
+                break;
+            case R.id.add_area:
+                if (check == true) {
+                    startActivity(new Intent(DashBoardActivity.this, AddOperator.class));
+                    break;
+                } else {
+                    startActivity(new Intent(DashBoardActivity.this, AddNewArea.class));
+                    break;
+                }
+            case R.id.add_station:
+                if (check == true) {
+                    startActivity(new Intent(DashBoardActivity.this, SuperAdminShowAdmins.class));
+                    break;
+                } else {
+                    startActivity(new Intent(DashBoardActivity.this, AddNewStation.class));
+                    break;
+                }
+            case R.id.edit_station:
+                if (check == true) {
+                    startActivity(new Intent(DashBoardActivity.this, DeleteOperatorArea.class));
+                    break;
+                } else {
+                    //still not developed
+                    break;
+                }
+            case R.id.delete_station:
                 startActivity(new Intent(DashBoardActivity.this, DeleteStation.class));
-            } else if (id == R.id.service) {
-
-            } else if (id == R.id.manage_operator) {
+                break;
+            case R.id.service:
+                if (check == true) {
+                    startActivity(new Intent(DashBoardActivity.this, Subscription.class));
+                    break;
+                } else {
+                    //not yet developed
+                    break;
+                }
+            case R.id.manage_operator:
                 startActivity(new Intent(DashBoardActivity.this, ManageOperator.class));
-            } else if (id == R.id.contact_super_admin) {
-
-            }
-       /* } else if (uadmin.equals("Super Admin")) {
-            navigationView.getMenu().findItem(R.id.redistribution).setVisible(false);
-            navigationView.getMenu().findItem(R.id.repair).setVisible(false);
-            navigationView.getMenu().findItem(R.id.recharge_battery).setVisible(false);
-            navigationView.getMenu().findItem(R.id.remove_bicycle).setVisible(false);
-             if (id == R.id.add_new_bicycle) {
-                startActivity(new Intent(DashBoardActivity.this, AddNewBicycle.class));
-            }else if (id == R.id.my_users) {
-                startActivity(new Intent(DashBoardActivity.this, MyUsers.class));
-            } else if (id == R.id.support_user) {
-
-            } else if (id == R.id.add_area) {
-                startActivity(new Intent(DashBoardActivity.this, AddNewArea.class));
-            } else if (id == R.id.add_station) {
-                startActivity(new Intent(DashBoardActivity.this, AddNewStation.class));
-            } else if (id == R.id.edit_station) {
-
-            } else if (id == R.id.delete_station) {
-                startActivity(new Intent(DashBoardActivity.this, DeleteStation.class));
-            } else if (id == R.id.service) {
-
-            } else if (id == R.id.manage_operator) {
-                startActivity(new Intent(DashBoardActivity.this, ManageOperator.class));
-            } else if (id == R.id.contact_super_admin) {
-
-            }
-        }*/
+                break;
+            case R.id.contact_super_admin:
+                break;
+        }
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return false;
     }
 
     private void setMenuCounter(@IdRes int itemId, int count) {
