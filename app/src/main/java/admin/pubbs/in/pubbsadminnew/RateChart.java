@@ -3,27 +3,25 @@ package admin.pubbs.in.pubbsadminnew;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.travijuu.numberpicker.library.Enums.ActionEnum;
+import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
 
 import java.util.ArrayList;
-import java.util.List;
 /*created by Parita Dey*/
 
 public class RateChart extends AppCompatActivity implements View.OnClickListener {
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
     ImageView back;
     TextView rateTv;
     ImageView upArrow;
@@ -31,14 +29,20 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
     public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
     String areaNumber, area_Name, adminMobile;
     private String TAG = RateChart.class.getSimpleName();
+    com.travijuu.numberpicker.library.NumberPicker numberPickerOne, numberPickerTwo, numberPickerThree, numberPickerFour, numberPickerFive;
+    private TextView timeTv, priceTv;
+    private Button proceed;
+    private String numberPicker1, numberPicker2, numberPicker3, numberPicker4, numberPicker5;
+    private String rupee1, rupee2, rupee3, rupee4, rupee5;
+    EditText rupees_one, rupees_two, rupees_three, rupees_four, rupees_five;
+    RelativeLayout layout_price, layout_price_2, layout_price_3, layout_price_4, layout_price_5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_chart);
-        Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
         Intent intent = getIntent();
         markerList = (ArrayList<LatLng>) getIntent().getSerializableExtra("markerList");
@@ -48,14 +52,11 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
         Log.d(TAG, "Area Values:" + markerList + "\t" + area_Name + "\t" + areaNumber + "\t" + adminMobile);
 
         bottomsheetText = findViewById(R.id.bottomsheet_text);
-        bottomsheetText.setTypeface(type);
+        bottomsheetText.setTypeface(type1);
         back = findViewById(R.id.back_button);
         back.setOnClickListener(this);
         rateTv = findViewById(R.id.rate_chart_tv);
-        rateTv.setTypeface(type);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        createTabIcons();
+        rateTv.setTypeface(type1);
         upArrow = findViewById(R.id.up_arrow);
         upArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,41 +65,90 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
 
             }
         });
+        timeTv = findViewById(R.id.time_tv);
+        timeTv.setTypeface(type1);
+        priceTv = findViewById(R.id.price_tv);
+        priceTv.setTypeface(type1);
 
-    }
+        rupees_one = findViewById(R.id.rupees_1);
+        rupees_one.setTypeface(type1);
+        rupees_two = findViewById(R.id.rupees_2);
+        rupees_two.setTypeface(type1);
+        rupees_three = findViewById(R.id.rupees_3);
+        rupees_three.setTypeface(type1);
+        rupees_four = findViewById(R.id.rupees_4);
+        rupees_four.setTypeface(type1);
+        rupees_five = findViewById(R.id.rupees_5);
+        rupees_five.setTypeface(type1);
 
-    private void createTabIcons() {
+        proceed = findViewById(R.id.proceed_btn);
+        proceed.setTypeface(type2);
 
-        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabOne.setText("Area");
-        Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+        layout_price = findViewById(R.id.layout_price);
+        layout_price_2 = findViewById(R.id.layout_price_2);
+        layout_price_3 = findViewById(R.id.layout_price_3);
+        layout_price_4 = findViewById(R.id.layout_price_4);
+        layout_price_5 = findViewById(R.id.layout_price_5);
 
-        tabOne.setTypeface(type);
-        tabLayout.getTabAt(0).setCustomView(tabOne);
-        tabLayout.setSelected(true);
+        numberPickerOne = (com.travijuu.numberpicker.library.NumberPicker) findViewById(R.id.number_picker_1);
+        numberPicker1 = String.valueOf(numberPickerOne.getValue());
+        rupee1 = rupees_one.getText().toString();
+        numberPickerTwo = (com.travijuu.numberpicker.library.NumberPicker) findViewById(R.id.number_picker_2);
+        numberPicker2 = String.valueOf(numberPickerTwo.getValue());
+        rupee2 = rupees_two.getText().toString();
+        numberPickerThree = (com.travijuu.numberpicker.library.NumberPicker) findViewById(R.id.number_picker_3);
+        numberPicker3 = String.valueOf(numberPickerThree.getValue());
+        rupee3 = rupees_three.getText().toString();
+        numberPickerFour = (com.travijuu.numberpicker.library.NumberPicker) findViewById(R.id.number_picker_4);
+        numberPicker4 = String.valueOf(numberPickerFour);
+        rupee4 = rupees_four.getText().toString();
+        numberPickerFive = (com.travijuu.numberpicker.library.NumberPicker) findViewById(R.id.number_picker_5);
+        numberPicker5 = String.valueOf(numberPickerFive);
+        rupee5 = rupees_five.getText().toString();
 
-        TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabTwo.setText("Time");
-        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-        tabTwo.setTypeface(type1);
-        tabLayout.getTabAt(1).setCustomView(tabTwo);
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        numberPickerOne.setValueChangedListener(new ValueChangedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                tabLayout.setBackgroundColor(getResources().getColor(R.color.grey_800));
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                tabLayout.setBackgroundColor(getResources().getColor(R.color.black));
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+            public void valueChanged(int value, ActionEnum action) {
+                // String actionText = action == ActionEnum.MANUAL ? "manually set" : (action == ActionEnum.INCREMENT ? "incremented" : "decremented");
+                int message = value;// String.format("NumberPicker is %s to %d", actionText, value);
+                numberPicker1 = String.valueOf(message);
+                Log.d(TAG, "Number Picker 1 value: " + message + rupee1);
             }
         });
+        numberPickerTwo.setValueChangedListener(new ValueChangedListener() {
+            @Override
+            public void valueChanged(int value, ActionEnum action) {
+                int message = value;
+                numberPicker2 = String.valueOf(message);
+                Log.d(TAG, "Number Picker 2 value: " + message + rupee2);
+            }
+        });
+        numberPickerThree.setValueChangedListener(new ValueChangedListener() {
+            @Override
+            public void valueChanged(int value, ActionEnum action) {
+                int message = value;
+                numberPicker3 = String.valueOf(message);
+                Log.d(TAG, "Number Picker 3 value: " + message + rupee3);
+            }
+        });
+        numberPickerFour.setValueChangedListener(new ValueChangedListener() {
+            @Override
+            public void valueChanged(int value, ActionEnum action) {
+                int message = value;
+                numberPicker4 = String.valueOf(message);
+                Log.d(TAG, "Number Picker 4 value: " + message + rupee4);
+            }
+        });
+        numberPickerFive.setValueChangedListener(new ValueChangedListener() {
+            @Override
+            public void valueChanged(int value, ActionEnum action) {
+                int message = value;
+                numberPicker5 = String.valueOf(message);
+                Log.d(TAG, "Number Picker 5 value: " + message + rupee5);
+            }
+        });
+        proceed.setOnClickListener(this);
+
     }
 
     @Override
@@ -109,12 +159,6 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
         finish();
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new RateChartSubscription(), "Area");
-        adapter.addFragment(new RateChartTime(), "Time");
-        viewPager.setAdapter(adapter);
-    }
 
     @Override
     public void onClick(View v) {
@@ -125,55 +169,51 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.proceed_btn:
+                final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+                if (rupees_one.getText().toString().isEmpty() || rupees_two.getText().toString().isEmpty() || rupees_three.getText().toString().isEmpty()
+                        || rupees_four.getText().toString().isEmpty() || rupees_five.getText().toString().isEmpty()) {
+                    if (rupees_one.getText().toString().isEmpty() && rupees_two.getText().toString().isEmpty() && rupees_three.getText().toString().isEmpty()
+                            && rupees_four.getText().toString().isEmpty() && rupees_five.getText().toString().isEmpty()) {
+                        layout_price.startAnimation(animShake);
+                        layout_price_2.startAnimation(animShake);
+                        layout_price_3.startAnimation(animShake);
+                        layout_price_4.startAnimation(animShake);
+                        layout_price_5.startAnimation(animShake);
+                    } else if (rupees_one.getText().toString().isEmpty()) {
+                        layout_price.startAnimation(animShake);
+                    } else if (rupees_two.getText().toString().isEmpty()) {
+                        layout_price_2.startAnimation(animShake);
+                    } else if (rupees_three.getText().toString().isEmpty()) {
+                        layout_price_3.startAnimation(animShake);
+                    } else if (rupees_four.getText().toString().isEmpty()) {
+                        layout_price_4.startAnimation(animShake);
+                    } else if (rupees_five.getText().toString().isEmpty()) {
+                        layout_price_5.startAnimation(animShake);
+                    }
+                } else {
+
+                    Intent manageSystem = new Intent(RateChart.this, AreaSubscription.class);
+                    manageSystem.putParcelableArrayListExtra("markerList", markerList);
+                    manageSystem.putExtra("areaNumber", areaNumber);
+                    manageSystem.putExtra("area_Name", area_Name);
+                    manageSystem.putExtra("adminMobile", adminMobile);
+                    manageSystem.putExtra("numberPicker1", numberPicker1);
+                    manageSystem.putExtra("rupee1", rupee1);
+                    manageSystem.putExtra("numberPicker2", numberPicker2);
+                    manageSystem.putExtra("rupee2", rupee2);
+                    manageSystem.putExtra("numberPicker3", numberPicker3);
+                    manageSystem.putExtra("rupee3", rupee3);
+                    manageSystem.putExtra("numberPicker4", numberPicker4);
+                    manageSystem.putExtra("rupee4", rupee4);
+                    manageSystem.putExtra("numberPicker5", numberPicker5);
+                    manageSystem.putExtra("rupee5", rupee5);
+                    startActivity(manageSystem);
+                }
+                break;
             default:
                 break;
         }
 
     }
-
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            Bundle data = new Bundle();
-            data.putParcelableArrayList("markerList", markerList);
-            data.putString("areaNumber", areaNumber);
-            data.putString("area_Name", area_Name);
-            data.putString("adminMobile", adminMobile);
-            switch (position) {
-                case 0:
-                    RateChartSubscription frag_area = new RateChartSubscription();
-                    frag_area.setArguments(data);
-                    return frag_area;
-                case 1:
-                    RateChartTime frag_time = new RateChartTime();
-                    frag_time.setArguments(data);
-                    return frag_time;
-                default:
-                    return mFragmentList.get(position);
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-    }
-
 }

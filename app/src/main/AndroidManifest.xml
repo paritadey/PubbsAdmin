@@ -143,6 +143,12 @@
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:name=".AreaSubscription"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
             android:name=".DeleteSingleOperator"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />

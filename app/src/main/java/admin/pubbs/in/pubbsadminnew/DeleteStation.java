@@ -16,9 +16,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
 import com.android.volley.VolleyError;
 
 import org.json.JSONArray;
@@ -38,7 +38,9 @@ public class DeleteStation extends AppCompatActivity implements AsyncResponse {
     String adminmobile;
     private String TAG = DeleteStation.class.getSimpleName();
     EditText inputSearch;
-    ProgressBar circularProgressbar;
+  //  ProgressBar circularProgressbar;
+  private IconRoundCornerProgressBar progressOne;
+
 
 
     @Override
@@ -54,7 +56,14 @@ public class DeleteStation extends AppCompatActivity implements AsyncResponse {
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminmobile = sharedPreferences.getString("adminmobile", null);
         Log.d(TAG, "Admin Mobile" + adminmobile);
-        circularProgressbar = findViewById(R.id.circularProgressbar);
+        //circularProgressbar = findViewById(R.id.circularProgressbar);
+        progressOne = (IconRoundCornerProgressBar) findViewById(R.id.progress_one);
+        progressOne.setProgressColor(getResources().getColor(R.color.custom_progress_blue_progress));
+        progressOne.setSecondaryProgressColor(getResources().getColor(R.color.custom_progress_blue_progress_half));
+        progressOne.setIconBackgroundColor(getResources().getColor(R.color.custom_progress_blue_header));
+        progressOne.setProgressBackgroundColor(getResources().getColor(R.color.custom_progress_background));
+        updateSecondaryProgressOne();
+
         stationTv = findViewById(R.id.station_tv);
         stationTv.setTypeface(type1);
         back = findViewById(R.id.back_button);
@@ -95,7 +104,8 @@ public class DeleteStation extends AppCompatActivity implements AsyncResponse {
     }
 
     private void loadData() {
-        circularProgressbar.setVisibility(View.VISIBLE);
+      //  circularProgressbar.setVisibility(View.VISIBLE);
+        progressOne.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "getstationdetails");
@@ -108,7 +118,7 @@ public class DeleteStation extends AppCompatActivity implements AsyncResponse {
 
     @Override
     public void onResponse(JSONObject jsonObject) {
-        circularProgressbar.setVisibility(View.GONE);
+        progressOne.setVisibility(View.GONE);
         deleteStationLists.clear();
         if (jsonObject.has("method")) {
             try {
@@ -154,8 +164,8 @@ public class DeleteStation extends AppCompatActivity implements AsyncResponse {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (circularProgressbar.isEnabled()) {
-                    circularProgressbar.setVisibility(View.GONE);
+                if (progressOne.isEnabled()) {
+                    progressOne.setVisibility(View.GONE);
                 }
                 Intent intent = new Intent(DeleteStation.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -166,6 +176,9 @@ public class DeleteStation extends AppCompatActivity implements AsyncResponse {
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
         dialogBuilder.setCancelable(false);
+    }
+    private void updateSecondaryProgressOne() {
+        progressOne.setSecondaryProgress(progressOne.getProgress() + 2);
     }
 
 }

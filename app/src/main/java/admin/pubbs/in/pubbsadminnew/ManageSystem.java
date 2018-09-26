@@ -53,6 +53,9 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
     private String rupee1, rupee2, rupee3, rupee4, rupee5;
     private String numberPicker1, numberPicker2, numberPicker3, numberPicker4, numberPicker5;
     String markerArray;
+    private String basicPlanAmount, basicPlanMonth, basicPlanMins, standardPlanAmount, standardPlanMonth, standardPlanMins;
+    private String sweetPlanAmount, sweetPlanMonth, sweetPlanMins, premiumPlanAmount, premiumPlanMonth, premiumPlanMins;
+
 
 
     @Override
@@ -81,9 +84,24 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
         rupee4 = intent.getStringExtra("rupee4");
         numberPicker5 = intent.getStringExtra("numberPicker5");
         rupee5 = intent.getStringExtra("rupee5");
+        basicPlanAmount = intent.getStringExtra("basicPlanAmount");
+        basicPlanMonth = intent.getStringExtra("basicPlanMonth");
+        basicPlanMins = intent.getStringExtra("basicPlanMins");
+        standardPlanAmount = intent.getStringExtra("standardPlanAmount");
+        standardPlanMonth = intent.getStringExtra("standardPlanMonth");
+        standardPlanMins = intent.getStringExtra("standardPlanMins");
+        sweetPlanAmount = intent.getStringExtra("sweetPlanAmount");
+        sweetPlanMonth = intent.getStringExtra("sweetPlanMonth");
+        sweetPlanMins = intent.getStringExtra("sweetPlanMins");
+        premiumPlanAmount = intent.getStringExtra("premiumPlanAmount");
+        premiumPlanMonth = intent.getStringExtra("premiumPlanMonth");
+        premiumPlanMins = intent.getStringExtra("premiumPlanMins");
+
         Log.d(TAG, "Data from Rate Chart:" + markerList + "\t" + areaNumber + "\t" + area_Name + "\t" + adminMobile);
         Log.d(TAG, "Data from Number picker and rupees:" + numberPicker1 + ":" + rupee1 + "\t" + numberPicker2 +
                 ":" + rupee2 + "\t" + numberPicker3 + ":" + rupee3 + "\t" + numberPicker4 + ":" + rupee4 + "\t" + numberPicker5 + ":" + rupee5);
+        Log.d(TAG, "Subscription:"+basicPlanAmount+"//"+basicPlanMonth+"//"+basicPlanMins+"\t"+standardPlanAmount+"//"+standardPlanMonth+
+        "//"+standardPlanMins+"\t"+sweetPlanAmount+"//"+sweetPlanMonth+"//"+sweetPlanMins+"\t"+premiumPlanAmount+"//"+premiumPlanMonth+"//"+premiumPlanMins);
         showinJsonArray(markerList);
         manageSystem = findViewById(R.id.manage_system);
         back = findViewById(R.id.back_button);
@@ -276,7 +294,9 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
                     geofenceFine = geofencingFine.getText().toString();
 
                     sendData(areaNumber, area_Name, markerArray, numberPicker1, rupee1, numberPicker2, rupee2, numberPicker3, rupee3,
-                            numberPicker4, rupee4, numberPicker5, rupee5, openHr, closeHr, max_ride, max_hold, min_wallet, geofenceFine, adminMobile);
+                            numberPicker4, rupee4, numberPicker5, rupee5, openHr, closeHr, max_ride, max_hold, min_wallet, geofenceFine, adminMobile,
+                            basicPlanAmount, basicPlanMonth, basicPlanMins, standardPlanAmount, standardPlanMonth, standardPlanMins, sweetPlanAmount,
+                            sweetPlanMonth, sweetPlanMins, premiumPlanAmount, premiumPlanMonth, premiumPlanMins);
                 }
                 break;
             default:
@@ -287,7 +307,9 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
     public void sendData(String areaNumber, String area_Name, String markerArray, String numberPicker1, String rupee1,
                          String numberPicker2, String rupee2, String numberPicker3, String rupee3, String numberPicker4,
                          String rupee4, String numberPicker5, String rupee5, String openHr, String closeHr, String max_ride,
-                         String max_hold, String min_wallet, String geofenceFine, String adminMobile) {
+                         String max_hold, String min_wallet, String geofenceFine, String adminMobile, String basic_plan_amount, String basic_plan_month,
+    String basic_plan_mins, String standard_plan_amount, String standard_plan_month, String standard_plan_mins, String sweet_plan_amount,
+                         String sweet_plan_month, String sweet_plan_mins, String premium_plan_amount, String premium_plan_month, String premium_plan_mins) {
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "addnewarea");
@@ -311,6 +333,18 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
             jo.put("min_wallet_amnt", min_wallet);
             jo.put("geofencing_fine", geofenceFine);
             jo.put("adminmobile", adminMobile);
+            jo.put("basic_plan_amount", basic_plan_amount);
+            jo.put("basic_plan_month", basic_plan_month);
+            jo.put("basic_plan_mins", basic_plan_mins);
+            jo.put("standard_plan_amount", standard_plan_amount);
+            jo.put("standard_plan_month", standard_plan_month);
+            jo.put("standard_plan_mins", standard_plan_mins);
+            jo.put("sweet_plan_amount", sweet_plan_amount);
+            jo.put("sweet_plan_month", sweet_plan_month);
+            jo.put("sweet_plan_mins", sweet_plan_mins);
+            jo.put("premium_plan_amount",premium_plan_amount);
+            jo.put("premium_plan_month", premium_plan_month);
+            jo.put("premium_plan_mins",premium_plan_mins);
         } catch (JSONException e) {
             e.printStackTrace();
         }

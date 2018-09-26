@@ -300,4 +300,9 @@
     <color name="color_white_01">#F8F8F8</color>
     <color name="color_blue_01">#255F89</color>
     <color name="color_blue_02">#1592B7</color>
+    <color name="custom_progress_blue_progress">#1592B7</color>
+    <color name="custom_progress_blue_progress_half">#255F89</color>
+    <color name="custom_progress_blue_header">#4FC3F7</color>
+    <color name="custom_progress_background">@android:color/transparent</color>
+
 </resources>
