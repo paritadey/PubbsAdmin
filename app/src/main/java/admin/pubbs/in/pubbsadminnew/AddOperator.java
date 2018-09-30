@@ -2,6 +2,7 @@ package admin.pubbs.in.pubbsadminnew;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,7 +35,8 @@ public class AddOperator extends AppCompatActivity implements AsyncResponse {
     private RecyclerView recyclerView;
     private AddOperatorAdpater addOperatorAdpater;
     private List<AreaList> areaLists = new ArrayList<>();
-
+    SharedPreferences sharedPreferences;
+    String adminmobile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,9 @@ public class AddOperator extends AppCompatActivity implements AsyncResponse {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
+        adminmobile = sharedPreferences.getString("adminmobile", null);
+
         back = findViewById(R.id.back_button);
         addOperatorTv = findViewById(R.id.add_operator_tv);
         addOperatorTv.setTypeface(type1);
@@ -91,6 +96,7 @@ public class AddOperator extends AppCompatActivity implements AsyncResponse {
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "getallmaparea");
+            jo.put("adminmobile",adminmobile);
         } catch (JSONException e) {
             e.printStackTrace();
         }
