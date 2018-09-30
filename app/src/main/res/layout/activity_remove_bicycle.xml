@@ -6,20 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".RemoveBicycle">
     <include
-        layout="@layout/app_bar_addnewbicycle"
+        layout="@layout/app_bar_remove_bicycle"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <ProgressBar
         android:id="@+id/circularProgressbar"
-        style="?android:attr/progressBarStyleHorizontal"
+        style="?android:attr/progressBarStyle"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="250dp"
-        android:indeterminate="false"
-        android:max="100"
-        android:progress="50"
-        android:progressDrawable="@drawable/circular_progress"
-        android:secondaryProgress="100"
+        android:indeterminateDrawable="@drawable/progressbar"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

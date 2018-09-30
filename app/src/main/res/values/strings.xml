@@ -153,4 +153,14 @@
     subscription and unit of time that will be added to any user s ride time after subscribing to any plan. \n
     User has to enter all four- Basic, Standard, Sweet, Premium subscription plan details and proceed further.</string>
     <string name="subscribe">Add subscription plans now.</string>
+    <string name="repair_pool">Know how to add cycle in repair pool.</string>
+    <string name="repair">How do you add cycle in repair pool ?</string>
+    <string name="repair_msg">To add a bicycle in repair-pool, scan the QR code of the bicycle. \n
+    Hit Yes to add cycle in the pool and No to discontinue.\n
+        All the bicycles which are added in repair-pool will be shown in the repair list</string>
+    <string name="repair_tv">Now add bicycle to repair-pool</string>
+    <string name="recharge_battery">Recharge Battery</string>
+    <string name="recharge_bicycle">Enter bicycle id </string>
+    <string name="cycles">Cycles</string>
+    <string name="cycle_tv">Enter cycle id to remove</string>
 </resources>

@@ -2,6 +2,7 @@ package admin.pubbs.in.pubbsadminnew;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +37,9 @@ public class DeleteOperatorArea extends AppCompatActivity implements AsyncRespon
     private String TAG = DeleteOperatorArea.class.getSimpleName();
     EditText inputSearch;
     ProgressBar circularProgressbar;
+    String area_id;
+    SharedPreferences sharedPreferences;
+    String admin_mobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,12 @@ public class DeleteOperatorArea extends AppCompatActivity implements AsyncRespon
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        Intent intent = getIntent();
+        area_id = intent.getStringExtra("admin_area_id");
+        Log.d(TAG, "Admin area:"+area_id);
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
+        admin_mobile = sharedPreferences.getString("adminmobile", null);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -90,6 +101,8 @@ public class DeleteOperatorArea extends AppCompatActivity implements AsyncRespon
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "getoperator");
+            jo.put("area_id", area_id);
+            jo.put("admin_mobile", admin_mobile);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -113,6 +126,9 @@ public class DeleteOperatorArea extends AppCompatActivity implements AsyncRespon
                             deleteOperatorLists.add(user);
                         }
                     }
+                }
+                else{
+                    showDialog("No operator is present.");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -158,6 +174,4 @@ public class DeleteOperatorArea extends AppCompatActivity implements AsyncRespon
         dialogBuilder.show();
         dialogBuilder.setCancelable(false);
     }
-
-
 }

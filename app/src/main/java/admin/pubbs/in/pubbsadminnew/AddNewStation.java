@@ -2,6 +2,7 @@ package admin.pubbs.in.pubbsadminnew;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +37,9 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse{
     private RecyclerView recyclerView;
     private AddNewStationAdpater addNewStationAdpater;
     private List<AreaList> areaLists = new ArrayList<>();
+    SharedPreferences sharedPreferences;
+    String adminmobile;
+    private String TAG = AddNewStation.class.getSimpleName();
 
 
     @Override
@@ -47,6 +52,10 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse{
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
+        adminmobile = sharedPreferences.getString("adminmobile", null);
+        Log.d(TAG, "Admin Mobile" + adminmobile);
+
         back = findViewById(R.id.back_button);
         addNewStationTv = findViewById(R.id.add_new_station_tv);
         addNewStationTv.setTypeface(type1);
@@ -91,6 +100,7 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse{
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "getallmaparea");
+            jo.put("adminmobile", adminmobile);
         } catch (JSONException e) {
             e.printStackTrace();
         }

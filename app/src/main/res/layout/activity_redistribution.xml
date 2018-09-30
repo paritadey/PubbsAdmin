@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:id="@+id/qr_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="@dimen/eighty_dp"
@@ -63,6 +63,6 @@
             android:padding="@dimen/eight_dp"
             android:src="@drawable/ic_qr_scan" />
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 </android.support.constraint.ConstraintLayout>

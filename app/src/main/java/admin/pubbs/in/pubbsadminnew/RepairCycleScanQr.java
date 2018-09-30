@@ -26,40 +26,37 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
-
 /*created by Parita Dey*/
-public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler,
-        View.OnClickListener, AsyncResponse {
+
+public class RepairCycleScanQr extends AppCompatActivity implements ZXingScannerView.ResultHandler, View.OnClickListener, AsyncResponse {
     private ZXingScannerView mScannerView;
     ImageView upArrow, back;
-    private final String TAG = AddBicycleQRActivity.class.getSimpleName();
-    TextView addBicyeleTv, scanQrTv, enterNumberTv, bicycleTv, bicycleNumberTv, bottomSheetTv;
+    private final String TAG = RepairCycleScanQr.class.getSimpleName();
+    TextView redistributionTv, scanQrTv, enterNumberTv, bicycleTv, bicycleNumberTv, bottomSheetTv;
     EditText bicycleId;
-    // Button proceed;
     ProgressDialog pd;
-    String station_name, station_id, area_name, area_id, adminmobile, admin_type;
+    String adminmobile, admin_type;
     String cycle_id, address, date_time;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_bicycle_qr);
+        setContentView(R.layout.activity_repair_scan_qr);
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
         Intent intent = getIntent();
-        station_name = intent.getStringExtra("station_name");
-        station_id = intent.getStringExtra("station_id");
-        area_name = intent.getStringExtra("area_name");
-        area_id = intent.getStringExtra("area_id");
         adminmobile = intent.getStringExtra("adminmobile");
         admin_type = intent.getStringExtra("admin_type");
-        Log.d(TAG, "Station Details:" + station_name + "-" + station_id + "-" + area_name + "-" + area_id + "-" + adminmobile + "-" + admin_type);
+        Log.d(TAG, "Station Details:" + adminmobile + "-" + admin_type);
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("EEE dd/MM/yyyy HH:mm");
         date_time = sdf.format(date);
-        addBicyeleTv = findViewById(R.id.add_bicycle_tv);
-        addBicyeleTv.setTypeface(type1);
+
+        redistributionTv = findViewById(R.id.redistribution_tv);
+        redistributionTv.setTypeface(type1);
         scanQrTv = findViewById(R.id.scan_qr_tv);
         scanQrTv.setTypeface(type2);
         enterNumberTv = findViewById(R.id.enter_number_tv);
@@ -70,8 +67,6 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
         bicycleNumberTv.setTypeface(type2);
         bicycleId = findViewById(R.id.bicycle_id);
         bicycleId.setTypeface(type2);
-      /*  proceed = findViewById(R.id.proceed_btn);
-        proceed.setTypeface(type3);*/
         bottomSheetTv = findViewById(R.id.bottomsheet_text);
         bottomSheetTv.setTypeface(type1);
         back = findViewById(R.id.back_button);
@@ -106,15 +101,14 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
         Log.d(TAG, "replacing colon:" + address);
         bicycleId.setText(address);
         if (bicycleId.getText().toString().isEmpty() == false) {
-            addCnfirmationDialog("Do you want to add this cycle?", cycle_id, address, area_id, station_name, station_id, adminmobile,
+            addCnfirmationDialog("Do you want to add this cycle to repair pool?", cycle_id, address, adminmobile,
                     admin_type, date_time, getApplicationContext());
         } else {
             Log.d(TAG, "Problem occures");
         }
     }
 
-    private void addCnfirmationDialog(String msg, String cycle_id, String address, String area_id, String station_name,
-                                      String station_id, String adminmobile, String admin_type, String date_time, Context applicationContext) {
+    private void addCnfirmationDialog(String msg, String cycle_id, String address, String adminmobile, String admin_type, String date_time, Context applicationContext) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage(msg);
         alertDialogBuilder.setPositiveButton("yes",
@@ -123,19 +117,16 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
                     public void onClick(DialogInterface arg0, int arg1) {
                         JSONObject jo = new JSONObject();
                         try {
-                            jo.put("method", "add_new_cycle");
+                            jo.put("method", "add_cycle_repair");
                             jo.put("cycle_id", cycle_id);
                             jo.put("address", address);
-                            jo.put("area_id", area_id);
-                            jo.put("station_name", station_name);
-                            jo.put("station_id", station_id);
                             jo.put("adminmobile", adminmobile);
                             jo.put("admin_type", admin_type);
                             jo.put("date_time", date_time);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        new SendRequest(getResources().getString(R.string.url), jo, AddBicycleQRActivity.this, getApplicationContext()
+                        new SendRequest(getResources().getString(R.string.url), jo, RepairCycleScanQr.this, getApplicationContext()
                         ).executeJsonRequest();
                     }
                 });
@@ -152,21 +143,14 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
     }
 
     @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(AddBicycleQRActivity.this, DashBoardActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.up_arrow:
-                new BottomSheetAreaFragment().show(getSupportFragmentManager(), "dialog");
+                new BottomSheetRepairFragment().show(getSupportFragmentManager(), "dialog");
                 break;
             case R.id.back_button:
                 Log.d(TAG, "Back button pressed");
-                Intent intent = new Intent(AddBicycleQRActivity.this, Redistribution.class);
+                Intent intent = new Intent(RepairCycleScanQr.this, Repair.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
@@ -179,11 +163,11 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
     public void onResponse(JSONObject jsonObject) {
         if (jsonObject.has("method")) {
             try {
-                if (jsonObject.getString("method").equals("add_new_cycle") && jsonObject.getBoolean("success")) {
-                    showCycleAddedDialog("Cycle is added to the station.");
+                if (jsonObject.getString("method").equals("add_cycle_repair") && jsonObject.getBoolean("success")) {
+                    showCycleAddedRepairPoolDialog("Cycle is added to the repair pool.");
                 } else {
-                   // Toast.makeText(getApplicationContext(), "couldn't save try again later", Toast.LENGTH_SHORT).show();
-                    showCycleAddedDialog("couldn't save try again later");
+                    // Toast.makeText(getApplicationContext(), "couldn't save try again later", Toast.LENGTH_SHORT).show();
+                    showCycleAddedRepairPoolDialog("couldn't save try again later");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -195,7 +179,6 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
     public void onResponseError(VolleyError error) {
         showDialog("Server Problem !");
     }
-
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -215,7 +198,7 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
             @Override
             public void onClick(View view) {
                 dialogBuilder.dismiss();
-                Intent intent = new Intent(AddBicycleQRActivity.this, DashBoardActivity.class);
+                Intent intent = new Intent(RepairCycleScanQr.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
@@ -227,7 +210,7 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
         dialogBuilder.setCancelable(false);
     }
 
-    public void showCycleAddedDialog(String msg) {
+    public void showCycleAddedRepairPoolDialog(String msg) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
@@ -242,7 +225,7 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
             @Override
             public void onClick(View view) {
                 dialogBuilder.dismiss();
-                Intent intent = new Intent(AddBicycleQRActivity.this, DashBoardActivity.class);
+                Intent intent = new Intent(RepairCycleScanQr.this, DashBoardActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -252,3 +235,4 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
         dialogBuilder.setCancelable(false);
     }
 }
+

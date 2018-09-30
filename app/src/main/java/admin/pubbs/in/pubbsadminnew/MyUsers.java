@@ -186,6 +186,8 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
                                     jo.getString("imei"));
                             userList.add(user);
                         }
+                    } else{
+                        showDialog("No user is present.");
                     }
                 }
             } catch (JSONException e) {

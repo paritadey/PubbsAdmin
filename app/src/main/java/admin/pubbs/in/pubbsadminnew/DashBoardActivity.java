@@ -245,6 +245,14 @@ public class DashBoardActivity extends AppCompatActivity
                 startActivity(new Intent(DashBoardActivity.this, ManageOperator.class));
                 break;
             case R.id.contact_super_admin:
+               /* Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "paritasampa95@gmail.com"));
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Prolem / Query about Pubbs Admin");
+                intent.putExtra(Intent.EXTRA_TEXT, "Admin/Employee ID is: "+""+uphone+""+"of Admin type :"+""+uadmin);
+                startActivity(intent);*/
+               Intent intent = new Intent(DashBoardActivity.this, ContactSuperAdmin.class);
+               intent.putExtra("uphone", uphone);
+               intent.putExtra("uadmin", uadmin);
+               startActivity(intent);
                 break;
         }
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

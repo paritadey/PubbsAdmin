@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScanQRActivity">
+    tools:context=".RepairCycleScanQr">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -129,20 +129,6 @@
                 android:textColor="@color/black"
                 android:textCursorDrawable="@drawable/custom_cursor"
                 android:textSize="@dimen/fourteen_sp" />
-
-            <Button
-                android:id="@+id/proceed_btn"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="@dimen/twenty_four_dp"
-                android:layout_marginTop="@dimen/eighty_four_dp"
-                android:background="@drawable/button_bg"
-                android:text="@string/proceed"
-                android:padding="@dimen/eight_dp"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/fourteen_sp" />
         </FrameLayout>
     </RelativeLayout>
 
@@ -155,7 +141,6 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/eight_dp"
-        app:behavior_hideable="false"
         app:elevation="4dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
@@ -164,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/four_dp"
-            android:text="@string/ride_time_msg"
+            android:text="@string/repair_pool"
             android:textColor="@color/white"
             android:textSize="@dimen/fourteen_sp" />
 

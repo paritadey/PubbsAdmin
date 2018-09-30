@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,14 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.VolleyError;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 
-public class DeleteSingleOperator extends AppCompatActivity implements View.OnClickListener, AsyncResponse{
+public class DeleteSingleOperator extends AppCompatActivity implements View.OnClickListener {
     TextView delete_operator_tv, all_set_tv, delete_operatorTv, fullname, adminMobile, area_name, admin_type;
     Button delete;
     String full_name, admin_mobile, areaName, adminType;
@@ -86,7 +82,7 @@ public class DeleteSingleOperator extends AppCompatActivity implements View.OnCl
                 startActivity(intent);
                 break;
             case R.id.delete_operator:
-                deleteOperator(admin_mobile);
+                DeleteOperator(admin_mobile);
                 break;
         }
     }
@@ -149,7 +145,7 @@ public class DeleteSingleOperator extends AppCompatActivity implements View.OnCl
 
     }
 
-  /*  public void DeleteOperator(final String admin_mobile){
+    public void DeleteOperator(final String admin_mobile) {
         class DeleteOperatorClass extends AsyncTask<String, Void, String> {
 
             @Override
@@ -181,11 +177,12 @@ public class DeleteSingleOperator extends AppCompatActivity implements View.OnCl
         DeleteOperatorClass deleteOperatorClass = new DeleteOperatorClass();
 
         deleteOperatorClass.execute(admin_mobile);
-    }*/
-    private void deleteOperator(String admin_mobile) {
+    }
+}
+    /*private void deleteOperator(String admin_mobile) {
         JSONObject jo = new JSONObject();
         try {
-            jo.put("method", "deleteOperator");
+            jo.put("method", "delete_operator");
             jo.put("admin_mobile", admin_mobile);
 
         } catch (JSONException e) {
@@ -200,7 +197,7 @@ public class DeleteSingleOperator extends AppCompatActivity implements View.OnCl
     public void onResponse(JSONObject jsonObject) {
         if (jsonObject.has("method")) {
             try {
-                if (jsonObject.getString("method").equals("deleteOperator") && jsonObject.getBoolean("success")) {
+                if (jsonObject.getString("method").equals("delete_operator") && jsonObject.getBoolean("success")) {
                     showDeletedDialog("Operator is deleted.");
                 } else {
                     Toast.makeText(getApplicationContext(), "couldn't delete try again later", Toast.LENGTH_SHORT).show();
@@ -215,4 +212,4 @@ public class DeleteSingleOperator extends AppCompatActivity implements View.OnCl
     public void onResponseError(VolleyError error) {
         showDialog("Server Problem !");
     }
-}
+}*/

@@ -29,7 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/four_dp"
-                    android:text="@string/bicycles"
+                    android:text="@string/cycles"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/fourteen_sp"
@@ -64,7 +64,7 @@
                         android:layout_marginStart="@dimen/eight_dp"
                         android:background="@color/white"
                         android:backgroundTint="@android:color/transparent"
-                        android:hint="@string/add_bicycle"
+                        android:hint="@string/cycle_tv"
                         android:imeOptions="actionSearch"
                         android:paddingStart="@dimen/eight_dp"
                         android:textColor="@color/color_grey_01"
@@ -89,7 +89,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-   <!-- <FrameLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -97,8 +97,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:scrollbars="none" />
-    </FrameLayout>-->
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

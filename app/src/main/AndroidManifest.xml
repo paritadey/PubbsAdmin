@@ -82,7 +82,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/LoginScreen" />
         <activity
-            android:name=".ScanQRActivity"
+            android:name=".RepairCycleScanQr"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
         <activity android:name=".EditStation" />
@@ -147,17 +147,29 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".DeleteSingleOperator"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
-        <activity android:name=".RechargeBattery" />
+        <activity
+            android:name=".RechargeBattery"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".SuperAdminShowAdmins" />
         <activity android:name=".ShowAllAreas" />
         <activity android:name=".ShowAllStations" />
         <activity android:name=".FeedBack" />
-        <activity android:name=".Subscription"></activity>
+        <activity android:name=".Subscription" />
+        <activity
+            android:name=".EditOperator"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ContactSuperAdmin"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>

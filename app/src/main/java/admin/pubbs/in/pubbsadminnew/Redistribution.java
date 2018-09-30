@@ -1,22 +1,17 @@
 package admin.pubbs.in.pubbsadminnew;
 
-import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +39,8 @@ public class Redistribution extends AppCompatActivity {
         bicycleTv.setTypeface(type1);
         inputSearch = findViewById(R.id.input_search);
         inputSearch.setTypeface(type1);
-        drawRedistribution = findViewById(R.id.draw_redistribution);
+        showDialog("Under Development !!!");
+       /* drawRedistribution = findViewById(R.id.draw_redistribution);
         drawRedistribution.setTypeface(type2);
         scanQrTv = findViewById(R.id.scan_qr_tv);
         scanQrTv.setTypeface(type2);
@@ -73,9 +69,9 @@ public class Redistribution extends AppCompatActivity {
         scanQr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchActivity(ScanQRActivity.class);
+                launchActivity(RepairCycleScanQr.class);
             }
-        });
+        });*/
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +80,37 @@ public class Redistribution extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        prepareBicycleData();
+       // prepareBicycleData();
+    }
+
+    private void showDialog(String message) {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+
+        final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
+        extraLine.setTypeface(type1);
+        serverProblem.setTypeface(type1);
+        serverProblem.setText(message);
+        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+                Intent intent = new Intent(Redistribution.this, DashBoardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+        dialogBuilder.setCancelable(false);
     }
 
     private void prepareBicycleData() {
@@ -119,7 +145,7 @@ public class Redistribution extends AppCompatActivity {
         redistributionAdapter.notifyDataSetChanged();
     }
 
-    public void launchActivity(Class<?> clss) {
+    /*public void launchActivity(Class<?> clss) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             mClss = clss;
@@ -145,6 +171,6 @@ public class Redistribution extends AppCompatActivity {
                 }
                 return;
         }
-    }
+    }*/
 
 }

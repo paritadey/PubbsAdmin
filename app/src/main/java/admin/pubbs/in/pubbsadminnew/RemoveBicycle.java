@@ -2,9 +2,12 @@ package admin.pubbs.in.pubbsadminnew;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -27,12 +30,14 @@ import java.util.List;
 
 public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
     private RecyclerView recyclerView;
-    private AddNewBicycleAdapter addNewBicycleAdapter;
-    private List<RedistributionList> redistributionList = new ArrayList<>();
+    private RemoveBicycleAdapter removeBicycleAdapter;
+    private List<RemoveBicycleList> removeBicycleLists = new ArrayList<>();
     ImageView back;
     private TextView bicycleTv;
     EditText inputSearch;
     ProgressBar circularProgressbar;
+    SharedPreferences sharedPreferences;
+    String adminmobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,30 +48,32 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        /*circularProgressbar = findViewById(R.id.circularProgressbar);
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
+        adminmobile = sharedPreferences.getString("adminmobile", null);
+        circularProgressbar = findViewById(R.id.circularProgressbar);
         back = findViewById(R.id.back_button);
         bicycleTv = findViewById(R.id.bicycle_tv);
         bicycleTv.setTypeface(type1);
         inputSearch = findViewById(R.id.input_search);
         inputSearch.setTypeface(type1);
         recyclerView = findViewById(R.id.recycler_view);
-        addNewBicycleAdapter = new AddNewBicycleAdapter(redistributionList);
+        removeBicycleAdapter = new RemoveBicycleAdapter(removeBicycleLists);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new CustomDivider(this, LinearLayoutManager.VERTICAL, 8));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(addNewBicycleAdapter);
+        recyclerView.setAdapter(removeBicycleAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                RedistributionList lists = redistributionList.get(position);
+                RemoveBicycleList lists = removeBicycleLists.get(position);
             }
 
             @Override
             public void onLongClick(View view, int position) {
             }
-        }));*/
+        }));
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +88,7 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
     @Override
     public void onResume() {
         super.onResume();
-       // loadData();
+        loadData();
     }
 
     private void loadData() {
@@ -89,6 +96,7 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "geteachcycle");
+            jo.put("adminmobile", adminmobile);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -133,7 +141,7 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
     @Override
     public void onResponse(JSONObject jsonObject) {
         circularProgressbar.setVisibility(View.GONE);
-        redistributionList.clear();
+        removeBicycleLists.clear();
         if (jsonObject.has("method")) {
             try {
                 if (jsonObject.getString("method").equals("geteachcycle") && jsonObject.getBoolean("success")) {
@@ -141,8 +149,8 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
                     if (ja.length() > 0) {
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
-                            RedistributionList list = new RedistributionList(jo.getString("cycle_id"));
-                            redistributionList.add(list);
+                            RemoveBicycleList list = new RemoveBicycleList(jo.getString("address"));
+                            removeBicycleLists.add(list);
                         }
                     }
                 }
@@ -150,7 +158,7 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
                 e.printStackTrace();
             }
         }
-        addNewBicycleAdapter.notifyDataSetChanged();
+        removeBicycleAdapter.notifyDataSetChanged();
     }
 
     @Override
