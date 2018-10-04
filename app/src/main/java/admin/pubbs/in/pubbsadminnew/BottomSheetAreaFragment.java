@@ -15,20 +15,20 @@ public class BottomSheetAreaFragment extends BottomSheetDialogFragment {
     private BottomSheetBehavior mBehavior;
     private TextView descriptionHeader, description, areaNow;
 
-   /* @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.bottom_sheet_area_description, container, false);
+    /* @Override
+     public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                              Bundle savedInstanceState) {
+         View v = inflater.inflate(R.layout.bottom_sheet_area_description, container, false);
 
-        ImageView showMap = (ImageView) v.findViewById(R.id.show_map);
-        showMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
-        return v;
-    }*/
+         ImageView showMap = (ImageView) v.findViewById(R.id.show_map);
+         showMap.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 dismiss();
+             }
+         });
+         return v;
+     }*/
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

@@ -163,4 +163,6 @@
     <string name="recharge_bicycle">Enter bicycle id </string>
     <string name="cycles">Cycles</string>
     <string name="cycle_tv">Enter cycle id to remove</string>
+    <string name="service_area">Service Area</string>
+    <string name="service_search">Search service area by name</string>
 </resources>

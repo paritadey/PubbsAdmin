@@ -16,7 +16,7 @@ import java.util.List;
  * Created by LORD on 1/27/2017.
  */
 public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.MyViewHolder> {
-   List<AreaPojo> alist=new ArrayList<>();
+    List<AreaPojo> alist=new ArrayList<>();
     Context context;
     int pos;
     FragmentManager fragmentManager;

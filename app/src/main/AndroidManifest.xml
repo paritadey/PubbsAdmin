@@ -166,10 +166,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ContactSuperAdmin"
+        <activity
+            android:name=".ContactSuperAdmin"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

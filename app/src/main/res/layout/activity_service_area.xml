@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ServiceArea">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/four_dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:id="@+id/toolbar_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/sixteen_dp">
+
+                <ImageView
+                    android:id="@+id/back_button"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/delete_station_tv"
+                    android:layout_alignParentStart="true"
+                    app:srcCompat="@drawable/ic_arrow_back_24dp" />
+
+                <TextView
+                    android:id="@+id/service_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/one_twenty_dp"
+                    android:layout_marginTop="@dimen/eight_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="Service Area"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fourteen_sp" />
+
+                <TextView
+                    android:id="@+id/all_set_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/service_area"
+                    android:layout_marginStart="@dimen/twenty_eight_dp"
+                    android:layout_marginTop="@dimen/eight_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/all_set"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/eighteen_sp" />
+
+                <TextView
+                    android:id="@+id/launchTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/all_set_tv"
+                    android:layout_marginStart="@dimen/twenty_eight_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="launch an area to start/stop service"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/eighteen_sp" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/manage_system_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/twenty_four_dp">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/twenty_four_dp"
+                    android:layout_marginTop="@dimen/twenty_four_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
+                    app:cardCornerRadius="@dimen/four_dp"
+                    app:cardElevation="@dimen/four_dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/area_img"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="@dimen/twenty_six_dp"
+                            android:background="@drawable/ic_area"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/area_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/twenty_four_dp"
+                            android:layout_marginEnd="@dimen/twenty_four_dp"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/fourteen_sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/area_img" />
+
+                        <TextView
+                            android:id="@+id/area_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/twenty_four_dp"
+                            android:layout_marginEnd="@dimen/twenty_four_dp"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/fourteen_sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/area_name" />
+
+                        <Button
+                            android:id="@+id/start_service"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/twenty_four_dp"
+                            android:layout_marginEnd="@dimen/twenty_four_dp"
+                            android:background="@drawable/button_bg"
+                            android:text="Start Service"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/fourteen_sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/area_id" />
+
+                        <Button
+                            android:id="@+id/stop_service"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/twenty_four_dp"
+                            android:layout_marginEnd="@dimen/twenty_four_dp"
+                            android:background="@drawable/button_bg"
+                            android:text="Stop Service"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/fourteen_sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/area_id" />
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>
