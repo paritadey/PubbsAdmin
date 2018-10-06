@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,12 +16,24 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 
 public class ServiceArea extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
@@ -33,6 +47,10 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
     ProgressBar circularProgressbar;
     SharedPreferences.Editor editor;
     String service;
+    public static final int CONNECTION_TIMEOUT = 20000;
+    public static final int READ_TIMEOUT = 20000;
+    String startStatus, date;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +67,10 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        area_id = intent.getStringExtra("area_name");
-        area_name = intent.getStringExtra("area_id");
+        area_id = intent.getStringExtra("area_id");
+        area_name = intent.getStringExtra("area_name");
+        Log.d(TAG, area_id + "\n" + area_name);
+
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         editor = sharedPreferences.edit();
         adminmobile = sharedPreferences.getString("adminmobile", null);
@@ -58,7 +78,7 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("EEE dd/MM/yyyy HH:mm");
         date_time = sdf.format(date);
-
+        new AsyncFetch(area_id).execute();
         circularProgressbar = findViewById(R.id.circularProgressbar);
         back = findViewById(R.id.back_button);
         back.setOnClickListener(this);
@@ -80,6 +100,23 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
         stop_service = findViewById(R.id.stop_service);
         stop_service.setTypeface(type3);
         stop_service.setOnClickListener(this);
+//        buttonColor();
+    }
+
+    public void buttonColor() {
+        if(startStatus.equals("start")){
+            Log.d(TAG, "if part activated");
+            start_service.setBackgroundResource(R.drawable.button_grey_bg);
+            stop_service.setBackgroundResource(R.drawable.button_bg);
+        }else if(startStatus.equals("stop")){
+            Log.d(TAG, "else if part activated");
+            stop_service.setBackgroundResource(R.drawable.button_grey_bg);
+            start_service.setBackgroundResource(R.drawable.button_bg);
+        }else {
+            Log.d(TAG, "else part activated");
+            start_service.setBackgroundResource(R.drawable.button_bg);
+            stop_service.setBackgroundResource(R.drawable.button_grey_bg);
+        }
     }
 
     @Override
@@ -92,10 +129,9 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.start_service:
                 stop_service.setEnabled(false);
-                sendServiceArea(adminmobile, area_name, area_id, date_time, "start");
+                sendServiceArea(adminmobile, area_id, area_name, date_time, "start");
                 break;
             case R.id.stop_service:
-                //getServiceStatus(area_id);
                 start_service.setEnabled(false);
                 //updateService(area_name, date_time, "stop");
                 break;
@@ -103,6 +139,90 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
                 break;
         }
     }
+
+    public class AsyncFetch extends AsyncTask<String, String, String> {
+        HttpURLConnection conn;
+        URL url = null;
+        String searchQuery;
+
+        public AsyncFetch(String searchQuery) {
+            this.searchQuery = searchQuery;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                url = new URL("http://pubbs.in/api/1.0/GetServiceAreaDetails.php");
+
+            } catch (MalformedURLException e) {
+
+                e.printStackTrace();
+                return e.toString();
+            }
+            try {
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(READ_TIMEOUT);
+                conn.setConnectTimeout(CONNECTION_TIMEOUT);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+                Uri.Builder builder = new Uri.Builder().appendQueryParameter("area_id", area_id);
+                String query = builder.build().getEncodedQuery();
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                writer.write(query);
+                writer.flush();
+                writer.close();
+                os.close();
+                conn.connect();
+
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                return e1.toString();
+            }
+            try {
+                int response_code = conn.getResponseCode();
+                if (response_code == HttpURLConnection.HTTP_OK) {
+                    InputStream input = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+                    return (result.toString());
+                } else {
+                    return ("Connection error");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return e.toString();
+            } finally {
+                conn.disconnect();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result.equals("no rows")) {
+                Toast.makeText(ServiceArea.this, "No Results found", Toast.LENGTH_LONG).show();
+            } else {
+                try {
+                    JSONArray jsonArray = new JSONArray(result);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject obj = jsonArray.getJSONObject(i);
+                        startStatus = obj.getString("status");
+                        date = obj.getString("date_time");
+                    }
+                    Log.d(TAG, "Launch: "+startStatus +"-----"+ date);
+                } catch (JSONException e) {
+                    Log.d(e.toString(), "error");
+                }
+            }
+
+        }
+    }
+
 
     public void updateService(String area_name, String date_time, String status) {
         JSONObject jo = new JSONObject();
@@ -120,13 +240,13 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    public void sendServiceArea(String adminmobile, String area_name, String area_id, String date_time, String status) {
+    public void sendServiceArea(String adminmobile, String area_id, String area_name, String date_time, String status) {
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "service_area");
             jo.put("adminmobile", adminmobile);
-            jo.put("area_name", area_id);
-            jo.put("area_id", area_name);
+            jo.put("area_id", area_id);
+            jo.put("area_name", area_name);
             jo.put("date_time", date_time);
             jo.put("status", status);
 

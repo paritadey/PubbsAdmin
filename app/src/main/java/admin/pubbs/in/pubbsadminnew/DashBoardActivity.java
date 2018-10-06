@@ -238,7 +238,7 @@ public class DashBoardActivity extends AppCompatActivity
                     startActivity(new Intent(DashBoardActivity.this, Subscription.class));
                     break;
                 } else {
-                    //not yet developed
+                    startActivity(new Intent(DashBoardActivity.this, StartStopService.class));
                     break;
                 }
             case R.id.manage_operator:
