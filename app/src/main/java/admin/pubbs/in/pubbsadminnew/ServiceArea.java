@@ -18,8 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.VolleyError;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,8 +33,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 
-public class ServiceArea extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
+public class ServiceArea extends AppCompatActivity implements View.OnClickListener {
     SharedPreferences sharedPreferences;
     String adminmobile;
     private String TAG = ServiceArea.class.getSimpleName();
@@ -50,7 +49,11 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
     public static final int CONNECTION_TIMEOUT = 20000;
     public static final int READ_TIMEOUT = 20000;
     String startStatus, date;
-
+    String finalResult;
+    String url = "http://pubbs.in/api/1.0/launchArea.php";
+    String UserUrl = "http://pubbs.in/api/1.0/setservice.php";
+    HashMap<String, String> hashMap = new HashMap<>();
+    HttpParse httpParse = new HttpParse();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,22 +103,16 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
         stop_service = findViewById(R.id.stop_service);
         stop_service.setTypeface(type3);
         stop_service.setOnClickListener(this);
-//        buttonColor();
     }
 
-    public void buttonColor() {
-        if(startStatus.equals("start")){
-            Log.d(TAG, "if part activated");
-            start_service.setBackgroundResource(R.drawable.button_grey_bg);
-            stop_service.setBackgroundResource(R.drawable.button_bg);
-        }else if(startStatus.equals("stop")){
-            Log.d(TAG, "else if part activated");
-            stop_service.setBackgroundResource(R.drawable.button_grey_bg);
-            start_service.setBackgroundResource(R.drawable.button_bg);
-        }else {
-            Log.d(TAG, "else part activated");
-            start_service.setBackgroundResource(R.drawable.button_bg);
-            stop_service.setBackgroundResource(R.drawable.button_grey_bg);
+    public void setStatus(boolean stat) {
+        Log.d(TAG, "Status:" + startStatus+ "--"+stat);
+        if (stat == true) {
+            start_service.setEnabled(false);
+            Toast.makeText(getApplicationContext(), "Area is already launched", Toast.LENGTH_SHORT).show();
+        } else {
+            stop_service.setEnabled(false);
+            Toast.makeText(getApplicationContext(), "Area has not launched yet", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -128,16 +125,38 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
                 startActivity(intent);
                 break;
             case R.id.start_service:
-                stop_service.setEnabled(false);
                 sendServiceArea(adminmobile, area_id, area_name, date_time, "start");
                 break;
             case R.id.stop_service:
-                start_service.setEnabled(false);
-                //updateService(area_name, date_time, "stop");
+                updateServiceFunction(area_id, date_time, "stop");
                 break;
             default:
                 break;
         }
+    }
+
+    public void updateServiceFunction(final String area_id, final String date_time,
+                                      final String status) {
+
+        class updateServiceFunctionClass extends AsyncTask<String, Void, String> {
+            @Override
+            protected void onPostExecute(String httpResponseMsg) {
+                super.onPostExecute(httpResponseMsg);
+                Log.d(TAG, httpResponseMsg.toString());
+                showDialog("Service is taken off !");
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+                hashMap.put("area_id", params[0]);
+                hashMap.put("date_time", params[1]);
+                hashMap.put("status", params[2]);
+                finalResult = httpParse.postRequest(hashMap, UserUrl);
+                return finalResult;
+            }
+        }
+        updateServiceFunctionClass updateServiceFunctionClass = new updateServiceFunctionClass();
+        updateServiceFunctionClass.execute(area_id, date_time, status);
     }
 
     public class AsyncFetch extends AsyncTask<String, String, String> {
@@ -153,9 +172,7 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
         protected String doInBackground(String... params) {
             try {
                 url = new URL("http://pubbs.in/api/1.0/GetServiceAreaDetails.php");
-
             } catch (MalformedURLException e) {
-
                 e.printStackTrace();
                 return e.toString();
             }
@@ -206,6 +223,7 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
         protected void onPostExecute(String result) {
             if (result.equals("no rows")) {
                 Toast.makeText(ServiceArea.this, "No Results found", Toast.LENGTH_LONG).show();
+                setStatus(false);
             } else {
                 try {
                     JSONArray jsonArray = new JSONArray(result);
@@ -214,68 +232,50 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
                         startStatus = obj.getString("status");
                         date = obj.getString("date_time");
                     }
-                    Log.d(TAG, "Launch: "+startStatus +"-----"+ date);
+                    Log.d(TAG, "Launch: " + startStatus + "-----" + date);
+                    if (startStatus.equals("start")) {
+                        setStatus(true);
+                    } else {
+                        setStatus(false);
+                    }
                 } catch (JSONException e) {
                     Log.d(e.toString(), "error");
+                    setStatus(false);
                 }
             }
 
         }
-    }
-
-
-    public void updateService(String area_name, String date_time, String status) {
-        JSONObject jo = new JSONObject();
-        try {
-            jo.put("method_service", "update_service_area");
-            jo.put("area_name", area_name);
-            jo.put("date_time", date_time);
-            jo.put("status", status);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        new SendRequest(getResources().getString(R.string.url), jo, ServiceArea.this,
-                getApplicationContext()).executeJsonRequest();
-
     }
 
     public void sendServiceArea(String adminmobile, String area_id, String area_name, String date_time, String status) {
-        JSONObject jo = new JSONObject();
-        try {
-            jo.put("method", "service_area");
-            jo.put("adminmobile", adminmobile);
-            jo.put("area_id", area_id);
-            jo.put("area_name", area_name);
-            jo.put("date_time", date_time);
-            jo.put("status", status);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        new SendRequest(getResources().getString(R.string.url), jo, ServiceArea.this,
-                getApplicationContext()).executeJsonRequest();
-    }
-
-    @Override
-    public void onResponse(JSONObject jsonObject) {
-        if (jsonObject.has("method")) {
-            try {
-                if (jsonObject.getString("method").equals("service_area") && jsonObject.getBoolean("success")) {
-                    showDialog("Area service is launched !");
-                    Log.d(TAG, "Suceess");
-                } else {
-                    Log.d(TAG, "couldn't save try again later");
+        class sendServiceAreaFunction extends AsyncTask<String, Void, String> {
+            @Override
+            protected void onPostExecute(String httpResponseMsg) {
+                super.onPostExecute(httpResponseMsg);
+                Log.d(TAG, httpResponseMsg.toString());
+                if(httpResponseMsg.toString().equals("Area service is re-launched")) {
+                   showDialog("Area service is re-launched");
+                }else if (httpResponseMsg.toString().equals("Area Service is Successfully Launched !!!")){
+                    showDialog("Area Service is Successfully Launched !!!");
+                } else{
+                    showDialog("Something went wrong");
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+                hashMap.put("adminmobile", params[0]);
+                hashMap.put("area_name", params[1]);
+                hashMap.put("area_id", params[2]);
+                hashMap.put("date_time", params[3]);
+                hashMap.put("status", params[4]);
+                finalResult = httpParse.postRequest(hashMap, url);
+                return finalResult;
             }
         }
-    }
+        sendServiceAreaFunction sendServiceAreaFunction = new sendServiceAreaFunction();
+        sendServiceAreaFunction.execute(adminmobile, area_name, area_id, date_time, status);
 
-    @Override
-    public void onResponseError(VolleyError error) {
-        showDialog("Server Problem !");
     }
 
     private void showDialog(String message) {
