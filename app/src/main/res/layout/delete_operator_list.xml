@@ -1,62 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/deleteOperatorLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/eight_dp">
-
-    <ImageView
-        android:id="@+id/operator_img"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="@dimen/twenty_four_dp"
-        android:layout_marginTop="@dimen/twenty_four_dp"
-        app:srcCompat="@drawable/ic_person" />
-
-    <TextView
-        android:id="@+id/fullname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/thirty_dp"
-        android:layout_marginTop="@dimen/twenty_four_dp"
-        android:layout_toRightOf="@id/operator_img"
-        android:padding="@dimen/two_dp"
-        android:text="Full Name"
-        android:textColor="@color/color_black_01"
-        android:textSize="@dimen/sixteen_sp" />
-
-    <TextView
-        android:id="@+id/adminmobile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fullname"
-        android:layout_marginBottom="@dimen/eight_dp"
-        android:layout_marginStart="@dimen/thirty_dp"
-        android:layout_marginTop="@dimen/two_dp"
-        android:layout_toRightOf="@id/operator_img"
-        android:padding="@dimen/two_dp"
-        android:text="Admin Mobile"
-        android:textColor="@color/color_grey_01"
-        android:textSize="@dimen/fourteen_sp" />
-
-    <TextView
-        android:id="@+id/area_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/admin_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/eight_dp"
-        android:layout_marginStart="@dimen/sixty_four_dp"
-        android:layout_marginTop="@dimen/twenty_four_dp"
-        android:layout_toRightOf="@id/fullname"
-        android:padding="@dimen/two_dp"
-        android:text="Admin Type"
-        android:textColor="@color/color_grey_01"
-        android:textSize="@dimen/fourteen_sp" />
-</RelativeLayout>
+<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    xmlns:tools="http://schemas.android.com/tools"    android:id="@+id/deleteOperatorLayout"    android:layout_width="match_parent"    android:layout_height="wrap_content"    android:layout_marginBottom="@dimen/eight_dp">    <ImageView        android:id="@+id/operator_img"        android:layout_width="40dp"        android:layout_height="40dp"        android:layout_marginStart="@dimen/twenty_four_dp"        android:layout_marginTop="@dimen/twenty_four_dp"        app:srcCompat="@drawable/ic_person" />    <TextView        android:id="@+id/fullname"        android:layout_width="wrap_content"        android:layout_height="wrap_content"        android:layout_marginStart="@dimen/thirty_dp"        android:layout_marginTop="@dimen/twenty_four_dp"        android:layout_toRightOf="@id/operator_img"        android:padding="@dimen/two_dp"        android:text="Full Name"        android:textColor="@color/color_black_01"        android:textSize="@dimen/sixteen_sp" />    <TextView        android:id="@+id/adminmobile"        android:layout_width="wrap_content"        android:layout_height="wrap_content"        android:layout_below="@id/fullname"        android:layout_marginBottom="@dimen/eight_dp"        android:layout_marginStart="@dimen/thirty_dp"        android:layout_marginTop="@dimen/two_dp"        android:layout_toRightOf="@id/operator_img"        android:padding="@dimen/two_dp"        android:text="Admin Mobile"        android:textColor="@color/color_grey_01"        android:textSize="@dimen/fourteen_sp" />    <TextView        android:id="@+id/area_name"        android:layout_width="wrap_content"        android:layout_height="wrap_content"        android:visibility="gone" />    <TextView        android:id="@+id/admin_type"        android:layout_width="wrap_content"        android:layout_height="wrap_content"        android:layout_marginBottom="@dimen/eight_dp"        android:layout_marginStart="@dimen/sixty_four_dp"        android:layout_marginTop="@dimen/twenty_four_dp"        android:layout_toRightOf="@id/fullname"        android:padding="@dimen/two_dp"        android:text="Admin Type"        android:textColor="@color/color_grey_01"        android:textSize="@dimen/fourteen_sp" /></RelativeLayout>

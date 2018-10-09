@@ -118,3 +118,4 @@ public class CycleListFragment extends Fragment implements AsyncResponse{
         pd.dismiss();
     }
 }
+
