@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".AddOperator">
     <include
-        layout="@layout/app_bar_show_admins"
+        layout="@layout/app_bar_addoperator"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <ProgressBar

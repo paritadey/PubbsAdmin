@@ -208,7 +208,8 @@ public class DashBoardActivity extends AppCompatActivity
                 break;
             case R.id.add_area:
                 if (check == true) {
-                    startActivity(new Intent(DashBoardActivity.this, AddOperator.class));
+                   // startActivity(new Intent(DashBoardActivity.this, AddOperator.class));
+                    startActivity(new Intent(DashBoardActivity.this, SuperAdminAddOperator.class));
                     break;
                 } else {
                     startActivity(new Intent(DashBoardActivity.this, AddNewArea.class));

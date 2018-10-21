@@ -34,8 +34,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
     String areaName, areaId;
     private String TAG = AddOperatorArea.class.getSimpleName();
     EditText fullname, phone, address, email, password;
-    Button addOperator;
-    TextView fullnameTv, mobileTv, emailTv, addressTv, passwordTv;
+    TextView fullnameTv, mobileTv, emailTv, addressTv, passwordTv, addOperator;
     RelativeLayout layoutFullname, layoutMobile, layoutEmail, layoutAddress, layoutPassword;
     Spinner choice;
     private static final String[] operator = {"Select Operator", "Sub Admin", "Employee"};

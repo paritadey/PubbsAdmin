@@ -156,8 +156,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".SuperAdminShowAdmins" />
-        <activity android:name=".ShowAllAreas" />
+        <activity android:name=".SuperAdminShowAdmins"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".ShowAllAreas"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ShowAllStations" />
         <activity android:name=".FeedBack" />
         <activity android:name=".Subscription" />
@@ -181,6 +187,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".SuperAdminAddOperator"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>

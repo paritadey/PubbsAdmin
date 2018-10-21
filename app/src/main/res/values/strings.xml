@@ -165,4 +165,8 @@
     <string name="cycle_tv">Enter cycle id to remove</string>
     <string name="service_area">Service Area</string>
     <string name="service_search">Search service area by name</string>
+    <string name="admins">Area Admin List</string>
+    <string name="search_admin">Enter Admin name to find</string>
+    <string name="area_list">Area List</string>
+    <string name="search_area">Enter Area name</string>
 </resources>

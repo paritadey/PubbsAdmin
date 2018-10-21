@@ -26,19 +26,19 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowAllAreas extends AppCompatActivity implements AsyncResponse {
+public class SuperAdminAddOperator extends AppCompatActivity implements AsyncResponse {
     ImageView back;
     private TextView addOperatorTv;
     EditText inputSearch;
     ProgressBar circularProgressbar;
     private RecyclerView recyclerView;
-    private AllAreaAdpater allAreaAdpater;
+    private AddOperatorAdpater addOperatorAdpater;
     private List<AreaList> areaLists = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_all_areas);
+        setContentView(R.layout.activity_super_admin_add_operator);
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -52,13 +52,13 @@ public class ShowAllAreas extends AppCompatActivity implements AsyncResponse {
         inputSearch.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
         recyclerView = findViewById(R.id.recycler_view);
-        allAreaAdpater = new AllAreaAdpater(areaLists);
+        addOperatorAdpater = new AddOperatorAdpater(areaLists);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new CustomDivider(this, LinearLayoutManager.VERTICAL, 8));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(allAreaAdpater);
+        recyclerView.setAdapter(addOperatorAdpater);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -72,13 +72,14 @@ public class ShowAllAreas extends AppCompatActivity implements AsyncResponse {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShowAllAreas.this, DashBoardActivity.class);
+                Intent intent = new Intent(SuperAdminAddOperator.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -93,7 +94,7 @@ public class ShowAllAreas extends AppCompatActivity implements AsyncResponse {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new SendRequest(getResources().getString(R.string.url), jo, ShowAllAreas.this,
+        new SendRequest(getResources().getString(R.string.url), jo, SuperAdminAddOperator.this,
                 getApplicationContext()).executeJsonRequest();
     }
 
@@ -118,7 +119,7 @@ public class ShowAllAreas extends AppCompatActivity implements AsyncResponse {
                 e.printStackTrace();
             }
         }
-        allAreaAdpater.notifyDataSetChanged();
+        addOperatorAdpater.notifyDataSetChanged();
     }
 
     @Override
@@ -148,7 +149,7 @@ public class ShowAllAreas extends AppCompatActivity implements AsyncResponse {
                 if (circularProgressbar.isEnabled()) {
                     circularProgressbar.setVisibility(View.GONE);
                 }
-                Intent intent = new Intent(ShowAllAreas.this, DashBoardActivity.class);
+                Intent intent = new Intent(SuperAdminAddOperator.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -161,7 +162,7 @@ public class ShowAllAreas extends AppCompatActivity implements AsyncResponse {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(ShowAllAreas.this, DashBoardActivity.class);
+        Intent intent = new Intent(SuperAdminAddOperator.this, DashBoardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
