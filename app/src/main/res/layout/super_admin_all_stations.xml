@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/admin_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/ten_dp">
+
+        <ImageView
+            android:id="@+id/admin"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/twenty_dp"
+            app:srcCompat="@drawable/ic_person" />
+
+        <TextView
+            android:id="@+id/station_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/thirty_dp"
+            android:layout_marginTop="@dimen/twenty_four_dp"
+            android:layout_toRightOf="@id/admin"
+            android:padding="@dimen/two_dp"
+            android:text="Station Name"
+            android:textColor="@color/color_black_01"
+            android:textSize="@dimen/sixteen_sp" />
+
+        <TextView
+            android:id="@+id/adminmobile_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/station_name"
+            android:layout_marginStart="@dimen/thirty_dp"
+            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_toRightOf="@id/admin"
+            android:padding="@dimen/four_dp"
+            android:text="Admin Mobile :"
+            android:textColor="@color/color_black_01"
+            android:textSize="@dimen/tweleve_sp" />
+
+        <TextView
+            android:id="@+id/adminmobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/station_name"
+            android:layout_marginStart="@dimen/ten_dp"
+            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_toRightOf="@id/adminmobile_tv"
+            android:padding="@dimen/four_dp"
+            android:text="Admin Mobile"
+            android:textColor="@color/color_black_01"
+            android:textSize="@dimen/tweleve_sp" />
+
+        <TextView
+            android:id="@+id/area_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/adminmobile"
+            android:layout_marginStart="@dimen/thirty_dp"
+            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_toRightOf="@id/admin"
+            android:padding="@dimen/four_dp"
+            android:text="Area Name :"
+            android:textColor="@color/color_black_01"
+            android:textSize="@dimen/tweleve_sp" />
+
+        <TextView
+            android:id="@+id/area_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/adminmobile"
+            android:layout_marginStart="@dimen/ten_dp"
+            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_toRightOf="@id/area_name_tv"
+            android:padding="@dimen/four_dp"
+            android:text="Area Name"
+            android:textColor="@color/color_black_01"
+            android:textSize="@dimen/tweleve_sp" />
+
+        <TextView
+            android:id="@+id/station_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/area_name"
+            android:layout_marginStart="@dimen/thirty_six_dp"
+            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_marginEnd="@dimen/twenty_dp"
+            android:layout_toRightOf="@id/admin"
+            android:padding="@dimen/four_dp"
+            android:text="Station Id"
+            android:textColor="@color/color_black_01"
+            android:textSize="@dimen/tweleve_sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/admin_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/area_name"
+            android:layout_marginStart="@dimen/thirty_dp"
+            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_marginEnd="@dimen/twenty_dp"
+            android:layout_toRightOf="@id/admin"
+            android:padding="@dimen/four_dp"
+            android:text="Admin :"
+            android:textColor="@color/color_black_01"
+            android:textSize="@dimen/tweleve_sp" />
+
+        <TextView
+            android:id="@+id/full_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/area_name"
+            android:layout_marginStart="@dimen/ten_dp"
+            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_toRightOf="@id/admin_name_tv"
+            android:padding="@dimen/four_dp"
+            android:text="admin Name"
+            android:textColor="@color/color_black_01"
+            android:textSize="@dimen/tweleve_sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

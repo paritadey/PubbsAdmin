@@ -169,4 +169,6 @@
     <string name="search_admin">Enter Admin name to find</string>
     <string name="area_list">Area List</string>
     <string name="search_area">Enter Area name</string>
+    <string name="station_list">Station List</string>
+    <string name="search_station">Enter Station name</string>
 </resources>
