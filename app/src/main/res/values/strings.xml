@@ -171,4 +171,6 @@
     <string name="search_area">Enter Area name</string>
     <string name="station_list">Station List</string>
     <string name="search_station">Enter Station name</string>
+    <string name="feedback_list">Feedback</string>
+    <string name="feedback_search">Enter Admin mobile to search</string>
 </resources>
