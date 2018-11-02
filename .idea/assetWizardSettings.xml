@@ -28,8 +28,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_mail_outline_black" />
-                            <entry key="sourceFile" value="C:\Users\parita" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_reply" />
+                            <entry key="sourceFile" value="F:\downloads\reply.svg" />
                           </map>
                         </option>
                       </PersistentState>

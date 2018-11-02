@@ -156,22 +156,26 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".SuperAdminShowAdmins"
+        <activity
+            android:name=".SuperAdminShowAdmins"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ShowAllAreas"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ShowAllAreas"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ShowAllStations"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ShowAllStations"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".FeedBack"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".FeedBack"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".Subscription" />
         <activity
             android:name=".EditOperator"
@@ -193,10 +197,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".SuperAdminAddOperator"
+        <activity
+            android:name=".SuperAdminAddOperator"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".FeedbackDetails"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"></activity>
     </application>
 
 </manifest>

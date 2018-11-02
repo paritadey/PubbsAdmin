@@ -173,4 +173,5 @@
     <string name="search_station">Enter Station name</string>
     <string name="feedback_list">Feedback</string>
     <string name="feedback_search">Enter Admin mobile to search</string>
+    <string name="reply">Reply Message</string>
 </resources>

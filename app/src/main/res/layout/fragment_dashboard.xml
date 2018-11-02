@@ -25,7 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_support" />
 
-    <android.support.v7.widget.CardView
+    <!--<android.support.v7.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -118,5 +118,5 @@
                 android:layout_marginEnd="@dimen/eight_dp"
                 app:layout_constraintEnd_toEndOf="parent"/>
         </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>-->
 </android.support.constraint.ConstraintLayout>

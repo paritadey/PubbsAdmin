@@ -47,7 +47,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
         Typeface type1 = Typeface.createFromAsset(getActivity().getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type2 = Typeface.createFromAsset(getActivity().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
-        cycleId = v.findViewById(R.id.cycle_id);
+        /*cycleId = v.findViewById(R.id.cycle_id);
         cycleId.setTypeface(type1);
         cycleUsername = v.findViewById(R.id.cycle_user_name);
         cycleUsername.setTypeface(type1);
@@ -60,7 +60,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
         locate.setTypeface(type1);
         locate.setOnClickListener(this);
         accident = v.findViewById(R.id.accident);
-        accident.setTypeface(type2);
+        accident.setTypeface(type2);*/
         mapView = (MapView) v.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         try {
@@ -147,10 +147,10 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.call:
+           /* case R.id.call:
                 break;
             case R.id.locate:
-                break;
+                break;*/
             default:
                 break;
         }
