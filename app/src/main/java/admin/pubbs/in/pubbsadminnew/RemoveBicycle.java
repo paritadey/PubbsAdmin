@@ -38,7 +38,6 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
     ProgressBar circularProgressbar;
     SharedPreferences sharedPreferences;
     String adminmobile;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

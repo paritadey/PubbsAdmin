@@ -12,7 +12,6 @@ import java.util.List;
 public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolder> {
     private List<AdminList> adminLists;
     private String TAG = AdminAdapter.class.getSimpleName();
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView full_name, email, adminmobile, date_time, area_name, area_id;
         public TextView adminmobile_tv, area_name_tv;

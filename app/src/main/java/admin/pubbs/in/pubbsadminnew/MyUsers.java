@@ -37,7 +37,6 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
     TextView userListTv, filter, sort;
     ImageView back;
     ProgressBar circularProgressbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

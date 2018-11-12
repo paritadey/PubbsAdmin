@@ -36,7 +36,6 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
     private String rupee1, rupee2, rupee3, rupee4, rupee5;
     EditText rupees_one, rupees_two, rupees_three, rupees_four, rupees_five;
     RelativeLayout layout_price, layout_price_2, layout_price_3, layout_price_4, layout_price_5;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -28,8 +28,7 @@ import java.text.SimpleDateFormat;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 /*created by Parita Dey*/
-public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler,
-        View.OnClickListener, AsyncResponse {
+public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler, View.OnClickListener, AsyncResponse {
     private ZXingScannerView mScannerView;
     ImageView upArrow, back;
     private final String TAG = AddBicycleQRActivity.class.getSimpleName();

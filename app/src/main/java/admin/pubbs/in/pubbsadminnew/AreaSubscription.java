@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class AreaSubscription extends AppCompatActivity implements View.OnClickListener {
     private String TAG = AreaSubscription.class.getSimpleName();
+
     public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
     String areaNumber, area_Name, adminMobile;
     TextView subscription_tv, subscription_basic_tv, basic_plan_month_tv, basic_plan_mins_tv;

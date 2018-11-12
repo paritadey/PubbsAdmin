@@ -28,8 +28,6 @@ public class DeleteSingleOperator extends AppCompatActivity implements View.OnCl
     String UserUrl = "http://pubbs.in/api/1.0/DeleteOperator.php";
     HashMap<String, String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

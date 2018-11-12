@@ -45,7 +45,6 @@ public class SignIn extends Fragment {//implements AsyncResponse {
     Spinner choice;
     private String TAG =SignIn.class.getSimpleName();
     private static final String[] operator = {"Select Operator", "Super Admin", "Sub Admin", "Employee"};
-
     public SignIn() {
     }
 

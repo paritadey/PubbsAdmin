@@ -10,7 +10,6 @@ public class StationList {
         this.station_id = station_id;
         this.area_name =area_name;
     }
-
     public String getFull_name() {
         return full_name;
     }

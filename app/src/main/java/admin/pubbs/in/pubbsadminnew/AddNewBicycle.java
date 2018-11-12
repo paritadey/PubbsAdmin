@@ -40,8 +40,6 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
     String adminmobile;
     private String TAG = AddNewBicycle.class.getSimpleName();
 
-    // FloatingActionButton addBicycle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

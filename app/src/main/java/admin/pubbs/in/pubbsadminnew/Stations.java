@@ -8,7 +8,6 @@ public class Stations {
     private String station_name,station_id,area,lat,lon,rp;
     boolean virtual;
     private int available;
-
     public Stations(String station_name, String station_id, String area, String lat, String lon, String rp,boolean virtual,int available) {
         this.station_name = station_name;
         this.station_id = station_id;

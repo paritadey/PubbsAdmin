@@ -15,7 +15,6 @@ import java.util.List;
 public class DeleteStationAdpater extends RecyclerView.Adapter<DeleteStationAdpater.MyViewHolder> {
     private List<DeleteStationList> deleteStationLists;
     private Context mContext;
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView station_name, station_id, area_name, area_id;
         public RelativeLayout deleteStationLayout;

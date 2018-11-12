@@ -27,6 +27,7 @@ public class SplashScreen extends AppCompatActivity {
     boolean internet;
     TextView appName;
     String adminmobile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

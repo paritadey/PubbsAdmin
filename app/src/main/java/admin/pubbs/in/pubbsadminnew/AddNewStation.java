@@ -40,8 +40,6 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse{
     SharedPreferences sharedPreferences;
     String adminmobile;
     private String TAG = AddNewStation.class.getSimpleName();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

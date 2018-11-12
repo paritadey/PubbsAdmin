@@ -13,7 +13,6 @@ import java.util.List;
 public class AllAreaAdpater extends RecyclerView.Adapter<AllAreaAdpater.MyViewHolder> {
     private List<AreaList> areaLists;
     private String TAG = AllAreaAdpater.class.getSimpleName();
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView areaName, areaId, areaLatLon;
         public RelativeLayout areaLayout;

@@ -16,7 +16,6 @@ import java.util.List;
 public class ServiceAdpater extends RecyclerView.Adapter<ServiceAdpater.MyViewHolder> {
     private List<AreaList> areaLists;
     private String TAG = ServiceAdpater.class.getSimpleName();
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView areaName, areaId, areaLatLon;
         public RelativeLayout areaLayout;

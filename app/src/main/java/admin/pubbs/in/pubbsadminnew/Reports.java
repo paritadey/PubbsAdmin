@@ -13,7 +13,6 @@ public class Reports {
         this.message = message;
         this.dateTime=dateTime;
     }
-
     public String getUserid() {
         return userid;
     }

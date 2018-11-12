@@ -29,6 +29,7 @@ public class ContactSuperAdmin extends AppCompatActivity implements View.OnClick
     String adminmobile, admin_type, msg_subject, msg_body, date_time;
     EditText subject, message;
     Button sendEmail;
+
     private String TAG = ContactSuperAdmin.class.getSimpleName();
 
     @Override

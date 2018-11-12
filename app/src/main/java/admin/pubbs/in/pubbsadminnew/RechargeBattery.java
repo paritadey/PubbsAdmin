@@ -40,7 +40,6 @@ public class RechargeBattery extends AppCompatActivity implements AsyncResponse 
     private RechargeBatteryAdapter rechargeBatteryAdapter;
     private List<RechargeBatteryList> rechargeBatteryLists = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -12,7 +12,6 @@ import java.util.List;
 
 public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.MyViewHolder> {
     private List<RepairList> repairlist;
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView bicycleId;
         public TextView addToRepair, date_time;

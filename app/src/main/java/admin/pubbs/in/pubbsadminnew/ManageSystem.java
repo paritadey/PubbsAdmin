@@ -32,7 +32,6 @@ import java.util.Calendar;
 
 /*created by Parita Dey*/
 public class ManageSystem extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
-
     private TextView bottomSheetTv, manageSytem, allSetTv, manageYourSystem, moreEfficient, maxRideTv, maxHoldtv, minWalletTv;
     private Button proceed;
     ImageView upArrow, back;
@@ -55,9 +54,6 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
     String markerArray;
     private String basicPlanAmount, basicPlanMonth, basicPlanMins, standardPlanAmount, standardPlanMonth, standardPlanMins;
     private String sweetPlanAmount, sweetPlanMonth, sweetPlanMins, premiumPlanAmount, premiumPlanMonth, premiumPlanMins;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

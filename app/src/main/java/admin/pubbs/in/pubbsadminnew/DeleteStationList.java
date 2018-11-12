@@ -6,7 +6,6 @@ public class DeleteStationList {
     public DeleteStationList() {
 
     }
-
     public DeleteStationList(String station_name, String station_id, String area_name, String area_id) {
         this.station_name = station_name;
         this.station_id = station_id;

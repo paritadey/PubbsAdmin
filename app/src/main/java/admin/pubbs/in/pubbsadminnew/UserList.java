@@ -4,7 +4,6 @@ package admin.pubbs.in.pubbsadminnew;
 public class UserList {
     private String userName, userPhone, userId, userImei;
     public UserList(){
-
     }
     public UserList(String userName, String userPhone, String userId, String userImei){
         this.userName = userName;

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RemoveBicycle">
+
     <include
         layout="@layout/app_bar_remove_bicycle"
         android:layout_width="match_parent"

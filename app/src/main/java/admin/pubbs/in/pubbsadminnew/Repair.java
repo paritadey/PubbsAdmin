@@ -45,8 +45,6 @@ public class Repair extends AppCompatActivity implements AsyncResponse {
     String adminmobile, admin_type;
     private String TAG = Repair.class.getSimpleName();
     ProgressBar circularProgressbar;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

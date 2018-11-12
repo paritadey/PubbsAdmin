@@ -25,7 +25,6 @@ public class Redistribution extends AppCompatActivity {
     EditText inputSearch;
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -29,9 +29,6 @@ public class ReportFragment extends Fragment implements AsyncResponse{
     ReportAdapter ra;
     List<Reports> reportsList=new ArrayList<>();
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
-
-
-
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
     }

@@ -38,7 +38,6 @@ public class ScanQRFragment extends Fragment implements ZXingScannerView.ResultH
     private static final String FLASH_STATE = "FLASH_STATE";
     ProgressDialog pd;
     int stn;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

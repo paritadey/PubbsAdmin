@@ -19,7 +19,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
        this.userlist = userList;
        notifyDataSetChanged();
    }
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView username, userphone, userid, text_required, userIdTv ;
         public ConstraintLayout userListLayout;

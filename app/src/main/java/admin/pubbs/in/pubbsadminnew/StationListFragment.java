@@ -36,6 +36,7 @@ public class StationListFragment extends Fragment implements SearchView.OnQueryT
     List<Stations> stationsList =new ArrayList<>();
     int area;
     String title;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

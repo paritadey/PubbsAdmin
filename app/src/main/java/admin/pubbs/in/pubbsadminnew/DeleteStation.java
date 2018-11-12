@@ -39,9 +39,6 @@ public class DeleteStation extends AppCompatActivity implements AsyncResponse {
     private String TAG = DeleteStation.class.getSimpleName();
     EditText inputSearch;
     ProgressBar circularProgressbar;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

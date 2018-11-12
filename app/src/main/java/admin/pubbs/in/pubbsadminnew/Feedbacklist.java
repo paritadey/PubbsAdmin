@@ -11,7 +11,6 @@ public class Feedbacklist {
         this.date_time = date_time;
         this.email = email;
     }
-
     public String getEmail() {
         return email;
     }

@@ -12,7 +12,6 @@ import java.util.List;
 public class AllStationAdapter extends RecyclerView.Adapter<AllStationAdapter.MyViewHolder> {
     private List<StationList> stationLists;
     private String TAG = AdminAdapter.class.getSimpleName();
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView full_name, adminmobile, area_name, station_name, station_id;
         public TextView adminmobile_tv, area_name_tv, admin_name_tv;

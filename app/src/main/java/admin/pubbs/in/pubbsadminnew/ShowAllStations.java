@@ -34,7 +34,6 @@ public class ShowAllStations extends AppCompatActivity implements AsyncResponse{
     private RecyclerView recyclerView;
     private AllStationAdapter allStationAdapter;
     private List<StationList> stationLists = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

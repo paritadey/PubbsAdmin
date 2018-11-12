@@ -11,7 +11,6 @@ import java.util.List;
 
 public class RemoveBicycleAdapter extends RecyclerView.Adapter<RemoveBicycleAdapter.MyViewHolder> {
     private List<RemoveBicycleList> removeBicycleLists;
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView address;
 

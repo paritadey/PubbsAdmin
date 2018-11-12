@@ -34,7 +34,6 @@ public class SuperAdminShowAdmins extends AppCompatActivity implements AsyncResp
     private RecyclerView recyclerView;
     private AdminAdapter adminAdapter;
     private List<AdminList> adminLists = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

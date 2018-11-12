@@ -16,7 +16,6 @@ public class RedistributionAdapter extends RecyclerView.Adapter<RedistributionAd
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView bicycleId;
         public TextView addToStation, text_required;
-
         public MyViewHolder(View view) {
             super(view);
             Typeface type1 = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");

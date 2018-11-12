@@ -25,7 +25,6 @@ public class DeleteSingleStation extends AppCompatActivity implements View.OnCli
     String station_name, station_id, area_name, area_id;
     private String TAG = DeleteSingleStation.class.getSimpleName();
     ImageView back;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

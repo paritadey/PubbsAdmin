@@ -37,6 +37,7 @@ public class AddOperator extends AppCompatActivity implements AsyncResponse {
     private List<AreaList> areaLists = new ArrayList<>();
     SharedPreferences sharedPreferences;
     String adminmobile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

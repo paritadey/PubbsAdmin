@@ -3,7 +3,6 @@ package admin.pubbs.in.pubbsadminnew;
 public class RemoveBicycleList {
     String address;
     public RemoveBicycleList(){
-
     }
     public RemoveBicycleList(String address){
         this.address = address;

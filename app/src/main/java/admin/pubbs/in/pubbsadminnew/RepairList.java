@@ -6,7 +6,6 @@ public class RepairList {
     private String bicycleId, dateTime;
 
     public RepairList() {
-
     }
 
     public RepairList(String bicycleId, String dateTime) {

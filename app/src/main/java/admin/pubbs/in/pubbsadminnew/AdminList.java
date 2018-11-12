@@ -2,11 +2,9 @@ package admin.pubbs.in.pubbsadminnew;
 
 public class AdminList {
     private String full_name, email, adminmobile, date_time, area_name, area_id;
-
     public AdminList() {
 
     }
-
     public AdminList(String full_name, String email, String adminmobile,
                      String date_time, String area_name, String area_id) {
         this.full_name = full_name;

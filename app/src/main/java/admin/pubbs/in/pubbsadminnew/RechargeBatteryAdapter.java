@@ -11,7 +11,6 @@ import java.util.List;
 
 public class RechargeBatteryAdapter extends RecyclerView.Adapter<RechargeBatteryAdapter.MyViewHolder> {
     private List<RechargeBatteryList> rechargeBatteryLists;
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView bicycleId;
         public TextView battery_status, battery_status_tv, battery_status_percentage;

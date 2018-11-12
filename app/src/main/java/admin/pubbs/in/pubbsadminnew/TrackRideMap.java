@@ -33,7 +33,6 @@ public class TrackRideMap extends Fragment implements OnMapReadyCallback,AsyncRe
     GoogleMap gmap;
     Handler handler = new Handler();
     final int delay = 5000; //milliseconds
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

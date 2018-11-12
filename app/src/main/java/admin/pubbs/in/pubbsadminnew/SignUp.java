@@ -27,7 +27,6 @@ import java.util.HashMap;
 /*created by Parita Dey*/
 
 public class SignUp extends Fragment implements AdapterView.OnItemSelectedListener {
-
     EditText fullname, phone, address, email, password, confirmPassword;
     Button getOtp;
     TextView fullnameTv, mobileTv, emailTv, addressTv, passwordTv, confirmPasswordTv;

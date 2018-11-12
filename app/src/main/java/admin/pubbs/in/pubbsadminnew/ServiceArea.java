@@ -54,7 +54,6 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
     String UserUrl = "http://pubbs.in/api/1.0/setservice.php";
     HashMap<String, String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

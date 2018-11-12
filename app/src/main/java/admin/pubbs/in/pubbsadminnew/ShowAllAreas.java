@@ -34,7 +34,6 @@ public class ShowAllAreas extends AppCompatActivity implements AsyncResponse {
     private RecyclerView recyclerView;
     private AllAreaAdpater allAreaAdpater;
     private List<AreaList> areaLists = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

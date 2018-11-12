@@ -18,7 +18,6 @@ public class BottomSheetAreaSubscriptionFragment extends BottomSheetDialogFragme
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
-
         View view = View.inflate(getContext(), R.layout.bottom_sheet_area_subscription_plan, null);
         dialog.setContentView(view);
         mBehavior = BottomSheetBehavior.from((View) view.getParent());

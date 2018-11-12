@@ -14,7 +14,6 @@ import java.util.List;
 /**
  * Created by LORD on 4/9/2018.
  */
-
 public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHolder> {
     private List<Reports> reportsList =new ArrayList<>();
     private FragmentManager fragmentManager;

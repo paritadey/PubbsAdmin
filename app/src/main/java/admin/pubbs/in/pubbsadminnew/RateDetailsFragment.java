@@ -21,7 +21,6 @@ import org.json.JSONObject;
  */
 
 public class RateDetailsFragment extends Fragment implements AsyncResponse{
-
     EditText duration,rate;
     Button save;
     ProgressDialog pd;

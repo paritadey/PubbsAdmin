@@ -13,7 +13,6 @@ public class Rates {
         this.duration = duration;
         this.rate = rate;
     }
-
     public int getId() {
         return id;
     }

@@ -16,7 +16,6 @@ public class EditOperator extends AppCompatActivity {
     ImageView back;
     private TextView bicycleTv;
     EditText inputSearch;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

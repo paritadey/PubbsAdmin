@@ -41,7 +41,6 @@ public class CycleListFragment extends Fragment implements AsyncResponse{
         pd.setCancelable(false);
         stn=getArguments().getInt("id");
     }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

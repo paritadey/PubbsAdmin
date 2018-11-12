@@ -14,7 +14,6 @@ import android.widget.TextView;
 public class BottomSheetRepairFragment extends BottomSheetDialogFragment {
     private BottomSheetBehavior mBehavior;
     private TextView descriptionHeader, description, areaNow;
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

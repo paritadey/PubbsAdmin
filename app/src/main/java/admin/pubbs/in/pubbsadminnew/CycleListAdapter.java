@@ -19,7 +19,6 @@ public class CycleListAdapter extends RecyclerView.Adapter<CycleListAdapter.MyVi
     Context mContext;
     String url;
     FragmentManager fragmentManager;
-
     public CycleListAdapter(List<Cycles> clist, FragmentManager fragmentManager, Context mContext) {
         this.clist = clist;
         this.mContext=mContext;

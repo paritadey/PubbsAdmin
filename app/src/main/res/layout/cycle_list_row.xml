@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+
     <TextView
         android:id="@+id/cycle_id"
         android:layout_width="0dp"

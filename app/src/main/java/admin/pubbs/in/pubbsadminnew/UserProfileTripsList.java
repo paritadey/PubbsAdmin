@@ -4,7 +4,6 @@ package admin.pubbs.in.pubbsadminnew;
 public class UserProfileTripsList {
     private String dateTime, bicycleId, timeStamp, money;
     public UserProfileTripsList(){
-
     }
     public UserProfileTripsList(String dateTime, String bicycleId, String timeStamp, String money){
         this.dateTime = dateTime;

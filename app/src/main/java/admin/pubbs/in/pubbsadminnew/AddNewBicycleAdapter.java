@@ -13,7 +13,6 @@ import java.util.List;
 /*created by Parita Dey*/
 public class AddNewBicycleAdapter extends RecyclerView.Adapter<AddNewBicycleAdapter.MyViewHolder> {
     private List<DeleteStationList> deleteStationLists;
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView station_name, station_id, area_name, area_id;
         public RelativeLayout addBicycleLayout;

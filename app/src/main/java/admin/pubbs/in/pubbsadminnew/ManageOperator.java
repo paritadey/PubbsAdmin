@@ -19,7 +19,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ManageOperator extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
-
     TextView manageOperatorTv;
     ImageView back;
     TextView addOperator, editOperator, deleteOperator;

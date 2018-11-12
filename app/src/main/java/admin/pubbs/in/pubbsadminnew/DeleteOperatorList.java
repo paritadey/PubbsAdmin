@@ -6,7 +6,6 @@ public class DeleteOperatorList {
     public DeleteOperatorList() {
 
     }
-
     public DeleteOperatorList(String fullname, String area_name, String adminmobile, String admin_type) {
         this.fullname = fullname;
         this.area_name = area_name;

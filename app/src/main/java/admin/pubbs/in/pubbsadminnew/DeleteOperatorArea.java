@@ -40,7 +40,6 @@ public class DeleteOperatorArea extends AppCompatActivity implements AsyncRespon
     String area_id;
     SharedPreferences sharedPreferences;
     String admin_mobile;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -22,7 +22,6 @@ public class StationListAdapter extends RecyclerView.Adapter<StationListAdapter.
     Context mContext;
     String url;
     FragmentManager fragmentManager;
-
     public StationListAdapter(List<Stations> slist,FragmentManager fragmentManager,Context mContext) {
         this.slist = slist;
         this.mContext=mContext;

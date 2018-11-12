@@ -7,6 +7,7 @@ package admin.pubbs.in.pubbsadminnew;
 public class VirtualStation {
     private String station_name,station_id,lat,lon;
 
+
     public VirtualStation(String station_name, String station_id, String lat, String lon) {
         this.station_name = station_name;
         this.station_id = station_id;
