@@ -26,17 +26,17 @@
         android:textColor="@color/color_black_01"
         android:textSize="@dimen/sixteen_sp" />
 
-  <!--  <TextView
-        android:id="@+id/add_to_repair"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/eight_dp"
-        android:layout_marginStart="@dimen/sixty_dp"
-        android:layout_marginTop="@dimen/thirty_dp"
-        android:layout_toRightOf="@+id/bicycle_id"
-        android:text="Add to Repair"
-        android:textColor="@color/color_blue_02"
-        android:textSize="@dimen/fourteen_sp" />-->
+    <!--  <TextView
+          android:id="@+id/add_to_repair"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/eight_dp"
+          android:layout_marginStart="@dimen/sixty_dp"
+          android:layout_marginTop="@dimen/thirty_dp"
+          android:layout_toRightOf="@+id/bicycle_id"
+          android:text="Add to Repair"
+          android:textColor="@color/color_blue_02"
+          android:textSize="@dimen/fourteen_sp" />-->
 
     <TextView
         android:id="@+id/date_time"

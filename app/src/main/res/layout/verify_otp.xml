@@ -4,92 +4,92 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+  <TextView
+      android:id="@+id/otp_message"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/twenty_four_dp"
+      android:layout_marginStart="@dimen/twenty_four_dp"
+      android:layout_marginTop="@dimen/one_hundred_dp"
+      android:text="@string/otp_message"
+      android:textColor="@color/black"
+      android:textSize="@dimen/fourteen_sp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/edit_number"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/twenty_four_dp"
+      android:layout_marginTop="@dimen/sixteen_dp"
+      android:text="@string/edit_number"
+      android:textColor="@color/blue_200"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/otp_message" />
+
+  <TextView
+      android:id="@+id/resend_otp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/twenty_four_dp"
+      android:layout_marginTop="@dimen/sixteen_dp"
+      android:text="@string/resend_otp"
+      android:textColor="@color/blue_200"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/otp_message" />
+
+  <RelativeLayout
+      android:id="@+id/layout_otp"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:layout_marginEnd="@dimen/twenty_four_dp"
+      android:layout_marginStart="@dimen/twenty_four_dp"
+      android:layout_marginTop="@dimen/sixty_four_dp"
+      android:background="@drawable/edittext_bg"
+      android:elevation="@dimen/two_dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/otp_message">
+
     <TextView
-        android:id="@+id/otp_message"
-        android:layout_width="match_parent"
+        android:id="@+id/otp_tv"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_marginEnd="@dimen/twenty_four_dp"
+        android:layout_marginTop="@dimen/tweleve_dp"
+        android:text="@string/otp"
+        android:textColor="@color/grey_400" />
+
+    <EditText
+        android:id="@+id/otp"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/twenty_four_dp"
-        android:layout_marginTop="@dimen/one_hundred_dp"
-        android:text="@string/otp_message"
+        android:layout_marginTop="@dimen/two_dp"
+        android:backgroundTint="@color/white"
+        android:singleLine="true"
         android:textColor="@color/black"
         android:textSize="@dimen/fourteen_sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textCursorDrawable="@drawable/custom_cursor"/>
+  </RelativeLayout>
 
-    <TextView
-        android:id="@+id/edit_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/twenty_four_dp"
-        android:layout_marginTop="@dimen/sixteen_dp"
-        android:text="@string/edit_number"
-        android:textColor="@color/blue_200"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/otp_message" />
-
-    <TextView
-        android:id="@+id/resend_otp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/twenty_four_dp"
-        android:layout_marginTop="@dimen/sixteen_dp"
-        android:text="@string/resend_otp"
-        android:textColor="@color/blue_200"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/otp_message" />
-
-    <RelativeLayout
-        android:id="@+id/layout_otp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginEnd="@dimen/twenty_four_dp"
-        android:layout_marginStart="@dimen/twenty_four_dp"
-        android:layout_marginTop="@dimen/sixty_four_dp"
-        android:background="@drawable/edittext_bg"
-        android:elevation="@dimen/two_dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/otp_message">
-
-        <TextView
-            android:id="@+id/otp_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/twenty_four_dp"
-            android:layout_marginTop="@dimen/tweleve_dp"
-            android:text="@string/otp"
-            android:textColor="@color/grey_400" />
-
-        <EditText
-            android:id="@+id/otp"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/twenty_four_dp"
-            android:layout_marginTop="@dimen/two_dp"
-            android:backgroundTint="@color/white"
-            android:singleLine="true"
-            android:textColor="@color/black"
-            android:textSize="@dimen/fourteen_sp"
-            android:textCursorDrawable="@drawable/custom_cursor"/>
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/submit_otp"
-        android:layout_width="@dimen/one_fifty_dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/twenty_four_dp"
-        android:layout_marginTop="@dimen/twenty_four_dp"
-        android:background="@drawable/button_bg"
-        android:elevation="@dimen/two_dp"
-        android:text="@string/submit_otp"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/fourteen_sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_otp" />
+  <Button
+      android:id="@+id/submit_otp"
+      android:layout_width="@dimen/one_fifty_dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/twenty_four_dp"
+      android:layout_marginTop="@dimen/twenty_four_dp"
+      android:background="@drawable/button_bg"
+      android:elevation="@dimen/two_dp"
+      android:text="@string/submit_otp"
+      android:textAllCaps="false"
+      android:textColor="@color/white"
+      android:textSize="@dimen/fourteen_sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/layout_otp" />
 
 </android.support.constraint.ConstraintLayout>
