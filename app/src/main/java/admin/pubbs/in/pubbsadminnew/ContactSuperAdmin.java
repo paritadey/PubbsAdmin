@@ -78,7 +78,7 @@ public class ContactSuperAdmin extends AppCompatActivity implements View.OnClick
                     }
                 } else {
                     long date = System.currentTimeMillis();
-                    SimpleDateFormat sdf = new SimpleDateFormat("EEE dd/MM/yyyy HH:mm");
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE dd-MM-yyyy HH:mm");
                     date_time = sdf.format(date);
                     msg_subject = subject.getText().toString().trim();
                     msg_body = message.getText().toString().trim();

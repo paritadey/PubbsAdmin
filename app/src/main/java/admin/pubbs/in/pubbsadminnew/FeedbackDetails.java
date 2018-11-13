@@ -1,7 +1,10 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,21 +16,28 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 
-public class FeedbackDetails extends AppCompatActivity implements View.OnClickListener {
-    private String admin_mobile, admin_type, admin_subject, admin_message, admin_datetime, admin_email;
+public class FeedbackDetails extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
+    private String admin_Mobile, admin_Type, admin_Subject, admin_Message, admin_Datetime, admin_Email;
     private String reply_dateTime, reply_msg;
     private String TAG = FeedbackDetails.class.getSimpleName();
-    private TextView adminMobile, adminType, date_time, message, feedback_tv;
+    private TextView admin_mobile, admin_type, date_time, admin_message, manage_feedback_tv;
     private EditText admin_reply;
-    private Button super_admin_reply;
+    private Button send_reply;
     private ImageView message_img, reply, back_button;
+    SharedPreferences sharedPreferences;
+    String super_admin_phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feedback_details);
+        setContentView(R.layout.activity_feed_back_details);
         initView();
     }
 
@@ -36,39 +46,50 @@ public class FeedbackDetails extends AppCompatActivity implements View.OnClickLi
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
+        super_admin_phone = sharedPreferences.getString("adminmobile", "null");
+        Log.d(TAG, "Super admin phone: " + super_admin_phone);
         Intent intent = getIntent();
-        admin_mobile = intent.getStringExtra("adminmobile");
-        admin_type = intent.getStringExtra("admin_type");
-        admin_subject = intent.getStringExtra("subject");
-        admin_message = intent.getStringExtra("message");
-        admin_datetime = intent.getStringExtra("date_time");
-        admin_email = intent.getStringExtra("email");
-        Log.d(TAG, "Feedback details: " + admin_mobile + "-" + admin_type + "-" + admin_subject + "-" + admin_message + "-" + admin_datetime +
-                "-" + admin_email);
-        adminMobile = findViewById(R.id.adminmobile);
-        adminMobile.setTypeface(type1);
-        adminMobile.setText(admin_mobile);
-        adminType = findViewById(R.id.adminType);
-        adminType.setTypeface(type1);
-        adminType.setText(admin_type);
+        admin_Mobile = intent.getStringExtra("adminmobile");
+        admin_Type = intent.getStringExtra("admin_type");
+        admin_Subject = intent.getStringExtra("subject");
+        admin_Message = intent.getStringExtra("message");
+        admin_Datetime = intent.getStringExtra("date_time");
+        admin_Email = intent.getStringExtra("email");
+        Log.d(TAG, "Feedback details: " + admin_Mobile + "-" + admin_Type + "-" + admin_Subject + "-" + admin_Message + "-" + admin_Datetime +
+                "-" + admin_Email);
+        admin_mobile = findViewById(R.id.admin_mobile);
+        admin_mobile.setTypeface(type2);
+        admin_mobile.setText(admin_Mobile);
+
+        admin_type = findViewById(R.id.admin_type);
+        admin_type.setTypeface(type1);
+        admin_type.setText(admin_Type);
+
         date_time = findViewById(R.id.date_time);
+        date_time.setText(admin_Datetime);
         date_time.setTypeface(type1);
-        date_time.setText(admin_datetime);
-        message = findViewById(R.id.message);
-        message.setTypeface(type2);
-        message.setText(admin_message);
+
+        admin_message = findViewById(R.id.admin_message);
+        admin_message.setTypeface(type1);
+        admin_message.setText(admin_Message);
+
+        manage_feedback_tv = findViewById(R.id.manage_feedback_tv);
+        manage_feedback_tv.setTypeface(type1);
+
         admin_reply = findViewById(R.id.admin_reply);
         admin_reply.setTypeface(type1);
-        super_admin_reply = findViewById(R.id.super_admin_reply);
-        super_admin_reply.setTypeface(type3);
+
+        send_reply = findViewById(R.id.send_reply);
+        send_reply.setTypeface(type3);
+        send_reply.setOnClickListener(this);
+
         message_img = findViewById(R.id.message_img);
+
         reply = findViewById(R.id.reply);
-        feedback_tv = findViewById(R.id.feedback_tv);
-        feedback_tv.setTypeface(type1);
-        back_button = findViewById(R.id.back_button);
         reply.setOnClickListener(this);
+        back_button = findViewById(R.id.back_button);
         back_button.setOnClickListener(this);
-        super_admin_reply.setOnClickListener(this);
     }
 
     @Override
@@ -76,7 +97,7 @@ public class FeedbackDetails extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.reply:
                 admin_reply.setVisibility(View.VISIBLE);
-                super_admin_reply.setVisibility(View.VISIBLE);
+                send_reply.setVisibility(View.VISIBLE);
                 break;
             case R.id.back_button:
                 Log.d(TAG, "Back button pressed");
@@ -84,15 +105,23 @@ public class FeedbackDetails extends AppCompatActivity implements View.OnClickLi
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
-            case R.id.super_admin_reply:
+            case R.id.send_reply:
                 final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
-                if(admin_reply.getText().toString().isEmpty()){
+                if (admin_reply.getText().toString().isEmpty()) {
                     admin_reply.startAnimation(animShake);
-                }else {
+                } else {
                     long date = System.currentTimeMillis();
-                    SimpleDateFormat sdf = new SimpleDateFormat("EEE dd/MM/yyyy HH:mm");
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE dd-MM-yyyy HH:mm");
                     reply_dateTime = sdf.format(date);
                     reply_msg = admin_reply.getText().toString();
+                    Log.d(TAG, "Date and message from super admin: " + reply_dateTime + "***" + reply_msg);
+                    sendQuery(admin_Mobile, admin_Type, admin_Email, admin_Datetime, admin_Message, admin_Subject,
+                            reply_msg, super_admin_phone, reply_dateTime);
+                    Intent email = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + admin_Email));
+                    email.putExtra(Intent.EXTRA_SUBJECT, "Reply from Super Admin of Subject: " + "" + admin_Subject);
+                    email.putExtra(Intent.EXTRA_TEXT, reply_msg);
+                    startActivity(email);
+                    finish();
                 }
                 break;
             default:
@@ -108,4 +137,45 @@ public class FeedbackDetails extends AppCompatActivity implements View.OnClickLi
         startActivity(intent);
     }
 
+    public void sendQuery(String adminmobile, String admin_type, String email, String message_date_time,
+                          String message, String subject, String reply, String super_admin, String reply_date_time) {
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("method", "send_query_ans");
+            jo.put("adminmobile", adminmobile);
+            jo.put("admin_type", admin_type);
+            jo.put("email", email);
+            jo.put("message_date_time", message_date_time);
+            jo.put("message", message);
+            jo.put("subject", subject);
+            jo.put("reply", reply);
+            jo.put("super_admin", super_admin);
+            jo.put("reply_date_time", reply_date_time);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new SendRequest(getResources().getString(R.string.url), jo, FeedbackDetails.this, getApplicationContext()).executeJsonRequest();
+    }
+
+    @Override
+    public void onResponse(JSONObject jsonObject) {
+        if (jsonObject.has("method")) {
+            try {
+                if (jsonObject.getString("method").equals("send_query_ans") && jsonObject.getBoolean("success")) {
+                    //showQueryAddedDialog();
+                    Log.d(TAG, "Suceess");
+                } else {
+                    Log.d(TAG, "couldn't save try again later");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onResponseError(VolleyError error) {
+        Log.d(TAG, "msg: "+error.toString());
+    }
 }

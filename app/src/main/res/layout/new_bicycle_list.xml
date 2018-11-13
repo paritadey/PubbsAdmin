@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/ten_dp">
 
-    
+
     <ImageView
         android:id="@+id/station"
         android:layout_width="40dp"
