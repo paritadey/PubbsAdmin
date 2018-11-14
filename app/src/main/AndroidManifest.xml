@@ -176,7 +176,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".Subscription" />
+        <activity
+            android:name=".AdminSubscription"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".EditOperator"
             android:screenOrientation="portrait"
@@ -202,9 +206,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".FeedbackDetails"
+        <activity
+            android:name=".FeedbackDetails"
             android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar"></activity>
+            android:theme="@style/MyNoActionBar" />
+        <activity android:name=".AdminSubscriptionHistory"></activity>
     </application>
 
 </manifest>

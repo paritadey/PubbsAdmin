@@ -174,4 +174,5 @@
     <string name="feedback_list">Feedback</string>
     <string name="feedback_search">Enter Admin mobile to search</string>
     <string name="reply">Reply Message</string>
+    <string name="list_admin">List of Admins</string>
 </resources>

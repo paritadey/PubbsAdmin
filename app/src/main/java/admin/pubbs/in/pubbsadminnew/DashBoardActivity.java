@@ -236,7 +236,7 @@ public class DashBoardActivity extends AppCompatActivity
                 break;
             case R.id.service:
                 if (check == true) {
-                    startActivity(new Intent(DashBoardActivity.this, Subscription.class));
+                    startActivity(new Intent(DashBoardActivity.this, AdminSubscription.class));
                     break;
                 } else {
                     startActivity(new Intent(DashBoardActivity.this, StartStopService.class));
