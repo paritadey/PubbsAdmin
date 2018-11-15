@@ -25,11 +25,11 @@
                 android:layout_marginBottom="@dimen/twenty_four_dp">
 
                 <TextView
-                    android:id="@+id/admin_subscription_area"
+                    android:id="@+id/admin_subscription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/four_dp"
-                    android:text="@string/list_admin"
+                    android:text="@string/list_area"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/fourteen_sp"
@@ -52,7 +52,7 @@
                     android:layout_marginTop="@dimen/eight_dp"
                     android:background="@drawable/black_border"
                     android:elevation="10dp"
-                    app:layout_constraintTop_toBottomOf="@+id/admin_subscription_area">
+                    app:layout_constraintTop_toBottomOf="@+id/admin_subscription">
 
 
                     <EditText
@@ -88,6 +88,7 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

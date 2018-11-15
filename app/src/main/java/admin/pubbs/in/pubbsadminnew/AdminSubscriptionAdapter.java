@@ -58,7 +58,7 @@ public class AdminSubscriptionAdapter extends RecyclerView.Adapter<AdminSubscrip
         holder.admin_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AdminSubscriptionHistory.class);
+                Intent intent = new Intent(v.getContext(), AreaSubscriptionHistory.class);
                 intent.putExtra("adminmobile", adminmobile);
                 intent.putExtra("email", email);
                 v.getContext().startActivity(intent);

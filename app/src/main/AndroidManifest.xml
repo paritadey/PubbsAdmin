@@ -210,7 +210,11 @@
             android:name=".FeedbackDetails"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
-        <activity android:name=".AdminSubscriptionHistory"></activity>
+        <activity android:name=".Subscription" />
+        <activity android:name=".AreaSubscriptionHistory"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>

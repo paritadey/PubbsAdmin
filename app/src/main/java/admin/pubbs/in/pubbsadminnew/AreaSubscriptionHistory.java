@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -26,21 +27,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminSubscription extends AppCompatActivity implements AsyncResponse{
+public class AreaSubscriptionHistory extends AppCompatActivity implements AsyncResponse {
     ImageView back;
-    private TextView admin_subscription_area;
+    private TextView admin_subscription;
     EditText inputSearch;
     ProgressBar circularProgressbar;
     private RecyclerView recyclerView;
-    private AdminSubscriptionAdapter adminSubscriptionAdapter;
-    private List<AdminSubscriptionList> adminSubscriptionLists = new ArrayList<>();
+    private AreaSubscriptionHistoryAdapter areaSubscriptionHistoryAdapter;
+    private List<AdminSubscriptionHistoryList> adminSubscriptionHistoryLists = new ArrayList<>();
+
     String adminmobile, email;
-    private String TAG = AdminSubscription.class.getSimpleName();
+    private String TAG = AreaSubscriptionHistory.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_subscription);
+        setContentView(R.layout.activity_area_subscription_history);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initView();
@@ -50,24 +52,30 @@ public class AdminSubscription extends AppCompatActivity implements AsyncRespons
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        Intent intent = getIntent();
+        adminmobile = intent.getStringExtra("adminmobile");
+        email = intent.getStringExtra("email");
+        Log.d(TAG, "Admin Details: " + adminmobile + "-" + email);
+
         back = findViewById(R.id.back_button);
-        admin_subscription_area = findViewById(R.id.admin_subscription_area);
-        admin_subscription_area.setTypeface(type1);
+        admin_subscription = findViewById(R.id.admin_subscription);
+        admin_subscription.setTypeface(type1);
         inputSearch = findViewById(R.id.input_search);
         inputSearch.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
         recyclerView = findViewById(R.id.recycler_view);
-        adminSubscriptionAdapter = new AdminSubscriptionAdapter(adminSubscriptionLists);
+        areaSubscriptionHistoryAdapter = new AreaSubscriptionHistoryAdapter(adminSubscriptionHistoryLists);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new CustomDivider(this, LinearLayoutManager.VERTICAL, 8));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adminSubscriptionAdapter);
+        recyclerView.setAdapter(areaSubscriptionHistoryAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                AdminSubscriptionList lists = adminSubscriptionLists.get(position);
+                AdminSubscriptionHistoryList lists = adminSubscriptionHistoryLists.get(position);
             }
 
             @Override
@@ -77,13 +85,14 @@ public class AdminSubscription extends AppCompatActivity implements AsyncRespons
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminSubscription.this, DashBoardActivity.class);
+                Intent intent = new Intent(AreaSubscriptionHistory.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -94,28 +103,32 @@ public class AdminSubscription extends AppCompatActivity implements AsyncRespons
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
         try {
-            jo.put("method", "getsubscriptionarea");
+            jo.put("method", "get_admin_area_details");
+            jo.put("adminmobile", adminmobile);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new SendRequest(getResources().getString(R.string.url), jo, AdminSubscription.this,
+        new SendRequest(getResources().getString(R.string.url), jo, AreaSubscriptionHistory.this,
                 getApplicationContext()).executeJsonRequest();
     }
 
     @Override
     public void onResponse(JSONObject jsonObject) {
         circularProgressbar.setVisibility(View.GONE);
-        adminSubscriptionLists.clear();
+        adminSubscriptionHistoryLists.clear();
         if (jsonObject.has("method")) {
             try {
-                if (jsonObject.getString("method").equals("getsubscriptionarea") && jsonObject.getBoolean("success")) {
+                if (jsonObject.getString("method").equals("get_admin_area_details") && jsonObject.getBoolean("success")) {
                     JSONArray ja = jsonObject.getJSONArray("data");
                     if (ja.length() > 0) {
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
-                            AdminSubscriptionList list = new AdminSubscriptionList(jo.getString("adminmobile"),
-                                    jo.getString("email"));
-                            adminSubscriptionLists.add(list);
+                            AdminSubscriptionHistoryList list = new AdminSubscriptionHistoryList(jo.getString("area_id"),
+                                    jo.getString("area_name"), jo.getString("basic_plan_amount"), jo.getString("basic_plan_month"),
+                                    jo.getString("basic_plan_mins"), jo.getString("standard_plan_amount"), jo.getString("standard_plan_month"),
+                                    jo.getString("standard_plan_mins"), jo.getString("sweet_plan_amount"), jo.getString("sweet_plan_month"), jo.getString("sweet_plan_mins"),
+                                    jo.getString("premium_plan_amount"), jo.getString("premium_plan_month"), jo.getString("premium_plan_mins"));
+                            adminSubscriptionHistoryLists.add(list);
                         }
                     }
                 }
@@ -123,7 +136,7 @@ public class AdminSubscription extends AppCompatActivity implements AsyncRespons
                 e.printStackTrace();
             }
         }
-        adminSubscriptionAdapter.notifyDataSetChanged();
+        areaSubscriptionHistoryAdapter.notifyDataSetChanged();
 
     }
 
@@ -153,7 +166,7 @@ public class AdminSubscription extends AppCompatActivity implements AsyncRespons
                 if (circularProgressbar.isEnabled()) {
                     circularProgressbar.setVisibility(View.GONE);
                 }
-                Intent intent = new Intent(AdminSubscription.this, DashBoardActivity.class);
+                Intent intent = new Intent(AreaSubscriptionHistory.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
