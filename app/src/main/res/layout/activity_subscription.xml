@@ -69,13 +69,37 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/twenty_dp">
 
+                <TextView
+                    android:id="@+id/area_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/thirty_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="Area Name"
+                    android:textSize="@dimen/eighteen_sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/area_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eight_dp"
+                    android:text="Area Id"
+                    android:padding="@dimen/four_dp"
+                    android:textSize="@dimen/sixteen_sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/area_name" />
+
                 <android.support.v7.widget.CardView
                     android:id="@+id/cardView_basic"
                     android:layout_width="match_parent"
                     android:layout_height="350dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/twenty_four_dp"
-                    android:layout_marginTop="@dimen/one_hundred_dp"
+                    android:layout_marginTop="@dimen/one_twenty_dp"
                     android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginBottom="@dimen/twenty_four_dp"
                     app:cardCornerRadius="@dimen/eight_dp"
@@ -104,6 +128,7 @@
                                     android:gravity="center_horizontal">
 
                                     <TextView
+                                        android:id="@+id/basic_plan_name"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:background="@drawable/cell_shape"
@@ -113,42 +138,37 @@
                                         android:textSize="18sp" />
 
                                     <TextView
+                                        android:id="@+id/basic_plan_amount"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:padding="18dip"
                                         android:background="@drawable/white_cell_shape"
+                                        android:padding="18dip"
                                         android:text="Basic Plan"
                                         android:textColor="@color/black"
                                         android:textSize="18sp" />
 
                                     <TextView
+                                        android:id="@+id/basic_plan_month"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:padding="18dip"
                                         android:background="@drawable/white_cell_shape"
+                                        android:padding="18dip"
                                         android:text="Basic Plan"
                                         android:textColor="#000"
                                         android:textSize="18sp" />
 
                                     <TextView
+                                        android:id="@+id/basic_plan_mins"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:padding="18dip"
                                         android:background="@drawable/white_cell_shape"
-                                        android:text="Basic Plan"
-                                        android:textColor="#000"
-                                        android:textSize="18sp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
                                         android:padding="18dip"
                                         android:text="Basic Plan"
-                                        android:background="@drawable/white_cell_shape"
                                         android:textColor="#000"
                                         android:textSize="18sp" />
 
                                 </TableRow>
+
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -158,6 +178,7 @@
                                     android:gravity="center_horizontal">
 
                                     <TextView
+                                        android:id="@+id/standard_plan_name"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:background="@drawable/cell_shape"
@@ -167,42 +188,37 @@
                                         android:textSize="18sp" />
 
                                     <TextView
+                                        android:id="@+id/standard_plan_amount"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:background="@drawable/grey_cell_shape"
                                         android:padding="18dip"
                                         android:text="Standard Plan"
-                                        android:background="@drawable/grey_cell_shape"
                                         android:textColor="#000"
                                         android:textSize="18sp" />
 
                                     <TextView
+                                        android:id="@+id/standard_plan_month"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:background="@drawable/grey_cell_shape"
                                         android:padding="18dip"
                                         android:text="Standard Plan"
-                                        android:background="@drawable/grey_cell_shape"
                                         android:textColor="#000"
                                         android:textSize="18sp" />
 
                                     <TextView
+                                        android:id="@+id/standard_plan_mins"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:background="@drawable/grey_cell_shape"
                                         android:padding="18dip"
                                         android:text="Standard Plan"
-                                        android:background="@drawable/grey_cell_shape"
-                                        android:textColor="#000"
-                                        android:textSize="18sp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:padding="18dip"
-                                        android:text="Standard Plan"
-                                        android:background="@drawable/grey_cell_shape"
                                         android:textColor="#000"
                                         android:textSize="18sp" />
 
                                 </TableRow>
+
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -212,6 +228,7 @@
                                     android:gravity="center_horizontal">
 
                                     <TextView
+                                        android:id="@+id/sweet_plan_name"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:background="@drawable/cell_shape"
@@ -221,42 +238,37 @@
                                         android:textSize="18sp" />
 
                                     <TextView
+                                        android:id="@+id/sweet_plan_amount"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:background="@drawable/light_grey_cell_shape"
                                         android:padding="18dip"
                                         android:text="Sweet Plan"
-                                        android:background="@drawable/light_grey_cell_shape"
                                         android:textColor="#000"
                                         android:textSize="18sp" />
 
                                     <TextView
+                                        android:id="@+id/sweet_plan_month"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:background="@drawable/light_grey_cell_shape"
                                         android:padding="18dip"
                                         android:text="Sweet Plan"
-                                        android:background="@drawable/light_grey_cell_shape"
                                         android:textColor="#000"
                                         android:textSize="18sp" />
 
                                     <TextView
+                                        android:id="@+id/sweet_plan_mins"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:background="@drawable/light_grey_cell_shape"
                                         android:padding="18dip"
                                         android:text="Sweet Plan"
-                                        android:background="@drawable/light_grey_cell_shape"
-                                        android:textColor="#000"
-                                        android:textSize="18sp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:padding="18dip"
-                                        android:text="Sweet Plan"
-                                        android:background="@drawable/light_grey_cell_shape"
                                         android:textColor="#000"
                                         android:textSize="18sp" />
 
                                 </TableRow>
+
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -266,6 +278,7 @@
                                     android:gravity="center_horizontal">
 
                                     <TextView
+                                        android:id="@+id/premium_plan_name"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:background="@drawable/cell_shape"
@@ -275,38 +288,32 @@
                                         android:textSize="18sp" />
 
                                     <TextView
+                                        android:id="@+id/premium_plan_amount"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:background="@drawable/dark_grey_cell_shape"
                                         android:padding="18dip"
                                         android:text="Premium Plan"
-                                        android:background="@drawable/dark_grey_cell_shape"
                                         android:textColor="#000"
                                         android:textSize="18sp" />
 
                                     <TextView
+                                        android:id="@+id/premium_plan_month"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:background="@drawable/dark_grey_cell_shape"
                                         android:padding="18dip"
                                         android:text="Premium Plan"
-                                        android:background="@drawable/dark_grey_cell_shape"
                                         android:textColor="#000"
                                         android:textSize="18sp" />
 
                                     <TextView
+                                        android:id="@+id/premium_plan_mins"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:background="@drawable/dark_grey_cell_shape"
                                         android:padding="18dip"
                                         android:text="Premium Plan"
-                                        android:background="@drawable/dark_grey_cell_shape"
-                                        android:textColor="#000"
-                                        android:textSize="18sp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:padding="18dip"
-                                        android:text="Premium Plan"
-                                        android:background="@drawable/dark_grey_cell_shape"
                                         android:textColor="#000"
                                         android:textSize="18sp" />
 
