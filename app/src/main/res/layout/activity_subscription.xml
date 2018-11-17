@@ -72,7 +72,7 @@
                 <android.support.v7.widget.CardView
                     android:id="@+id/cardView_basic"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
+                    android:layout_height="350dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/twenty_four_dp"
                     android:layout_marginTop="@dimen/one_hundred_dp"
@@ -98,12 +98,43 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/twenty_dp"
+                                    android:layout_marginTop="@dimen/twenty_dp"
+                                    android:layout_marginEnd="@dimen/twenty_dp"
                                     android:gravity="center_horizontal">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:background="@drawable/cell_shape"
                                         android:padding="18dip"
+                                        android:text="Basic Plan"
+                                        android:textColor="@color/color_white_01"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:background="@drawable/white_cell_shape"
+                                        android:text="Basic Plan"
+                                        android:textColor="@color/black"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:background="@drawable/white_cell_shape"
+                                        android:text="Basic Plan"
+                                        android:textColor="#000"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:background="@drawable/white_cell_shape"
                                         android:text="Basic Plan"
                                         android:textColor="#000"
                                         android:textSize="18sp" />
@@ -113,34 +144,174 @@
                                         android:layout_height="wrap_content"
                                         android:padding="18dip"
                                         android:text="Basic Plan"
-                                        android:textColor="#000"
-                                        android:textSize="18sp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:padding="18dip"
-                                        android:text="Basic Plan"
-                                        android:textColor="#000"
-                                        android:textSize="18sp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:padding="18dip"
-                                        android:text="Basic Plan"
-                                        android:textColor="#000"
-                                        android:textSize="18sp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:padding="18dip"
-                                        android:text="Basic Plan"
+                                        android:background="@drawable/white_cell_shape"
                                         android:textColor="#000"
                                         android:textSize="18sp" />
 
                                 </TableRow>
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/twenty_dp"
+                                    android:layout_marginTop="@dimen/twenty_dp"
+                                    android:layout_marginEnd="@dimen/twenty_dp"
+                                    android:gravity="center_horizontal">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/cell_shape"
+                                        android:padding="18dip"
+                                        android:text="Standard Plan"
+                                        android:textColor="@color/color_white_01"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:text="Standard Plan"
+                                        android:background="@drawable/grey_cell_shape"
+                                        android:textColor="#000"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:text="Standard Plan"
+                                        android:background="@drawable/grey_cell_shape"
+                                        android:textColor="#000"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:text="Standard Plan"
+                                        android:background="@drawable/grey_cell_shape"
+                                        android:textColor="#000"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:text="Standard Plan"
+                                        android:background="@drawable/grey_cell_shape"
+                                        android:textColor="#000"
+                                        android:textSize="18sp" />
+
+                                </TableRow>
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/twenty_dp"
+                                    android:layout_marginTop="@dimen/twenty_dp"
+                                    android:layout_marginEnd="@dimen/twenty_dp"
+                                    android:gravity="center_horizontal">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/cell_shape"
+                                        android:padding="18dip"
+                                        android:text="Sweet Plan"
+                                        android:textColor="@color/color_white_01"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:text="Sweet Plan"
+                                        android:background="@drawable/light_grey_cell_shape"
+                                        android:textColor="#000"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:text="Sweet Plan"
+                                        android:background="@drawable/light_grey_cell_shape"
+                                        android:textColor="#000"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:text="Sweet Plan"
+                                        android:background="@drawable/light_grey_cell_shape"
+                                        android:textColor="#000"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:text="Sweet Plan"
+                                        android:background="@drawable/light_grey_cell_shape"
+                                        android:textColor="#000"
+                                        android:textSize="18sp" />
+
+                                </TableRow>
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/twenty_dp"
+                                    android:layout_marginTop="@dimen/twenty_dp"
+                                    android:layout_marginEnd="@dimen/twenty_dp"
+                                    android:gravity="center_horizontal">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/cell_shape"
+                                        android:padding="18dip"
+                                        android:text="Premium Plan"
+                                        android:textColor="@color/color_white_01"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:text="Premium Plan"
+                                        android:background="@drawable/dark_grey_cell_shape"
+                                        android:textColor="#000"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:text="Premium Plan"
+                                        android:background="@drawable/dark_grey_cell_shape"
+                                        android:textColor="#000"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:text="Premium Plan"
+                                        android:background="@drawable/dark_grey_cell_shape"
+                                        android:textColor="#000"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="18dip"
+                                        android:text="Premium Plan"
+                                        android:background="@drawable/dark_grey_cell_shape"
+                                        android:textColor="#000"
+                                        android:textSize="18sp" />
+
+                                </TableRow>
+
                             </TableLayout>
 
                         </android.support.constraint.ConstraintLayout>
