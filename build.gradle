@@ -4,6 +4,8 @@ buildscript {
     repositories {
         jcenter()
         google()
+        mavenCentral()   // This repo should have the gradle plugin
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
