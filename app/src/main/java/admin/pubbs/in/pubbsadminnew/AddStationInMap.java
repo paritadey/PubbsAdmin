@@ -49,6 +49,8 @@ import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -82,11 +84,6 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     View v;
     TextView selectStationTv, bottomsheetText;
     String station_name;
-    String[] mlocationStringArray;
-    List<String> matchList = new ArrayList<String>();
-    ArrayList<LatLng> coordinates = new ArrayList<LatLng>();
-    double lat_one, lng_one, lat_two, lng_two, lat_three, lng_three, lat_four, lng_four, lat_five, lng_five, lat_six, lng_six;
-    String l1, l2, l3, l4, l5, l6;
     String stationid;
     double station_latitude, station_longitude;
     String finalResult;
@@ -95,18 +92,23 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     HashMap<String, String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
     String stationLatitude, stationLongitude;
-
+    Gson gson;
+    List<LatLng> polygon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_station_in_map);
+
         Intent intent = getIntent();
         areaName = intent.getStringExtra("area_name");
         areaId = intent.getStringExtra("area_id");
         areaLatLng = intent.getStringExtra("latlon");
         Log.d(TAG, "Area Details:" + areaName + "--" + areaId + "--" + areaLatLng);
-        GetPolygonPoints(areaLatLng);
+        gson = new Gson();
+        polygon = gson.fromJson(areaLatLng, new TypeToken<List<LatLng>>(){}.getType());
+        Log.d(TAG, "Lat/Long:"+polygon);
+
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminMobile = sharedPreferences.getString("adminmobile", null);
         Log.d(TAG, "Admin Mobile" + adminMobile);
@@ -124,69 +126,6 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
             }
         });
 
-    }
-
-    public void GetPolygonPoints(String areaLatLng) {
-        Pattern regex = Pattern.compile("\\((.*?)\\)");
-        Matcher regexMatcher = regex.matcher(areaLatLng);
-
-        while (regexMatcher.find()) {
-            matchList.add(regexMatcher.group(1));
-        }
-        for (int i = 0; i < matchList.size(); i++) {
-            Log.d(TAG, "markers: " + matchList.get(i));
-        }
-        mlocationStringArray = new String[matchList.size()];
-        mlocationStringArray = matchList.toArray(mlocationStringArray);
-
-        for (int i = 0; i < mlocationStringArray.length; i++) {
-            Log.d("string is", (String) mlocationStringArray[i]);
-        }
-        l1 = mlocationStringArray[0];
-        String l11[] = l1.split(",");
-        String l11_1 = l11[0];
-        String l22_2 = l11[1];
-        lat_one = Double.parseDouble(l11_1);
-        lng_one = Double.parseDouble(l22_2);
-
-        l2 = mlocationStringArray[1];
-        String ll2[] = l2.split(",");
-        String ll2_1 = ll2[0];
-        String ll2_2 = ll2[1];
-        lat_two = Double.parseDouble(ll2_1);
-        lng_two = Double.parseDouble(ll2_2);
-
-        l3 = mlocationStringArray[2];
-        String ll3[] = l3.split(",");
-        String ll3_1 = ll3[0];
-        String ll3_2 = ll3[1];
-        lat_three = Double.parseDouble(ll3_1);
-        lng_three = Double.parseDouble(ll3_2);
-
-        l4 = mlocationStringArray[3];
-        String ll4[] = l4.split(",");
-        String ll4_1 = ll4[0];
-        String ll4_2 = ll4[1];
-        lat_four = Double.parseDouble(ll4_1);
-        lng_four = Double.parseDouble(ll4_2);
-
-        l5 = mlocationStringArray[4];
-        String ll5[] = l5.split(",");
-        String ll5_1 = ll5[0];
-        String ll5_2 = ll5[1];
-        lat_five = Double.parseDouble(ll5_1);
-        lng_five = Double.parseDouble(ll5_2);
-
-        l6 = mlocationStringArray[5];
-        String ll6[] = l6.split(",");
-        String ll6_1 = ll6[0];
-        String ll6_2 = ll6[1];
-        lat_six = Double.parseDouble(ll6_1);
-        lng_six = Double.parseDouble(ll6_2);
-
-        Log.d(TAG, "PARITA:" + l1 + "\n" + l2 + "\n" + l3 + "\n" + l4 + "\n" + l5 + "\n" + l6);
-        Log.d(TAG, "DEY:" + lat_one + "/" + lng_one + "\n" + lat_two + "/" + lng_two + "\n" + lat_three + "/" + lng_three + "\n" + lat_four + "/" + lng_four + "\n"
-                + lat_five + "/" + lng_five + "\n" + lat_six + "/" + lng_six);
     }
 
     @SuppressLint("ResourceType")
@@ -235,53 +174,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     public void onMapReady(GoogleMap googleMap) {
         Log.d(TAG, "onMapReady: map is ready");
         mMap = googleMap;
-        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.circumference);
-        MarkerOptions markerOption_one = new MarkerOptions()
-                .position(new LatLng(lat_one, lng_one))
-                .title(l1).icon(icon);
-        mMap.addMarker(markerOption_one);
-        LatLng latLng_one = new LatLng(lat_one, lng_one);
-        coordinates.add(latLng_one);
-
-        MarkerOptions markerOption_two = new MarkerOptions()
-                .position(new LatLng(lat_two, lng_two))
-                .title(l2).icon(icon);
-        mMap.addMarker(markerOption_two);
-        LatLng latLng_two = new LatLng(lat_two, lng_two);
-        coordinates.add(latLng_two);
-
-        MarkerOptions markerOption_three = new MarkerOptions()
-                .position(new LatLng(lat_three, lng_three))
-                .title(l3).icon(icon);
-        mMap.addMarker(markerOption_three);
-        LatLng latLng_three = new LatLng(lat_three, lng_three);
-        coordinates.add(latLng_three);
-
-        MarkerOptions markerOption_four = new MarkerOptions()
-                .position(new LatLng(lat_four, lng_four))
-                .title(l4).icon(icon);
-        mMap.addMarker(markerOption_four);
-        LatLng latLng_four = new LatLng(lat_four, lng_four);
-        coordinates.add(latLng_four);
-
-        MarkerOptions markerOption_five = new MarkerOptions()
-                .position(new LatLng(lat_five, lng_five))
-                .title(l5).icon(icon);
-        mMap.addMarker(markerOption_five);
-        LatLng latLng_five = new LatLng(lat_five, lng_five);
-        coordinates.add(latLng_five);
-
-        MarkerOptions markerOption_six = new MarkerOptions()
-                .position(new LatLng(lat_six, lng_six))
-                .title(l6).icon(icon);
-        mMap.addMarker(markerOption_six);
-        LatLng latLng_six = new LatLng(lat_six, lng_six);
-        coordinates.add(latLng_six);
-
-        for (int i = 0; i < coordinates.size(); i++) {
-            Log.d(TAG, "Coordinates: " + coordinates.get(i));
-        }
-        drawAreaPolygon(coordinates);
+        drawAreaPolygon(polygon);
 
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
@@ -299,7 +192,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    public void drawAreaPolygon(ArrayList<LatLng> coordinates) {
+    public void drawAreaPolygon(List<LatLng> coordinates) {
         Log.d(TAG, "Drawing polygon");
         if (coordinates.size() >= 6) {
             PolygonOptions polygonOptions = new PolygonOptions();

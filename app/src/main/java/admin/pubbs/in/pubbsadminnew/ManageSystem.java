@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
 import org.json.JSONException;
@@ -54,6 +55,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
     String markerArray;
     private String basicPlanAmount, basicPlanMonth, basicPlanMins, standardPlanAmount, standardPlanMonth, standardPlanMins;
     private String sweetPlanAmount, sweetPlanMonth, sweetPlanMins, premiumPlanAmount, premiumPlanMonth, premiumPlanMins;
+    String json;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +100,11 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
                 ":" + rupee2 + "\t" + numberPicker3 + ":" + rupee3 + "\t" + numberPicker4 + ":" + rupee4 + "\t" + numberPicker5 + ":" + rupee5);
         Log.d(TAG, "Subscription:"+basicPlanAmount+"//"+basicPlanMonth+"//"+basicPlanMins+"\t"+standardPlanAmount+"//"+standardPlanMonth+
         "//"+standardPlanMins+"\t"+sweetPlanAmount+"//"+sweetPlanMonth+"//"+sweetPlanMins+"\t"+premiumPlanAmount+"//"+premiumPlanMonth+"//"+premiumPlanMins);
+
+        Gson gson = new Gson();
+        json=gson.toJson(markerList);
+        Log.d(TAG, "Marker String:"+json);
+
         showinJsonArray(markerList);
         manageSystem = findViewById(R.id.manage_system);
         back = findViewById(R.id.back_button);
@@ -165,14 +172,14 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void showinJsonArray(ArrayList<LatLng> markerList) {
+    private void showinJsonArray(ArrayList<LatLng> markerLists) {
        /* Gson gson = new GsonBuilder().create();
         markers = gson.toJsonTree(markerList).getAsJsonArray();
         for(int i=0; i<markerList.size(); i++){
             Log.d(TAG, "Lat/Lon:"+markers.get(i).getAsJsonObject());
         }*/
         markerArray = "";
-        for (LatLng s : markerList) {
+        for (LatLng s : markerLists) {
             markerArray += s + ";";
         }
         Log.d(TAG, "Large Marker String:" + markerArray);
@@ -289,7 +296,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
                     closeHr = closingHour.getText().toString();
                     geofenceFine = geofencingFine.getText().toString();
 
-                    sendData(areaNumber, area_Name, markerArray, numberPicker1, rupee1, numberPicker2, rupee2, numberPicker3, rupee3,
+                    sendData(areaNumber, area_Name, json, numberPicker1, rupee1, numberPicker2, rupee2, numberPicker3, rupee3,
                             numberPicker4, rupee4, numberPicker5, rupee5, openHr, closeHr, max_ride, max_hold, min_wallet, geofenceFine, adminMobile,
                             basicPlanAmount, basicPlanMonth, basicPlanMins, standardPlanAmount, standardPlanMonth, standardPlanMins, sweetPlanAmount,
                             sweetPlanMonth, sweetPlanMins, premiumPlanAmount, premiumPlanMonth, premiumPlanMins);

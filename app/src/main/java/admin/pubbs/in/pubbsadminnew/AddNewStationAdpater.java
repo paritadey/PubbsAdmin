@@ -11,6 +11,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,7 +23,6 @@ public class AddNewStationAdpater extends RecyclerView.Adapter<AddNewStationAdpa
     private List<AreaList> areaLists;
     //String latlon;
     Context mContext;
-    //String areaLatLang, areaname, areaid;
     private String TAG = AddNewStationAdpater.class.getSimpleName();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -61,15 +65,15 @@ public class AddNewStationAdpater extends RecyclerView.Adapter<AddNewStationAdpa
         String areaid = areaList.getAreaId();//holder.areaId.getText().toString();
         String latlon = areaList.getAreaLatLon();//holder.areaLatLon.getText().toString();
         Log.d(TAG, "LatLong:" + latlon);
-        String areaLatLang = Arrays.toString(latlon.split("lat/lng:"));
-        Log.d(TAG, "Array of latlng:" + areaLatLang);
+        //String areaLatLang = Arrays.toString(latlon.split("lat/lng:"));
+        //Log.d(TAG, "Array of latlng:" + areaLatLang);
         holder.areaLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddStationInMap.class);
                 intent.putExtra("area_name", areaid);
                 intent.putExtra("area_id", areaname);
-                intent.putExtra("latlon", areaLatLang);
+                intent.putExtra("latlon", latlon);
                 v.getContext().startActivity(intent);
             }
         });
