@@ -98,7 +98,7 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.add_station).setTitle("Show all Admin");
                 navigationView.getMenu().findItem(R.id.add_new_bicycle).setTitle("Edit Admin");
                 navigationView.getMenu().findItem(R.id.edit_station).setTitle("Delete Admin");
-                navigationView.getMenu().findItem(R.id.delete_station).setVisible(false);
+                navigationView.getMenu().findItem(R.id.delete_station).setTitle("Add Lock to database");
                 navigationView.getMenu().findItem(R.id.lists).setTitle("View Panel");
                 navigationView.getMenu().findItem(R.id.redistribution).setVisible(false);
                 navigationView.getMenu().findItem(R.id.repair).setTitle("Show all Areas");
@@ -111,6 +111,7 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.service).setTitle("Subscriptions");
                 navigationView.getMenu().findItem(R.id.manage_operator).setVisible(false);
                 navigationView.getMenu().findItem(R.id.contact_super_admin).setVisible(false);
+                navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
             } else if (uadmin.equals("Employee")) {
                 check = false;
                 navigationView.getMenu().findItem(R.id.add_area).setVisible(false);
@@ -120,6 +121,7 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.service).setVisible(false);
                 navigationView.getMenu().findItem(R.id.manage_operator).setVisible(false);
                 navigationView.getMenu().findItem(R.id.contact_super_admin).setTitle("Contact Admin");
+                navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
             } else if (uadmin.equals("Sub Admin")) {
                 check = false;
             }
@@ -208,7 +210,7 @@ public class DashBoardActivity extends AppCompatActivity
                 break;
             case R.id.add_area:
                 if (check == true) {
-                   // startActivity(new Intent(DashBoardActivity.this, AddOperator.class));
+                    // startActivity(new Intent(DashBoardActivity.this, AddOperator.class));
                     startActivity(new Intent(DashBoardActivity.this, SuperAdminAddOperator.class));
                     break;
                 } else {
@@ -232,8 +234,13 @@ public class DashBoardActivity extends AppCompatActivity
                     break;
                 }
             case R.id.delete_station:
-                startActivity(new Intent(DashBoardActivity.this, DeleteStation.class));
-                break;
+                if (check == true) {
+                    startActivity(new Intent(DashBoardActivity.this, SubAdmin.class));
+                    break;
+                } else {
+                    startActivity(new Intent(DashBoardActivity.this, DeleteStation.class));
+                    break;
+                }
             case R.id.service:
                 if (check == true) {
                     startActivity(new Intent(DashBoardActivity.this, AdminSubscription.class));
@@ -250,10 +257,15 @@ public class DashBoardActivity extends AppCompatActivity
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Prolem / Query about Pubbs Admin");
                 intent.putExtra(Intent.EXTRA_TEXT, "Admin/Employee ID is: "+""+uphone+""+"of Admin type :"+""+uadmin);
                 startActivity(intent);*/
-               Intent intent = new Intent(DashBoardActivity.this, ContactSuperAdmin.class);
-               intent.putExtra("uphone", uphone);
-               intent.putExtra("uadmin", uadmin);
-               startActivity(intent);
+                Intent intent = new Intent(DashBoardActivity.this, ContactSuperAdmin.class);
+                intent.putExtra("uphone", uphone);
+                intent.putExtra("uadmin", uadmin);
+                startActivity(intent);
+                break;
+            case R.id.log_out:
+                sharedPreferences.edit().clear().commit();
+                this.finish();
+                System.exit(0);
                 break;
         }
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -213,9 +213,13 @@
         <activity
             android:name=".Subscription"
             android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar"/>
+            android:theme="@style/MyNoActionBar" />
         <activity
             android:name=".AreaSubscriptionHistory"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".SubAdmin"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan"></activity>

@@ -98,4 +98,21 @@
       </menu>
     </item>
   </group>
+  <group
+      android:id="@+id/group_5"
+      android:checkableBehavior="single">
+
+    <item
+        android:id="@+id/logout"
+        android:title="LogOut">
+      <menu>
+        <group android:checkableBehavior="single">
+          <item
+              android:id="@+id/log_out"
+              android:title="Logout" />
+        </group>
+      </menu>
+    </item>
+  </group>
+
 </menu>
