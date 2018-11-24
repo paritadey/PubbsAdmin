@@ -28,7 +28,8 @@ import java.text.SimpleDateFormat;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 /*created by Parita Dey*/
-public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler, View.OnClickListener, AsyncResponse {
+public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler,
+        View.OnClickListener, AsyncResponse {
     private ZXingScannerView mScannerView;
     ImageView upArrow, back;
     private final String TAG = AddBicycleQRActivity.class.getSimpleName();
@@ -37,7 +38,7 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
     // Button proceed;
     ProgressDialog pd;
     String station_name, station_id, area_name, area_id, adminmobile, admin_type;
-    String cycle_id, address, date_time, locktype, mac;
+    String cycle_id, address, date_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,21 +102,18 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
     public void handleResult(Result rawResult) {
         cycle_id = rawResult.getText();
         Log.d(TAG, cycle_id);
-        locktype = cycle_id.substring(0,6);
-        Log.d(TAG, "Locktype="+locktype);
-        mac = cycle_id.substring(6,24);
-        address = mac.replaceAll(":", "");
-        Log.d(TAG, "replacing colon=" + address);
+        address = cycle_id.replaceAll(":", "");
+        Log.d(TAG, "replacing colon:" + address);
         bicycleId.setText(address);
         if (bicycleId.getText().toString().isEmpty() == false) {
-            addCnfirmationDialog("Do you want to add this cycle?", cycle_id, locktype, address, area_id, station_name, station_id, adminmobile,
+            addCnfirmationDialog("Do you want to add this cycle?", cycle_id, address, area_id, station_name, station_id, adminmobile,
                     admin_type, date_time, getApplicationContext());
         } else {
             Log.d(TAG, "Problem occures");
         }
     }
 
-    private void addCnfirmationDialog(String msg, String cycle_id, String locktype, String address, String area_id, String station_name,
+    private void addCnfirmationDialog(String msg, String cycle_id, String address, String area_id, String station_name,
                                       String station_id, String adminmobile, String admin_type, String date_time, Context applicationContext) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage(msg);
@@ -127,7 +125,6 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
                         try {
                             jo.put("method", "add_new_cycle");
                             jo.put("cycle_id", cycle_id);
-                            jo.put("locktype", locktype);
                             jo.put("address", address);
                             jo.put("area_id", area_id);
                             jo.put("station_name", station_name);
@@ -185,7 +182,7 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
                 if (jsonObject.getString("method").equals("add_new_cycle") && jsonObject.getBoolean("success")) {
                     showCycleAddedDialog("Cycle is added to the station.");
                 } else {
-                   // Toast.makeText(getApplicationContext(), "couldn't save try again later", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getApplicationContext(), "couldn't save try again later", Toast.LENGTH_SHORT).show();
                     showCycleAddedDialog("couldn't save try again later");
                 }
             } catch (JSONException e) {

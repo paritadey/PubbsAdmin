@@ -493,7 +493,8 @@
         android:paddingTop="@dimen/eight_dp"
         app:behavior_hideable="false"
         app:elevation="4dp"
-        app:layout_behavior="@string/bottom_sheet_behavior">
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        tools:ignore="MissingPrefix">
 
         <TextView
             android:id="@+id/bottomsheet_text"

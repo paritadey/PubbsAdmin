@@ -60,7 +60,11 @@ public class SubAdminAdpater extends RecyclerView.Adapter<SubAdminAdpater.MyView
         holder.subadminLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(), AddLock.class);
+                intent.putExtra("fullname", fullname);
+                intent.putExtra("adminmobile", adminmobile);
+                intent.putExtra("areaid", areaid);
+                v.getContext().startActivity(intent);
             }
         });
     }

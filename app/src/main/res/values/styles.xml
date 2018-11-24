@@ -72,4 +72,6 @@
             <item name="android:backgroundDimEnabled">true</item>
             <item name="android:background">@android:color/transparent</item>
         </style>
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem"></style>
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem"></style>
 </resources>

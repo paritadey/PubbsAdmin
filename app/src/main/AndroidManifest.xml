@@ -219,10 +219,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".SubAdmin"
+        <activity
+            android:name=".SubAdmin"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".AddLock"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"></activity>
     </application>
 
 </manifest>
