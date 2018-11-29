@@ -16,6 +16,9 @@
               android:id="@+id/add_area"
               android:title="Add New Area" />
           <item
+              android:id="@+id/area_legal"
+              android:title="Add Area Legal"/>
+          <item
               android:id="@+id/add_station"
               android:title="Add New Station" />
           <item

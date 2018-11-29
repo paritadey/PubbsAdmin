@@ -111,6 +111,7 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.service).setTitle("Subscriptions");
                 navigationView.getMenu().findItem(R.id.manage_operator).setVisible(false);
                 navigationView.getMenu().findItem(R.id.contact_super_admin).setVisible(false);
+                navigationView.getMenu().findItem(R.id.area_legal).setVisible(false);
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
             } else if (uadmin.equals("Employee")) {
                 check = false;
@@ -162,6 +163,9 @@ public class DashBoardActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.area_legal:
+                startActivity(new Intent(DashBoardActivity.this, AreaLegal.class));
+                break;
             case R.id.redistribution:
                 if (check == true) {
                     // startActivity(new Intent(DashBoardActivity.this, ShowAllAreas.class));
