@@ -21,8 +21,6 @@ import java.util.List;
 
 public class AddNewStationAdpater extends RecyclerView.Adapter<AddNewStationAdpater.MyViewHolder> {
     private List<AreaList> areaLists;
-    //String latlon;
-    Context mContext;
     private String TAG = AddNewStationAdpater.class.getSimpleName();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

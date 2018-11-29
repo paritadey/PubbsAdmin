@@ -55,8 +55,8 @@ public class RechargeBattery extends AppCompatActivity implements AsyncResponse 
         back = findViewById(R.id.back_button);
         bicycleTv = findViewById(R.id.bicycle_tv);
         bicycleTv.setTypeface(type1);
-        inputSearch = findViewById(R.id.input_search);
-        inputSearch.setTypeface(type1);
+       // inputSearch = findViewById(R.id.input_search);
+        //inputSearch.setTypeface(type1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         recyclerView = findViewById(R.id.recycler_view);

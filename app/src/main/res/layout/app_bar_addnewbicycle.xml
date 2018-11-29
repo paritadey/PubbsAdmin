@@ -8,7 +8,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -44,7 +44,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:srcCompat="@drawable/ic_arrow_back_24dp" />
 
-                <RelativeLayout
+              <!--  <RelativeLayout
                     android:id="@+id/search_bar_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/thirty_six_dp"
@@ -81,7 +81,7 @@
                         android:layout_marginEnd="@dimen/ten_dp"
                         app:srcCompat="@drawable/ic_search_black_24dp" />
 
-                </RelativeLayout>
+                </RelativeLayout>-->
 
 
             </android.support.constraint.ConstraintLayout>

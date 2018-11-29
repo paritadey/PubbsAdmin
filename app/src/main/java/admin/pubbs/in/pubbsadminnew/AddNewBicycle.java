@@ -53,8 +53,8 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
         back = findViewById(R.id.back_button);
         bicycleTv = findViewById(R.id.bicycle_tv);
         bicycleTv.setTypeface(type1);
-        inputSearch = findViewById(R.id.input_search);
-        inputSearch.setTypeface(type1);
+       // inputSearch = findViewById(R.id.input_search);
+        //inputSearch.setTypeface(type1);
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminmobile = sharedPreferences.getString("adminmobile", null);
         Log.d(TAG, "Admin Mobile" + adminmobile);

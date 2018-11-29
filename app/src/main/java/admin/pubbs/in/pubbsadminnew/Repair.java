@@ -60,8 +60,8 @@ public class Repair extends AppCompatActivity implements AsyncResponse {
         back = findViewById(R.id.back_button);
         bicycleTv = findViewById(R.id.bicycle_tv);
         bicycleTv.setTypeface(type1);
-        inputSearch = findViewById(R.id.input_search);
-        inputSearch.setTypeface(type1);
+        //inputSearch = findViewById(R.id.input_search);
+        //inputSearch.setTypeface(type1);
         drawRedistribution = findViewById(R.id.draw_redistribution);
         drawRedistribution.setTypeface(type2);
         scanQrTv = findViewById(R.id.scan_qr_tv);
