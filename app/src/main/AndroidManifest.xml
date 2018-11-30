@@ -228,10 +228,15 @@
             android:name=".AddLock"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
-        <activity android:name=".AreaLegal"
+        <activity
+            android:name=".AreaLegal"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".SetAreaAgreement"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"/>
     </application>
 
 </manifest>

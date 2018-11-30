@@ -181,4 +181,7 @@
     <string name="search_subadmin">Search Sub Admin</string>
     <string name="lock_tv">Buy locks</string>
     <string name="area_legal">Add Area Legal</string>
+    <string name="area_legal_tv">Set your area legal</string>
+    <string name="set_legal">Set Legal</string>
+    <string name="update_legal">Update Legal</string>
 </resources>

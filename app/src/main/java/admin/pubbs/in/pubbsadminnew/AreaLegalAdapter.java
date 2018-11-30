@@ -59,7 +59,10 @@ public class AreaLegalAdapter extends RecyclerView.Adapter<AreaLegalAdapter.MyVi
         holder.areaLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(), SetAreaAgreement.class);
+                intent.putExtra("areaname", areaname);
+                intent.putExtra("areaid", areaid);
+                v.getContext().startActivity(intent);
             }
         });
     }
