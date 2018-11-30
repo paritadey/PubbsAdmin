@@ -67,7 +67,7 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="@dimen/twenty_dp">
+                android:paddingBottom="@dimen/eighty_dp">
 
                 <TextView
                     android:id="@+id/area_legal_tv"
@@ -192,14 +192,14 @@
                     app:layout_constraintTop_toBottomOf="@id/service_condition" />
 
                 <EditText
-                    android:id="@+id/area_condition"
+                    android:id="@+id/area_subscription_condition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/twenty_four_dp"
                     android:layout_marginTop="@dimen/sixteen_dp"
                     android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:background="@drawable/edittext_bg"
-                    android:hint="Additional area related condition"
+                    android:hint="Area subscription condition"
                     android:padding="@dimen/eight_dp"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@drawable/custom_cursor"
@@ -208,10 +208,42 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/step_four" />
 
+                <TextView
+                    android:id="@+id/step_five"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/twenty_four_dp"
+                    android:layout_marginTop="@dimen/twenty_four_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
+                    android:paddingStart="@dimen/eight_dp"
+                    android:text="Step 5 :"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/area_subscription_condition" />
+
+                <EditText
+                    android:id="@+id/area_condition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/twenty_four_dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
+                    android:background="@drawable/edittext_bg"
+                    android:hint="Additional area condition"
+                    android:padding="@dimen/eight_dp"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/step_five" />
                 <Button
                     android:id="@+id/set_legal"
                     android:layout_width="@dimen/one_fifty_dp"
                     android:layout_height="@dimen/fourty_dp"
+                    android:layout_marginBottom="@dimen/twenty_four_dp"
                     android:layout_marginTop="@dimen/thirty_six_dp"
                     android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:background="@drawable/button_bg"
