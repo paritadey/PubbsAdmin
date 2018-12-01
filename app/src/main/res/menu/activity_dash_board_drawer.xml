@@ -107,9 +107,12 @@
 
     <item
         android:id="@+id/logout"
-        android:title="LogOut">
+        android:title="Settings">
       <menu>
         <group android:checkableBehavior="single">
+          <item
+              android:id="@+id/profile"
+              android:title="Profile"/>
           <item
               android:id="@+id/log_out"
               android:title="Logout" />

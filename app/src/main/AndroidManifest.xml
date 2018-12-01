@@ -236,6 +236,10 @@
         <activity
             android:name=".SetAreaAgreement"
             android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar" />
+        <activity
+            android:name=".Settings"
+            android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"/>
     </application>
 
