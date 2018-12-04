@@ -240,6 +240,10 @@
         <activity
             android:name=".Settings"
             android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar" />
+        <activity
+            android:name=".ChangePassword"
+            android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"/>
     </application>
 

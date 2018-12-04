@@ -15,7 +15,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     SharedPreferences sharedPreferences;
     private String TAG = Settings.class.getSimpleName();
     ImageView back;
-    TextView settings_tv, adminmobile_tv, admin_mobile, admintype_tv, admin_type, change_password;
+    TextView settings_tv, adminmobile_tv, admin_mobile, admintype_tv, admin_type, change_password, payments, about;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,10 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         admin_type.setText(admintype);
         change_password = findViewById(R.id.change_password);
         change_password.setTypeface(type1);
+        payments = findViewById(R.id.payments);
+        payments.setTypeface(type1);
+        about = findViewById(R.id.about);
+        about.setTypeface(type1);
     }
 
     @Override
@@ -64,6 +68,13 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
                 Intent intent = new Intent(Settings.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+                break;
+            case R.id.change_password:
+                startActivity(new Intent(Settings.this, ChangePassword.class));
+                break;
+            case R.id.payments:
+                break;
+            case R.id.about:
                 break;
             default:
                 break;
