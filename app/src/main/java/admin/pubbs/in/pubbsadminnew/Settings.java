@@ -48,10 +48,22 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         admin_type.setText(admintype);
         change_password = findViewById(R.id.change_password);
         change_password.setTypeface(type1);
+        change_password.setOnClickListener(this);
         payments = findViewById(R.id.payments);
         payments.setTypeface(type1);
+        payments.setOnClickListener(this);
         about = findViewById(R.id.about);
         about.setTypeface(type1);
+        about.setOnClickListener(this);
+        showPaymentText(admintype);
+    }
+
+    public void showPaymentText(String admintype) {
+        if(admintype.equals("Super Admin")){
+            payments.setVisibility(View.GONE);
+        }else{
+            payments.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
