@@ -244,6 +244,10 @@
         <activity
             android:name=".ChangePassword"
             android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar" />
+        <activity
+            android:name=".LockCart"
+            android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"/>
     </application>
 

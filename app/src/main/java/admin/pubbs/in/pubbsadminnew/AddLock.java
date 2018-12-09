@@ -21,7 +21,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,22 +39,24 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class AddLock extends AppCompatActivity implements AdapterView.OnItemSelectedListener, AsyncResponse {
+public class AddLock extends AppCompatActivity implements AsyncResponse, View.OnClickListener {
     private String fullname, adminmobile, areaid;
     private String TAG = AddLock.class.getSimpleName();
     TextView lock_type_tv;
-    Spinner locktypeSpinner, quantitySpinner;
-    String[] lockType = {"Choose lock type", "AT_BLE_1", "QT_BLE_2", "QT_GSM_GPS", "QT_SMS"};
-    String choosenLockType, lockQuantity;
     RelativeLayout lockLayout;
     CardView addLockdetails;
-    LinearLayout lock_address_layout;
     ArrayList<String> lockIDList = new ArrayList<String>();
     ArrayList<String> bleAddress = new ArrayList<String>();
+    ArrayList<String> choosenLockType = new ArrayList<String>();
+    ArrayList<String> simNoList = new ArrayList<String>();
+    ArrayList<String> dateList = new ArrayList<String>();
     Typeface type1, type2, type3;
     EditText lockid, ble_address, simNumber;
     String lock_id, ble_id, sim_number, locktype, date_time;
     Button add, addLocks;
+    ImageView back;
+    RadioGroup locktypeGroup;
+    RadioButton radioAT_BLE_1, radioQT_BLE_2, radioQT_GSM_GPS, radioQT_SMS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,85 +77,126 @@ public class AddLock extends AppCompatActivity implements AdapterView.OnItemSele
         Log.d(TAG, "Sub Admin: " + fullname + "-" + adminmobile + "-" + areaid);
         addLockdetails = findViewById(R.id.addLockdetails);
         lockLayout = findViewById(R.id.lock_layout);
+        back = findViewById(R.id.back_button);
         lockid = findViewById(R.id.lock_id);
+        lockid.setTypeface(type1);
         ble_address = findViewById(R.id.ble_address);
         add = findViewById(R.id.add);
+        add.setOnClickListener(this);
         simNumber = findViewById(R.id.sim_number);
         lock_type_tv = findViewById(R.id.lock_type_tv);
-        locktypeSpinner = findViewById(R.id.locktypeSpinner);
-        locktypeSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, lockType);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        locktypeSpinner.setAdapter(aa);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (position == 0) {
-            Log.d(TAG, "Please choose option");
-            Toast.makeText(getApplicationContext(), "Please choose option", Toast.LENGTH_SHORT).show();
-        } else {
-            choosenLockType = lockType[position];
-            Log.d(TAG, "LockType:" + choosenLockType);
-            createView(choosenLockType);
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddLock.this, DashBoardActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
 
     }
 
-    public void createView(String choosenLockType) {
+    public void onRadioButtonClicked(View v) {
+        locktypeGroup = findViewById(R.id.locktype);
+        radioAT_BLE_1 = findViewById(R.id.radioAT_BLE_1);
+        radioAT_BLE_1.setTypeface(type1);
+        radioQT_BLE_2 = findViewById(R.id.radioQT_BLE_2);
+        radioQT_BLE_2.setTypeface(type1);
+        radioQT_GSM_GPS = findViewById(R.id.radioQT_GSM_GPS);
+        radioQT_GSM_GPS.setTypeface(type1);
+        radioQT_SMS = findViewById(R.id.radioQT_SMS);
+        radioQT_SMS.setTypeface(type1);
+        boolean checked = ((RadioButton) v).isChecked();
+
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("EEE dd-MM-yyyy HH:mm");
         date_time = sdf.format(date);
-        lock_id = lockid.getText().toString();
-        ble_id = ble_address.getText().toString();
-        Log.d(TAG, "Lock ID:" + lock_id + "-" + ble_id);
-        if (choosenLockType.equals("AT_BLE_1")) {
-            locktype = "AT_BLE_1";
-            add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    sendAddLockDetails(fullname, adminmobile, areaid, lock_id, ble_id, "NA", locktype, date_time);
+        switch (v.getId()) {
+            case R.id.radioAT_BLE_1:
+                if (checked) {
+                    lock_id = lockid.getText().toString();
+                    ble_id = ble_address.getText().toString();
+                    locktype = "AT_BLE_1";
+                    if (!lock_id.isEmpty() && !ble_id.isEmpty()) {
+                        sendAddLockDetails(fullname, adminmobile, areaid, lock_id, ble_id, "NA", locktype, date_time);
+                    } else {
+                        final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+                        lockid.startAnimation(animShake);
+                        ble_address.startAnimation(animShake);
+                    }
                 }
-            });
-        } else if (choosenLockType.equals("QT_BLE_2")) {
-            locktype = "QT_BLE_2";
-            add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    sendAddLockDetails(fullname, adminmobile, areaid, lock_id, ble_id, "NA", locktype, date_time);
+                break;
+            case R.id.radioQT_BLE_2:
+                if (checked) {
+                    lock_id = lockid.getText().toString();
+                    ble_id = ble_address.getText().toString();
+                    locktype = "QT_BLE_2";
+                    if (!lock_id.isEmpty() && !ble_id.isEmpty()) {
+                        sendAddLockDetails(fullname, adminmobile, areaid, lock_id, ble_id, "NA", locktype, date_time);
+                    } else {
+                        final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+                        lockid.startAnimation(animShake);
+                        ble_address.startAnimation(animShake);
+                    }
                 }
-            });
-        } else if (choosenLockType.equals("QT_GSM_GPS")) {
-            locktype = "QT_GSM_GPS";
-            add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    sendAddLockDetails(fullname, adminmobile, areaid, lock_id, ble_id, "NA", locktype, date_time);
+                break;
+            case R.id.radioQT_GSM_GPS:
+                if (checked) {
+                    lock_id = lockid.getText().toString();
+                    ble_id = ble_address.getText().toString();
+                    locktype = "QT_GSM_GPS";
+                    if (!lock_id.isEmpty() && !ble_id.isEmpty()) {
+                        sendAddLockDetails(fullname, adminmobile, areaid, lock_id, ble_id, "NA", locktype, date_time);
+                    } else {
+                        final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+                        lockid.startAnimation(animShake);
+                        ble_address.startAnimation(animShake);
+                    }
                 }
-            });
-        } else if (choosenLockType.equals("QT_SMS")) {
-            sim_number = simNumber.getText().toString().trim();
-            Log.d(TAG,"Sim Number:"+sim_number);
-            ble_address.setVisibility(View.GONE);
-            locktype = "QT_SMS";
-            add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    sendAddLockDetails(fullname, adminmobile, areaid, lock_id, "NA", sim_number, locktype, date_time);
+                break;
+            case R.id.radioQT_SMS:
+                if (checked) {
+                    lock_id = lockid.getText().toString();
+                    sim_number = simNumber.getText().toString();
+                    locktype = "QT_SMS";
+                    if (!lock_id.isEmpty() && !ble_id.isEmpty()) {
+                        sendAddLockDetails(fullname, adminmobile, areaid, lock_id, "NA", sim_number, locktype, date_time);
+                    } else {
+                        final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+                        lockid.startAnimation(animShake);
+                        simNumber.startAnimation(animShake);
+                    }
                 }
-            });
-        } else {
-            Log.d(TAG, "No option choosen");
+                break;
         }
+
     }
 
     public void sendAddLockDetails(String fullname, String adminmobile,
                                    String areaid, String lock_id, String ble_id, String sim_number, String locktype, String date_time) {
-        JSONObject jo = new JSONObject();
+        Log.d(TAG, "User details:" + fullname + "---" + adminmobile + "----" + areaid);
+        lockIDList.add(lock_id);
+        bleAddress.add(ble_id);
+        simNoList.add(sim_number);
+        choosenLockType.add(locktype);
+        dateList.add(date_time);
+        for (int i = 0; i < lockIDList.size(); i++) {
+            Log.d(TAG, "Lock List: " + lockIDList.get(i));
+        }
+        for (int j = 0; j < bleAddress.size(); j++) {
+            Log.d(TAG, "Ble Address:" + bleAddress.get(j));
+        }
+        for (int k = 0; k < simNoList.size(); k++) {
+            Log.d(TAG, "sim List:" + simNoList.get(k));
+        }
+        for (int l = 0; l < choosenLockType.size(); l++) {
+            Log.d(TAG, "Lock type:" + choosenLockType.get(l));
+        }
+        for (int m = 0; m < dateList.size(); m++) {
+            Log.d(TAG, "Date List:" + dateList.get(m));
+        }
+
+        /*JSONObject jo = new JSONObject();
 
         try {
             jo.put("method", "add_lock_details");
@@ -165,7 +211,7 @@ public class AddLock extends AppCompatActivity implements AdapterView.OnItemSele
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new SendRequest(getResources().getString(R.string.url), jo, AddLock.this, getApplicationContext()).executeJsonRequest();
+        new SendRequest(getResources().getString(R.string.url), jo, AddLock.this, getApplicationContext()).executeJsonRequest();*/
 
     }
 
@@ -227,72 +273,14 @@ public class AddLock extends AppCompatActivity implements AdapterView.OnItemSele
         dialogBuilder.setCancelable(false);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.add:
 
-   /* public void createAddressView(String lockQuantity) {
-        if (lockQuantity.equals("Choose lock quantity")) {
-            final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
-            quantitySpinner.startAnimation(animShake);
-        } else {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT); //Layout params
-            params.setMargins(8, 8, 8, 8);
-            lock_address_layout.removeAllViews();//Remove all views from Layout before placing new view
-            for (int i = 0; i < 10; i++) {
-                lockId = new EditText(this);
-                lockId.setLayoutParams(params);
-                lockId.setBackgroundResource(R.drawable.edittext_bg);
-                lockId.setLines(1);
-                lockId.setMaxLines(1);
-                lockId.setHint("Enter Lock ID");
-                lockId.setPadding(8, 4, 4, 4);
-                lockId.setCursorVisible(true);
-                lockId.setTypeface(type1);
-                lockId.setTextSize(18f);
-                lockId.setCompoundDrawablePadding(4);
-                lock_address_layout.addView(lockId);
-                lockIDList.add(lockId.getText().toString().trim()); //this adds an element to the list.
-
-                bleId = new EditText(this);
-                bleId.setLayoutParams(params);
-                bleId.setBackgroundResource(R.drawable.edittext_bg);
-                bleId.setHint("Enter BLE Address");
-                bleId.setTextSize(18f);
-                bleId.setLines(1);
-                bleId.setMaxLines(1);
-                bleId.setPadding(8, 4, 4, 4);
-                bleId.setCursorVisible(true);
-                bleId.setTypeface(type1);
-                lock_address_layout.addView(bleId);
-                bleAddress.add(bleId.getText().toString().trim());
-            }
-            add = new Button(this);
-            add.setLayoutParams(params);
-            add.setBackgroundResource(R.drawable.button_bg);
-            add.setText("Add Lock");
-            add.setTextColor(Color.WHITE);
-            add.setAllCaps(false);
-            add.setTextSize(18f);
-            add.setTypeface(type3);
-            lock_address_layout.addView(add);
-            add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showArrayList(lockIDList, bleAddress);
-                }
-            });
+                break;
+            default:
+                break;
         }
-
-    }*/
+    }
 }
-
-  /*  private void showArrayList(ArrayList<String> lockIDList, ArrayList<String> bleAddress) {
-        for (int i = 0; i < lockIDList.size(); i++) {
-            Log.d(TAG, "Lock ID:" + lockIDList.get(i));
-        }
-        for (int j = 0; j < bleAddress.size(); j++) {
-            Log.d(TAG, "Ble Address: " + bleAddress.get(j));
-        }
-    }
-        }
-    }
-}*/
