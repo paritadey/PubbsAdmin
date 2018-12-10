@@ -2,7 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/manage_system"
+    android:id="@+id/manage_locks"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddLock">
@@ -202,6 +202,7 @@
                                 android:id="@+id/radioQT_GSM_GPS"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:onClick="onRadioButtonClicked"
                                 android:padding="@dimen/four_dp"
                                 android:text="QT_GSM_GPS"
                                 android:textSize="@dimen/fourteen_sp" />
@@ -210,6 +211,7 @@
                                 android:id="@+id/radioQT_SMS"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:onClick="onRadioButtonClicked"
                                 android:padding="@dimen/four_dp"
                                 android:text="QT_SMS"
                                 android:textSize="@dimen/fourteen_sp" />
@@ -219,7 +221,9 @@
                             android:id="@+id/add"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
+                            android:layout_marginStart="@dimen/twenty_four_dp"
                             android:layout_marginTop="@dimen/twenty_four_dp"
+                            android:layout_marginEnd="@dimen/twenty_four_dp"
                             android:layout_marginBottom="@dimen/twenty_four_dp"
                             android:background="@drawable/button_bg"
                             android:padding="@dimen/ten_dp"

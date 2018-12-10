@@ -1,9 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lockCart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LockCart">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/four_dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:id="@+id/toolbar_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/sixteen_dp">
+
+                <ImageView
+                    android:id="@+id/back_button"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/lock_cart_tv"
+                    android:layout_alignParentStart="true"
+                    app:srcCompat="@drawable/ic_arrow_back_24dp" />
+
+                <TextView
+                    android:id="@+id/lock_cart_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/one_sixty_dp"
+                    android:layout_marginTop="@dimen/eight_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/cart"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fourteen_sp" />
+
+                <TextView
+                    android:id="@+id/all_set_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lock_cart_tv"
+                    android:layout_marginStart="@dimen/twenty_eight_dp"
+                    android:layout_marginTop="@dimen/eight_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/all_set"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/eighteen_sp" />
+
+                <TextView
+                    android:id="@+id/checkout_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/all_set_tv"
+                    android:layout_marginStart="@dimen/twenty_eight_dp"
+                    android:layout_marginTop="@dimen/two_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/checkout"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/eighteen_sp" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/manage_system_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/twenty_four_dp">
+
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
+    </FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

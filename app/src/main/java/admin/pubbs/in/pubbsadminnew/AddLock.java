@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -39,7 +40,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class AddLock extends AppCompatActivity implements AsyncResponse, View.OnClickListener {
+public class AddLock extends AppCompatActivity implements AsyncResponse {
     private String fullname, adminmobile, areaid;
     private String TAG = AddLock.class.getSimpleName();
     TextView lock_type_tv;
@@ -49,13 +50,13 @@ public class AddLock extends AppCompatActivity implements AsyncResponse, View.On
     ArrayList<String> bleAddress = new ArrayList<String>();
     ArrayList<String> choosenLockType = new ArrayList<String>();
     ArrayList<String> simNoList = new ArrayList<String>();
-    ArrayList<String> dateList = new ArrayList<String>();
     Typeface type1, type2, type3;
     EditText lockid, ble_address, simNumber;
     String lock_id, ble_id, sim_number, locktype, date_time;
     Button add, addLocks;
-    ImageView back;
+    ImageView back, cart;
     RadioGroup locktypeGroup;
+    String orderNumber;
     RadioButton radioAT_BLE_1, radioQT_BLE_2, radioQT_GSM_GPS, radioQT_SMS;
 
     @Override
@@ -82,9 +83,26 @@ public class AddLock extends AppCompatActivity implements AsyncResponse, View.On
         lockid.setTypeface(type1);
         ble_address = findViewById(R.id.ble_address);
         add = findViewById(R.id.add);
-        add.setOnClickListener(this);
         simNumber = findViewById(R.id.sim_number);
         lock_type_tv = findViewById(R.id.lock_type_tv);
+        cart = findViewById(R.id.cart);
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent lockdetails = new Intent(AddLock.this, LockCart.class);
+                lockdetails.putExtra("orderNumber", orderNumber);
+                lockdetails.putExtra("fullname", fullname);
+                lockdetails.putExtra("adminmobile", adminmobile);
+                lockdetails.putExtra("areaid", areaid);
+                lockdetails.putExtra("lockIDList", lockIDList);
+                lockdetails.putExtra("bleAddress", bleAddress);
+                lockdetails.putExtra("simNoList", simNoList);
+                lockdetails.putExtra("choosenLockType", choosenLockType);
+                lockdetails.putExtra("date_time", date_time);
+                startActivity(lockdetails);
+
+            }
+        });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +111,54 @@ public class AddLock extends AppCompatActivity implements AsyncResponse, View.On
                 startActivity(intent);
             }
         });
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderNumber = generateOrderID();
+                Log.d(TAG, "User order details:" + fullname + "/" + adminmobile + "/" + areaid + "/" + orderNumber);
+                for (int i = 0; i < lockIDList.size(); i++) {
+                    Log.d(TAG, "Lock List: " + lockIDList.get(i));
+                }
+                for (int j = 0; j < bleAddress.size(); j++) {
+                    Log.d(TAG, "Ble Address:" + bleAddress.get(j));
+                }
+                for (int k = 0; k < simNoList.size(); k++) {
+                    Log.d(TAG, "sim List:" + simNoList.get(k));
+                }
+                for (int l = 0; l < choosenLockType.size(); l++) {
+                    Log.d(TAG, "Lock type:" + choosenLockType.get(l));
+                }
+                View view_layout = findViewById(R.id.manage_locks);
+                String message = "Lock is added to the cart.";
+                int duration = Snackbar.LENGTH_SHORT;
+                showSnackbar(view_layout, message, duration);
+                clearFields();
+                Log.d(TAG, "Added to Cart");
+            }
+        });
+    }
 
+    public String generateOrderID() {
+        String order = "LOCK_OD";
+        String orderNo;
+        int max = 9999;
+        int min = 1;
+        int randomNum = (int) (Math.random() * (max - min)) + min;
+        orderNo = order + randomNum;
+        Log.d(TAG, "Area Number: " + orderNo);
+        return orderNo;
+
+    }
+
+    public void showSnackbar(View view, String message, int duration) {
+        Snackbar.make(view, message, duration).show();
+    }
+
+    public void clearFields() {
+        lockid.setText("");
+        ble_address.setText("");
+        simNumber.setText("");
+        locktypeGroup.clearCheck();
     }
 
     public void onRadioButtonClicked(View v) {
@@ -108,9 +173,6 @@ public class AddLock extends AppCompatActivity implements AsyncResponse, View.On
         radioQT_SMS.setTypeface(type1);
         boolean checked = ((RadioButton) v).isChecked();
 
-        long date = System.currentTimeMillis();
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE dd-MM-yyyy HH:mm");
-        date_time = sdf.format(date);
         switch (v.getId()) {
             case R.id.radioAT_BLE_1:
                 if (checked) {
@@ -118,7 +180,7 @@ public class AddLock extends AppCompatActivity implements AsyncResponse, View.On
                     ble_id = ble_address.getText().toString();
                     locktype = "AT_BLE_1";
                     if (!lock_id.isEmpty() && !ble_id.isEmpty()) {
-                        sendAddLockDetails(fullname, adminmobile, areaid, lock_id, ble_id, "NA", locktype, date_time);
+                        sendAddLockDetails(fullname, adminmobile, areaid, lock_id, ble_id, "NA", locktype);
                     } else {
                         final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                         lockid.startAnimation(animShake);
@@ -132,7 +194,7 @@ public class AddLock extends AppCompatActivity implements AsyncResponse, View.On
                     ble_id = ble_address.getText().toString();
                     locktype = "QT_BLE_2";
                     if (!lock_id.isEmpty() && !ble_id.isEmpty()) {
-                        sendAddLockDetails(fullname, adminmobile, areaid, lock_id, ble_id, "NA", locktype, date_time);
+                        sendAddLockDetails(fullname, adminmobile, areaid, lock_id, ble_id, "NA", locktype);
                     } else {
                         final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                         lockid.startAnimation(animShake);
@@ -146,7 +208,7 @@ public class AddLock extends AppCompatActivity implements AsyncResponse, View.On
                     ble_id = ble_address.getText().toString();
                     locktype = "QT_GSM_GPS";
                     if (!lock_id.isEmpty() && !ble_id.isEmpty()) {
-                        sendAddLockDetails(fullname, adminmobile, areaid, lock_id, ble_id, "NA", locktype, date_time);
+                        sendAddLockDetails(fullname, adminmobile, areaid, lock_id, ble_id, "NA", locktype);
                     } else {
                         final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                         lockid.startAnimation(animShake);
@@ -160,7 +222,7 @@ public class AddLock extends AppCompatActivity implements AsyncResponse, View.On
                     sim_number = simNumber.getText().toString();
                     locktype = "QT_SMS";
                     if (!lock_id.isEmpty() && !ble_id.isEmpty()) {
-                        sendAddLockDetails(fullname, adminmobile, areaid, lock_id, "NA", sim_number, locktype, date_time);
+                        sendAddLockDetails(fullname, adminmobile, areaid, lock_id, "NA", sim_number, locktype);
                     } else {
                         final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                         lockid.startAnimation(animShake);
@@ -173,13 +235,16 @@ public class AddLock extends AppCompatActivity implements AsyncResponse, View.On
     }
 
     public void sendAddLockDetails(String fullname, String adminmobile,
-                                   String areaid, String lock_id, String ble_id, String sim_number, String locktype, String date_time) {
+                                   String areaid, String lock_id, String ble_id, String sim_number, String locktype) {
         Log.d(TAG, "User details:" + fullname + "---" + adminmobile + "----" + areaid);
+        long date = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE dd-MM-yyyy HH:mm");
+        date_time = sdf.format(date);
+
         lockIDList.add(lock_id);
         bleAddress.add(ble_id);
         simNoList.add(sim_number);
         choosenLockType.add(locktype);
-        dateList.add(date_time);
         for (int i = 0; i < lockIDList.size(); i++) {
             Log.d(TAG, "Lock List: " + lockIDList.get(i));
         }
@@ -192,10 +257,6 @@ public class AddLock extends AppCompatActivity implements AsyncResponse, View.On
         for (int l = 0; l < choosenLockType.size(); l++) {
             Log.d(TAG, "Lock type:" + choosenLockType.get(l));
         }
-        for (int m = 0; m < dateList.size(); m++) {
-            Log.d(TAG, "Date List:" + dateList.get(m));
-        }
-
         /*JSONObject jo = new JSONObject();
 
         try {
@@ -273,14 +334,4 @@ public class AddLock extends AppCompatActivity implements AsyncResponse, View.On
         dialogBuilder.setCancelable(false);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.add:
-
-                break;
-            default:
-                break;
-        }
-    }
 }
