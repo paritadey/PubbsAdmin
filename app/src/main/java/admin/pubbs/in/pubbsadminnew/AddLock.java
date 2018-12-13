@@ -40,7 +40,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class AddLock extends AppCompatActivity implements AsyncResponse {
+public class AddLock extends AppCompatActivity {
     private String fullname, adminmobile, areaid;
     private String TAG = AddLock.class.getSimpleName();
     TextView lock_type_tv;
@@ -52,8 +52,8 @@ public class AddLock extends AppCompatActivity implements AsyncResponse {
     ArrayList<String> simNoList = new ArrayList<String>();
     Typeface type1, type2, type3;
     EditText lockid, ble_address, simNumber;
-    String lock_id, ble_id, sim_number, locktype, date_time;
-    Button add, addLocks;
+    String lock_id, ble_id, sim_number, locktype;
+    Button add;
     ImageView back, cart;
     RadioGroup locktypeGroup;
     String orderNumber;
@@ -99,7 +99,6 @@ public class AddLock extends AppCompatActivity implements AsyncResponse {
                     lockdetails.putExtra("bleAddress", bleAddress);
                     lockdetails.putExtra("simNoList", simNoList);
                     lockdetails.putExtra("choosenLockType", choosenLockType);
-                    lockdetails.putExtra("date_time", date_time);
                     startActivity(lockdetails);
                 } else {
                     View view_layout = findViewById(R.id.manage_locks);
@@ -145,7 +144,7 @@ public class AddLock extends AppCompatActivity implements AsyncResponse {
     }
 
     public String generateOrderID() {
-        String order = "LOCK_OD";
+        String order = "PUBBSLOCK_OD";
         String orderNo;
         int max = 9999;
         int min = 1;
@@ -243,9 +242,9 @@ public class AddLock extends AppCompatActivity implements AsyncResponse {
     public void sendAddLockDetails(String fullname, String adminmobile,
                                    String areaid, String lock_id, String ble_id, String sim_number, String locktype) {
         Log.d(TAG, "User details:" + fullname + "---" + adminmobile + "----" + areaid);
-        long date = System.currentTimeMillis();
+     /*   long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("EEE dd-MM-yyyy HH:mm");
-        date_time = sdf.format(date);
+        date_time = sdf.format(date);*/
 
         lockIDList.add(lock_id);
         bleAddress.add(ble_id);
@@ -263,43 +262,6 @@ public class AddLock extends AppCompatActivity implements AsyncResponse {
         for (int l = 0; l < choosenLockType.size(); l++) {
             Log.d(TAG, "Lock type:" + choosenLockType.get(l));
         }
-        /*JSONObject jo = new JSONObject();
-
-        try {
-            jo.put("method", "add_lock_details");
-            jo.put("fullname", fullname);
-            jo.put("adminmobile", adminmobile);
-            jo.put("areaid", areaid);
-            jo.put("lock_id", lock_id);
-            jo.put("ble_id", ble_id);
-            jo.put("sim_number", sim_number);
-            jo.put("locktype", locktype);
-            jo.put("date_time", date_time);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        new SendRequest(getResources().getString(R.string.url), jo, AddLock.this, getApplicationContext()).executeJsonRequest();*/
-
-    }
-
-    @Override
-    public void onResponse(JSONObject jsonObject) {
-        if (jsonObject.has("method")) {
-            try {
-                if (jsonObject.getString("method").equals("add_lock_details") && jsonObject.getBoolean("success")) {
-                    showDialog("Lock is added to the Operator account");
-                } else {
-                    showDialog("couldn't save try again later");
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
-    public void onResponseError(VolleyError error) {
-        showDialog("Server Error !");
     }
 
     @Override

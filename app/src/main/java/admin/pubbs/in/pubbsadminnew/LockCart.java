@@ -1,5 +1,6 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.constraint.ConstraintLayout;
@@ -7,8 +8,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -20,11 +24,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class LockCart extends AppCompatActivity {
-    private String fullname, adminmobile, areaid, orderNumber, date_time;
+public class LockCart extends AppCompatActivity implements AsyncResponse {
+    private String fullname, adminmobile, areaid, orderNumber;
     private String TAG = LockCart.class.getSimpleName();
     ArrayList<String> lockIDList = new ArrayList<String>();
     ArrayList<String> bleAddress = new ArrayList<String>();
@@ -46,6 +55,7 @@ public class LockCart extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_lock_cart);
         type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
@@ -80,8 +90,7 @@ public class LockCart extends AppCompatActivity {
         fullname = intent.getStringExtra("fullname");
         adminmobile = intent.getStringExtra("adminmobile");
         areaid = intent.getStringExtra("areaid");
-        date_time = intent.getStringExtra("date_time");
-        Log.d(TAG, "Sub Admin: " + fullname + "-" + adminmobile + "-" + areaid + "-" + date_time);
+        Log.d(TAG, "Sub Admin: " + fullname + "-" + adminmobile + "-" + areaid);
         lockIDList = intent.getStringArrayListExtra("lockIDList");
         bleAddress = intent.getStringArrayListExtra("bleAddress");
         choosenLockType = intent.getStringArrayListExtra("choosenLockType");
@@ -136,8 +145,95 @@ public class LockCart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Payment Method: " + paymentMethod);
+                sendOrderDetails(orderNumber, fullname, adminmobile, areaid, lockIDList, bleAddress,
+                        simNoList, choosenLockType, totalQuantity, totalPrice, paymentMethod);
             }
         });
+    }
+
+    private void sendOrderDetails(String orderNumber, String fullname,
+                                  String adminmobile, String areaid, ArrayList<String> lock_id,
+                                  ArrayList<String> ble_id, ArrayList<String> sim_number,
+                                  ArrayList<String> locktype, int totalQuantity, int totalPrice, String paymentMethod) {
+        JSONObject jo = new JSONObject();
+
+        try {
+            jo.put("method", "add_lock_details");
+            jo.put("orderNumber", orderNumber);
+            jo.put("fullname", fullname);
+            jo.put("adminmobile", adminmobile);
+            jo.put("areaid", areaid);
+            jo.put("lock_id", lock_id);
+            jo.put("ble_id", ble_id);
+            jo.put("sim_number", sim_number);
+            jo.put("locktype", locktype);
+            jo.put("totalQuantity", totalQuantity);
+            jo.put("totalPrice", totalPrice);
+            jo.put("paymentMethod", paymentMethod);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new SendRequest(getResources().getString(R.string.url), jo, LockCart.this,
+                getApplicationContext()).executeJsonRequest();
+
+    }
+
+    @Override
+    public void onResponse(JSONObject jsonObject) {
+        if (jsonObject.has("method")) {
+            try {
+                if (jsonObject.getString("method").equals("add_lock_details") && jsonObject.getBoolean("success")) {
+                    showDialog("Lock is added to the Operator account");
+                } else {
+                    showDialog("couldn't save try again later");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onResponseError(VolleyError error) {
+        showDialog("Server Error !");
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(LockCart.this, DashBoardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void showDialog(String message) {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+
+        final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
+        extraLine.setTypeface(type1);
+        serverProblem.setTypeface(type1);
+        serverProblem.setText(message);
+        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+                Intent intent = new Intent(LockCart.this, DashBoardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+        dialogBuilder.setCancelable(false);
     }
 
     public void SetPayment(View v) {
@@ -197,6 +293,7 @@ public class LockCart extends AppCompatActivity {
                     lock_priceATBT.setHint("Enter the price");
                     lock_priceATBT.setTextColor(getResources().getColor(R.color.black));
                     lock_priceATBT.setPadding(8, 8, 8, 8);
+                    lock_priceATBT.setInputType(InputType.TYPE_CLASS_NUMBER);
                     lock_priceATBT.setBackgroundResource(R.drawable.edittext_bg);
                     checkout_layout.addView(lock_priceATBT, lp_1);
 
@@ -248,6 +345,7 @@ public class LockCart extends AppCompatActivity {
                     lock_priceQTBT.setTextColor(getResources().getColor(R.color.black));
                     lock_priceQTBT.setPadding(8, 8, 8, 8);
                     lock_priceQTBT.setBackgroundResource(R.drawable.edittext_bg);
+                    lock_priceQTBT.setInputType(InputType.TYPE_CLASS_NUMBER);
                     checkout_layout.addView(lock_priceQTBT, lp_1);
 
                 } else {
@@ -299,6 +397,7 @@ public class LockCart extends AppCompatActivity {
                     lock_priceQTGSMGPS.setTextColor(getResources().getColor(R.color.black));
                     lock_priceQTGSMGPS.setPadding(8, 8, 8, 8);
                     lock_priceQTGSMGPS.setBackgroundResource(R.drawable.edittext_bg);
+                    lock_priceQTGSMGPS.setInputType(InputType.TYPE_CLASS_NUMBER);
                     checkout_layout.addView(lock_priceQTGSMGPS, lp_1);
 
                 } else {
@@ -351,6 +450,7 @@ public class LockCart extends AppCompatActivity {
                     lock_priceQTSMS.setTextColor(getResources().getColor(R.color.black));
                     lock_priceQTSMS.setPadding(8, 8, 8, 8);
                     lock_priceQTSMS.setBackgroundResource(R.drawable.edittext_bg);
+                    lock_priceQTSMS.setInputType(InputType.TYPE_CLASS_NUMBER);
                     checkout_layout.addView(lock_priceQTSMS, lp_1);
                 } else {
                     checkout_layout = findViewById(R.id.checkout_layout);

@@ -15,7 +15,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     SharedPreferences sharedPreferences;
     private String TAG = Settings.class.getSimpleName();
     ImageView back;
-    TextView settings_tv, adminmobile_tv, admin_mobile, admintype_tv, admin_type, change_password, payments, about;
+    TextView settings_tv, adminmobile_tv, admin_mobile, admintype_tv, admin_type, change_password, payments, about, lock_order_history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +55,19 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         about = findViewById(R.id.about);
         about.setTypeface(type1);
         about.setOnClickListener(this);
+        lock_order_history = findViewById(R.id.lock_order_history);
+        lock_order_history.setTypeface(type1);
+        lock_order_history.setOnClickListener(this);
         showPaymentText(admintype);
     }
 
     public void showPaymentText(String admintype) {
-        if(admintype.equals("Super Admin")){
+        if (admintype.equals("Super Admin")) {
             payments.setVisibility(View.GONE);
-        }else{
+            lock_order_history.setVisibility(View.GONE);
+        } else {
             payments.setVisibility(View.VISIBLE);
+            lock_order_history.setVisibility(View.VISIBLE);
         }
     }
 
@@ -83,6 +88,9 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
                 break;
             case R.id.change_password:
                 startActivity(new Intent(Settings.this, ChangePassword.class));
+                break;
+            case R.id.lock_order_history:
+
                 break;
             case R.id.payments:
                 break;

@@ -29,8 +29,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_cart" />
-                            <entry key="sourceFile" value="E:\downloads\svg\cart.svg" />
+                            <entry key="outputName" value="ic_blackcart" />
+                            <entry key="sourceFile" value="E:\downloads\svg\blackcart.svg" />
                           </map>
                         </option>
                       </PersistentState>
