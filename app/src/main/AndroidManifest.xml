@@ -248,7 +248,13 @@
         <activity
             android:name=".LockCart"
             android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar"/>
+            android:theme="@style/MyNoActionBar" />
+        <activity android:name=".LockOrderHistory" />
+        <activity
+            android:name=".AreaStations"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>
