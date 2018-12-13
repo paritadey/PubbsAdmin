@@ -89,18 +89,24 @@ public class AddLock extends AppCompatActivity implements AsyncResponse {
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent lockdetails = new Intent(AddLock.this, LockCart.class);
-                lockdetails.putExtra("orderNumber", orderNumber);
-                lockdetails.putExtra("fullname", fullname);
-                lockdetails.putExtra("adminmobile", adminmobile);
-                lockdetails.putExtra("areaid", areaid);
-                lockdetails.putExtra("lockIDList", lockIDList);
-                lockdetails.putExtra("bleAddress", bleAddress);
-                lockdetails.putExtra("simNoList", simNoList);
-                lockdetails.putExtra("choosenLockType", choosenLockType);
-                lockdetails.putExtra("date_time", date_time);
-                startActivity(lockdetails);
-
+                if (!lockIDList.isEmpty() && !bleAddress.isEmpty() && !simNoList.isEmpty() && !choosenLockType.isEmpty()) {
+                    Intent lockdetails = new Intent(AddLock.this, LockCart.class);
+                    lockdetails.putExtra("orderNumber", orderNumber);
+                    lockdetails.putExtra("fullname", fullname);
+                    lockdetails.putExtra("adminmobile", adminmobile);
+                    lockdetails.putExtra("areaid", areaid);
+                    lockdetails.putExtra("lockIDList", lockIDList);
+                    lockdetails.putExtra("bleAddress", bleAddress);
+                    lockdetails.putExtra("simNoList", simNoList);
+                    lockdetails.putExtra("choosenLockType", choosenLockType);
+                    lockdetails.putExtra("date_time", date_time);
+                    startActivity(lockdetails);
+                } else {
+                    View view_layout = findViewById(R.id.manage_locks);
+                    String message = "Nothing is added to cart";
+                    int duration = Snackbar.LENGTH_SHORT;
+                    showSnackbar(view_layout, message, duration);
+                }
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
