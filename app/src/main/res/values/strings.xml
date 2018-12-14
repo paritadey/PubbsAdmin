@@ -188,4 +188,5 @@
     <string name="change_password">Change Password</string>
     <string name="cart">Cart</string>
     <string name="checkout">To checkout....</string>
+    <string name="show_area">Area in Map</string>
 </resources>

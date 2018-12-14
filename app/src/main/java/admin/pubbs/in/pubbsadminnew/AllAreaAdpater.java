@@ -1,5 +1,6 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -49,6 +50,19 @@ public class AllAreaAdpater extends RecyclerView.Adapter<AllAreaAdpater.MyViewHo
         holder.areaName.setText(areaList.getAreaName());
         holder.areaId.setText(areaList.getAreaId());
         holder.areaLatLon.setText(areaList.getAreaLatLon());
+        String area_name = areaList.getAreaName();
+        String area_id = areaList.getAreaId();
+        String area_latlon = areaList.getAreaLatLon();
+        holder.areaLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SuperAdminShowSpecificArea.class);
+                intent.putExtra("area_name", area_name);
+                intent.putExtra("area_id", area_id);
+                intent.putExtra("area_latlon", area_latlon);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

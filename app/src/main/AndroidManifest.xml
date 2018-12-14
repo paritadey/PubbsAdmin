@@ -254,7 +254,11 @@
             android:name=".AreaStations"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".SuperAdminShowSpecificArea"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"/>
     </application>
 
 </manifest>
