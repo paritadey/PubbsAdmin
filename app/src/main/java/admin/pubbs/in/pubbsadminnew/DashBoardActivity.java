@@ -193,7 +193,7 @@ public class DashBoardActivity extends AppCompatActivity
                 }
             case R.id.recharge_battery:
                 if (check == true) {
-                    startActivity(new Intent(DashBoardActivity.this, ShowAllStations.class));
+                    startActivity(new Intent(DashBoardActivity.this, ShowAreaStations.class));
                     break;
                 } else {
                     setMenuCounter(R.id.recharge_battery, 3);

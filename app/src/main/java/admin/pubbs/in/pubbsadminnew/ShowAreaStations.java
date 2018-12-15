@@ -9,7 +9,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -27,31 +26,25 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowAllStations extends AppCompatActivity implements AsyncResponse{
+public class ShowAreaStations extends AppCompatActivity implements AsyncResponse{
     ImageView back;
     private TextView addOperatorTv;
     EditText inputSearch;
     ProgressBar circularProgressbar;
     private RecyclerView recyclerView;
-    private AllStationAdapter allStationAdapter;
-    private List<StationList> stationLists = new ArrayList<>();
-    String area_name, area_id, area_latlon;
-    private String TAG = ShowAllStations.class.getSimpleName();
+    private AreaStationAdapter areaStationAdapter;
+    private List<AreaList> areaLists = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_all_stations);
+        setContentView(R.layout.activity_show_area_stations);
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Intent intent = getIntent();
-        area_name = intent.getStringExtra("area_name");
-        area_id = intent.getStringExtra("area_id");
-        area_latlon = intent.getStringExtra("area_latlon");
-        Log.d(TAG,"Area details:"+area_name+"-"+area_id+"-"+area_latlon);
         back = findViewById(R.id.back_button);
         addOperatorTv = findViewById(R.id.add_operator_tv);
         addOperatorTv.setTypeface(type1);
@@ -59,17 +52,17 @@ public class ShowAllStations extends AppCompatActivity implements AsyncResponse{
         inputSearch.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
         recyclerView = findViewById(R.id.recycler_view);
-        allStationAdapter = new AllStationAdapter(stationLists);
+        areaStationAdapter = new AreaStationAdapter(areaLists);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new CustomDivider(this, LinearLayoutManager.VERTICAL, 8));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(allStationAdapter);
+        recyclerView.setAdapter(areaStationAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                StationList lists = stationLists.get(position);
+                AreaList lists = areaLists.get(position);
             }
 
             @Override
@@ -79,7 +72,7 @@ public class ShowAllStations extends AppCompatActivity implements AsyncResponse{
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShowAllStations.this, DashBoardActivity.class);
+                Intent intent = new Intent(ShowAreaStations.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -96,30 +89,28 @@ public class ShowAllStations extends AppCompatActivity implements AsyncResponse{
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
         try {
-            jo.put("method", "getalladminstations");
-            jo.put("area_id", area_name);
+            jo.put("method", "getsuperadminparea");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new SendRequest(getResources().getString(R.string.url), jo, ShowAllStations.this,
+        new SendRequest(getResources().getString(R.string.url), jo, ShowAreaStations.this,
                 getApplicationContext()).executeJsonRequest();
     }
 
     @Override
     public void onResponse(JSONObject jsonObject) {
         circularProgressbar.setVisibility(View.GONE);
-        stationLists.clear();
+        areaLists.clear();
         if (jsonObject.has("method")) {
             try {
-                if (jsonObject.getString("method").equals("getalladminstations") && jsonObject.getBoolean("success")) {
+                if (jsonObject.getString("method").equals("getsuperadminparea") && jsonObject.getBoolean("success")) {
                     JSONArray ja = jsonObject.getJSONArray("data");
                     if (ja.length() > 0) {
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
-                            StationList list = new StationList(jo.getString("full_name"),
-                                    jo.getString("adminmobile"), jo.getString("station_name"), jo.getString("station_id"),
-                                    jo.getString("area_name"));
-                            stationLists.add(list);
+                            AreaList list = new AreaList(jo.getString("area_name"),
+                                    jo.getString("area_id"), jo.getString("area_lat_lon"));
+                            areaLists.add(list);
                         }
                     }
                 }
@@ -127,13 +118,14 @@ public class ShowAllStations extends AppCompatActivity implements AsyncResponse{
                 e.printStackTrace();
             }
         }
-        allStationAdapter.notifyDataSetChanged();
+        areaStationAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onResponseError(VolleyError error) {
         showDialog("Server Error !");
     }
+
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -156,7 +148,7 @@ public class ShowAllStations extends AppCompatActivity implements AsyncResponse{
                 if (circularProgressbar.isEnabled()) {
                     circularProgressbar.setVisibility(View.GONE);
                 }
-                Intent intent = new Intent(ShowAllStations.this, DashBoardActivity.class);
+                Intent intent = new Intent(ShowAreaStations.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -169,9 +161,10 @@ public class ShowAllStations extends AppCompatActivity implements AsyncResponse{
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(ShowAllStations.this, DashBoardActivity.class);
+        Intent intent = new Intent(ShowAreaStations.this, DashBoardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
 
 }
