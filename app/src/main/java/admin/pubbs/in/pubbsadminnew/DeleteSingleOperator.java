@@ -15,9 +15,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
-public class DeleteSingleOperator extends AppCompatActivity implements View.OnClickListener {
+public class DeleteSingleOperator extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     TextView delete_operator_tv, all_set_tv, delete_operatorTv, fullname, adminMobile, area_name, admin_type;
     Button delete;
     String full_name, admin_mobile, areaName, adminType;
@@ -80,7 +85,8 @@ public class DeleteSingleOperator extends AppCompatActivity implements View.OnCl
                 startActivity(intent);
                 break;
             case R.id.delete_operator:
-                DeleteOperator(admin_mobile);
+               // DeleteOperator(admin_mobile);
+                deleteOperator(admin_mobile);
                 break;
         }
     }
@@ -176,8 +182,8 @@ public class DeleteSingleOperator extends AppCompatActivity implements View.OnCl
 
         deleteOperatorClass.execute(admin_mobile);
     }
-}
-    /*private void deleteOperator(String admin_mobile) {
+
+    private void deleteOperator(String admin_mobile) {
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "delete_operator");
@@ -210,4 +216,4 @@ public class DeleteSingleOperator extends AppCompatActivity implements View.OnCl
     public void onResponseError(VolleyError error) {
         showDialog("Server Problem !");
     }
-}*/
+}

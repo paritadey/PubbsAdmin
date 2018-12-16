@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:id="@+id/area_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/ten_dp">
+
+        <ImageView
+            android:id="@+id/area"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/twenty_dp"
+            app:srcCompat="@drawable/ic_locked" />
+
+        <TextView
+            android:id="@+id/area_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/thirty_dp"
+            android:layout_marginTop="@dimen/twenty_four_dp"
+            android:layout_toRightOf="@id/area"
+            android:padding="@dimen/two_dp"
+            android:text="Area ID"
+            android:textColor="@color/color_black_01"
+            android:textSize="@dimen/sixteen_sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

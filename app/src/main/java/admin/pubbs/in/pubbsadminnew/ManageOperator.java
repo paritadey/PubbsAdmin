@@ -78,12 +78,15 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
                 if (admin_area_id.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Some network issue occured. Give some moment.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent delete = new Intent(ManageOperator.this, EditOperator.class);
-                    delete.putExtra("admin_area_id", admin_area_id);
-                    startActivity(delete);
+                    Intent edit = new Intent(ManageOperator.this, EditOperator.class);
+                    edit.putExtra("admin_area_id", admin_area_id);
+                    startActivity(edit);
                 }
                 break;
-            /*case R.id.deleteOperator_card:
+           /* case R.id.deleteOperator_card:
+                Intent delete = new Intent(ManageOperator.this, DeleteOperatorArea.class);
+                delete.putExtra("admin_area_id", admin_area_id);
+                startActivity(delete);
                 break;*/
             case R.id.back_button:
                 Intent intent = new Intent(ManageOperator.this, DashBoardActivity.class);

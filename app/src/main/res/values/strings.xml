@@ -189,4 +189,5 @@
     <string name="cart">Cart</string>
     <string name="checkout">To checkout....</string>
     <string name="show_area">Area in Map</string>
+    <string name="order_history">Order Details</string>
 </resources>
