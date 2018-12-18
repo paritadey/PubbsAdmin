@@ -90,7 +90,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
                 startActivity(new Intent(Settings.this, ChangePassword.class));
                 break;
             case R.id.lock_order_history:
-                startActivity(new Intent(Settings.this, LockOrderHistory.class));
+                startActivity(new Intent(Settings.this, LockOrder.class));
                 break;
             case R.id.payments:
                 break;

@@ -85,8 +85,7 @@
             android:name=".RepairCycleScanQr"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
-        <activity
-            android:name=".EditStation" />
+        <activity android:name=".EditStation" />
         <activity
             android:name=".AddNewStation"
             android:screenOrientation="portrait"
@@ -251,11 +250,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
         <activity
-            android:name=".LockOrderHistory"
-            android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity
             android:name=".AreaStations"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
@@ -266,6 +260,11 @@
             android:theme="@style/MyNoActionBar" />
         <activity
             android:name=".ShowAreaStations"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".LockOrder"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan"/>

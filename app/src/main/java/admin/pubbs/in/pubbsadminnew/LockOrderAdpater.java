@@ -12,12 +12,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class LockOrderAdapter extends RecyclerView.Adapter<LockOrderAdapter.MyViewHolder> {
+public class LockOrderAdpater extends RecyclerView.Adapter<LockOrderAdpater.MyViewHolder> {
     private List<LockDetailsList> lockDetailsLists;
-    private String TAG = LockOrderAdapter.class.getSimpleName();
+    private String TAG = LockOrderAdpater.class.getSimpleName();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView areaId;
+        public TextView areaName, areaId, areaLatLon;
         public RelativeLayout areaLayout;
 
         public MyViewHolder(View view) {
@@ -25,34 +25,34 @@ public class LockOrderAdapter extends RecyclerView.Adapter<LockOrderAdapter.MyVi
             Typeface type1 = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
             Typeface type2 = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
+            areaName = (TextView) view.findViewById(R.id.area_name);
+            areaName.setTypeface(type1);
             areaId = (TextView) view.findViewById(R.id.area_id);
             areaId.setTypeface(type1);
+            areaLatLon = (TextView) view.findViewById(R.id.area_lat_lon);
+            areaLatLon.setVisibility(View.GONE);
             areaLayout = (RelativeLayout) view.findViewById(R.id.area_layout);
         }
     }
 
-    public LockOrderAdapter(List<LockDetailsList> lockDetailsLists) {
+    public LockOrderAdpater(List<LockDetailsList> lockDetailsLists) {
         this.lockDetailsLists = lockDetailsLists;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.lock_list, parent, false);
+                .inflate(R.layout.area_list, parent, false);
 
-        return new LockOrderAdapter.MyViewHolder(itemView);
+        return new LockOrderAdpater.MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(LockOrderAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(LockOrderAdpater.MyViewHolder holder, int position) {
         LockDetailsList lockDetailsList = lockDetailsLists.get(position);
+        holder.areaName.setText(lockDetailsList.getOrderNumber());
         holder.areaId.setText(lockDetailsList.getArea_id());
-
-        holder.areaLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+    //    holder.areaLatLon.setText(areaList.getAreaLatLon());
     }
 
     @Override
