@@ -271,7 +271,12 @@
         <activity
             android:name=".LockOrderDetails"
             android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar"/>
+            android:theme="@style/MyNoActionBar" />
+        <activity
+            android:name=".AllAreaSubscriptions"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

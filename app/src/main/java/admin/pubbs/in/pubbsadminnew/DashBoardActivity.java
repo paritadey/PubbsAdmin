@@ -165,6 +165,9 @@ public class DashBoardActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.area_subscription:
+                startActivity(new Intent(DashBoardActivity.this, AllAreaSubscriptions.class));
+                break;
             case R.id.profile:
                 if (check == true) {
                     startActivity(new Intent(DashBoardActivity.this, Settings.class));

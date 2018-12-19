@@ -192,7 +192,7 @@ public class RateChart extends AppCompatActivity implements View.OnClickListener
                     }
                 } else {
 
-                    Intent manageSystem = new Intent(RateChart.this, AreaSubscription.class);
+                    Intent manageSystem = new Intent(RateChart.this, ManageSystem.class);
                     manageSystem.putParcelableArrayListExtra("markerList", markerList);
                     manageSystem.putExtra("areaNumber", areaNumber);
                     manageSystem.putExtra("area_Name", area_Name);
