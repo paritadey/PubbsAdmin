@@ -66,8 +66,9 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="@dimen/eighty_dp">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/thirty_six_dp"
+                android:paddingBottom="@dimen/twenty_four_dp">
 
                 <TextView
                     android:id="@+id/area_legal_tv"
@@ -243,7 +244,6 @@
                     android:id="@+id/set_legal"
                     android:layout_width="@dimen/one_fifty_dp"
                     android:layout_height="@dimen/fourty_dp"
-                    android:layout_marginBottom="@dimen/twenty_four_dp"
                     android:layout_marginTop="@dimen/thirty_six_dp"
                     android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:background="@drawable/button_bg"

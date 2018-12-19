@@ -134,7 +134,7 @@ public class SetAreaAgreement extends AppCompatActivity implements View.OnClickL
                     serviceCondition = service_condition.getText().toString();
                     areaCondition = area_condition.getText().toString();
                     areaSubscriptionCondition = area_subscription_condition.getText().toString();
-                    setLegal(adminmobile, areaname, areaid, geofencingCondition, walletCondition,
+                    setLegal(adminmobile, areaid, areaname, geofencingCondition, walletCondition,
                             serviceCondition, areaCondition, areaSubscriptionCondition, date_time);
                 }
                 break;

@@ -81,7 +81,7 @@ public class LockOrderDetails extends AppCompatActivity implements AsyncResponse
                             lock_id = jo.getString("lock_id"); ble_id = jo.getString("ble_id"); sim_number = jo.getString("sim_number");
                             lock_type = jo.getString("locktype"); totalQuantity = jo.getString("totalQuantity"); totalPrice = jo.getString("totalPrice");
                             paymentMethod = jo.getString("paymentMethod"); date_time = jo.getString("date_time");
-                            Log.d(TAG, "Data is fetched:"+lock_id+"--"+"--"+ble_id+"--"+sim_number+
+                            Log.d(TAG, "Data is fetched:"+lock_id+"--"+ble_id+"--"+sim_number+
                                     "--"+lock_type+"--"+totalQuantity+"--"+totalPrice+"--"+paymentMethod+"--"+date_time);
 
                         }
