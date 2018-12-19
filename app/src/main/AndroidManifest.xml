@@ -267,7 +267,11 @@
             android:name=".LockOrder"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".LockOrderDetails"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"/>
     </application>
 
 </manifest>

@@ -52,7 +52,17 @@ public class LockOrderAdpater extends RecyclerView.Adapter<LockOrderAdpater.MyVi
         LockDetailsList lockDetailsList = lockDetailsLists.get(position);
         holder.areaName.setText(lockDetailsList.getOrderNumber());
         holder.areaId.setText(lockDetailsList.getArea_id());
-    //    holder.areaLatLon.setText(areaList.getAreaLatLon());
+        String order_number = lockDetailsList.getOrderNumber();
+        String area_id = lockDetailsList.getArea_id();
+        holder.areaLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), LockOrderDetails.class);
+                intent.putExtra("order_number", order_number);
+                intent.putExtra("area_id", area_id);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
