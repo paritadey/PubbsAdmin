@@ -1,6 +1,8 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,55 +19,66 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 /*created by Parita Dey*/
 
 public class AreaSubscription extends AppCompatActivity implements View.OnClickListener {
     private String TAG = AreaSubscription.class.getSimpleName();
-
-    public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
-    String areaNumber, area_Name, adminMobile;
-    TextView subscription_tv, subscription_basic_tv, basic_plan_month_tv, basic_plan_mins_tv;
-    EditText basic_plan_amount, basic_plan_month, basic_plan_mins;
-    TextView subscription_standard_tv, standard_plan_month_tv, standard_plan_mins_tv;
-    EditText standard_plan_amount, standard_plan_month, standard_plan_mins;
-    TextView subscription_sweet_tv, sweet_plan_month_tv, sweet_plan_mins_tv;
-    EditText sweet_plan_amount, sweet_plan_month, sweet_plan_mins;
-    TextView subscription_premium_tv, premium_plan_month_tv, premium_plan_mins_tv;
-    EditText premium_plan_amount, premium_plan_month, premium_plan_mins;
-    String basicPlanAmount, basicPlanMonth, basicPlanMins, standardPlanAmount, standardPlanMonth, standardPlanMins;
-    String sweetPlanAmount, sweetPlanMonth, sweetPlanMins, premiumPlanAmount, premiumPlanMonth, premiumPlanMins;
-    private String rupee1, rupee2, rupee3, rupee4, rupee5;
-    private String numberPicker1, numberPicker2, numberPicker3, numberPicker4, numberPicker5;
+    String areaId, areaName, adminmobile, subsName, subsTime, subsStartDate, subsEndDate, subsDesc, subsMoney;
     ImageView back;
-    TextView subscriptionTv;
+    TextView subscriptionTv, subscription_tv;
     ImageView upArrow;
     TextView bottomsheetText;
     Button proceed;
+    SharedPreferences sharedPreferences;
+    ArrayList<String> subscription_plan_name = new ArrayList<String>();
+    ArrayList<String> time_limit = new ArrayList<String>();
+    ArrayList<String> launch_date = new ArrayList<String>();
+    ArrayList<String> end_date = new ArrayList<String>();
+    ArrayList<String> description_plan = new ArrayList<String>();
+    ArrayList<String> amount_money = new ArrayList<String>();
+    String subscription_id, launch_plan_date;
+    EditText subscriptionPlanName, timeLimit, descriptionPlan, money;
+    TextView startDate, endDate;
+    Button add_plan;
+    private int mYear, mMonth, mDay;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_area_subscription);
+        initView();
+    }
+
+    public void initView() {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
         Intent intent = getIntent();
-        markerList = intent.getParcelableArrayListExtra("markerList");
-        areaNumber = intent.getStringExtra("areaNumber");
-        area_Name = intent.getStringExtra("area_Name");
-        adminMobile = intent.getStringExtra("adminMobile");
-        numberPicker1 = intent.getStringExtra("numberPicker1");
-        rupee1 = intent.getStringExtra("rupee1");
-        numberPicker2 = intent.getStringExtra("numberPicker2");
-        rupee2 = intent.getStringExtra("rupee2");
-        numberPicker3 = intent.getStringExtra("numberPicker3");
-        rupee3 = intent.getStringExtra("rupee3");
-        numberPicker4 = intent.getStringExtra("numberPicker4");
-        rupee4 = intent.getStringExtra("rupee4");
-        numberPicker5 = intent.getStringExtra("numberPicker5");
-        rupee5 = intent.getStringExtra("rupee5");
-        Log.d(TAG, "Data from Rate Chart:" + markerList + "\t" + areaNumber + "\t" + area_Name + "\t" + adminMobile);
-        Log.d(TAG, "Data from Number picker and rupees:" + numberPicker1 + ":" + rupee1 + "\t" + numberPicker2 +
-                ":" + rupee2 + "\t" + numberPicker3 + ":" + rupee3 + "\t" + numberPicker4 + ":" + rupee4 + "\t" + numberPicker5 + ":" + rupee5);
+        areaName = intent.getStringExtra("areaname");
+        areaId = intent.getStringExtra("areaid");
+        Log.d(TAG, "Area details:" + areaId + "--" + areaName);
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
+        adminmobile = sharedPreferences.getString("adminmobile", null);
+        Log.d(TAG, "Admin Mobile" + adminmobile);
+
+        subscriptionPlanName = findViewById(R.id.subscription_plan_name);
+        subscriptionPlanName.setTypeface(type1);
+        timeLimit = findViewById(R.id.time_limit);
+        timeLimit.setTypeface(type1);
+        startDate = findViewById(R.id.start_date);
+        startDate.setOnClickListener(this);
+        startDate.setTypeface(type1);
+        endDate = findViewById(R.id.end_date);
+        endDate.setOnClickListener(this);
+        endDate.setTypeface(type1);
+        money = findViewById(R.id.money);
+        money.setTypeface(type1);
+        descriptionPlan = findViewById(R.id.description_plan);
+        descriptionPlan.setTypeface(type1);
+        add_plan = findViewById(R.id.add_plan);
+        add_plan.setTypeface(type2);
+        add_plan.setOnClickListener(this);
 
         bottomsheetText = findViewById(R.id.bottomsheet_text);
         bottomsheetText.setTypeface(type1);
@@ -82,182 +96,119 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
         });
         subscription_tv = findViewById(R.id.subscription_tv);
         subscription_tv.setTypeface(type1);
-        subscription_basic_tv = findViewById(R.id.subscription_basic_tv);
-        subscription_basic_tv.setTypeface(type1);
-
-        basic_plan_amount = findViewById(R.id.basic_plan_amount);
-        basic_plan_amount.setTypeface(type1);
-        basic_plan_month_tv = findViewById(R.id.basic_plan_month_tv);
-        basic_plan_month_tv.setTypeface(type1);
-        basic_plan_month = findViewById(R.id.basic_plan_month);
-        basic_plan_month.setTypeface(type1);
-        basic_plan_mins_tv = findViewById(R.id.basic_plan_mins_tv);
-        basic_plan_mins_tv.setTypeface(type1);
-        basic_plan_mins = findViewById(R.id.basic_plan_mins);
-        basic_plan_mins.setTypeface(type1);
-
-        subscription_standard_tv = findViewById(R.id.subscription_standard_tv);
-        subscription_standard_tv.setTypeface(type1);
-        standard_plan_amount = findViewById(R.id.standard_plan_amount);
-        standard_plan_amount.setTypeface(type1);
-        standard_plan_month_tv = findViewById(R.id.standard_plan_month_tv);
-        standard_plan_month_tv.setTypeface(type1);
-        standard_plan_month = findViewById(R.id.standard_plan_month);
-        standard_plan_month.setTypeface(type1);
-        standard_plan_mins_tv = findViewById(R.id.standard_plan_mins_tv);
-        standard_plan_mins_tv.setTypeface(type1);
-        standard_plan_mins = findViewById(R.id.standard_plan_mins);
-        standard_plan_mins.setTypeface(type1);
-
-        subscription_sweet_tv = findViewById(R.id.subscription_sweet_tv);
-        subscription_sweet_tv.setTypeface(type1);
-        sweet_plan_amount = findViewById(R.id.sweet_plan_amount);
-        sweet_plan_amount.setTypeface(type1);
-        sweet_plan_month_tv = findViewById(R.id.sweet_plan_month_tv);
-        sweet_plan_month_tv.setTypeface(type1);
-        sweet_plan_month = findViewById(R.id.sweet_plan_month);
-        sweet_plan_month.setTypeface(type1);
-        sweet_plan_mins_tv = findViewById(R.id.sweet_plan_mins_tv);
-        sweet_plan_mins_tv.setTypeface(type1);
-        sweet_plan_mins = findViewById(R.id.sweet_plan_mins);
-        sweet_plan_mins.setTypeface(type1);
-
-        subscription_premium_tv = findViewById(R.id.subscription_premium_tv);
-        subscription_premium_tv.setTypeface(type1);
-        premium_plan_amount = findViewById(R.id.premium_plan_amount);
-        premium_plan_amount.setTypeface(type1);
-        premium_plan_month_tv = findViewById(R.id.premium_plan_month_tv);
-        premium_plan_month_tv.setTypeface(type1);
-        premium_plan_month = findViewById(R.id.premium_plan_month);
-        premium_plan_month.setTypeface(type1);
-        premium_plan_mins_tv = findViewById(R.id.premium_plan_mins_tv);
-        premium_plan_mins_tv.setTypeface(type1);
-        premium_plan_mins = findViewById(R.id.premium_plan_mins);
-        premium_plan_mins.setTypeface(type1);
-
-        proceed = findViewById(R.id.next);
-        proceed.setTypeface(type2);
-        proceed.setOnClickListener(this);
 
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(AreaSubscription.this, AddNewArea.class);
+        Intent intent = new Intent(AreaSubscription.this, DashBoardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
+    }
+
+    public String generateSubscriptionID() {
+        String subscription = "PUBBS_SUBSCRIPTION_ID";
+        String subscriptionNo;
+        int max = 9999;
+        int min = 1;
+        int randomNum = (int) (Math.random() * (max - min)) + min;
+        subscriptionNo = subscription + randomNum;
+        Log.d(TAG, "Subscription ID: " + subscriptionNo);
+        return subscriptionNo;
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button:
-                Intent intent = new Intent(AreaSubscription.this, AddNewArea.class);
+                Intent intent = new Intent(AreaSubscription.this, DashBoardActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.next:
+            case R.id.start_date:
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+
+                                startDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+                break;
+            case R.id.end_date:
+                final Calendar c1 = Calendar.getInstance();
+                mYear = c1.get(Calendar.YEAR);
+                mMonth = c1.get(Calendar.MONTH);
+                mDay = c1.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog1 = new DatePickerDialog(this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+
+                                endDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog1.show();
+                break;
+            case R.id.add_plan:
                 final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
-                if (basic_plan_amount.getText().toString().isEmpty() || basic_plan_month.getText().toString().isEmpty() || basic_plan_mins.getText().toString().isEmpty()
-                        || standard_plan_amount.getText().toString().isEmpty() || standard_plan_month.getText().toString().isEmpty() || standard_plan_mins.getText().toString().isEmpty()
-                        || standard_plan_amount.getText().toString().isEmpty() || sweet_plan_month.getText().toString().isEmpty() || sweet_plan_mins.getText().toString().isEmpty()
-                        || premium_plan_amount.getText().toString().isEmpty() || premium_plan_month.getText().toString().isEmpty() || premium_plan_mins.getText().toString().isEmpty()) {
-                    if (basic_plan_amount.getText().toString().isEmpty() && basic_plan_month.getText().toString().isEmpty() && basic_plan_mins.getText().toString().isEmpty()
-                            && standard_plan_amount.getText().toString().isEmpty() && standard_plan_month.getText().toString().isEmpty() && standard_plan_mins.getText().toString().isEmpty()
-                            && standard_plan_amount.getText().toString().isEmpty() && sweet_plan_month.getText().toString().isEmpty() && sweet_plan_mins.getText().toString().isEmpty()
-                            && premium_plan_amount.getText().toString().isEmpty() && premium_plan_month.getText().toString().isEmpty() && premium_plan_mins.getText().toString().isEmpty()) {
-
-                        basic_plan_amount.startAnimation(animShake);
-                        basic_plan_month.startAnimation(animShake);
-                        basic_plan_mins.startAnimation(animShake);
-                        standard_plan_amount.startAnimation(animShake);
-                        standard_plan_month.startAnimation(animShake);
-                        standard_plan_mins.startAnimation(animShake);
-                        sweet_plan_amount.startAnimation(animShake);
-                        sweet_plan_month.startAnimation(animShake);
-                        sweet_plan_mins.startAnimation(animShake);
-                        premium_plan_amount.startAnimation(animShake);
-                        premium_plan_month.startAnimation(animShake);
-                        premium_plan_mins.startAnimation(animShake);
-                    } else if (basic_plan_amount.getText().toString().isEmpty()) {
-                        basic_plan_amount.startAnimation(animShake);
-                    } else if (basic_plan_month.getText().toString().isEmpty()) {
-                        basic_plan_month.startAnimation(animShake);
-                    } else if (basic_plan_mins.getText().toString().isEmpty()) {
-                        basic_plan_mins.startAnimation(animShake);
-                    } else if (standard_plan_amount.getText().toString().isEmpty()) {
-                        standard_plan_amount.startAnimation(animShake);
-                    } else if (standard_plan_month.getText().toString().isEmpty()) {
-                        standard_plan_month.startAnimation(animShake);
-                    } else if (standard_plan_mins.getText().toString().isEmpty()) {
-                        standard_plan_mins.startAnimation(animShake);
-                    } else if (sweet_plan_amount.getText().toString().isEmpty()) {
-                        sweet_plan_amount.startAnimation(animShake);
-                    } else if (sweet_plan_month.getText().toString().isEmpty()) {
-                        sweet_plan_month.startAnimation(animShake);
-                    } else if (sweet_plan_mins.getText().toString().isEmpty()) {
-                        sweet_plan_mins.startAnimation(animShake);
-                    } else if (premium_plan_amount.getText().toString().isEmpty()) {
-                        premium_plan_amount.startAnimation(animShake);
-                    } else if (premium_plan_month.getText().toString().isEmpty()) {
-                        premium_plan_month.startAnimation(animShake);
-                    } else if (premium_plan_mins.getText().toString().isEmpty()) {
-                        premium_plan_mins.startAnimation(animShake);
+                if (subscriptionPlanName.getText().toString().isEmpty() || timeLimit.getText().toString().isEmpty()
+                        || startDate.getText().toString().isEmpty() || endDate.getText().toString().isEmpty() || money.getText().toString().isEmpty()
+                        || descriptionPlan.getText().toString().isEmpty()) {
+                    if (subscriptionPlanName.getText().toString().isEmpty() && timeLimit.getText().toString().isEmpty()
+                            && startDate.getText().toString().isEmpty() && endDate.getText().toString().isEmpty() && money.getText().toString().isEmpty()
+                            && descriptionPlan.getText().toString().isEmpty()) {
+                        subscriptionPlanName.startAnimation(animShake);
+                        timeLimit.startAnimation(animShake);
+                        startDate.startAnimation(animShake);
+                        endDate.startAnimation(animShake);
+                        money.startAnimation(animShake);
+                        descriptionPlan.startAnimation(animShake);
+                    } else if (subscriptionPlanName.getText().toString().isEmpty()) {
+                        subscriptionPlanName.startAnimation(animShake);
+                    } else if (timeLimit.getText().toString().isEmpty()) {
+                        timeLimit.startAnimation(animShake);
+                    } else if (startDate.getText().toString().isEmpty()) {
+                        startDate.startAnimation(animShake);
+                    } else if (endDate.getText().toString().isEmpty()) {
+                        endDate.startAnimation(animShake);
+                    } else if (money.getText().toString().isEmpty()) {
+                        money.startAnimation(animShake);
+                    } else if (descriptionPlan.getText().toString().isEmpty()) {
+                        descriptionPlan.startAnimation(animShake);
                     }
-                } else {
-                    basicPlanAmount = basic_plan_amount.getText().toString();
-                    basicPlanMonth = basic_plan_month.getText().toString();
-                    basicPlanMins = basic_plan_mins.getText().toString();
-                    standardPlanAmount = standard_plan_amount.getText().toString();
-                    standardPlanMonth = standard_plan_month.getText().toString();
-                    standardPlanMins = standard_plan_mins.getText().toString();
-                    sweetPlanAmount = sweet_plan_amount.getText().toString();
-                    sweetPlanMonth = sweet_plan_month.getText().toString();
-                    sweetPlanMins = sweet_plan_mins.getText().toString();
-                    premiumPlanAmount = premium_plan_amount.getText().toString();
-                    premiumPlanMonth = premium_plan_month.getText().toString();
-                    premiumPlanMins = premium_plan_mins.getText().toString();
-
-                    Log.d(TAG, "Subsceiption Plans:" + basicPlanAmount + ";" + basicPlanMonth + ";" + basicPlanMins + "\n" + standardPlanAmount + ";"
-                            + standardPlanMonth + ";" + standardPlanMins + "\n" +
-                            sweetPlanAmount + ";" + sweetPlanMonth + ";" + sweetPlanMins + "\n" + premiumPlanAmount + ";" + premiumPlanMonth + ";" + premiumPlanMins);
-
-                    Intent manageSystem = new Intent(AreaSubscription.this, ManageSystem.class);
-                    manageSystem.putParcelableArrayListExtra("markerList", markerList);
-                    manageSystem.putExtra("areaNumber", areaNumber);
-                    manageSystem.putExtra("area_Name", area_Name);
-                    manageSystem.putExtra("adminMobile", adminMobile);
-                    manageSystem.putExtra("numberPicker1", numberPicker1);
-                    manageSystem.putExtra("rupee1", rupee1);
-                    manageSystem.putExtra("numberPicker2", numberPicker2);
-                    manageSystem.putExtra("rupee2", rupee2);
-                    manageSystem.putExtra("numberPicker3", numberPicker3);
-                    manageSystem.putExtra("rupee3", rupee3);
-                    manageSystem.putExtra("numberPicker4", numberPicker4);
-                    manageSystem.putExtra("rupee4", rupee4);
-                    manageSystem.putExtra("numberPicker5", numberPicker5);
-                    manageSystem.putExtra("rupee5", rupee5);
-                    manageSystem.putExtra("basicPlanAmount", basicPlanAmount);
-                    manageSystem.putExtra("basicPlanMonth", basicPlanMonth);
-                    manageSystem.putExtra("basicPlanMins", basicPlanMins);
-                    manageSystem.putExtra("standardPlanAmount", standardPlanAmount);
-                    manageSystem.putExtra("standardPlanMonth", standardPlanMonth);
-                    manageSystem.putExtra("standardPlanMins", standardPlanMins);
-                    manageSystem.putExtra("sweetPlanAmount", sweetPlanAmount);
-                    manageSystem.putExtra("sweetPlanMonth", sweetPlanMonth);
-                    manageSystem.putExtra("sweetPlanMins", sweetPlanMins);
-                    manageSystem.putExtra("premiumPlanAmount", premiumPlanAmount);
-                    manageSystem.putExtra("premiumPlanMonth", premiumPlanMonth);
-                    manageSystem.putExtra("premiumPlanMins", premiumPlanMins);
-                    startActivity(manageSystem);
+                }else{
+                    subsName = subscriptionPlanName.getText().toString();
+                    subsTime = timeLimit.getText().toString();
+                    subsStartDate = startDate.getText().toString();
+                    subsEndDate = endDate.getText().toString();
+                    subsMoney = money.getText().toString();
+                    subsDesc = descriptionPlan.getText().toString();
+                    subscription_id = generateSubscriptionID();
+                    addSubscriptionPlan(adminmobile, areaId, areaName, subscription_id, subsName, subsTime, subsStartDate, subsEndDate, subsMoney, subsDesc);
                 }
-
                 break;
             default:
                 break;
         }
 
+    }
+
+    public void addSubscriptionPlan(String adminmobile, String areaId, String areaName, String subscription_id, String subsName, String subsTime,
+                                    String subsStartDate, String subsEndDate, String subsMoney, String subsDesc) {
     }
 }
