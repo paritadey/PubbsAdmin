@@ -1,12 +1,15 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,17 +19,25 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 /*created by Parita Dey*/
 
-public class AreaSubscription extends AppCompatActivity implements View.OnClickListener {
+public class AreaSubscription extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     private String TAG = AreaSubscription.class.getSimpleName();
     String areaId, areaName, adminmobile, subsName, subsTime, subsStartDate, subsEndDate, subsDesc, subsMoney;
     ImageView back;
-    TextView subscriptionTv, subscription_tv;
+    TextView subscriptionTv;
     ImageView upArrow;
     TextView bottomsheetText;
     Button proceed;
@@ -42,6 +53,8 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
     TextView startDate, endDate;
     Button add_plan;
     private int mYear, mMonth, mDay;
+    Date sdate, eNdDate;
+    int limitDay;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,7 +83,6 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
         startDate.setOnClickListener(this);
         startDate.setTypeface(type1);
         endDate = findViewById(R.id.end_date);
-        endDate.setOnClickListener(this);
         endDate.setTypeface(type1);
         money = findViewById(R.id.money);
         money.setTypeface(type1);
@@ -86,16 +98,9 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
         back.setOnClickListener(this);
         subscriptionTv = findViewById(R.id.subscription);
         subscriptionTv.setTypeface(type1);
+        subscriptionTv.setOnClickListener(this);
         upArrow = findViewById(R.id.up_arrow);
-        upArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new BottomSheetRateChartTimeFragment().show(getSupportFragmentManager(), "dialog");
-
-            }
-        });
-        subscription_tv = findViewById(R.id.subscription_tv);
-        subscription_tv.setTypeface(type1);
+        upArrow.setOnClickListener(this);
 
     }
 
@@ -141,28 +146,31 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                                                   int monthOfYear, int dayOfMonth) {
 
                                 startDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
+                                SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MM-yyyy");
+                                launch_plan_date = startDate.getText().toString();
+                                limitDay = Integer.parseInt(timeLimit.getText().toString());
+                                try {
+                                    sdate = formatter2.parse(launch_plan_date);
+                                    Log.d(TAG, "Terminated date in DATE format:" + sdate);
+                                    Calendar cal = Calendar.getInstance();
+                                    cal.setTime(sdate);
+                                    cal.add(Calendar.DATE, limitDay); // add corrosponding days
+                                    eNdDate = cal.getTime();
+                                    Log.d(TAG, "End Date :" + eNdDate);
+                                    DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                                    String strDate = dateFormat.format(eNdDate);
+                                    Log.d(TAG, "String format of date:" + strDate);
+                                    endDate.setText(strDate);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                    Log.d(TAG, "Error: " + e);
+                                }
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
                 break;
-            case R.id.end_date:
-                final Calendar c1 = Calendar.getInstance();
-                mYear = c1.get(Calendar.YEAR);
-                mMonth = c1.get(Calendar.MONTH);
-                mDay = c1.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog1 = new DatePickerDialog(this,
-                        new DatePickerDialog.OnDateSetListener() {
-
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-
-                                endDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog1.show();
+            case R.id.up_arrow:
+                new BottomSheetRateChartTimeFragment().show(getSupportFragmentManager(), "dialog");
                 break;
             case R.id.add_plan:
                 final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
@@ -191,7 +199,7 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                     } else if (descriptionPlan.getText().toString().isEmpty()) {
                         descriptionPlan.startAnimation(animShake);
                     }
-                }else{
+                } else {
                     subsName = subscriptionPlanName.getText().toString();
                     subsTime = timeLimit.getText().toString();
                     subsStartDate = startDate.getText().toString();
@@ -202,13 +210,138 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                     addSubscriptionPlan(adminmobile, areaId, areaName, subscription_id, subsName, subsTime, subsStartDate, subsEndDate, subsMoney, subsDesc);
                 }
                 break;
+            case R.id.subscription:
+                sendSubscriptionPlan(adminmobile, areaId, areaName, subscription_plan_name, time_limit,
+                        launch_date, end_date, description_plan, amount_money, subscription_id);
+                break;
             default:
                 break;
         }
 
     }
 
+    public void sendSubscriptionPlan(String admin_mobile, String area_id, String area_name,
+                                     ArrayList<String> subscription_plan_name, ArrayList<String> time_limit,
+                                     ArrayList<String> start_date, ArrayList<String> end_date,
+                                     ArrayList<String> description, ArrayList<String> money, String subscription_plan_id) {
+        JSONObject jo = new JSONObject();
+
+        try {
+            jo.put("method", "add_subscription_plan");
+            jo.put("admin_mobile", admin_mobile);
+            jo.put("area_id", area_id);
+            jo.put("area_name", area_name);
+            jo.put("subscription_plan_name", subscription_plan_name);
+            jo.put("time_limit", time_limit);
+            jo.put("start_date", start_date);
+            jo.put("end_date", end_date);
+            jo.put("description", description);
+            jo.put("money", money);
+            jo.put("subscription_plan_id", subscription_plan_id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new SendRequest(getResources().getString(R.string.url), jo, AreaSubscription.this,
+                getApplicationContext()).executeJsonRequest();
+
+    }
+
     public void addSubscriptionPlan(String adminmobile, String areaId, String areaName, String subscription_id, String subsName, String subsTime,
                                     String subsStartDate, String subsEndDate, String subsMoney, String subsDesc) {
+        Log.d(TAG, "Admin details for subscription:" + adminmobile + "\t" + areaId + "\t" + areaName + "\t" + subscription_id);
+        subscription_plan_name.add(subsName);
+        time_limit.add(subsTime);
+        launch_date.add(subsStartDate);
+        end_date.add(subsEndDate);
+        amount_money.add(subsMoney);
+        description_plan.add(subsDesc);
+        for (int i = 0; i < subscription_plan_name.size(); i++) {
+            Log.d(TAG, "Subscription Plan name: " + subscription_plan_name.get(i));
+        }
+        for (int i = 0; i < time_limit.size(); i++) {
+            Log.d(TAG, "Subscription Time Limit: " + time_limit.get(i));
+        }
+        for (int i = 0; i < launch_date.size(); i++) {
+            Log.d(TAG, "Subscription Launch Date: " + launch_date.get(i));
+        }
+        for (int i = 0; i < end_date.size(); i++) {
+            Log.d(TAG, "Subscription End Date: " + end_date.get(i));
+        }
+        for (int i = 0; i < amount_money.size(); i++) {
+            Log.d(TAG, "Subscription Money: " + amount_money.get(i));
+        }
+        for (int i = 0; i < description_plan.size(); i++) {
+            Log.d(TAG, "Subscription Description: " + description_plan.get(i));
+        }
+        View view_layout = findViewById(R.id.manage_subscription_area);
+        String message = "Subscription Plan is added.";
+        int duration = Snackbar.LENGTH_SHORT;
+        showSnackbar(view_layout, message, duration);
+        clearFields();
     }
+
+    public void showSnackbar(View view, String message, int duration) {
+        Snackbar.make(view, message, duration).show();
+    }
+
+    public void clearFields() {
+        subscriptionPlanName.setText("");
+        timeLimit.setText("");
+        descriptionPlan.setText("");
+        money.setText("");
+        startDate.setText("");
+        endDate.setText("");
+    }
+
+    @Override
+    public void onResponse(JSONObject jsonObject) {
+        if (jsonObject.has("method")) {
+            try {
+                if (jsonObject.getString("method").equals("add_subscription_plan") && jsonObject.getBoolean("success")) {
+                    showDialog("Subscriptional Plan is done against an area");
+                } else {
+                    showDialog("couldn't save try again later");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onResponseError(VolleyError error) {
+        showDialog("Server Problem !");
+    }
+
+    private void showDialog(String message) {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+
+        final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
+        extraLine.setTypeface(type1);
+        serverProblem.setTypeface(type1);
+        serverProblem.setText(message);
+        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+                Intent intent = new Intent(AreaSubscription.this, DashBoardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+        dialogBuilder.setCancelable(false);
+    }
+
 }

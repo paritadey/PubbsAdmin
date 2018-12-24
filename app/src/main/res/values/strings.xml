@@ -147,7 +147,7 @@
     <string name="delete_operator_tv">Delete Operator from Operator List</string>
     <string name="delete_opt">delete operator from panel !!!</string>
     <string name="subscription">Set your subscription for an area</string>
-    <string name="bottom_sheet_subscription">Need help for creating subscription for an area?</string>
+    <string name="bottom_sheet_subscription">Help for creating subscription for an area?</string>
     <string name="subscription_help">How do you set Subscription for an Area ?</string>
     <string name="subscription_message">To create subscription plan user has to add amount of money for subscription, time period of\n
     subscription and unit of time that will be added to any user s ride time after subscribing to any plan. \n

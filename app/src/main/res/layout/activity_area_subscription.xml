@@ -2,7 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/manage_area_layout"
+    android:id="@+id/manage_subscription_area"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -25,15 +25,16 @@
 
         <TextView
             android:id="@+id/subscription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginStart="@dimen/one_hundred_dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginStart="@dimen/fifty_dp"
+            android:layout_marginEnd="@dimen/tweleve_dp"
             android:layout_marginBottom="@dimen/sixteen_dp"
             android:text="@string/subscription"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/fourteen_sp" />
+            android:textSize="@dimen/fourteen_sp"
+            android:drawableEnd="@drawable/ic_cached"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -50,28 +51,14 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/one_fourty_dp">
 
-                <TextView
-                    android:id="@+id/subscription_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/twenty_four_dp"
-                    android:layout_marginTop="@dimen/fourty_dp"
-                    android:layout_marginEnd="@dimen/twenty_four_dp"
-                    android:padding="@dimen/four_dp"
-                    android:text="Subscription Plans"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/fourteen_sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cardView_standard"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/twenty_four_dp"
                     android:layout_marginTop="@dimen/thirty_six_dp"
@@ -84,7 +71,8 @@
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="@dimen/tweleve_dp">
+                        android:layout_margin="@dimen/tweleve_dp"
+                        android:paddingBottom="@dimen/tweleve_dp">
 
                         <EditText
                             android:id="@+id/subscription_plan_name"
@@ -111,7 +99,7 @@
                             android:layout_marginTop="@dimen/twenty_dp"
                             android:background="@drawable/edittext_bg"
                             android:drawablePadding="@dimen/four_dp"
-                            android:hint="Enter Time Limit in months"
+                            android:hint="Enter Time Limit in days"
                             android:inputType="numberDecimal"
                             android:padding="@dimen/four_dp"
                             android:singleLine="true"
