@@ -137,7 +137,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
         proceed.setOnClickListener(this);
         back.setOnClickListener(this);
 
-        manageSystem = findViewById(R.id.manage_area_layout);
+       // manageSystem = findViewById(R.id.manage_area_layout);
         proceed = findViewById(R.id.proceed_btn);
         layoutGeofenceFine = findViewById(R.id.layout_geofencing_fine);
         layoutOpeningHr = findViewById(R.id.layout_opening_hour);

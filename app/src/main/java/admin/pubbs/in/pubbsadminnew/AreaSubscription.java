@@ -211,7 +211,7 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                 }
                 break;
             case R.id.subscription:
-                sendSubscriptionPlan(adminmobile, areaId, areaName, subscription_plan_name, time_limit,
+                sendSubscriptionPlan(adminmobile, areaName, areaId, subscription_plan_name, time_limit,
                         launch_date, end_date, description_plan, amount_money, subscription_id);
                 break;
             default:
