@@ -73,7 +73,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
         return v;
     }
 
-    @Override
+   /* @Override
     public void onResponse(JSONObject jsonObject) {
         if (jsonObject.has("method")) {
             gmap.clear();
@@ -103,7 +103,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
     @Override
     public void onResponseError(VolleyError error) {
 
-    }
+    }*/
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -111,7 +111,8 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
         googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
-                trackRide.run();
+                //trackRide.run();
+                loadData();
             }
         });
 
@@ -121,16 +122,29 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
     public void onResume() {
         super.onResume();
         mapView.onResume();
-        trackRide.run();
+      //  trackRide.run();
+        loadData();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        handler.removeCallbacks(trackRide);
+      //  handler.removeCallbacks(trackRide);
+        loadData();
     }
 
-    private Runnable trackRide = new Runnable() {
+    public void loadData(){
+        JSONObject jo = new JSONObject();
+        try {
+            //  jo.put("method", "trackrides");
+            jo.put("method", "get_all_stations");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new SendRequest(getString(R.string.url), jo, DashboardFragment.this, getActivity()).executeJsonRequest();
+
+    }
+  /*  private Runnable trackRide = new Runnable() {
         @Override
         public void run() {
             JSONObject jo = new JSONObject();
@@ -142,7 +156,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
             new SendRequest(getString(R.string.url), jo, DashboardFragment.this, getActivity()).executeJsonRequest();
             handler.postDelayed(trackRide, delay);
         }
-    };
+    };*/
 
     @Override
     public void onClick(View v) {
@@ -154,5 +168,44 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onResponse(JSONObject jsonObject) {
+        if (jsonObject.has("method")) {
+           // gmap.clear();
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            try {
+                if (jsonObject.getString("method").equals("get_all_stations")) {
+                    JSONArray ja = jsonObject.getJSONArray("data");
+                    if (ja.length() > 0) {
+                        for (int i = 0; i < ja.length(); i++) {
+                            JSONObject jo = ja.getJSONObject(i);
+                            String lat = jo.getString("station_latitude");
+                            String lon = jo.getString("station_longitude");
+                            double latitude = Double.parseDouble(lat);
+                            double longitude =Double.parseDouble(lon);
+                            LatLng ll = new LatLng(latitude,longitude);
+                            gmap.addMarker(new MarkerOptions().position(ll)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.flag))
+                                    .title("Station Name:"+jo.getString("station_name")));
+                            builder.include(ll);
+                        }
+                        LatLngBounds bounds = builder.build();
+                     //   int padding = 50; // offset from edges of the map in pixels
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 15);
+                        gmap.moveCamera(cu);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @Override
+    public void onResponseError(VolleyError error) {
+
     }
 }

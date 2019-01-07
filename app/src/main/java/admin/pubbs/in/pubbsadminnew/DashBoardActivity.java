@@ -168,6 +168,9 @@ public class DashBoardActivity extends AppCompatActivity
             case R.id.area_subscription:
                 startActivity(new Intent(DashBoardActivity.this, AllAreaSubscriptions.class));
                 break;
+            case R.id.rate_chart:
+                startActivity(new Intent(DashBoardActivity.this, AllAreaRateChart.class));
+                break;
             case R.id.profile:
                 if (check == true) {
                     startActivity(new Intent(DashBoardActivity.this, Settings.class));

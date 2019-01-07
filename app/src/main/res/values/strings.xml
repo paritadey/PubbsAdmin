@@ -190,4 +190,5 @@
     <string name="checkout">To checkout....</string>
     <string name="show_area">Area in Map</string>
     <string name="order_history">Order Details</string>
+    <string name="title_activity_area_rate">AreaRate</string>
 </resources>

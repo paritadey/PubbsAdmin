@@ -22,6 +22,9 @@
                         android:id="@+id/area_subscription"
                         android:title="Add Area Subscription" />
                     <item
+                        android:id="@+id/rate_chart"
+                        android:title="Add Rate Chart to area"/>
+                    <item
                         android:id="@+id/add_station"
                         android:title="Add New Station" />
                     <item

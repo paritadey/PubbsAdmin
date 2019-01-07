@@ -276,6 +276,16 @@
             android:name=".AllAreaSubscriptions"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AllAreaRateChart"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AreaRateChart"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan"/>
     </application>
 
