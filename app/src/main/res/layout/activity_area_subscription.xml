@@ -33,8 +33,7 @@
             android:text="@string/subscription"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/fourteen_sp"
-            android:drawableEnd="@drawable/ic_cached"/>
+            android:textSize="@dimen/fourteen_sp"/>
 
     </android.support.design.widget.AppBarLayout>
 

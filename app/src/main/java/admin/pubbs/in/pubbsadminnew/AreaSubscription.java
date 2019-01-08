@@ -98,7 +98,7 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
         back.setOnClickListener(this);
         subscriptionTv = findViewById(R.id.subscription);
         subscriptionTv.setTypeface(type1);
-        subscriptionTv.setOnClickListener(this);
+       // subscriptionTv.setOnClickListener(this);
         upArrow = findViewById(R.id.up_arrow);
         upArrow.setOnClickListener(this);
 
@@ -207,23 +207,25 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                     subsMoney = money.getText().toString();
                     subsDesc = descriptionPlan.getText().toString();
                     subscription_id = generateSubscriptionID();
-                    addSubscriptionPlan(adminmobile, areaId, areaName, subscription_id, subsName, subsTime, subsStartDate, subsEndDate, subsMoney, subsDesc);
+                    //  addSubscriptionPlan(adminmobile, areaId, areaName, subscription_id, subsName, subsTime,
+                    // subsStartDate, subsEndDate, subsMoney, subsDesc);
+                    sendSubscriptionPlan(adminmobile, areaName, areaId, subsName, subsTime,
+                            subsStartDate, subsEndDate, subsDesc, subsMoney, subscription_id);
+
                 }
                 break;
-            case R.id.subscription:
+           /* case R.id.subscription:
                 sendSubscriptionPlan(adminmobile, areaName, areaId, subscription_plan_name, time_limit,
                         launch_date, end_date, description_plan, amount_money, subscription_id);
-                break;
+                break;*/
             default:
                 break;
         }
 
     }
 
-    public void sendSubscriptionPlan(String admin_mobile, String area_id, String area_name,
-                                     ArrayList<String> subscription_plan_name, ArrayList<String> time_limit,
-                                     ArrayList<String> start_date, ArrayList<String> end_date,
-                                     ArrayList<String> description, ArrayList<String> money, String subscription_plan_id) {
+    public void sendSubscriptionPlan(String admin_mobile, String area_id, String area_name, String subscription_plan_name, String time_limit,
+                                     String start_date, String end_date, String description, String money, String subscription_plan_id) {
         JSONObject jo = new JSONObject();
 
         try {
@@ -332,9 +334,10 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
             @Override
             public void onClick(View view) {
                 dialogBuilder.dismiss();
-                Intent intent = new Intent(AreaSubscription.this, DashBoardActivity.class);
+               /* Intent intent = new Intent(AreaSubscription.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                startActivity(intent);*/
+                clearFields();
 
             }
         });

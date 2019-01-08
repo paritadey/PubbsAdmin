@@ -39,7 +39,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
     private final String TAG = ManageSystem.class.getSimpleName();
     CoordinatorLayout manageSystem;
     private EditText maxRide, maxHold, minWallet;
-    private TextView openingHrTv, closingHrTv, geofencingFineTv, rupeesTv;
+    private TextView openingHrTv, closingHrTv, geofencingFineTv, rupeesTv, emergencyContactTv, emergency_contact;
     private ImageView openingTimer, closingTimer;
     private TextView openingHour, closingHour;
     private int currentHour, currentMinute;
@@ -48,14 +48,15 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
     public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
     public JsonArray markers;
     private String areaNumber, area_Name, adminMobile;
-    private String openHr, closeHr, geofenceFine, max_ride, max_hold, min_wallet;
-    RelativeLayout layoutGeofenceFine, layoutClosingHr, layoutOpeningHr;
+    private String openHr, closeHr, geofenceFine, max_ride, max_hold, min_wallet, emergencyContact;
+    RelativeLayout layoutGeofenceFine, layoutClosingHr, layoutOpeningHr, layoutEmergencyContact;
     private String rupee1, rupee2, rupee3, rupee4, rupee5;
     private String numberPicker1, numberPicker2, numberPicker3, numberPicker4, numberPicker5;
     String markerArray;
     private String basicPlanAmount, basicPlanMonth, basicPlanMins, standardPlanAmount, standardPlanMonth, standardPlanMins;
     private String sweetPlanAmount, sweetPlanMonth, sweetPlanMins, premiumPlanAmount, premiumPlanMonth, premiumPlanMins;
     String json;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,8 +103,8 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
         "//"+standardPlanMins+"\t"+sweetPlanAmount+"//"+sweetPlanMonth+"//"+sweetPlanMins+"\t"+premiumPlanAmount+"//"+premiumPlanMonth+"//"+premiumPlanMins);*/
 
         Gson gson = new Gson();
-        json=gson.toJson(markerList);
-        Log.d(TAG, "Marker String:"+json);
+        json = gson.toJson(markerList);
+        Log.d(TAG, "Marker String:" + json);
 
         showinJsonArray(markerList);
         manageSystem = findViewById(R.id.manage_system);
@@ -131,13 +132,18 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
         minWalletTv.setTypeface(type2);
         minWallet = findViewById(R.id.min_wallet);
         minWallet.setTypeface(type2);
+        emergencyContactTv = findViewById(R.id.emergency_contact_tv);
+        emergencyContactTv.setTypeface(type2);
+        emergency_contact = findViewById(R.id.emergency_contact);
+        emergency_contact.setTypeface(type2);
+        layoutEmergencyContact = findViewById(R.id.layout_emergency_contact);
         proceed = findViewById(R.id.proceed_btn);
         proceed.setTypeface(type3);
         upArrow.setOnClickListener(this);
         proceed.setOnClickListener(this);
         back.setOnClickListener(this);
 
-       // manageSystem = findViewById(R.id.manage_area_layout);
+        // manageSystem = findViewById(R.id.manage_area_layout);
         proceed = findViewById(R.id.proceed_btn);
         layoutGeofenceFine = findViewById(R.id.layout_geofencing_fine);
         layoutOpeningHr = findViewById(R.id.layout_opening_hour);
@@ -276,17 +282,22 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.proceed_btn:
                 final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
-                if (openingHour.getText().toString().isEmpty() || closingHour.getText().toString().isEmpty() || geofencingFine.getText().toString().isEmpty()) {
-                    if (openingHour.getText().toString().isEmpty() && closingHour.getText().toString().isEmpty() && geofencingFine.getText().toString().isEmpty()) {
+                if (openingHour.getText().toString().isEmpty() || closingHour.getText().toString().isEmpty() || geofencingFine.getText().toString().isEmpty()
+                        || emergency_contact.getText().toString().isEmpty()) {
+                    if (openingHour.getText().toString().isEmpty() && closingHour.getText().toString().isEmpty()
+                            && geofencingFine.getText().toString().isEmpty() && emergency_contact.getText().toString().isEmpty()) {
                         layoutOpeningHr.startAnimation(animShake);
                         layoutClosingHr.startAnimation(animShake);
                         layoutGeofenceFine.startAnimation(animShake);
+                        layoutEmergencyContact.startAnimation(animShake);
                     } else if (openingHour.getText().toString().isEmpty()) {
                         layoutOpeningHr.startAnimation(animShake);
                     } else if (closingHour.getText().toString().isEmpty()) {
                         layoutClosingHr.startAnimation(animShake);
                     } else if (geofencingFine.getText().toString().isEmpty()) {
                         layoutGeofenceFine.startAnimation(animShake);
+                    } else if (emergency_contact.getText().toString().isEmpty()) {
+                        layoutEmergencyContact.startAnimation(animShake);
                     }
                 } else {
                     max_ride = maxRide.getText().toString();
@@ -295,9 +306,9 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
                     openHr = openingHour.getText().toString();
                     closeHr = closingHour.getText().toString();
                     geofenceFine = geofencingFine.getText().toString();
-
+                    emergencyContact = emergency_contact.getText().toString();
                     sendData(areaNumber, area_Name, json, numberPicker1, rupee1, numberPicker2, rupee2, numberPicker3, rupee3,
-                            numberPicker4, rupee4, numberPicker5, rupee5, openHr, closeHr, max_ride, max_hold, min_wallet, geofenceFine, adminMobile);
+                            numberPicker4, rupee4, numberPicker5, rupee5, openHr, closeHr, max_ride, max_hold, min_wallet, geofenceFine, adminMobile, emergencyContact);
                           /*  basicPlanAmount, basicPlanMonth, basicPlanMins, standardPlanAmount, standardPlanMonth, standardPlanMins, sweetPlanAmount,
                             sweetPlanMonth, sweetPlanMins, premiumPlanAmount, premiumPlanMonth, premiumPlanMins);*/
                 }
@@ -310,7 +321,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
     public void sendData(String areaNumber, String area_Name, String markerArray, String numberPicker1, String rupee1,
                          String numberPicker2, String rupee2, String numberPicker3, String rupee3, String numberPicker4,
                          String rupee4, String numberPicker5, String rupee5, String openHr, String closeHr, String max_ride,
-                         String max_hold, String min_wallet, String geofenceFine, String adminMobile)/*, String basic_plan_amount, String basic_plan_month,
+                         String max_hold, String min_wallet, String geofenceFine, String adminMobile, String emergency_contact)/*, String basic_plan_amount, String basic_plan_month,
     String basic_plan_mins, String standard_plan_amount, String standard_plan_month, String standard_plan_mins, String sweet_plan_amount,
                          String sweet_plan_month, String sweet_plan_mins, String premium_plan_amount, String premium_plan_month, String premium_plan_mins)*/ {
         JSONObject jo = new JSONObject();
@@ -336,6 +347,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
             jo.put("min_wallet_amnt", min_wallet);
             jo.put("geofencing_fine", geofenceFine);
             jo.put("adminmobile", adminMobile);
+            jo.put("emergency_contact", emergency_contact);
           /*  jo.put("basic_plan_amount", basic_plan_amount);
             jo.put("basic_plan_month", basic_plan_month);
             jo.put("basic_plan_mins", basic_plan_mins);
@@ -368,7 +380,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.area_added_dialog, null);
         final TextView areaAdd = (TextView) dialogView.findViewById(R.id.area_add_tv);
-        final Button ok = (Button)dialogView.findViewById(R.id.ok_btn);
+        final Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
         ok.setTypeface(type2);
         areaAdd.setTypeface(type1);
         ok.setOnClickListener(new View.OnClickListener() {
@@ -397,6 +409,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                Log.d(TAG, "error in saving:"+e);
             }
         }
     }
