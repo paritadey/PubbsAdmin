@@ -194,6 +194,7 @@
     <string name="set_rate">Set your Rate chart</string>
     <string name="mint_time_slab">Minutes Time Slab</string>
     <string name="hour_time_slab">Hour Time Slab</string>
-    <string name="distance_slab">Distance in Kilometer</string>
+    <string name="distance_slab">Distance in Meter</string>
     <string name="emergency_contact">Enter contact number for customer support</string>
+    <string name="set_price">Set Price</string>
 </resources>

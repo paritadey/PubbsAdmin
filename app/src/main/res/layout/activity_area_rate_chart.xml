@@ -146,8 +146,57 @@
                         numberpicker:unit="1"
                         numberpicker:value="1" />
 
+                    <TextView
+                        android:id="@+id/price_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/eight_dp"
+                        android:text="@string/set_price"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/fourteen_sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/number_picker_hour" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="@dimen/twenty_four_dp"
+                        android:layout_marginTop="@dimen/sixteen_dp"
+                        android:layout_marginEnd="@dimen/twenty_four_dp"
+                        android:background="@drawable/edittext_bg"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/price_tv">
+
+                        <EditText
+                            android:id="@+id/time_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/two_dp"
+                            android:layout_marginEnd="@dimen/twenty_four_dp"
+                            android:backgroundTint="@color/white"
+                            android:hint="Enter Price for the above time in"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@drawable/custom_cursor"
+                            android:textSize="@dimen/fourteen_sp" />
+                        <TextView
+                            android:id="@+id/rupees_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@id/time_price"
+                            android:layout_marginStart="@dimen/two_hundred_ten_dp"
+                            android:layout_marginTop="@dimen/two_dp"
+                            android:padding="@dimen/eight_dp"
+                            android:text="Rupees" />
+
+                    </RelativeLayout>
+
                     <Button
-                        android:id="@+id/add_rate"
+                        android:id="@+id/add_time_rate"
                         android:layout_width="@dimen/one_fifty_dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/twenty_dp"
@@ -158,7 +207,7 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/sixteen_sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/number_picker_hour" />
+                        app:layout_constraintTop_toBottomOf="@+id/layout_price" />
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
@@ -174,7 +223,6 @@
                         android:id="@+id/distance_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/thirty_dp"
                         android:text="@string/distance_slab"
                         android:textColor="@color/black"
                         android:textSize="@dimen/fourteen_sp"
@@ -182,12 +230,12 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                   <!-- <com.warkiz.widget.IndicatorStayLayout
-                        android:id="@+id/indicator_layout"
+                    <com.warkiz.widget.IndicatorStayLayout
+                        android:id="@+id/km_indicator_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/twenty_four_dp"
-                        android:layout_marginTop="@dimen/eight_dp"
+                        android:layout_marginTop="@dimen/twenty_four_dp"
                         android:layout_marginEnd="@dimen/twenty_four_dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -198,35 +246,55 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:isb_indicator_color="@color/black"
-                            app:isb_track_background_color="@color/grey_500"
-                            app:isb_track_progress_color="@color/black"
-                            app:isb_indicator_text_size="@dimen/sixteen_sp"
                             app:isb_max="2000"
-                            app:isb_min="100"
-                            app:isb_progress="500"
-                            app:isb_show_tick_marks_type="oval"
-                            app:isb_ticks_count="0" />
-                    </com.warkiz.widget.IndicatorStayLayout>-->
-                    <com.warkiz.widget.IndicatorSeekBar
-                        android:id="@+id/km_indicator"
-                        android:layout_width="match_parent"
+                            app:isb_min="500"
+                            app:isb_progress="200"
+                            app:isb_show_indicator="rounded_rectangle"
+                            app:isb_show_tick_texts="true"
+                            app:isb_thumb_color="@color/black"
+                            app:isb_tick_texts_color="@color/grey_500"
+                            app:isb_ticks_count="7"
+                            app:isb_track_progress_color="@color/black" />
+                    </com.warkiz.widget.IndicatorStayLayout>
+
+                    <TextView
+                        android:id="@+id/distance_price_tv"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:isb_min="500"
-                        app:isb_max="2000"
-                        app:isb_progress="200"
-                        app:isb_seek_smoothly="true"
-                        app:isb_show_indicator="rounded_rectangle"
-                        app:isb_show_tick_marks_type="oval"
-                        app:isb_show_tick_texts="true"
-                        app:isb_thumb_adjust_auto="false"
-                        app:isb_ticks_count="7"
-                        app:isb_track_progress_color="@color/blue_400"
-                        android:layout_marginStart="@dimen/twenty_four_dp"
-                        android:layout_marginTop="@dimen/eight_dp"
-                        android:layout_marginEnd="@dimen/twenty_four_dp"
+                        android:layout_marginTop="@dimen/twenty_four_dp"
+                        android:text="@string/set_price"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/fourteen_sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/distance_tv"/>
+                        app:layout_constraintTop_toBottomOf="@+id/km_indicator_layout" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_distance_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="@dimen/twenty_four_dp"
+                        android:layout_marginTop="@dimen/sixteen_dp"
+                        android:layout_marginEnd="@dimen/twenty_four_dp"
+                        android:background="@drawable/edittext_bg"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/distance_price_tv">
+
+                        <EditText
+                            android:id="@+id/distance_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/twenty_four_dp"
+                            android:layout_marginTop="@dimen/two_dp"
+                            android:layout_marginEnd="@dimen/twenty_four_dp"
+                            android:backgroundTint="@color/white"
+                            android:hint="Enter Price for the above distance"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@drawable/custom_cursor"
+                            android:textSize="@dimen/fourteen_sp" />
+                    </RelativeLayout>
 
 
                     <Button
@@ -241,7 +309,7 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/sixteen_sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/km_indicator" />
+                        app:layout_constraintTop_toBottomOf="@+id/layout_distance_price" />
 
                 </android.support.constraint.ConstraintLayout>
             </android.support.constraint.ConstraintLayout>
