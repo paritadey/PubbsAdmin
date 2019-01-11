@@ -183,6 +183,7 @@
                             android:textColor="@color/black"
                             android:textCursorDrawable="@drawable/custom_cursor"
                             android:textSize="@dimen/fourteen_sp" />
+
                         <TextView
                             android:id="@+id/rupees_tv"
                             android:layout_width="wrap_content"
@@ -215,8 +216,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/eighty_dp"
-                    android:visibility="gone"
                     android:paddingBottom="@dimen/twenty_four_dp"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@+id/rateChart">
 
                     <TextView
@@ -289,13 +290,23 @@
                             android:layout_marginTop="@dimen/two_dp"
                             android:layout_marginEnd="@dimen/twenty_four_dp"
                             android:backgroundTint="@color/white"
-                            android:hint="Enter Price for the above distance"
+                            android:hint="Enter Price for distance in"
                             android:singleLine="true"
                             android:textColor="@color/black"
                             android:textCursorDrawable="@drawable/custom_cursor"
                             android:textSize="@dimen/fourteen_sp" />
-                    </RelativeLayout>
 
+                        <TextView
+                            android:id="@+id/rupees_distv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@id/distance_price"
+                            android:layout_marginStart="@dimen/two_hundred_dp"
+                            android:layout_marginTop="@dimen/two_dp"
+                            android:padding="@dimen/eight_dp"
+                            android:text="Rupees" />
+
+                    </RelativeLayout>
 
                     <Button
                         android:id="@+id/add_distance_rate"

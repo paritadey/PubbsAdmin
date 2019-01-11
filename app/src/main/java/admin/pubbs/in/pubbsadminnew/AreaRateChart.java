@@ -1,5 +1,6 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -8,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -20,22 +22,28 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.travijuu.numberpicker.library.Enums.ActionEnum;
 import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
 
-public class AreaRateChart extends AppCompatActivity implements View.OnClickListener {
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    String areaname, areaid, adminmobile;
+import java.text.SimpleDateFormat;
+
+public class AreaRateChart extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
+
+    String areaname, areaid, adminmobile, rate_id, date_time, rateByTime, rateByDistance;
     private String TAG = AreaRateChart.class.getSimpleName();
     SharedPreferences sharedPreferences;
     Spinner choice;
     private static final String[] rateTypes = {"Select Rate ", "Time", "Distance"};
     String rate_type, numberPickerMins, numberPickerHour, kmRate, timePrice, distancePrice;
     ConstraintLayout rateChartTime, rateChartDistance;
-    TextView minute_tv, hour_tv, distance_tv, price_tv, distance_price_tv, rate_chart_heading, rupees_tv;
+    TextView minute_tv, hour_tv, distance_tv, price_tv, distance_price_tv, rate_chart_heading, rupees_tv, rupees_distv;
     com.travijuu.numberpicker.library.NumberPicker number_picker_mintues, number_picker_hour;
     com.warkiz.widget.IndicatorStayLayout km_indicator_layout;
     com.warkiz.widget.IndicatorSeekBar km_indicator;
@@ -62,7 +70,14 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminmobile = sharedPreferences.getString("adminmobile", null);
         Log.d(TAG, "Admin Mobile" + adminmobile);
+        minute_tv = findViewById(R.id.minute_tv);
+        minute_tv.setTypeface(type1);
+        hour_tv = findViewById(R.id.hour_tv);
+        hour_tv.setTypeface(type1);
         rupees_tv = findViewById(R.id.rupees_tv);
+        rupees_tv.setTypeface(type1);
+        distance_tv = findViewById(R.id.distance_tv);
+        distance_tv.setTypeface(type1);
         rate_chart_heading = findViewById(R.id.rate_chart_heading);
         rate_chart_heading.setTypeface(type1);
         back = findViewById(R.id.back_button);
@@ -76,6 +91,8 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
         time_price.setTypeface(type1);
         distance_price_tv = findViewById(R.id.distance_price_tv);
         distance_price_tv.setTypeface(type1);
+        rupees_distv = findViewById(R.id.rupees_distv);
+        rupees_distv.setTypeface(type1);
         layout_distance_price = findViewById(R.id.layout_distance_price);
         distance_price = findViewById(R.id.distance_price);
         distance_price.setTypeface(type1);
@@ -172,6 +189,17 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
         Snackbar.make(view, message, duration).show();
     }
 
+    public String generateRateID() {
+        String rate = "PUBBS_RATE_ID";
+        String rateNo;
+        int max = 9999;
+        int min = 1;
+        int randomNum = (int) (Math.random() * (max - min)) + min;
+        rateNo = rate + randomNum;
+        Log.d(TAG, "Rate ID: " + rateNo);
+        return rateNo;
+    }
+
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(AreaRateChart.this, DashBoardActivity.class);
@@ -193,8 +221,17 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                 if (!time_price.getText().toString().isEmpty()) {
                     timePrice = time_price.getText().toString();
                     distancePrice = "N/A";
+                    rateByDistance = "N/A";
+                    kmRate = "N/A";
+                    long date = System.currentTimeMillis();
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE dd/MM/yyyy HH:mm");
+                    date_time = sdf.format(date);
+                    rate_id = generateRateID();
+                    rateByTime = numberPickerHour + "hr" + numberPickerMins + "mins";
                     Log.d(TAG, "Time based rate:" + rate_type + "\t" + numberPickerHour + "\t"
-                            + numberPickerMins + "\t" + timePrice + "\t" + distancePrice);
+                            + numberPickerMins + "\t" + timePrice + "\t" + distancePrice + "\t" + kmRate + "\t"
+                            + rate_id + "\t" + date_time);
+                    addRateChart(rate_id, adminmobile, areaid, rate_type, date_time, rateByTime, rateByDistance, timePrice, distancePrice);
                 } else {
                     final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                     layout_price.startAnimation(animShake);
@@ -203,8 +240,16 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
             case R.id.add_distance_rate:
                 if (!distance_price.getText().toString().isEmpty()) {
                     distancePrice = distance_price.getText().toString();
+                    rateByDistance = kmRate + "meter";
                     timePrice = "N/A";
-                    Log.d(TAG, "Distance based rate:" + rate_type + "\t" + kmRate + "\t" + distancePrice + "\t" + timePrice);
+                    rateByTime = "N/A";
+                    long date = System.currentTimeMillis();
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE dd/MM/yyyy HH:mm");
+                    date_time = sdf.format(date);
+                    rate_id = generateRateID();
+                    Log.d(TAG, "Distance based rate:" + rate_type + "\t" + kmRate + "\t" + distancePrice + "\t" + timePrice
+                            + "\t" + numberPickerHour + "\t" + numberPickerMins + "\t" + rate_id + "\t" + date_time + rateByDistance);
+                    addRateChart(rate_id, adminmobile, areaid, rate_type, date_time, rateByTime, rateByDistance, timePrice, distancePrice);
                 } else {
                     final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                     layout_distance_price.startAnimation(animShake);
@@ -215,4 +260,90 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
         }
 
     }
+
+    public void addRateChart(String rate_id, String adminmobile, String area_id, String rate_type,
+                             String date_time, String rateByTime, String rateByDistance, String timePrice, String distancePrice) {
+        JSONObject jo = new JSONObject();
+
+        try {
+            jo.put("method", "add_rate_chart");
+            jo.put("rate_id", rate_id);
+            jo.put("adminmobile", adminmobile);
+            jo.put("area_id", area_id);
+            jo.put("rate_type", rate_type);
+            jo.put("date_time", date_time);
+            jo.put("rateByTime", rateByTime);
+            jo.put("rateByDistance", rateByDistance);
+            jo.put("timePrice", timePrice);
+            jo.put("distancePrice", distancePrice);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new SendRequest(getResources().getString(R.string.url), jo, AreaRateChart.this,
+                getApplicationContext()).executeJsonRequest();
+
+    }
+
+    @Override
+    public void onResponse(JSONObject jsonObject) {
+        if (jsonObject.has("method")) {
+            try {
+                if (jsonObject.getString("method").equals("add_rate_chart") && jsonObject.getBoolean("success")) {
+                    showDialog("Rate Chart Plan is done against an area");
+                } else {
+                    showDialog("couldn't save try again later");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onResponseError(VolleyError error) {
+        showDialog("Server Error!");
+    }
+
+    private void showDialog(String message) {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+
+        final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
+        extraLine.setTypeface(type1);
+        serverProblem.setTypeface(type1);
+        serverProblem.setText(message);
+        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+               /* Intent intent = new Intent(AreaSubscription.this, DashBoardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);*/
+                clearFields();
+
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+        dialogBuilder.setCancelable(false);
+    }
+
+    public void clearFields() {
+        choice.setSelection(0);
+        number_picker_mintues.setValue(5);
+        number_picker_hour.setValue(1);
+        time_price.setText("");
+        km_indicator.setMin(500);
+        distance_price.setText("");
+    }
+
 }
