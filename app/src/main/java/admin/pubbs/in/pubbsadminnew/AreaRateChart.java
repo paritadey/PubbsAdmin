@@ -231,7 +231,7 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                     Log.d(TAG, "Time based rate:" + rate_type + "\t" + numberPickerHour + "\t"
                             + numberPickerMins + "\t" + timePrice + "\t" + distancePrice + "\t" + kmRate + "\t"
                             + rate_id + "\t" + date_time);
-                    addRateChart(rate_id, adminmobile, areaid, rate_type, date_time, rateByTime, rateByDistance, timePrice, distancePrice);
+                    addRateChart(rate_id, adminmobile, areaname, rate_type, date_time, rateByTime, rateByDistance, timePrice, distancePrice);
                 } else {
                     final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                     layout_price.startAnimation(animShake);
@@ -249,7 +249,7 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                     rate_id = generateRateID();
                     Log.d(TAG, "Distance based rate:" + rate_type + "\t" + kmRate + "\t" + distancePrice + "\t" + timePrice
                             + "\t" + numberPickerHour + "\t" + numberPickerMins + "\t" + rate_id + "\t" + date_time + rateByDistance);
-                    addRateChart(rate_id, adminmobile, areaid, rate_type, date_time, rateByTime, rateByDistance, timePrice, distancePrice);
+                    addRateChart(rate_id, adminmobile, areaname, rate_type, date_time, rateByTime, rateByDistance, timePrice, distancePrice);
                 } else {
                     final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                     layout_distance_price.startAnimation(animShake);

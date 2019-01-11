@@ -50,11 +50,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
     private String areaNumber, area_Name, adminMobile;
     private String openHr, closeHr, geofenceFine, max_ride, max_hold, min_wallet, emergencyContact;
     RelativeLayout layoutGeofenceFine, layoutClosingHr, layoutOpeningHr, layoutEmergencyContact;
-    private String rupee1, rupee2, rupee3, rupee4, rupee5;
-    private String numberPicker1, numberPicker2, numberPicker3, numberPicker4, numberPicker5;
     String markerArray;
-    private String basicPlanAmount, basicPlanMonth, basicPlanMins, standardPlanAmount, standardPlanMonth, standardPlanMins;
-    private String sweetPlanAmount, sweetPlanMonth, sweetPlanMins, premiumPlanAmount, premiumPlanMonth, premiumPlanMins;
     String json;
 
     @Override
@@ -73,35 +69,8 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
         areaNumber = intent.getStringExtra("areaNumber");
         area_Name = intent.getStringExtra("area_Name");
         adminMobile = intent.getStringExtra("adminMobile");
-        numberPicker1 = intent.getStringExtra("numberPicker1");
-        rupee1 = intent.getStringExtra("rupee1");
-        numberPicker2 = intent.getStringExtra("numberPicker2");
-        rupee2 = intent.getStringExtra("rupee2");
-        numberPicker3 = intent.getStringExtra("numberPicker3");
-        rupee3 = intent.getStringExtra("rupee3");
-        numberPicker4 = intent.getStringExtra("numberPicker4");
-        rupee4 = intent.getStringExtra("rupee4");
-        numberPicker5 = intent.getStringExtra("numberPicker5");
-        rupee5 = intent.getStringExtra("rupee5");
-        /*basicPlanAmount = intent.getStringExtra("basicPlanAmount");
-        basicPlanMonth = intent.getStringExtra("basicPlanMonth");
-        basicPlanMins = intent.getStringExtra("basicPlanMins");
-        standardPlanAmount = intent.getStringExtra("standardPlanAmount");
-        standardPlanMonth = intent.getStringExtra("standardPlanMonth");
-        standardPlanMins = intent.getStringExtra("standardPlanMins");
-        sweetPlanAmount = intent.getStringExtra("sweetPlanAmount");
-        sweetPlanMonth = intent.getStringExtra("sweetPlanMonth");
-        sweetPlanMins = intent.getStringExtra("sweetPlanMins");
-        premiumPlanAmount = intent.getStringExtra("premiumPlanAmount");
-        premiumPlanMonth = intent.getStringExtra("premiumPlanMonth");
-        premiumPlanMins = intent.getStringExtra("premiumPlanMins");*/
 
         Log.d(TAG, "Data from Rate Chart:" + markerList + "\t" + areaNumber + "\t" + area_Name + "\t" + adminMobile);
-        Log.d(TAG, "Data from Number picker and rupees:" + numberPicker1 + ":" + rupee1 + "\t" + numberPicker2 +
-                ":" + rupee2 + "\t" + numberPicker3 + ":" + rupee3 + "\t" + numberPicker4 + ":" + rupee4 + "\t" + numberPicker5 + ":" + rupee5);
-      /*  Log.d(TAG, "Subscription:"+basicPlanAmount+"//"+basicPlanMonth+"//"+basicPlanMins+"\t"+standardPlanAmount+"//"+standardPlanMonth+
-        "//"+standardPlanMins+"\t"+sweetPlanAmount+"//"+sweetPlanMonth+"//"+sweetPlanMins+"\t"+premiumPlanAmount+"//"+premiumPlanMonth+"//"+premiumPlanMins);*/
-
         Gson gson = new Gson();
         json = gson.toJson(markerList);
         Log.d(TAG, "Marker String:" + json);
@@ -307,10 +276,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
                     closeHr = closingHour.getText().toString();
                     geofenceFine = geofencingFine.getText().toString();
                     emergencyContact = emergency_contact.getText().toString();
-                    sendData(areaNumber, area_Name, json, numberPicker1, rupee1, numberPicker2, rupee2, numberPicker3, rupee3,
-                            numberPicker4, rupee4, numberPicker5, rupee5, openHr, closeHr, max_ride, max_hold, min_wallet, geofenceFine, adminMobile, emergencyContact);
-                          /*  basicPlanAmount, basicPlanMonth, basicPlanMins, standardPlanAmount, standardPlanMonth, standardPlanMins, sweetPlanAmount,
-                            sweetPlanMonth, sweetPlanMins, premiumPlanAmount, premiumPlanMonth, premiumPlanMins);*/
+                    sendData(areaNumber, area_Name, json, openHr, closeHr, max_ride, max_hold, min_wallet, geofenceFine, adminMobile, emergencyContact);
                 }
                 break;
             default:
@@ -318,28 +284,14 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void sendData(String areaNumber, String area_Name, String markerArray, String numberPicker1, String rupee1,
-                         String numberPicker2, String rupee2, String numberPicker3, String rupee3, String numberPicker4,
-                         String rupee4, String numberPicker5, String rupee5, String openHr, String closeHr, String max_ride,
-                         String max_hold, String min_wallet, String geofenceFine, String adminMobile, String emergency_contact)/*, String basic_plan_amount, String basic_plan_month,
-    String basic_plan_mins, String standard_plan_amount, String standard_plan_month, String standard_plan_mins, String sweet_plan_amount,
-                         String sweet_plan_month, String sweet_plan_mins, String premium_plan_amount, String premium_plan_month, String premium_plan_mins)*/ {
+    public void sendData(String areaNumber, String area_Name, String markerArray, String openHr, String closeHr, String max_ride,
+                         String max_hold, String min_wallet, String geofenceFine, String adminMobile, String emergency_contact) {
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "addnewarea");
             jo.put("area_id", areaNumber);
             jo.put("area_name", area_Name);
             jo.put("area_lat_lon", markerArray);
-            jo.put("rate_chart_one", numberPicker1);
-            jo.put("rate_chart_price_one", rupee1);
-            jo.put("rate_chart_two", numberPicker2);
-            jo.put("rate_chart_price_two", rupee2);
-            jo.put("rate_chart_three", numberPicker3);
-            jo.put("rate_chart_price_three", rupee3);
-            jo.put("rate_chart_four", numberPicker4);
-            jo.put("rate_chart_price_four", rupee4);
-            jo.put("rate_chart_five", numberPicker5);
-            jo.put("rate_chart_price_five", rupee5);
             jo.put("opening_hour", openHr);
             jo.put("closing_hour", closeHr);
             jo.put("max_ride_time", max_ride);
@@ -348,18 +300,6 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
             jo.put("geofencing_fine", geofenceFine);
             jo.put("adminmobile", adminMobile);
             jo.put("emergency_contact", emergency_contact);
-          /*  jo.put("basic_plan_amount", basic_plan_amount);
-            jo.put("basic_plan_month", basic_plan_month);
-            jo.put("basic_plan_mins", basic_plan_mins);
-            jo.put("standard_plan_amount", standard_plan_amount);
-            jo.put("standard_plan_month", standard_plan_month);
-            jo.put("standard_plan_mins", standard_plan_mins);
-            jo.put("sweet_plan_amount", sweet_plan_amount);
-            jo.put("sweet_plan_month", sweet_plan_month);
-            jo.put("sweet_plan_mins", sweet_plan_mins);
-            jo.put("premium_plan_amount",premium_plan_amount);
-            jo.put("premium_plan_month", premium_plan_month);
-            jo.put("premium_plan_mins",premium_plan_mins);*/
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -409,7 +349,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                Log.d(TAG, "error in saving:"+e);
+                Log.d(TAG, "error in saving:" + e);
             }
         }
     }

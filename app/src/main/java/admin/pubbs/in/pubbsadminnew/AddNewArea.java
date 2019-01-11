@@ -180,7 +180,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
             case R.id.proceed_btn:
                 showArrayList(markerList, areaNumber, adminMobile);
                 Log.d(TAG, "Area name:"+area_Name);
-                Intent intent_rate = new Intent(AddNewArea.this, RateChart.class);
+                Intent intent_rate = new Intent(AddNewArea.this, ManageSystem.class);
                 intent_rate.putExtra("markerList",markerList);
                 intent_rate.putExtra("areaNumber", areaNumber);
                 intent_rate.putExtra("area_Name", area_Name);
