@@ -36,12 +36,13 @@ import java.text.SimpleDateFormat;
 
 public class AreaRateChart extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
 
-    String areaname, areaid, adminmobile, rate_id, date_time, rateByTime, rateByDistance;
+    String areaname, areaid, adminmobile, rate_id, date_time;
+    int rateByTime, rateByDistance, kmRate, timePrice, distancePrice;
     private String TAG = AreaRateChart.class.getSimpleName();
     SharedPreferences sharedPreferences;
     Spinner choice;
-    private static final String[] rateTypes = {"Select Rate ", "Time", "Distance"};
-    String rate_type, numberPickerMins, numberPickerHour, kmRate, timePrice, distancePrice;
+    private static final String[] rateTypes = {"Select Rate ", "Time", "Distance", "Time and Distance"};
+    String rate_type, numberPickerMins, numberPickerHour;
     ConstraintLayout rateChartTime, rateChartDistance;
     TextView minute_tv, hour_tv, distance_tv, price_tv, distance_price_tv, rate_chart_heading, rupees_tv, rupees_distv;
     com.travijuu.numberpicker.library.NumberPicker number_picker_mintues, number_picker_hour;
@@ -138,7 +139,7 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
             @Override
             public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
                 Log.d(TAG, "Seekbar Progress:" + seekBar.getProgress());
-                kmRate = String.valueOf(seekBar.getProgress());
+                kmRate = seekBar.getProgress();
 
             }
         });
@@ -175,6 +176,9 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                         rateChartDistance.setVisibility(View.VISIBLE);
                         rateChartTime.setVisibility(View.GONE);
                         Log.d(TAG, "Chosen Seekbar data:" + kmRate);
+                        break;
+                    case 3:
+                        //need to show both time and distance
                         break;
                 }
             }
@@ -220,18 +224,18 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.add_time_rate:
                 if (!time_price.getText().toString().isEmpty()) {
-                    timePrice = time_price.getText().toString();
-                    distancePrice = "N/A";
-                    rateByDistance = "N/A";
-                    kmRate = "N/A";
+                    timePrice = Integer.parseInt(time_price.getText().toString());
+                    distancePrice = 0;
+                    rateByDistance = 0;
+                    kmRate = 0;
                    /* long date = System.currentTimeMillis();
                     SimpleDateFormat sdf = new SimpleDateFormat("EEE dd/MM/yyyy HH:mm");
                     date_time = sdf.format(date);*/
                     rate_id = generateRateID();
-                    hour = Integer.parseInt(numberPickerHour)*60;
+                    hour = Integer.parseInt(numberPickerHour) * 60;
                     min = Integer.parseInt(numberPickerMins);
-                    rateByTime = String.valueOf(hour+min);//numberPickerHour + "hr" + numberPickerMins + "mins";
-                    Log.d(TAG, "Min:"+rateByTime);
+                    rateByTime = hour + min;//numberPickerHour + "hr" + numberPickerMins + "mins";
+                    Log.d(TAG, "Min:" + rateByTime);
                     Log.d(TAG, "Time based rate:" + rate_type + "\t" + numberPickerHour + "\t"
                             + numberPickerMins + "\t" + timePrice + "\t" + distancePrice + "\t" + kmRate + "\t"
                             + rate_id + "\t" + date_time);
@@ -243,10 +247,10 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.add_distance_rate:
                 if (!distance_price.getText().toString().isEmpty()) {
-                    distancePrice = distance_price.getText().toString();
-                    rateByDistance = kmRate + "meter";
-                    timePrice = "N/A";
-                    rateByTime = "N/A";
+                    distancePrice = Integer.parseInt(distance_price.getText().toString());
+                    rateByDistance = kmRate;
+                    timePrice = 0;
+                    rateByTime = 0;
                     rate_id = generateRateID();
                     Log.d(TAG, "Distance based rate:" + rate_type + "\t" + kmRate + "\t" + distancePrice + "\t" + timePrice
                             + "\t" + numberPickerHour + "\t" + numberPickerMins + "\t" + rate_id + "\t" + date_time + rateByDistance);
@@ -262,7 +266,8 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
 
     }
 
-    public void addRateChart(String rate_id, String adminmobile, String area_id, String rate_type, String rateByTime, String rateByDistance, String timePrice, String distancePrice) {
+    public void addRateChart(String rate_id, String adminmobile, String area_id, String rate_type, int rateByTime,
+                             int rateByDistance, int timePrice, int distancePrice) {
         JSONObject jo = new JSONObject();
 
         try {
