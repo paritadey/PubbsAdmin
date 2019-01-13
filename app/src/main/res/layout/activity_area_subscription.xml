@@ -182,6 +182,24 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/description_plan" />
+                        <EditText
+                            android:id="@+id/ride_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="@dimen/twenty_dp"
+                            android:background="@drawable/edittext_bg"
+                            android:drawablePadding="@dimen/four_dp"
+                            android:hint="Enter number of rides"
+                            android:inputType="numberDecimal"
+                            android:padding="@dimen/four_dp"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey_500"
+                            android:textCursorDrawable="@drawable/custom_cursor"
+                            android:textSize="@dimen/fourteen_sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/money" />
 
 
                         <Button
@@ -195,7 +213,7 @@
                             android:textColor="@color/white"
                             android:textSize="@dimen/sixteen_sp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/money" />
+                            app:layout_constraintTop_toBottomOf="@+id/ride_number" />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 

@@ -36,6 +36,7 @@ import java.util.Date;
 public class AreaSubscription extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     private String TAG = AreaSubscription.class.getSimpleName();
     String areaId, areaName, adminmobile, subsName, subsTime, subsStartDate, subsEndDate, subsDesc, subsMoney;
+    int subsRideNo;
     ImageView back;
     TextView subscriptionTv;
     ImageView upArrow;
@@ -49,7 +50,7 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
     ArrayList<String> description_plan = new ArrayList<String>();
     ArrayList<String> amount_money = new ArrayList<String>();
     String subscription_id, launch_plan_date;
-    EditText subscriptionPlanName, timeLimit, descriptionPlan, money;
+    EditText subscriptionPlanName, timeLimit, descriptionPlan, money, ride_number;
     TextView startDate, endDate;
     Button add_plan;
     private int mYear, mMonth, mDay;
@@ -88,6 +89,8 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
         money.setTypeface(type1);
         descriptionPlan = findViewById(R.id.description_plan);
         descriptionPlan.setTypeface(type1);
+        ride_number = findViewById(R.id.ride_number);
+        ride_number.setTypeface(type1);
         add_plan = findViewById(R.id.add_plan);
         add_plan.setTypeface(type2);
         add_plan.setOnClickListener(this);
@@ -98,7 +101,7 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
         back.setOnClickListener(this);
         subscriptionTv = findViewById(R.id.subscription);
         subscriptionTv.setTypeface(type1);
-       // subscriptionTv.setOnClickListener(this);
+        // subscriptionTv.setOnClickListener(this);
         upArrow = findViewById(R.id.up_arrow);
         upArrow.setOnClickListener(this);
 
@@ -176,16 +179,17 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                 final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                 if (subscriptionPlanName.getText().toString().isEmpty() || timeLimit.getText().toString().isEmpty()
                         || startDate.getText().toString().isEmpty() || endDate.getText().toString().isEmpty() || money.getText().toString().isEmpty()
-                        || descriptionPlan.getText().toString().isEmpty()) {
+                        || descriptionPlan.getText().toString().isEmpty() || ride_number.getText().toString().isEmpty()) {
                     if (subscriptionPlanName.getText().toString().isEmpty() && timeLimit.getText().toString().isEmpty()
                             && startDate.getText().toString().isEmpty() && endDate.getText().toString().isEmpty() && money.getText().toString().isEmpty()
-                            && descriptionPlan.getText().toString().isEmpty()) {
+                            && descriptionPlan.getText().toString().isEmpty() && ride_number.getText().toString().isEmpty()) {
                         subscriptionPlanName.startAnimation(animShake);
                         timeLimit.startAnimation(animShake);
                         startDate.startAnimation(animShake);
                         endDate.startAnimation(animShake);
                         money.startAnimation(animShake);
                         descriptionPlan.startAnimation(animShake);
+                        ride_number.startAnimation(animShake);
                     } else if (subscriptionPlanName.getText().toString().isEmpty()) {
                         subscriptionPlanName.startAnimation(animShake);
                     } else if (timeLimit.getText().toString().isEmpty()) {
@@ -198,6 +202,8 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                         money.startAnimation(animShake);
                     } else if (descriptionPlan.getText().toString().isEmpty()) {
                         descriptionPlan.startAnimation(animShake);
+                    } else if (ride_number.getText().toString().isEmpty()) {
+                        ride_number.startAnimation(animShake);
                     }
                 } else {
                     subsName = subscriptionPlanName.getText().toString();
@@ -206,11 +212,12 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                     subsEndDate = endDate.getText().toString();
                     subsMoney = money.getText().toString();
                     subsDesc = descriptionPlan.getText().toString();
+                    subsRideNo = Integer.parseInt(ride_number.getText().toString());
                     subscription_id = generateSubscriptionID();
                     //  addSubscriptionPlan(adminmobile, areaId, areaName, subscription_id, subsName, subsTime,
                     // subsStartDate, subsEndDate, subsMoney, subsDesc);
                     sendSubscriptionPlan(adminmobile, areaName, areaId, subsName, subsTime,
-                            subsStartDate, subsEndDate, subsDesc, subsMoney, subscription_id);
+                            subsStartDate, subsEndDate, subsDesc, subsMoney, subscription_id, subsRideNo);
 
                 }
                 break;
@@ -225,7 +232,7 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
     }
 
     public void sendSubscriptionPlan(String admin_mobile, String area_id, String area_name, String subscription_plan_name, String time_limit,
-                                     String start_date, String end_date, String description, String money, String subscription_plan_id) {
+                                     String start_date, String end_date, String description, String money, String subscription_plan_id, int ride_number) {
         JSONObject jo = new JSONObject();
 
         try {
@@ -240,6 +247,7 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
             jo.put("description", description);
             jo.put("money", money);
             jo.put("subscription_plan_id", subscription_plan_id);
+            jo.put("ride_number", ride_number);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -293,6 +301,7 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
         money.setText("");
         startDate.setText("");
         endDate.setText("");
+        ride_number.setText("");
     }
 
     @Override
