@@ -51,6 +51,7 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
     RelativeLayout layout_price, layout_distance_price;
     EditText time_price, distance_price;
     ImageView back;
+    int hour, min;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -223,15 +224,18 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                     distancePrice = "N/A";
                     rateByDistance = "N/A";
                     kmRate = "N/A";
-                    long date = System.currentTimeMillis();
+                   /* long date = System.currentTimeMillis();
                     SimpleDateFormat sdf = new SimpleDateFormat("EEE dd/MM/yyyy HH:mm");
-                    date_time = sdf.format(date);
+                    date_time = sdf.format(date);*/
                     rate_id = generateRateID();
-                    rateByTime = numberPickerHour + "hr" + numberPickerMins + "mins";
+                    hour = Integer.parseInt(numberPickerHour)*60;
+                    min = Integer.parseInt(numberPickerMins);
+                    rateByTime = String.valueOf(hour+min);//numberPickerHour + "hr" + numberPickerMins + "mins";
+                    Log.d(TAG, "Min:"+rateByTime);
                     Log.d(TAG, "Time based rate:" + rate_type + "\t" + numberPickerHour + "\t"
                             + numberPickerMins + "\t" + timePrice + "\t" + distancePrice + "\t" + kmRate + "\t"
                             + rate_id + "\t" + date_time);
-                    addRateChart(rate_id, adminmobile, areaname, rate_type, date_time, rateByTime, rateByDistance, timePrice, distancePrice);
+                    addRateChart(rate_id, adminmobile, areaname, rate_type, rateByTime, rateByDistance, timePrice, distancePrice);
                 } else {
                     final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                     layout_price.startAnimation(animShake);
@@ -243,13 +247,10 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                     rateByDistance = kmRate + "meter";
                     timePrice = "N/A";
                     rateByTime = "N/A";
-                    long date = System.currentTimeMillis();
-                    SimpleDateFormat sdf = new SimpleDateFormat("EEE dd/MM/yyyy HH:mm");
-                    date_time = sdf.format(date);
                     rate_id = generateRateID();
                     Log.d(TAG, "Distance based rate:" + rate_type + "\t" + kmRate + "\t" + distancePrice + "\t" + timePrice
                             + "\t" + numberPickerHour + "\t" + numberPickerMins + "\t" + rate_id + "\t" + date_time + rateByDistance);
-                    addRateChart(rate_id, adminmobile, areaname, rate_type, date_time, rateByTime, rateByDistance, timePrice, distancePrice);
+                    addRateChart(rate_id, adminmobile, areaname, rate_type, rateByTime, rateByDistance, timePrice, distancePrice);
                 } else {
                     final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                     layout_distance_price.startAnimation(animShake);
@@ -261,8 +262,7 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
 
     }
 
-    public void addRateChart(String rate_id, String adminmobile, String area_id, String rate_type,
-                             String date_time, String rateByTime, String rateByDistance, String timePrice, String distancePrice) {
+    public void addRateChart(String rate_id, String adminmobile, String area_id, String rate_type, String rateByTime, String rateByDistance, String timePrice, String distancePrice) {
         JSONObject jo = new JSONObject();
 
         try {
@@ -271,7 +271,6 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
             jo.put("adminmobile", adminmobile);
             jo.put("area_id", area_id);
             jo.put("rate_type", rate_type);
-            jo.put("date_time", date_time);
             jo.put("rateByTime", rateByTime);
             jo.put("rateByDistance", rateByDistance);
             jo.put("timePrice", timePrice);
