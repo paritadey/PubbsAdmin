@@ -17,10 +17,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.google.android.gms.maps.model.LatLng;
+import com.travijuu.numberpicker.library.Enums.ActionEnum;
+import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +39,8 @@ import java.util.Date;
 
 public class AreaSubscription extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     private String TAG = AreaSubscription.class.getSimpleName();
-    String areaId, areaName, adminmobile, subsName, subsTime, subsStartDate, subsEndDate, subsDesc, subsMoney;
+    String areaId, areaName, adminmobile, subsName, subsTime, subsStartDate, subsEndDate, subsDesc;
+    int subsMoney;
     int subsRideNo;
     ImageView back;
     TextView subscriptionTv;
@@ -49,13 +54,16 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
     ArrayList<String> end_date = new ArrayList<String>();
     ArrayList<String> description_plan = new ArrayList<String>();
     ArrayList<String> amount_money = new ArrayList<String>();
-    String subscription_id, launch_plan_date;
+    String subscription_id, launch_plan_date, numberPickerMins, numberPickerHour;
     EditText subscriptionPlanName, timeLimit, descriptionPlan, money, ride_number;
-    TextView startDate, endDate;
+    TextView startDate, endDate, ride_time, time_minute_tv, time_hour_tv, option;
     Button add_plan;
     private int mYear, mMonth, mDay;
     Date sdate, eNdDate;
-    int limitDay;
+    int limitDay, carryForward, rideTime, min, hour;
+    RadioGroup radioGroupChoice;
+    RadioButton radioNo, radioYes;
+    com.travijuu.numberpicker.library.NumberPicker number_picker_time_mintues, number_picker_time_hour;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,6 +99,49 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
         descriptionPlan.setTypeface(type1);
         ride_number = findViewById(R.id.ride_number);
         ride_number.setTypeface(type1);
+        ride_time = findViewById(R.id.ride_time);
+        ride_time.setTypeface(type1);
+        time_minute_tv = findViewById(R.id.time_minute_tv);
+        time_minute_tv.setTypeface(type1);
+        time_hour_tv = findViewById(R.id.time_hour_tv);
+        time_hour_tv.setTypeface(type1);
+        number_picker_time_mintues = findViewById(R.id.number_picker_time_mintues);
+        number_picker_time_mintues.setValueChangedListener(new ValueChangedListener() {
+            @Override
+            public void valueChanged(int value, ActionEnum action) {
+                int message = value;
+                numberPickerMins = String.valueOf(message);
+                Log.d(TAG, "Number Picker Minute value: " + message);
+            }
+        });
+        number_picker_time_hour = findViewById(R.id.number_picker_time_hour);
+        number_picker_time_hour.setValueChangedListener(new ValueChangedListener() {
+            @Override
+            public void valueChanged(int value, ActionEnum action) {
+                int message = value;
+                numberPickerHour = String.valueOf(message);
+                Log.d(TAG, "Number Picker Hour value: " + message);
+            }
+        });
+        option = findViewById(R.id.option);
+        option.setTypeface(type1);
+        radioGroupChoice = findViewById(R.id.radioGroupChoice);
+        radioYes = findViewById(R.id.radioYes);
+        radioYes.setTypeface(type1);
+        radioNo = findViewById(R.id.radioNo);
+        radioNo.setTypeface(type1);
+        radioGroupChoice.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radioYes) {
+                    carryForward = 1;
+                    Log.d(TAG, "Carry forward is on:" + carryForward);
+                } else {
+                    carryForward = 0;
+                    Log.d(TAG, "Carry forward is off:" + carryForward);
+                }
+            }
+        });
         add_plan = findViewById(R.id.add_plan);
         add_plan.setTypeface(type2);
         add_plan.setOnClickListener(this);
@@ -101,7 +152,6 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
         back.setOnClickListener(this);
         subscriptionTv = findViewById(R.id.subscription);
         subscriptionTv.setTypeface(type1);
-        // subscriptionTv.setOnClickListener(this);
         upArrow = findViewById(R.id.up_arrow);
         upArrow.setOnClickListener(this);
 
@@ -210,14 +260,36 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                     subsTime = timeLimit.getText().toString();
                     subsStartDate = startDate.getText().toString();
                     subsEndDate = endDate.getText().toString();
-                    subsMoney = money.getText().toString();
+                    subsMoney = Integer.parseInt(money.getText().toString());
                     subsDesc = descriptionPlan.getText().toString();
                     subsRideNo = Integer.parseInt(ride_number.getText().toString());
                     subscription_id = generateSubscriptionID();
+                    if (numberPickerMins == null || numberPickerHour == null) {
+                        if (numberPickerMins == null && numberPickerHour == null) {
+                            rideTime = 0;
+                            Log.d(TAG, "Min:" + rideTime);
+                        } else if (numberPickerHour == null) {
+                            hour = 0;
+                            min = Integer.parseInt(numberPickerMins);
+                            rideTime = min;
+                            Log.d(TAG, "Min:" + rideTime);
+                        } else if (numberPickerMins == null) {
+                            min = 0;
+                            hour = Integer.parseInt(numberPickerHour) * 60;
+                            rideTime = hour;
+                            Log.d(TAG, "Min:" + rideTime);
+                        }
+                    } else {
+                        hour = Integer.parseInt(numberPickerHour) * 60;
+                        min = Integer.parseInt(numberPickerMins);
+                        rideTime = hour + min;
+                        Log.d(TAG, "Min:" + rideTime);
+                    }
+
                     //  addSubscriptionPlan(adminmobile, areaId, areaName, subscription_id, subsName, subsTime,
                     // subsStartDate, subsEndDate, subsMoney, subsDesc);
                     sendSubscriptionPlan(adminmobile, areaName, areaId, subsName, subsTime,
-                            subsStartDate, subsEndDate, subsDesc, subsMoney, subscription_id, subsRideNo);
+                            subsStartDate, subsEndDate, subsDesc, subsMoney, subscription_id, subsRideNo, rideTime, carryForward);
 
                 }
                 break;
@@ -232,7 +304,8 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
     }
 
     public void sendSubscriptionPlan(String admin_mobile, String area_id, String area_name, String subscription_plan_name, String time_limit,
-                                     String start_date, String end_date, String description, String money, String subscription_plan_id, int ride_number) {
+                                     String start_date, String end_date, String description, int money,
+                                     String subscription_plan_id, int ride_number, int ride_mintues, int carry_forward) {
         JSONObject jo = new JSONObject();
 
         try {
@@ -248,6 +321,8 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
             jo.put("money", money);
             jo.put("subscription_plan_id", subscription_plan_id);
             jo.put("ride_number", ride_number);
+            jo.put("ride_mintues", ride_mintues);
+            jo.put("carry_forward", carry_forward);
         } catch (JSONException e) {
             e.printStackTrace();
         }

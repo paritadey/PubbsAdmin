@@ -197,4 +197,7 @@
     <string name="distance_slab">Distance in Meter</string>
     <string name="emergency_contact">Enter contact number for customer support</string>
     <string name="set_price">Set Price</string>
+    <string name="ride_time">Set Ride Mintues for subscription plan</string>
+    <string name="option">Choose rate type option for payment</string>
+    <string name="carryforward">Do you want to make this plan as Carry-Forward</string>
 </resources>
