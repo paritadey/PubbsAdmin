@@ -200,4 +200,5 @@
     <string name="ride_time">Set Ride Mintues for subscription plan</string>
     <string name="option">Choose rate type option for payment</string>
     <string name="carryforward">Do you want to make this plan as Carry-Forward</string>
+    <string name="rate_payment">Set Payment on Rate type basis</string>
 </resources>

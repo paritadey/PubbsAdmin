@@ -18,6 +18,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,22 +39,24 @@ import java.text.SimpleDateFormat;
 public class AreaRateChart extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
 
     String areaname, areaid, adminmobile, rate_id, date_time;
-    int rateByTime, rateByDistance, kmRate, kmRateTimeDistance, distancePrice, amount;
+    int rateByTime, rateByDistance, kmRate, amount;
     private String TAG = AreaRateChart.class.getSimpleName();
     SharedPreferences sharedPreferences;
-    Spinner choice;
-    private static final String[] rateTypes = {"Select Rate ", "Time", "Distance", "Time and Distance"};
-    String rate_type, numberPickerMins, numberPickerHour, numberPickerTimeDistanceMins, numberPickerTimeDistanceHour;
-    ConstraintLayout rateChartTime, rateChartDistance, rateChartTimeDistance;
-    TextView minute_tv, hour_tv, distance_tv, price_tv, distance_price_tv, rate_chart_heading, rupees_tv, rupees_distv, rupeesTv, distancePriceTv, time_minute_tv, distanceTv, time_hour_tv;
-    com.travijuu.numberpicker.library.NumberPicker number_picker_mintues, number_picker_hour, number_picker_time_mintues, number_picker_time_hour;
-    com.warkiz.widget.IndicatorStayLayout km_indicator_layout, kmIndicatorLayout;
-    com.warkiz.widget.IndicatorSeekBar km_indicator, kmIndicator;
-    Button add_time_rate, add_distance_rate, add_rate;
-    RelativeLayout layout_price, layout_distance_price, layoutdistance_price;
-    EditText time_price, distance_price, distance_Price;
+    Spinner choice, payment_choice;
+    private static final String[] rateTypes = {"Select Rate ", "Time", "Distance"};
+    String rate_type, numberPickerMins, numberPickerHour, paymentType;
+    ConstraintLayout rateChartTime, rateChartDistance;
+    TextView minute_tv, hour_tv, distance_tv, price_tv, distance_price_tv, rate_chart_heading, rupees_tv, rupees_distv, option, time_hour_tv;
+    com.travijuu.numberpicker.library.NumberPicker number_picker_mintues, number_picker_hour;
+    com.warkiz.widget.IndicatorStayLayout km_indicator_layout;
+    com.warkiz.widget.IndicatorSeekBar km_indicator;
+    Button add_time_rate, add_distance_rate;
+    RelativeLayout layout_price, layout_distance_price;
+    EditText time_price, distance_price;
     ImageView back;
     int hour, min;
+    RadioGroup radioPayment;
+    RadioButton radioTime, radioDistance, radioTimeDistance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,19 +90,6 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
         back.setOnClickListener(this);
         rateChartTime = findViewById(R.id.rateChartTime);
         rateChartDistance = findViewById(R.id.rateChartDistance);
-        rateChartTimeDistance = findViewById(R.id.rateChartTimeDistance);
-        time_minute_tv = findViewById(R.id.time_minute_tv);
-        time_minute_tv.setTypeface(type1);
-        time_hour_tv = findViewById(R.id.time_hour_tv);
-        time_hour_tv.setTypeface(type1);
-        distanceTv = findViewById(R.id.distanceTv);
-        distanceTv.setTypeface(type1);
-        distancePriceTv = findViewById(R.id.distancePriceTv);
-        distancePriceTv.setTypeface(type1);
-        distance_Price = findViewById(R.id.distancePrice);
-        distance_Price.setTypeface(type1);
-        rupeesTv = findViewById(R.id.rupeesTv);
-        rupeesTv.setTypeface(type1);
         price_tv = findViewById(R.id.price_tv);
         price_tv.setTypeface(type1);
         layout_price = findViewById(R.id.layout_price);
@@ -108,8 +99,9 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
         distance_price_tv.setTypeface(type1);
         rupees_distv = findViewById(R.id.rupees_distv);
         rupees_distv.setTypeface(type1);
+        option = findViewById(R.id.option);
+        option.setTypeface(type1);
         layout_distance_price = findViewById(R.id.layout_distance_price);
-        layoutdistance_price = findViewById(R.id.layoutdistance_price);
         distance_price = findViewById(R.id.distance_price);
         distance_price.setTypeface(type1);
         number_picker_mintues = findViewById(R.id.number_picker_mintues);
@@ -130,33 +122,12 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                 Log.d(TAG, "Number Picker Hour value: " + message);
             }
         });
-        number_picker_time_mintues = findViewById(R.id.number_picker_time_mintues);
-        number_picker_time_mintues.setValueChangedListener(new ValueChangedListener() {
-            @Override
-            public void valueChanged(int value, ActionEnum action) {
-                int message = value;
-                numberPickerTimeDistanceMins = String.valueOf(message);
-                Log.d(TAG, "Number Picker Mintues value for both: " + message);
-            }
-        });
-        number_picker_time_hour = findViewById(R.id.number_picker_time_hour);
-        number_picker_time_hour.setValueChangedListener(new ValueChangedListener() {
-            @Override
-            public void valueChanged(int value, ActionEnum action) {
-                int message = value;
-                numberPickerTimeDistanceHour = String.valueOf(message);
-                Log.d(TAG, "Number Picker Hour value for both: " + message);
-            }
-        });
         add_time_rate = findViewById(R.id.add_time_rate);
         add_time_rate.setOnClickListener(this);
         add_time_rate.setTypeface(type2);
         add_distance_rate = findViewById(R.id.add_distance_rate);
         add_distance_rate.setOnClickListener(this);
         add_distance_rate.setTypeface(type2);
-        add_rate = findViewById(R.id.add_rate);
-        add_rate.setTypeface(type2);
-        add_rate.setOnClickListener(this);
         km_indicator_layout = findViewById(R.id.km_indicator_layout);
         km_indicator = findViewById(R.id.km_indicator);
         km_indicator.setOnSeekChangeListener(new OnSeekChangeListener() {
@@ -177,25 +148,6 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
 
             }
         });
-        kmIndicatorLayout = findViewById(R.id.kmIndicatorLayout);
-        kmIndicator = findViewById(R.id.kmIndicator);
-        kmIndicator.setOnSeekChangeListener(new OnSeekChangeListener() {
-            @Override
-            public void onSeeking(SeekParams seekParams) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(IndicatorSeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
-                Log.d(TAG, "Seekbar Progress:" + seekBar.getProgress());
-                kmRateTimeDistance = seekBar.getProgress();
-            }
-        });
 
         choice = findViewById(R.id.choice);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
@@ -212,7 +164,6 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                         choice.startAnimation(animShake);
                         rateChartTime.setVisibility(View.GONE);
                         rateChartDistance.setVisibility(View.GONE);
-                        rateChartTimeDistance.setVisibility(View.GONE);
                         int duration = Snackbar.LENGTH_SHORT;
                         showSnackbar(view, "Choose Your Option", duration);
                         break;
@@ -221,7 +172,6 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                         Log.d(TAG, "Option:" + rate_type);
                         rateChartTime.setVisibility(View.VISIBLE);
                         rateChartDistance.setVisibility(View.GONE);
-                        rateChartTimeDistance.setVisibility(View.GONE);
                         Log.d(TAG, "Number Picker values:" + numberPickerMins + "\t" + numberPickerHour);
                         break;
                     case 2:
@@ -229,18 +179,7 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                         Log.d(TAG, "Option:" + rate_type);
                         rateChartDistance.setVisibility(View.VISIBLE);
                         rateChartTime.setVisibility(View.GONE);
-                        rateChartTimeDistance.setVisibility(View.GONE);
                         Log.d(TAG, "Chosen Seekbar data:" + kmRate);
-                        break;
-                    case 3:
-                        //need to show both time and distance
-                        rate_type = choice.getSelectedItem().toString();
-                        Log.d(TAG, "Option:" + rate_type);
-                        rateChartTime.setVisibility(View.GONE);
-                        rateChartDistance.setVisibility(View.GONE);
-                        rateChartTimeDistance.setVisibility(View.VISIBLE);
-                        Log.d(TAG, "Number Picker values:" + numberPickerTimeDistanceHour + "\t" + numberPickerTimeDistanceMins);
-                        Log.d(TAG, "Chosen Seekbar data:" + kmRateTimeDistance);
                         break;
                 }
             }
@@ -248,6 +187,28 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+        radioPayment = findViewById(R.id.radioPayment);
+        radioTime = findViewById(R.id.radioTime);
+        radioTime.setTypeface(type1);
+        radioDistance = findViewById(R.id.radioDistance);
+        radioDistance.setTypeface(type1);
+        radioTimeDistance = findViewById(R.id.radioTimeDistance);
+        radioTimeDistance.setTypeface(type1);
+        radioPayment.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radioTime) {
+                    paymentType = "Time";
+                    Log.d(TAG, "Payment type:" + paymentType);
+                } else if (checkedId == R.id.radioDistance) {
+                    paymentType = "Distance";
+                    Log.d(TAG, "Payment type:" + paymentType);
+                } else {
+                    paymentType = "Time and Distance both";
+                    Log.d(TAG, "Payment type:" + paymentType);
+                }
             }
         });
     }
@@ -307,13 +268,13 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                     } else {
                         hour = Integer.parseInt(numberPickerHour) * 60;
                         min = Integer.parseInt(numberPickerMins);
-                        rateByTime = hour + min;//numberPickerHour + "hr" + numberPickerMins + "mins";
+                        rateByTime = hour + min;
                         Log.d(TAG, "Min:" + rateByTime);
                     }
                     Log.d(TAG, "Time based rate:" + rate_type + "\t" + numberPickerHour + "\t"
                             + numberPickerMins + "\t" + amount + "\t" + kmRate + "\t"
-                            + rate_id + "\t" + date_time);
-                    addRateChart(rate_id, adminmobile, areaname, rate_type, rateByTime, rateByDistance, amount);
+                            + rate_id + "\t" + "\t" + paymentType);
+                    addRateChart(rate_id, adminmobile, areaname, rate_type, rateByTime, rateByDistance, amount, paymentType);
 
                 } else {
                     final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
@@ -327,45 +288,11 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                     rateByTime = 0;
                     rate_id = generateRateID();
                     Log.d(TAG, "Distance based rate:" + rate_type + "\t" + kmRate + "\t" + amount
-                            + "\t" + numberPickerHour + "\t" + numberPickerMins + "\t" + rate_id + "\t" + date_time + rateByDistance);
-                    addRateChart(rate_id, adminmobile, areaname, rate_type, rateByTime, rateByDistance, amount);
+                            + "\t" + numberPickerHour + "\t" + numberPickerMins + "\t" + rate_id + "\t" + rateByDistance + "\t" + paymentType);
+                    addRateChart(rate_id, adminmobile, areaname, rate_type, rateByTime, rateByDistance, amount, paymentType);
                 } else {
                     final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                     layout_distance_price.startAnimation(animShake);
-                }
-                break;
-            case R.id.add_rate:
-                if (!distance_Price.getText().toString().isEmpty()) {
-                    amount = Integer.parseInt(distance_Price.getText().toString());
-                    rateByDistance = kmRateTimeDistance;
-                    rate_id = generateRateID();
-                    if (numberPickerTimeDistanceMins == null || numberPickerTimeDistanceHour == null) {
-                        if (numberPickerTimeDistanceMins == null && numberPickerTimeDistanceHour == null) {
-                            rateByTime = 0;
-                            Log.d(TAG, "Min:" + rateByTime);
-                        } else if (numberPickerTimeDistanceHour == null) {
-                            hour = 0;
-                            min = Integer.parseInt(numberPickerTimeDistanceMins);
-                            rateByTime = min;
-                            Log.d(TAG, "Min:" + rateByTime);
-                        } else if (numberPickerTimeDistanceMins == null) {
-                            min = 0;
-                            hour = Integer.parseInt(numberPickerTimeDistanceHour) * 60;
-                            rateByTime = hour;
-                            Log.d(TAG, "Min:" + rateByTime);
-                        }
-                    } else {
-                        hour = Integer.parseInt(numberPickerHour) * 60;
-                        min = Integer.parseInt(numberPickerMins);
-                        rateByTime = hour + min;
-                        Log.d(TAG, "Min:" + rateByTime);
-                    }
-                    Log.d(TAG, "Time and Distance based:" + rate_type + "\t" + amount + "\t" + rateByDistance + "\t" + rateByTime + "\t" + rate_id);
-                    addRateChart(rate_id, adminmobile, areaname, rate_type, rateByTime, rateByDistance, amount);
-
-                } else {
-                    final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
-                    layoutdistance_price.startAnimation(animShake);
                 }
                 break;
             default:
@@ -375,7 +302,7 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
     }
 
     public void addRateChart(String rate_id, String adminmobile, String area_id, String rate_type, int rateByTime,
-                             int rateByDistance, int amount) {
+                             int rateByDistance, int amount, String paymentType) {
         JSONObject jo = new JSONObject();
 
         try {
@@ -387,6 +314,7 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
             jo.put("rateByTime", rateByTime);
             jo.put("rateByDistance", rateByDistance);
             jo.put("amount", amount);
+            jo.put("paymentType", paymentType);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -407,6 +335,7 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                Log.d(TAG, "Error message:" + e);
             }
         }
     }
@@ -435,9 +364,6 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
                 dialogBuilder.dismiss();
-               /* Intent intent = new Intent(AreaSubscription.this, DashBoardActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);*/
                 clearFields();
 
             }
@@ -450,11 +376,12 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
 
     public void clearFields() {
         choice.setSelection(0);
-        number_picker_mintues.setValue(5);
-        number_picker_hour.setValue(1);
+        number_picker_mintues.setValue(0);
+        number_picker_hour.setValue(0);
         time_price.setText("");
         km_indicator.setMin(500);
         distance_price.setText("");
+        radioTime.setChecked(true);
     }
 
 }

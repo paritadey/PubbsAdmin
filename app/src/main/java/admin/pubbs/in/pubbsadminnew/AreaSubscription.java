@@ -48,12 +48,6 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
     TextView bottomsheetText;
     Button proceed;
     SharedPreferences sharedPreferences;
-    ArrayList<String> subscription_plan_name = new ArrayList<String>();
-    ArrayList<String> time_limit = new ArrayList<String>();
-    ArrayList<String> launch_date = new ArrayList<String>();
-    ArrayList<String> end_date = new ArrayList<String>();
-    ArrayList<String> description_plan = new ArrayList<String>();
-    ArrayList<String> amount_money = new ArrayList<String>();
     String subscription_id, launch_plan_date, numberPickerMins, numberPickerHour;
     EditText subscriptionPlanName, timeLimit, descriptionPlan, money, ride_number;
     TextView startDate, endDate, ride_time, time_minute_tv, time_hour_tv, option;
@@ -286,17 +280,11 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                         Log.d(TAG, "Min:" + rideTime);
                     }
 
-                    //  addSubscriptionPlan(adminmobile, areaId, areaName, subscription_id, subsName, subsTime,
-                    // subsStartDate, subsEndDate, subsMoney, subsDesc);
                     sendSubscriptionPlan(adminmobile, areaName, areaId, subsName, subsTime,
                             subsStartDate, subsEndDate, subsDesc, subsMoney, subscription_id, subsRideNo, rideTime, carryForward);
 
                 }
                 break;
-           /* case R.id.subscription:
-                sendSubscriptionPlan(adminmobile, areaName, areaId, subscription_plan_name, time_limit,
-                        launch_date, end_date, description_plan, amount_money, subscription_id);
-                break;*/
             default:
                 break;
         }
@@ -331,39 +319,6 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
 
     }
 
-    public void addSubscriptionPlan(String adminmobile, String areaId, String areaName, String subscription_id, String subsName, String subsTime,
-                                    String subsStartDate, String subsEndDate, String subsMoney, String subsDesc) {
-        Log.d(TAG, "Admin details for subscription:" + adminmobile + "\t" + areaId + "\t" + areaName + "\t" + subscription_id);
-        subscription_plan_name.add(subsName);
-        time_limit.add(subsTime);
-        launch_date.add(subsStartDate);
-        end_date.add(subsEndDate);
-        amount_money.add(subsMoney);
-        description_plan.add(subsDesc);
-        for (int i = 0; i < subscription_plan_name.size(); i++) {
-            Log.d(TAG, "Subscription Plan name: " + subscription_plan_name.get(i));
-        }
-        for (int i = 0; i < time_limit.size(); i++) {
-            Log.d(TAG, "Subscription Time Limit: " + time_limit.get(i));
-        }
-        for (int i = 0; i < launch_date.size(); i++) {
-            Log.d(TAG, "Subscription Launch Date: " + launch_date.get(i));
-        }
-        for (int i = 0; i < end_date.size(); i++) {
-            Log.d(TAG, "Subscription End Date: " + end_date.get(i));
-        }
-        for (int i = 0; i < amount_money.size(); i++) {
-            Log.d(TAG, "Subscription Money: " + amount_money.get(i));
-        }
-        for (int i = 0; i < description_plan.size(); i++) {
-            Log.d(TAG, "Subscription Description: " + description_plan.get(i));
-        }
-        View view_layout = findViewById(R.id.manage_subscription_area);
-        String message = "Subscription Plan is added.";
-        int duration = Snackbar.LENGTH_SHORT;
-        showSnackbar(view_layout, message, duration);
-        clearFields();
-    }
 
     public void showSnackbar(View view, String message, int duration) {
         Snackbar.make(view, message, duration).show();
@@ -377,6 +332,9 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
         startDate.setText("");
         endDate.setText("");
         ride_number.setText("");
+        number_picker_time_mintues.setValue(0);
+        number_picker_time_hour.setValue(0);
+        radioYes.setChecked(true);
     }
 
     @Override
@@ -418,9 +376,6 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
             @Override
             public void onClick(View view) {
                 dialogBuilder.dismiss();
-               /* Intent intent = new Intent(AreaSubscription.this, DashBoardActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);*/
                 clearFields();
 
             }

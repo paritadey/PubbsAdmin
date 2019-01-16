@@ -81,14 +81,66 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/option"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/twenty_four_dp"
+                    android:text="@string/rate_payment"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp"
+                    android:layout_marginStart="@dimen/twenty_four_dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/choice" />
+
+                <RadioGroup
+                    android:id="@+id/radioPayment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/twenty_four_dp"
+                    android:layout_marginTop="@dimen/tweleve_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
+                    android:checkedButton="@+id/radioTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/option">
+
+                    <RadioButton
+                        android:id="@+id/radioTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/four_dp"
+                        android:text="Time"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sixteen_sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioDistance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/four_dp"
+                        android:text="Distance"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sixteen_sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioTimeDistance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/four_dp"
+                        android:text="Time and Distance both"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sixteen_sp" />
+                </RadioGroup>
+
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/rateChartTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/eighty_dp"
+                    android:layout_marginTop="@dimen/twenty_four_dp"
                     android:paddingBottom="@dimen/twenty_four_dp"
                     android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@+id/rateChart">
+                    app:layout_constraintTop_toBottomOf="@+id/radioPayment">
 
                     <TextView
                         android:id="@+id/minute_tv"
@@ -215,10 +267,10 @@
                     android:id="@+id/rateChartDistance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/eighty_dp"
+                    android:layout_marginTop="@dimen/twenty_four_dp"
                     android:paddingBottom="@dimen/twenty_four_dp"
                     android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@+id/rateChart">
+                    app:layout_constraintTop_toBottomOf="@+id/radioPayment">
 
                     <TextView
                         android:id="@+id/distance_tv"
@@ -324,175 +376,6 @@
 
                 </android.support.constraint.ConstraintLayout>
 
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/rateChartTimeDistance"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout_marginTop="@dimen/eighty_dp"
-                    android:paddingBottom="@dimen/twenty_four_dp"
-                    app:layout_constraintTop_toBottomOf="@+id/rateChart">
-
-                    <TextView
-                        android:id="@+id/time_minute_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/eight_dp"
-                        android:text="@string/mint_time_slab"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/fourteen_sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.travijuu.numberpicker.library.NumberPicker
-                        android:id="@+id/number_picker_time_mintues"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="@dimen/twenty_four_dp"
-                        android:layout_marginTop="@dimen/tweleve_dp"
-                        android:layout_marginEnd="@dimen/twenty_four_dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/time_minute_tv"
-                        numberpicker:custom_layout="@layout/number_picker"
-                        numberpicker:focusable="false"
-                        numberpicker:max="60"
-                        numberpicker:min="0"
-                        numberpicker:unit="1"
-                        numberpicker:value="0" />
-
-                    <TextView
-                        android:id="@+id/time_hour_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/tweleve_dp"
-                        android:text="@string/hour_time_slab"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/fourteen_sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/number_picker_time_mintues" />
-
-                    <com.travijuu.numberpicker.library.NumberPicker
-                        android:id="@+id/number_picker_time_hour"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="@dimen/twenty_four_dp"
-                        android:layout_marginTop="@dimen/tweleve_dp"
-                        android:layout_marginEnd="@dimen/twenty_four_dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/time_hour_tv"
-                        numberpicker:custom_layout="@layout/number_picker"
-                        numberpicker:focusable="false"
-                        numberpicker:max="24"
-                        numberpicker:min="0"
-                        numberpicker:unit="1"
-                        numberpicker:value="0" />
-
-                    <TextView
-                        android:id="@+id/distanceTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/twenty_four_dp"
-                        android:text="@string/distance_slab"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/fourteen_sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/number_picker_time_hour" />
-
-                    <com.warkiz.widget.IndicatorStayLayout
-                        android:id="@+id/kmIndicatorLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/twenty_four_dp"
-                        android:layout_marginTop="@dimen/twenty_four_dp"
-                        android:layout_marginEnd="@dimen/twenty_four_dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/distanceTv">
-
-                        <com.warkiz.widget.IndicatorSeekBar
-                            android:id="@+id/kmIndicator"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:isb_indicator_color="@color/black"
-                            app:isb_max="2000"
-                            app:isb_min="500"
-                            app:isb_progress="200"
-                            app:isb_show_indicator="rounded_rectangle"
-                            app:isb_show_tick_texts="true"
-                            app:isb_thumb_color="@color/black"
-                            app:isb_tick_texts_color="@color/grey_500"
-                            app:isb_ticks_count="7"
-                            app:isb_track_progress_color="@color/black" />
-                    </com.warkiz.widget.IndicatorStayLayout>
-
-                    <TextView
-                        android:id="@+id/distancePriceTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/twenty_four_dp"
-                        android:text="@string/set_price"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/fourteen_sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/kmIndicatorLayout" />
-
-                    <RelativeLayout
-                        android:id="@+id/layoutdistance_price"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="@dimen/twenty_four_dp"
-                        android:layout_marginTop="@dimen/sixteen_dp"
-                        android:layout_marginEnd="@dimen/twenty_four_dp"
-                        android:background="@drawable/edittext_bg"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/distancePriceTv">
-
-                        <EditText
-                            android:id="@+id/distancePrice"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/twenty_four_dp"
-                            android:layout_marginTop="@dimen/two_dp"
-                            android:layout_marginEnd="@dimen/twenty_four_dp"
-                            android:backgroundTint="@color/white"
-                            android:hint="Enter Price for in"
-                            android:singleLine="true"
-                            android:textColor="@color/black"
-                            android:textCursorDrawable="@drawable/custom_cursor"
-                            android:textSize="@dimen/fourteen_sp" />
-
-                        <TextView
-                            android:id="@+id/rupeesTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignLeft="@id/distancePrice"
-                            android:layout_marginStart="@dimen/two_hundred_dp"
-                            android:layout_marginTop="@dimen/two_dp"
-                            android:padding="@dimen/eight_dp"
-                            android:text="Rupees" />
-
-                    </RelativeLayout>
-
-                    <Button
-                        android:id="@+id/add_rate"
-                        android:layout_width="@dimen/one_fifty_dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/twenty_dp"
-                        android:layout_marginEnd="@dimen/twenty_four_dp"
-                        android:background="@drawable/button_bg"
-                        android:text="Add Rate"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sixteen_sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/layoutdistance_price" />
-
-                </android.support.constraint.ConstraintLayout>
             </android.support.constraint.ConstraintLayout>
         </ScrollView>
     </FrameLayout>
