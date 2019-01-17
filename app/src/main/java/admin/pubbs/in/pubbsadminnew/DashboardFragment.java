@@ -187,7 +187,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
                             double longitude =Double.parseDouble(lon);
                             LatLng ll = new LatLng(latitude,longitude);
                             gmap.addMarker(new MarkerOptions().position(ll)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.flag))
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.station))
                                     .title("Station Name:"+jo.getString("station_name")));
                             builder.include(ll);
                         }

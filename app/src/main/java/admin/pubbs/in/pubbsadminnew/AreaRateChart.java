@@ -42,7 +42,7 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
     int rateByTime, rateByDistance, kmRate, amount;
     private String TAG = AreaRateChart.class.getSimpleName();
     SharedPreferences sharedPreferences;
-    Spinner choice, payment_choice;
+    Spinner choice;
     private static final String[] rateTypes = {"Select Rate ", "Time", "Distance"};
     String rate_type, numberPickerMins, numberPickerHour, paymentType;
     ConstraintLayout rateChartTime, rateChartDistance;

@@ -156,6 +156,8 @@ public class DashBoardActivity extends AppCompatActivity
                 finish();
             } else {
                 super.onBackPressed();
+               /* this.finish();
+                System.exit(0);*/
             }
         }
     }
