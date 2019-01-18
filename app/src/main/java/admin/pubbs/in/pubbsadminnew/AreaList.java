@@ -1,4 +1,5 @@
 package admin.pubbs.in.pubbsadminnew;
+/*created by Parita Dey*/
 
 public class AreaList {
     private String areaId, areaName, areaLatLon;

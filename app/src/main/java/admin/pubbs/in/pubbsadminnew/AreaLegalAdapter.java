@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+/*created by Parita Dey*/
 
 public class AreaLegalAdapter extends RecyclerView.Adapter<AreaLegalAdapter.MyViewHolder> {
     private List<AreaList> areaLists;

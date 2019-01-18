@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+/*created by Parita Dey*/
 
 public class DeleteOperatorAdapter extends RecyclerView.Adapter<DeleteOperatorAdapter.MyViewHolder> {
     private List<DeleteOperatorList> deleteOperatorLists;

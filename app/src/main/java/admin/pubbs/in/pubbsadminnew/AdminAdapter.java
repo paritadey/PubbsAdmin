@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+/*created by Parita Dey*/
 
 public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolder> {
     private List<AdminList> adminLists;

@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+/*created by Parita Dey*/
 
 public class AllFeedback extends RecyclerView.Adapter<AllFeedback.MyViewHolder> {
     private List<Feedbacklist> feedbacklists;

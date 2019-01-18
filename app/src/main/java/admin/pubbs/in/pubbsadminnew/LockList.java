@@ -1,4 +1,5 @@
 package admin.pubbs.in.pubbsadminnew;
+/*created by Parita Dey*/
 
 public class LockList {
     private String lock_id, ble_id, lock_type, sim_number,totalQuantity, totalPrice, paymentMethod, date_time;

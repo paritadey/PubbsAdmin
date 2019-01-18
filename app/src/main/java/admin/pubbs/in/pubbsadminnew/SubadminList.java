@@ -1,4 +1,5 @@
 package admin.pubbs.in.pubbsadminnew;
+/*created by Parita Dey*/
 
 public class SubadminList {
     private String full_name, admin_mobile, area_id;

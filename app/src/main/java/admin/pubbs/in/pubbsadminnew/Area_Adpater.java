@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
-
+/*created by Parita Dey*/
 public class Area_Adpater extends RecyclerView.Adapter<Area_Adpater.MyViewHolder> {
     private List<AreaList> areaLists;
     private String TAG = Area_Adpater.class.getSimpleName();

@@ -1,4 +1,5 @@
 package admin.pubbs.in.pubbsadminnew;
+/*created by Parita Dey*/
 
 public class DeleteOperatorList {
     private String area_name, fullname, adminmobile, admin_type;

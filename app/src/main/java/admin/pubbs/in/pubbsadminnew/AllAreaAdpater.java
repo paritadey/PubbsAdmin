@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+/*created by Parita Dey*/
 
 public class AllAreaAdpater extends RecyclerView.Adapter<AllAreaAdpater.MyViewHolder> {
     private List<AreaList> areaLists;

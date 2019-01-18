@@ -28,6 +28,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/*created by Parita Dey*/
+
 public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
     private RecyclerView recyclerView;
     private Area_Adpater areaAdpater;

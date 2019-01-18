@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+/*created by Parita Dey*/
 
 public class Settings extends AppCompatActivity implements View.OnClickListener {
     String adminmobile, admintype;

@@ -1,4 +1,5 @@
 package admin.pubbs.in.pubbsadminnew;
+/*created by Parita Dey*/
 
 public class Feedbacklist {
     private String adminmobile, admin_type, subject, message, date_time, email;

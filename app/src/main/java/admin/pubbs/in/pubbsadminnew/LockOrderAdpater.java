@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+/*created by Parita Dey*/
 
 public class LockOrderAdpater extends RecyclerView.Adapter<LockOrderAdpater.MyViewHolder> {
     private List<LockDetailsList> lockDetailsLists;

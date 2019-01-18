@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
+/*created by Parita Dey*/
 
 public class AddOperatorAdpater extends RecyclerView.Adapter<AddOperatorAdpater.MyViewHolder> {
     private List<AreaList> areaLists;

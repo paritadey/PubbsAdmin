@@ -1,19 +1,12 @@
 package admin.pubbs.in.pubbsadminnew;
+/*created by Parita Dey*/
 
 public class LockDetailsList {
     private String area_id, orderNumber,lock_id, ble_id, sim_number, lock_type, quantity, price, payment_method;
     public LockDetailsList(){}
-    public LockDetailsList(String orderNumber, String area_id){//}, String lock_id, String ble_id, String sim_number, String lock_type, String quantity,String price, String payment_method){
-
+    public LockDetailsList(String orderNumber, String area_id){
         this.orderNumber = orderNumber;
         this.area_id = area_id;
-       /* this.lock_id = lock_id;
-        this.ble_id = ble_id;
-        this.sim_number = sim_number;
-        this.lock_type = lock_type;
-        this.quantity = quantity;
-        this.price = price;
-        this.payment_method = payment_method;*/
     }
 
     public String getArea_id() {

@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+/*created by Parita Dey*/
 
 public class SetAreaAgreement extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     SharedPreferences sharedPreferences;

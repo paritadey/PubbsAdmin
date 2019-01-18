@@ -34,6 +34,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+/*created by Parita Dey*/
 
 public class ServiceArea extends AppCompatActivity implements View.OnClickListener {
     SharedPreferences sharedPreferences;

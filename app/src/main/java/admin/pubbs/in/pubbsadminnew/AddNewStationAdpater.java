@@ -18,6 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+/*created by Parita Dey*/
 
 public class AddNewStationAdpater extends RecyclerView.Adapter<AddNewStationAdpater.MyViewHolder> {
     private List<AreaList> areaLists;

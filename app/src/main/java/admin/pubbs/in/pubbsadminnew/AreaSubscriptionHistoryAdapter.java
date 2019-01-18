@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+/*created by Parita Dey*/
 
 public class AreaSubscriptionHistoryAdapter extends RecyclerView.Adapter<AreaSubscriptionHistoryAdapter.MyViewHolder> {
     private List<AdminSubscriptionHistoryList> adminSubscriptionHistoryLists;

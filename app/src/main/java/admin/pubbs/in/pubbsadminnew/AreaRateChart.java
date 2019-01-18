@@ -35,6 +35,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+/*created by Parita Dey*/
 
 public class AreaRateChart extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
 

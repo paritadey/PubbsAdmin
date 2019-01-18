@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+/*created by Parita Dey*/
 
 public class DeleteSingleOperator extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     TextView delete_operator_tv, all_set_tv, delete_operatorTv, fullname, adminMobile, area_name, admin_type;

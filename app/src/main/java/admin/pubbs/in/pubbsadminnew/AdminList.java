@@ -1,4 +1,5 @@
 package admin.pubbs.in.pubbsadminnew;
+/*created by Parita Dey*/
 
 public class AdminList {
     private String full_name, email, adminmobile, date_time, area_name, area_id;

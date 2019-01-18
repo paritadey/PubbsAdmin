@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+/*created by Parita Dey*/
 
 public class RemoveBicycleAdapter extends RecyclerView.Adapter<RemoveBicycleAdapter.MyViewHolder> {
     private List<RemoveBicycleList> removeBicycleLists;

@@ -1,4 +1,5 @@
 package admin.pubbs.in.pubbsadminnew;
+/*created by Parita Dey*/
 
 public class RechargeBatteryList {
     String cycle_id, battery_status;

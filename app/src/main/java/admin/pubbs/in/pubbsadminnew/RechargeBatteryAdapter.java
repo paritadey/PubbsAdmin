@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+/*created by Parita Dey*/
 
 public class RechargeBatteryAdapter extends RecyclerView.Adapter<RechargeBatteryAdapter.MyViewHolder> {
     private List<RechargeBatteryList> rechargeBatteryLists;

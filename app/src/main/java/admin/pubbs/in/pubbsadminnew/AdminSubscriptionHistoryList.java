@@ -1,4 +1,5 @@
 package admin.pubbs.in.pubbsadminnew;
+/*created by Parita Dey*/
 
 public class AdminSubscriptionHistoryList {
     private String area_id, area_name, basic_plan_amount, basic_plan_month, basic_plan_mins;

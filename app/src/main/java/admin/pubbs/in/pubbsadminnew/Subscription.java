@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+/*created by Parita Dey*/
 
 public class Subscription extends AppCompatActivity {
     private String TAG = Subscription.class.getSimpleName();

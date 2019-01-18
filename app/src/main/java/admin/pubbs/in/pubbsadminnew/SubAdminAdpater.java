@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
+/*created by Parita Dey*/
 
 public class SubAdminAdpater extends RecyclerView.Adapter<SubAdminAdpater.MyViewHolder> {
     private List<SubadminList> subadminLists;
