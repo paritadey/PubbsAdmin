@@ -83,18 +83,18 @@ public class DashBoardActivity extends AppCompatActivity
                     .beginTransaction()
                     .add(R.id.myFrame, new DashboardFragment())
                     .commitAllowingStateLoss();
+            //getting the mobile_number, admin_type from sharedpreference
             phone_number = hView.findViewById(R.id.phone_number);
-            uphone = sharedPreferences.getString("adminmobile", "null");
+            uphone = sharedPreferences.getString("adminmobile", "null"); //uphone is the user_phone to store the mobile number of the user
             phone_number.setText(uphone);
             phone_number.setTypeface(type);
             admin_type = hView.findViewById(R.id.admin_type);
-            uadmin = sharedPreferences.getString("admin_type", "null");
+            uadmin = sharedPreferences.getString("admin_type", "null"); //uadmin is the admin type of the user who is using the app at the moment
             admin_type.setTypeface(type);
             admin_type.setText(uadmin);
-            if (uadmin.equals("Super Admin")) {
+            if (uadmin.equals("Super Admin")) { //if the admin_type of the user using the app is "Super Admin" then following options will be shown in the app
                 check = true;
                 navigationView.getMenu().findItem(R.id.manage_area).setTitle("Manage Admin/Employee");
-                // navigationView.getMenu().setGroupVisible(R.id.gr_1, false);
                 navigationView.getMenu().findItem(R.id.add_area).setTitle("Add New Admin");
                 navigationView.getMenu().findItem(R.id.add_station).setTitle("Show all Admin");
                 navigationView.getMenu().findItem(R.id.add_new_bicycle).setTitle("Edit Admin");
@@ -115,7 +115,7 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.area_legal).setVisible(false);
                 navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
-            } else if (uadmin.equals("Employee")) {
+            } else if (uadmin.equals("Employee")) { //if the admin_type of the user using the app is "Employee" then following options will be shown in the app
                 check = false;
                 navigationView.getMenu().findItem(R.id.add_area).setVisible(false);
                 navigationView.getMenu().findItem(R.id.edit_station).setVisible(false);
@@ -126,7 +126,8 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.contact_super_admin).setTitle("Contact Admin");
                 navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
-            } else if (uadmin.equals("Sub Admin")) {
+            } else if (uadmin.equals("Sub Admin")) { //if the admin_type of the user using the app is "Sub Admin" then all options
+                // will be shown in the app which are present in the drawer menu
                 check = false;
             }
 
@@ -275,10 +276,6 @@ public class DashBoardActivity extends AppCompatActivity
                 startActivity(new Intent(DashBoardActivity.this, ManageOperator.class));
                 break;
             case R.id.contact_super_admin:
-               /* Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "paritasampa95@gmail.com"));
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Prolem / Query about Pubbs Admin");
-                intent.putExtra(Intent.EXTRA_TEXT, "Admin/Employee ID is: "+""+uphone+""+"of Admin type :"+""+uadmin);
-                startActivity(intent);*/
                 Intent intent = new Intent(DashBoardActivity.this, ContactSuperAdmin.class);
                 intent.putExtra("uphone", uphone);
                 intent.putExtra("uadmin", uadmin);

@@ -60,6 +60,7 @@ public class AllAreaRateAdapter extends RecyclerView.Adapter<AllAreaRateAdapter.
         holder.areaLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //onclicking single recycler_view object it will move forward to AreaRateChart with areaname and areaid
                 Intent intent = new Intent(v.getContext(), AreaRateChart.class);
                 intent.putExtra("areaname", areaname);
                 intent.putExtra("areaid", areaid);

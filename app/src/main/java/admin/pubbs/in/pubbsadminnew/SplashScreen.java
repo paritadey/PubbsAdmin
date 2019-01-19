@@ -26,21 +26,19 @@ public class SplashScreen extends AppCompatActivity {
     Context context;
     boolean internet;
     TextView appName;
-    String adminmobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         sharedpreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
-        //adminmobile = sharedpreferences.getString("adminmobile",null);
-       // Log.d("SplashScreen.java", adminmobile);
         appName = findViewById(R.id.app_name);
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         appName.setTypeface(type);
         appName.setLetterSpacing(0.1f);
         internet = isConnectingToInternet(context);
-        if (internet == true && sharedpreferences.contains("login")) {
+        if (internet == true && sharedpreferences.contains("login")) { //if sharedpreference contains the
+            // word "login" then it will go to DashboardActivity for Dashboard in app
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
@@ -83,7 +81,7 @@ public class SplashScreen extends AppCompatActivity {
         dialogBuilder.show();
         dialogBuilder.setCancelable(false);
     }
-
+    //checking if the app is connected with internet
     private boolean isConnectingToInternet(Context applicationContext) {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
@@ -98,7 +96,6 @@ public class SplashScreen extends AppCompatActivity {
         LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 !lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            // Build the alert dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Location Services Not Active");
             builder.setMessage("Please enable Location/GPS");

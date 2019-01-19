@@ -184,12 +184,6 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
                             Log.d(TAG, "Admin details: " + adminFullName + "--" + adminEmail + "--" +
                                     adminPhoneNumber + "--" + adminAddress + "--" + adminPassword);
                             AdminRegisterFunction(adminFullName, adminEmail, adminPhoneNumber, adminAddress, adminPassword);
-                        /*final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                startActivity(new Intent(getActivity(), OtpActivity.class));
-                            }
-                        }, 3000);*/
                         }
                     }
                 }
@@ -197,6 +191,7 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
         });
         return rootView;
     }
+
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");

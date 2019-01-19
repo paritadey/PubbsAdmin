@@ -23,7 +23,6 @@ public class SignInUp extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    Context apContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +34,7 @@ public class SignInUp extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         createTabIcons();
     }
+    //onBackPress it will exit from the application
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Intent.ACTION_MAIN);

@@ -46,7 +46,6 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
     TextView subscriptionTv;
     ImageView upArrow;
     TextView bottomsheetText;
-    Button proceed;
     SharedPreferences sharedPreferences;
     String subscription_id, launch_plan_date, numberPickerMins, numberPickerHour;
     EditText subscriptionPlanName, timeLimit, descriptionPlan, money, ride_number;
@@ -139,7 +138,6 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
         add_plan = findViewById(R.id.add_plan);
         add_plan.setTypeface(type2);
         add_plan.setOnClickListener(this);
-
         bottomsheetText = findViewById(R.id.bottomsheet_text);
         bottomsheetText.setTypeface(type1);
         back = findViewById(R.id.back_button);
@@ -197,12 +195,12 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                                 launch_plan_date = startDate.getText().toString();
                                 limitDay = Integer.parseInt(timeLimit.getText().toString());
                                 try {
-                                    sdate = formatter2.parse(launch_plan_date);
+                                    sdate = formatter2.parse(launch_plan_date); //start date
                                     Log.d(TAG, "Terminated date in DATE format:" + sdate);
                                     Calendar cal = Calendar.getInstance();
                                     cal.setTime(sdate);
                                     cal.add(Calendar.DATE, limitDay); // add corrosponding days
-                                    eNdDate = cal.getTime();
+                                    eNdDate = cal.getTime();//end date
                                     Log.d(TAG, "End Date :" + eNdDate);
                                     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                                     String strDate = dateFormat.format(eNdDate);
@@ -250,14 +248,14 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                         ride_number.startAnimation(animShake);
                     }
                 } else {
-                    subsName = subscriptionPlanName.getText().toString();
-                    subsTime = timeLimit.getText().toString();
-                    subsStartDate = startDate.getText().toString();
-                    subsEndDate = endDate.getText().toString();
-                    subsMoney = Integer.parseInt(money.getText().toString());
-                    subsDesc = descriptionPlan.getText().toString();
-                    subsRideNo = Integer.parseInt(ride_number.getText().toString());
-                    subscription_id = generateSubscriptionID();
+                    subsName = subscriptionPlanName.getText().toString();//subscription name
+                    subsTime = timeLimit.getText().toString();//subscription time
+                    subsStartDate = startDate.getText().toString();//subscription start date
+                    subsEndDate = endDate.getText().toString();//subscription end date
+                    subsMoney = Integer.parseInt(money.getText().toString());//subscription money
+                    subsDesc = descriptionPlan.getText().toString();//subscription description
+                    subsRideNo = Integer.parseInt(ride_number.getText().toString());//number of rides for a particular subscription
+                    subscription_id = generateSubscriptionID();//subscription id
                     if (numberPickerMins == null || numberPickerHour == null) {
                         if (numberPickerMins == null && numberPickerHour == null) {
                             rideTime = 0;
@@ -324,6 +322,7 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
         Snackbar.make(view, message, duration).show();
     }
 
+    //clearing the fileds after uploading all the data in db
     public void clearFields() {
         subscriptionPlanName.setText("");
         timeLimit.setText("");

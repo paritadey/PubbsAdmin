@@ -53,13 +53,14 @@ public class AllAreaSubscriptionAdpater extends RecyclerView.Adapter<AllAreaSubs
         holder.areaName.setText(areaList.getAreaName());
         holder.areaId.setText(areaList.getAreaId());
         holder.areaLatLon.setText(areaList.getAreaLatLon());
-        String areaname = areaList.getAreaName(); //holder.areaName.getText().toString();
-        String areaid = areaList.getAreaId();//holder.areaId.getText().toString();
-        String latlon = areaList.getAreaLatLon();//holder.areaLatLon.getText().toString();
+        String areaname = areaList.getAreaName();
+        String areaid = areaList.getAreaId();
+        String latlon = areaList.getAreaLatLon();
         Log.d(TAG, "LatLong:" + latlon);
         holder.areaLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //onclicking single recycler_view object it will move forward to AreaSubscription with areaname and areaid
                 Intent intent = new Intent(v.getContext(), AreaSubscription.class);
                 intent.putExtra("areaname", areaname);
                 intent.putExtra("areaid", areaid);

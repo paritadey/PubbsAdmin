@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 /*created by Parita Dey*/
 
-public class SignIn extends Fragment {//implements AsyncResponse {
+public class SignIn extends Fragment {
     EditText userid, password;
     Button login;
     ProgressDialog pd;
@@ -37,14 +37,14 @@ public class SignIn extends Fragment {//implements AsyncResponse {
     RelativeLayout layoutMobile, layoutPassword;
     String finalResult;
     String HttpURL = "http://pubbs.in/api/1.0/admin_login.php";
-    Boolean CheckEditText;
     ProgressDialog progressDialog;
     HashMap<String, String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
     String operator_type;
     Spinner choice;
-    private String TAG =SignIn.class.getSimpleName();
+    private String TAG = SignIn.class.getSimpleName();
     private static final String[] operator = {"Select Operator", "Super Admin", "Sub Admin", "Employee"};
+
     public SignIn() {
     }
 
@@ -93,7 +93,7 @@ public class SignIn extends Fragment {//implements AsyncResponse {
                         break;
                     case 3:
                         operator_type = choice.getSelectedItem().toString();
-                        Log.d(TAG, "Option:"+operator_type);
+                        Log.d(TAG, "Option:" + operator_type);
                         break;
                 }
             }
@@ -105,7 +105,7 @@ public class SignIn extends Fragment {//implements AsyncResponse {
         });
         mobileTv = rootView.findViewById(R.id.mobile_tv);
         mobileTv.setTypeface(type1);
-        userid = rootView.findViewById(R.id.user_id);
+        userid = rootView.findViewById(R.id.user_id);//userid is mobile number by which user will login
         userid.setTypeface(type1);
         passwordTv = rootView.findViewById(R.id.password_tv);
         passwordTv.setTypeface(type2);
@@ -156,57 +156,43 @@ public class SignIn extends Fragment {//implements AsyncResponse {
     }
 
     public void UserLoginFunction(final String adminmobile, final String adminpassword, final String admin_type) {
-
         class UserLoginClass extends AsyncTask<String, Void, String> {
-
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-
                 progressDialog = ProgressDialog.show(getContext(), "Connecting to the server", "Fetching data...", true, true);
             }
 
             @Override
             protected void onPostExecute(String httpResponseMsg) {
-
                 super.onPostExecute(httpResponseMsg);
-
                 progressDialog.dismiss();
-
                 if (httpResponseMsg.equalsIgnoreCase("Login Successful")) {
-
-                    editor.putString("adminmobile", adminmobile);
+                    editor.putString("adminmobile", adminmobile); //after inserting the subadmin/admin's mobile number, password and admin_type
+                    // both will store in xml by using SharedPreference. It will also store a boolean variable "login" if the sharedPreference
+                    // stores the values of mobile_number, password, admin_type
                     editor.putString("password", adminpassword);
                     editor.putString("admin_type", admin_type);
-                    editor.putBoolean("login",true);
+                    editor.putBoolean("login", true);
                     editor.commit();
                     Log.d("SignIn.java", "SharedPreference stored the value");
                     Intent intent = new Intent(getActivity(), DashBoardActivity.class);
                     startActivity(intent);
-
                 } else {
-
                     Log.d("Signin", "server result: " + httpResponseMsg);
                 }
-
             }
 
             @Override
             protected String doInBackground(String... params) {
-
                 hashMap.put("adminmobile", params[0]);
-
                 hashMap.put("password", params[1]);
-
                 hashMap.put("admin_type", params[2]);
                 finalResult = httpParse.postRequest(hashMap, HttpURL);
-
                 return finalResult;
             }
         }
-
         UserLoginClass userLoginClass = new UserLoginClass();
-
         userLoginClass.execute(adminmobile, adminpassword, admin_type);
     }
 

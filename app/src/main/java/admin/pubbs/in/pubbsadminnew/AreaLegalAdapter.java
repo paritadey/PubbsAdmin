@@ -53,9 +53,9 @@ public class AreaLegalAdapter extends RecyclerView.Adapter<AreaLegalAdapter.MyVi
         holder.areaName.setText(areaList.getAreaName());
         holder.areaId.setText(areaList.getAreaId());
         holder.areaLatLon.setText(areaList.getAreaLatLon());
-        String areaname = areaList.getAreaName(); //holder.areaName.getText().toString();
-        String areaid = areaList.getAreaId();//holder.areaId.getText().toString();
-        String latlon = areaList.getAreaLatLon();//holder.areaLatLon.getText().toString();
+        String areaname = areaList.getAreaName();
+        String areaid = areaList.getAreaId();
+        String latlon = areaList.getAreaLatLon();
         Log.d(TAG, "LatLong:" + latlon);
         holder.areaLayout.setOnClickListener(new View.OnClickListener() {
             @Override

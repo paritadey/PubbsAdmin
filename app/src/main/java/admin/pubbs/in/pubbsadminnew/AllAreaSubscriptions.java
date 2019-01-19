@@ -94,6 +94,7 @@ public class AllAreaSubscriptions extends AppCompatActivity implements AsyncResp
         loadData();
     }
     private void loadData() {
+        //getting the data from db
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
         try {
