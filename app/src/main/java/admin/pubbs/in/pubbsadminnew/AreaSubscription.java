@@ -39,9 +39,8 @@ import java.util.Date;
 
 public class AreaSubscription extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     private String TAG = AreaSubscription.class.getSimpleName();
-    String areaId, areaName, adminmobile, subsName, subsTime, subsStartDate, subsEndDate, subsDesc;
-    int subsMoney;
-    int subsRideNo;
+    String areaId, areaName, adminmobile, subsName, subsStartDate, subsEndDate, subsDesc;
+    int subsMoney, subsTime, subsRideNo;
     ImageView back;
     TextView subscriptionTv;
     ImageView upArrow;
@@ -249,7 +248,7 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                     }
                 } else {
                     subsName = subscriptionPlanName.getText().toString();//subscription name
-                    subsTime = timeLimit.getText().toString();//subscription time
+                    subsTime = Integer.parseInt(timeLimit.getText().toString());//subscription time
                     subsStartDate = startDate.getText().toString();//subscription start date
                     subsEndDate = endDate.getText().toString();//subscription end date
                     subsMoney = Integer.parseInt(money.getText().toString());//subscription money
@@ -289,7 +288,7 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
 
     }
 
-    public void sendSubscriptionPlan(String admin_mobile, String area_id, String area_name, String subscription_plan_name, String time_limit,
+    public void sendSubscriptionPlan(String admin_mobile, String area_id, String area_name, String subscription_plan_name, int time_limit,
                                      String start_date, String end_date, String description, int money,
                                      String subscription_plan_id, int ride_number, int ride_mintues, int carry_forward) {
         JSONObject jo = new JSONObject();
