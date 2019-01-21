@@ -37,7 +37,7 @@ public class AreaSubscriptionHistory extends AppCompatActivity implements AsyncR
     private AreaSubscriptionHistoryAdapter areaSubscriptionHistoryAdapter;
     private List<AdminSubscriptionHistoryList> adminSubscriptionHistoryLists = new ArrayList<>();
 
-    String adminmobile, email;
+    String adminmobile, area_id;
     private String TAG = AreaSubscriptionHistory.class.getSimpleName();
 
     @Override
@@ -56,8 +56,8 @@ public class AreaSubscriptionHistory extends AppCompatActivity implements AsyncR
 
         Intent intent = getIntent();
         adminmobile = intent.getStringExtra("adminmobile");
-        email = intent.getStringExtra("email");
-        Log.d(TAG, "Admin Details: " + adminmobile + "-" + email);
+        area_id = intent.getStringExtra("area_id");
+        Log.d(TAG, "Admin Details: " + adminmobile + "-" + area_id);
 
         back = findViewById(R.id.back_button);
         admin_subscription = findViewById(R.id.admin_subscription);
@@ -105,7 +105,7 @@ public class AreaSubscriptionHistory extends AppCompatActivity implements AsyncR
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "get_admin_area_details");
-            jo.put("adminmobile", adminmobile);
+            jo.put("area_id", area_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -124,11 +124,10 @@ public class AreaSubscriptionHistory extends AppCompatActivity implements AsyncR
                     if (ja.length() > 0) {
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
-                            AdminSubscriptionHistoryList list = new AdminSubscriptionHistoryList(jo.getString("area_id"),
-                                    jo.getString("area_name"), jo.getString("basic_plan_amount"), jo.getString("basic_plan_month"),
-                                    jo.getString("basic_plan_mins"), jo.getString("standard_plan_amount"), jo.getString("standard_plan_month"),
-                                    jo.getString("standard_plan_mins"), jo.getString("sweet_plan_amount"), jo.getString("sweet_plan_month"), jo.getString("sweet_plan_mins"),
-                                    jo.getString("premium_plan_amount"), jo.getString("premium_plan_month"), jo.getString("premium_plan_mins"));
+                            AdminSubscriptionHistoryList list = new AdminSubscriptionHistoryList(jo.getString("subscription_plan_name"),
+                                    jo.getString("start_date"), jo.getString("end_date"), jo.getInt("ride_number"),
+                                    jo.getInt("ride_mintues"), jo.getInt("money"), jo.getString("description"),
+                                    jo.getInt("carry_forward"));
                             adminSubscriptionHistoryLists.add(list);
                         }
                     }

@@ -11,37 +11,24 @@
         android:layout_marginBottom="@dimen/ten_dp">
 
         <ImageView
-            android:id="@+id/area"
+            android:id="@+id/subscription"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="@dimen/twenty_four_dp"
             android:layout_marginTop="@dimen/twenty_dp"
-            app:srcCompat="@drawable/ic_area" />
+            app:srcCompat="@drawable/ic_subscription" />
 
         <TextView
-            android:id="@+id/area_name"
+            android:id="@+id/subscription_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/thirty_dp"
             android:layout_marginTop="@dimen/twenty_four_dp"
-            android:layout_toRightOf="@id/area"
+            android:layout_toRightOf="@id/subscription"
             android:padding="@dimen/two_dp"
-            android:text="department"
+            android:text="Subscription_name"
             android:textColor="@color/color_black_01"
             android:textSize="@dimen/sixteen_sp" />
-
-
-        <TextView
-            android:id="@+id/area_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/area_name"
-            android:layout_marginStart="@dimen/thirty_dp"
-            android:layout_marginTop="@dimen/eight_dp"
-            android:layout_toRightOf="@id/area"
-            android:padding="@dimen/four_dp"
-            android:textColor="@color/color_black_01"
-            android:textSize="@dimen/tweleve_sp" />
 
     </RelativeLayout>
 

@@ -114,8 +114,8 @@ public class AdminSubscription extends AppCompatActivity implements AsyncRespons
                     if (ja.length() > 0) {
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
-                            AdminSubscriptionList list = new AdminSubscriptionList(jo.getString("adminmobile"),
-                                    jo.getString("email"));
+                            AdminSubscriptionList list = new AdminSubscriptionList(jo.getString("area_id"),
+                                    jo.getString("admin_mobile"), jo.getString("email"));
                             adminSubscriptionLists.add(list);
                         }
                     }

@@ -19,7 +19,7 @@
             app:srcCompat="@drawable/ic_person" />
 
         <TextView
-            android:id="@+id/admin_mobile"
+            android:id="@+id/area_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/thirty_dp"
@@ -31,6 +31,17 @@
             android:textSize="@dimen/sixteen_sp" />
 
 
+        <TextView
+            android:id="@+id/admin_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/area_id"
+            android:layout_marginStart="@dimen/thirty_dp"
+            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_toRightOf="@id/admin"
+            android:padding="@dimen/four_dp"
+            android:textColor="@color/color_black_01"
+            android:textSize="@dimen/tweleve_sp" />
         <TextView
             android:id="@+id/email"
             android:layout_width="wrap_content"

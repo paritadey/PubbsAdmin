@@ -2,19 +2,26 @@ package admin.pubbs.in.pubbsadminnew;
 /*created by Parita Dey*/
 
 public class AdminSubscriptionList {
-    private String adminmobile, email;
+    private String area_id, admin_mobile, email;
     public AdminSubscriptionList(){}
-    public AdminSubscriptionList(String adminmobile, String email){
-        this.adminmobile = adminmobile;
+    public AdminSubscriptionList(String area_id, String admin_mobile, String email){
+        this.area_id = area_id;
+        this.admin_mobile = admin_mobile;
         this.email = email;
     }
 
-    public String getAdminmobile() {
-        return adminmobile;
+    public String getArea_id(){return area_id;}
+
+    public void setArea_id(String area_id) {
+        this.area_id = area_id;
     }
 
-    public void setAdminmobile(String adminmobile) {
-        this.adminmobile = adminmobile;
+    public String getAdminmobile() {
+        return admin_mobile;
+    }
+
+    public void setAdminmobile(String admin_mobile) {
+        this.admin_mobile = admin_mobile;
     }
 
     public void setEmail(String email) {

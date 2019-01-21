@@ -201,4 +201,6 @@
     <string name="option">Choose rate type option for payment</string>
     <string name="carryforward">Do you want to make this plan as Carry-Forward</string>
     <string name="rate_payment">Set Payment on Rate type basis</string>
+    <string name="subscription_list">List of Subscriptions</string>
+    <string name="subscription_name">Enter Subscription name</string>
 </resources>

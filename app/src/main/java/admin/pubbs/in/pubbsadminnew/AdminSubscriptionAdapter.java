@@ -15,13 +15,10 @@ import java.util.List;
 
 public class AdminSubscriptionAdapter extends RecyclerView.Adapter<AdminSubscriptionAdapter.MyViewHolder> {
     private List<AdminSubscriptionList> adminSubscriptionLists;
-    //String latlon;
-    Context mContext;
-    //String areaLatLang, areaname, areaid;
     private String TAG = AdminSubscriptionAdapter.class.getSimpleName();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView admin_mobile, email;
+        public TextView admin_mobile, email, area_id;
         public RelativeLayout admin_layout;
 
         public MyViewHolder(View view) {
@@ -29,6 +26,8 @@ public class AdminSubscriptionAdapter extends RecyclerView.Adapter<AdminSubscrip
             Typeface type1 = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
             Typeface type2 = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
+            area_id = view.findViewById(R.id.area_id);
+            area_id.setTypeface(type1);
             admin_mobile = (TextView) view.findViewById(R.id.admin_mobile);
             admin_mobile.setTypeface(type1);
             email = (TextView) view.findViewById(R.id.email);
@@ -52,16 +51,17 @@ public class AdminSubscriptionAdapter extends RecyclerView.Adapter<AdminSubscrip
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         AdminSubscriptionList adminSubscriptionList = adminSubscriptionLists.get(position);
+        holder.area_id.setText(adminSubscriptionList.getArea_id());
         holder.admin_mobile.setText(adminSubscriptionList.getAdminmobile());
         holder.email.setText(adminSubscriptionList.getEmail());
-        String adminmobile =adminSubscriptionList.getAdminmobile(); //holder.areaName.getText().toString();
-        String email = adminSubscriptionList.getEmail();//holder.areaId.getText().toString();
+        String adminmobile =adminSubscriptionList.getAdminmobile();
+        String area_id = adminSubscriptionList.getArea_id();
         holder.admin_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AreaSubscriptionHistory.class);
                 intent.putExtra("adminmobile", adminmobile);
-                intent.putExtra("email", email);
+                intent.putExtra("area_id", area_id);
                 v.getContext().startActivity(intent);
             }
         });

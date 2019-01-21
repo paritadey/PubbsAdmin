@@ -2,143 +2,86 @@ package admin.pubbs.in.pubbsadminnew;
 /*created by Parita Dey*/
 
 public class AdminSubscriptionHistoryList {
-    private String area_id, area_name, basic_plan_amount, basic_plan_month, basic_plan_mins;
-    private String standard_plan_amount, standard_plan_month, standard_plan_mins, sweet_plan_amount, sweet_plan_month, sweet_plan_mins;
-    private String premium_plan_amount, premium_plan_month, premium_plan_mins;
+    private String subscriptionPlanName, startDate, endDate, description;
+    private int rideNumber, rideTime, money, carryForward;
 
     public AdminSubscriptionHistoryList() {
     }
 
-    public AdminSubscriptionHistoryList(String area_id, String area_name, String basic_plan_amount, String basic_plan_month,
-                                        String basic_plan_mins, String standard_plan_amount, String standard_plan_month,
-                                        String standard_plan_mins, String sweet_plan_amount, String sweet_plan_month, String sweet_plan_mins,
-                                        String premium_plan_amount, String premium_plan_month, String premium_plan_mins) {
-        this.area_id = area_id;
-        this.area_name = area_name;
-        this.basic_plan_amount = basic_plan_amount;
-        this.basic_plan_month = basic_plan_month;
-        this.basic_plan_mins = basic_plan_mins;
-        this.standard_plan_amount = standard_plan_amount;
-        this.standard_plan_month = standard_plan_month;
-        this.standard_plan_mins = standard_plan_mins;
-        this.sweet_plan_amount = sweet_plan_amount;
-        this.sweet_plan_month = sweet_plan_month;
-        this.sweet_plan_mins = sweet_plan_mins;
-        this.premium_plan_amount = premium_plan_amount;
-        this.premium_plan_month = premium_plan_month;
-        this.premium_plan_mins = premium_plan_mins;
-
+    public AdminSubscriptionHistoryList(String subscriptionPlanName, String startDate, String endDate, int rideNumber,
+                                        int rideTime, int money, String description, int carryForward) {
+        this.subscriptionPlanName = subscriptionPlanName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.rideNumber = rideNumber;
+        this.rideTime = rideTime;
+        this.money = money;
+        this.description = description;
+        this.carryForward = carryForward;
     }
 
-    public void setArea_id(String area_id) {
-        this.area_id = area_id;
+    public String getSubscriptionPlanName() {
+        return subscriptionPlanName;
     }
 
-    public String getArea_id() {
-        return area_id;
+    public void setSubscriptionPlanName(String subscriptionPlanName) {
+        this.subscriptionPlanName = subscriptionPlanName;
     }
 
-    public void setArea_name(String area_name) {
-        this.area_name = area_name;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public String getArea_name() {
-        return area_name;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public void setBasic_plan_amount(String basic_plan_amount) {
-        this.basic_plan_amount = basic_plan_amount;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public String getBasic_plan_amount() {
-        return basic_plan_amount;
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
-    public void setBasic_plan_month(String basic_plan_month) {
-        this.basic_plan_month = basic_plan_month;
+    public int getRideNumber() {
+        return rideNumber;
     }
 
-    public String getBasic_plan_month() {
-        return basic_plan_month;
+    public void setRideNumber(int rideNumber) {
+        this.rideNumber = rideNumber;
     }
 
-    public String getBasic_plan_mins() {
-        return basic_plan_mins;
-    }
-    public void setBasic_plan_mins(String basic_plan_mins){
-        this.basic_plan_mins = basic_plan_mins;
+    public int getRideTime() {
+        return rideTime;
     }
 
-    public void setStandard_plan_amount(String standard_plan_amount) {
-        this.standard_plan_amount = standard_plan_amount;
+    public void setRideTime(int rideTime) {
+        this.rideTime = rideTime;
     }
 
-    public String getStandard_plan_amount() {
-        return standard_plan_amount;
+    public int getMoney() {
+        return money;
     }
 
-    public void setStandard_plan_month(String standard_plan_month) {
-        this.standard_plan_month = standard_plan_month;
+    public void setMoney(int money) {
+        this.money = money;
     }
 
-    public String getStandard_plan_month() {
-        return standard_plan_month;
+    public String getDescription() {
+        return description;
     }
 
-    public void setStandard_plan_mins(String standard_plan_mins) {
-        this.standard_plan_mins = standard_plan_mins;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getStandard_plan_mins() {
-        return standard_plan_mins;
+    public int getCarryForward() {
+        return carryForward;
     }
 
-    public void setSweet_plan_amount(String sweet_plan_amount) {
-        this.sweet_plan_amount = sweet_plan_amount;
-    }
-
-    public String getSweet_plan_amount() {
-        return sweet_plan_amount;
-    }
-
-    public void setSweet_plan_month(String sweet_plan_month) {
-        this.sweet_plan_month = sweet_plan_month;
-    }
-
-    public String getSweet_plan_month() {
-        return sweet_plan_month;
-    }
-
-    public void setSweet_plan_mins(String sweet_plan_mins) {
-        this.sweet_plan_mins = sweet_plan_mins;
-    }
-
-    public String getSweet_plan_mins() {
-        return sweet_plan_mins;
-    }
-
-    public void setPremium_plan_amount(String premium_plan_amount) {
-        this.premium_plan_amount = premium_plan_amount;
-    }
-
-    public String getPremium_plan_amount() {
-        return premium_plan_amount;
-    }
-
-    public void setPremium_plan_month(String premium_plan_month) {
-        this.premium_plan_month = premium_plan_month;
-    }
-
-    public String getPremium_plan_month() {
-        return premium_plan_month;
-    }
-
-    public void setPremium_plan_mins(String premium_plan_mins) {
-        this.premium_plan_mins = premium_plan_mins;
-    }
-
-    public String getPremium_plan_mins() {
-        return premium_plan_mins;
+    public void setCarryForward(int carryForward) {
+        this.carryForward = carryForward;
     }
 }
 
