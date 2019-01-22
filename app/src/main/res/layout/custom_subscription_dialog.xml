@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/twenty_four_dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/subscription_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/thirty_six_dp"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
+            android:padding="@dimen/four_dp"
+            android:text="Subscription Name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
+            android:text="Start Date:"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subscription_name" />
+
+        <TextView
+            android:id="@+id/end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/four_dp"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
+            android:text="End Date:"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/start_date" />
+
+        <TextView
+            android:id="@+id/ride_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/four_dp"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
+            android:text="Amount of Rides"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/end_date" />
+
+        <TextView
+            android:id="@+id/ride_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/four_dp"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
+            android:text="Ride time:"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ride_number" />
+
+        <TextView
+            android:id="@+id/ride_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/four_dp"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
+            android:text="Amount of money:"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ride_time" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/eight_dp"
+            android:layout_marginTop="@dimen/four_dp"
+            android:layout_marginEnd="@dimen/eight_dp"
+            android:text="Description:"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ride_money" />
+
+        <TextView
+            android:id="@+id/carryforward"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/eight_dp"
+            android:layout_marginTop="@dimen/four_dp"
+            android:layout_marginEnd="@dimen/eight_dp"
+            android:text="The plan will "
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
+
+        <View
+            android:id="@+id/horizontal_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/two_dp"
+            android:layout_marginTop="@dimen/twenty_four_dp"
+            android:background="@color/color_grey_02"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/carryforward" />
+
+        <Button
+            android:id="@+id/ok_btn"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/ten_dp"
+            android:background="@drawable/button_bg"
+            android:elevation="@dimen/four_dp"
+            android:text="Ok"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fourteen_sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_view" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

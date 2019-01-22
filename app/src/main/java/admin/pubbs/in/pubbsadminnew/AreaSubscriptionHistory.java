@@ -77,10 +77,47 @@ public class AreaSubscriptionHistory extends AppCompatActivity implements AsyncR
             @Override
             public void onClick(View view, int position) {
                 AdminSubscriptionHistoryList lists = adminSubscriptionHistoryLists.get(position);
+                String subscription_name = lists.getSubscriptionPlanName();
+                String subscription_start_date = lists.getStartDate();
+                String subscription_end_date = lists.getEndDate();
+                int subscription_ride_number = lists.getRideNumber();
+                int subscription_ride_time = lists.getRideTime();
+                int subscription_money = lists.getMoney();
+                String subscription_description = lists.getDescription();
+                int subscription_carryforward = lists.getCarryForward();
+                if (subscription_carryforward == 1) {
+                    String roll_over = "carry forward to next month";
+                    showSubscriptionDetails(subscription_name, subscription_start_date, subscription_end_date, subscription_ride_number, subscription_ride_time,
+                            subscription_money, subscription_description, roll_over);
+                } else {
+                    String roll_over = "not carry forward to next month";
+                    showSubscriptionDetails(subscription_name, subscription_start_date, subscription_end_date, subscription_ride_number, subscription_ride_time,
+                            subscription_money, subscription_description, roll_over);
+                }
+
             }
 
             @Override
             public void onLongClick(View view, int position) {
+                AdminSubscriptionHistoryList lists = adminSubscriptionHistoryLists.get(position);
+                String subscription_name = lists.getSubscriptionPlanName();
+                String subscription_start_date = lists.getStartDate();
+                String subscription_end_date = lists.getEndDate();
+                int subscription_ride_number = lists.getRideNumber();
+                int subscription_ride_time = lists.getRideTime();
+                int subscription_money = lists.getMoney();
+                String subscription_description = lists.getDescription();
+                int subscription_carryforward = lists.getCarryForward();
+                if (subscription_carryforward == 1) {
+                    String roll_over = "carry forward to next month";
+                    showSubscriptionDetails(subscription_name, subscription_start_date, subscription_end_date, subscription_ride_number, subscription_ride_time,
+                            subscription_money, subscription_description, roll_over);
+                } else {
+                    String roll_over = "not carry forward to next month";
+                    showSubscriptionDetails(subscription_name, subscription_start_date, subscription_end_date, subscription_ride_number, subscription_ride_time,
+                            subscription_money, subscription_description, roll_over);
+                }
+
             }
         }));
         back.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +181,7 @@ public class AreaSubscriptionHistory extends AppCompatActivity implements AsyncR
     public void onResponseError(VolleyError error) {
         showDialog("Server Error !");
     }
+
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -153,7 +191,7 @@ public class AreaSubscriptionHistory extends AppCompatActivity implements AsyncR
         View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
 
         final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
-        final TextView extraLine = (TextView)dialogView.findViewById(R.id.extra_line);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
         extraLine.setTypeface(type1);
         serverProblem.setTypeface(type1);
         serverProblem.setText(message);
@@ -169,6 +207,54 @@ public class AreaSubscriptionHistory extends AppCompatActivity implements AsyncR
                 Intent intent = new Intent(AreaSubscriptionHistory.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+        dialogBuilder.setCancelable(false);
+    }
+
+    private void showSubscriptionDetails(String name, String startdate, String enddate, int rideNumber, int rideTime, int rideMoney,
+                                         String description, String carry) {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_subscription_dialog, null);
+
+        final TextView subscription_name = (TextView) dialogView.findViewById(R.id.subscription_name);
+        final TextView start_date = (TextView) dialogView.findViewById(R.id.start_date);
+        final TextView end_date = (TextView) dialogView.findViewById(R.id.end_date);
+        final TextView ride_number = (TextView) dialogView.findViewById(R.id.ride_number);
+        final TextView subscription_description = (TextView) dialogView.findViewById(R.id.description);
+        final TextView carryforward = (TextView) dialogView.findViewById(R.id.carryforward);
+        final TextView ride_time = (TextView) dialogView.findViewById(R.id.ride_time);
+        final TextView ride_money = (TextView) dialogView.findViewById(R.id.ride_money);
+
+        subscription_name.setTypeface(type2);
+        subscription_name.setText("Subscription Name: " + name);
+        start_date.setTypeface(type1);
+        start_date.setText("Start Date:" + "\t" + startdate);
+        end_date.setTypeface(type1);
+        end_date.setText("End Date:" + "\t" + enddate);
+        ride_number.setTypeface(type1);
+        ride_number.setText("Amount of Rides:" + "\t" + String.valueOf(rideNumber));
+        ride_time.setTypeface(type1);
+        ride_time.setText("Ride Time:" + "\t" + String.valueOf(rideTime) + "\t" + "minutes");
+        ride_money.setTypeface(type1);
+        ride_money.setText("Amount of money:" + "\t" + String.valueOf(rideMoney) + "/-");
+        subscription_description.setTypeface(type1);
+        subscription_description.setText(description);
+        carryforward.setTypeface(type1);
+        carryforward.setText("The plan will " + carry);
+        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
             }
         });
 
