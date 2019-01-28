@@ -13,11 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
@@ -29,32 +34,27 @@ import java.util.ArrayList;
 import java.util.List;
 /*created by Parita Dey*/
 
-public class DeleteOperatorArea extends AppCompatActivity implements AsyncResponse{
+public class OperatorArea extends AppCompatActivity implements AsyncResponse {
     private RecyclerView recyclerView;
-    private DeleteOperatorAdapter deleteOperatorAdapter;
-    private List<DeleteOperatorList> deleteOperatorLists = new ArrayList<>();
+    private OperatorAdapter operatorAdapter;
+    private List<OperatorList> operatorLists = new ArrayList<>();
     ImageView back;
     private TextView operatorTv;
-    private String TAG = DeleteOperatorArea.class.getSimpleName();
+    private String TAG = OperatorArea.class.getSimpleName();
     EditText inputSearch;
     ProgressBar circularProgressbar;
     String area_id;
     SharedPreferences sharedPreferences;
     String admin_mobile;
+    boolean rollOver = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delete_operator_area);
+        setContentView(R.layout.activity_operator_area);
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
-        Intent intent = getIntent();
-        area_id = intent.getStringExtra("admin_area_id");
-        Log.d(TAG, "Admin area:"+area_id);
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
-        admin_mobile = sharedPreferences.getString("adminmobile", null);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         circularProgressbar = findViewById(R.id.circularProgressbar);
@@ -64,32 +64,72 @@ public class DeleteOperatorArea extends AppCompatActivity implements AsyncRespon
         inputSearch = findViewById(R.id.input_search);
         inputSearch.setTypeface(type1);
         recyclerView = findViewById(R.id.recyclerview);
-        deleteOperatorAdapter = new DeleteOperatorAdapter(deleteOperatorLists);
+        operatorAdapter = new OperatorAdapter(operatorLists);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new CustomDivider(this, LinearLayoutManager.VERTICAL, 8));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(deleteOperatorAdapter);
+        recyclerView.setAdapter(operatorAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                DeleteOperatorList lists = deleteOperatorLists.get(position);
+                OperatorList lists = operatorLists.get(position);
+                String fullname = lists.getFullname();
+                String adminmobile = lists.getAdminmobile();
+                String areaname = lists.getArea_name();
+                String admintype = lists.getAdmin_type();
+                showRollOverDialog(fullname, adminmobile, areaname, admintype);
             }
 
             @Override
             public void onLongClick(View view, int position) {
+                OperatorList lists = operatorLists.get(position);
+
             }
         }));
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DeleteOperatorArea.this, DashBoardActivity.class);
+                Intent intent = new Intent(OperatorArea.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
     }
+
+    private void showRollOverDialog(String fullname, String admin_mobile, String area_name, String admin_type) {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(OperatorArea.this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_operator_dialog, null);
+        final TextView roll_over_tv = (TextView) dialogView.findViewById(R.id.roll_over_tv);
+        roll_over_tv.setTypeface(type1);
+        final RadioGroup roll_over_type = (RadioGroup) dialogView.findViewById(R.id.roll_over_type);
+        final RadioButton radioYes = (RadioButton) dialogView.findViewById(R.id.radioYes);
+        final RadioButton radioNo = (RadioButton) dialogView.findViewById(R.id.radioNo);
+        radioYes.setTypeface(type1);
+        radioNo.setTypeface(type1);
+        roll_over_type.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (R.id.radioYes == checkedId) {
+                    rollOver = true;
+                    Log.d(TAG, "Yes clicked"+rollOver);
+                } else if (R.id.radioNo == checkedId) {
+                    rollOver = false;
+                    Log.d(TAG, "No clicked"+false);
+                }
+            }
+        });
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+        dialogBuilder.setCancelable(true);
+
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -101,19 +141,17 @@ public class DeleteOperatorArea extends AppCompatActivity implements AsyncRespon
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "getoperator");
-            jo.put("area_id", area_id);
-            jo.put("admin_mobile", admin_mobile);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new SendRequest(getResources().getString(R.string.url), jo, DeleteOperatorArea.this,
+        new SendRequest(getResources().getString(R.string.url), jo, OperatorArea.this,
                 getApplicationContext()).executeJsonRequest();
     }
 
     @Override
     public void onResponse(JSONObject jsonObject) {
         circularProgressbar.setVisibility(View.GONE);
-        deleteOperatorLists.clear();
+        operatorLists.clear();
         if (jsonObject.has("method")) {
             try {
                 if (jsonObject.getString("method").equals("getoperator") && jsonObject.getBoolean("success")) {
@@ -121,20 +159,19 @@ public class DeleteOperatorArea extends AppCompatActivity implements AsyncRespon
                     if (ja.length() > 0) {
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
-                            DeleteOperatorList user = new DeleteOperatorList(jo.getString("full_name"),
+                            OperatorList user = new OperatorList(jo.getString("full_name"),
                                     jo.getString("admin_mobile"), jo.getString("area_name"), jo.getString("admin_type"));
-                            deleteOperatorLists.add(user);
+                            operatorLists.add(user);
                         }
                     }
-                }
-                else{
+                } else {
                     showDialog("No operator is present.");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        deleteOperatorAdapter.notifyDataSetChanged();
+        operatorAdapter.notifyDataSetChanged();
 
     }
 
@@ -164,7 +201,7 @@ public class DeleteOperatorArea extends AppCompatActivity implements AsyncRespon
                 if (circularProgressbar.isEnabled()) {
                     circularProgressbar.setVisibility(View.GONE);
                 }
-                Intent intent = new Intent(DeleteOperatorArea.this, DashBoardActivity.class);
+                Intent intent = new Intent(OperatorArea.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }

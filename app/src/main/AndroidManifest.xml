@@ -133,7 +133,7 @@
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".DeleteOperatorArea"
+            android:name=".OperatorArea"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
             android:windowSoftInputMode="adjustPan" />

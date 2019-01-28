@@ -1,13 +1,13 @@
 package admin.pubbs.in.pubbsadminnew;
 /*created by Parita Dey*/
 
-public class DeleteOperatorList {
+public class OperatorList {
     private String area_name, fullname, adminmobile, admin_type;
 
-    public DeleteOperatorList() {
+    public OperatorList() {
 
     }
-    public DeleteOperatorList(String fullname, String area_name, String adminmobile, String admin_type) {
+    public OperatorList(String fullname, String area_name, String adminmobile, String admin_type) {
         this.fullname = fullname;
         this.area_name = area_name;
         this.adminmobile = adminmobile;

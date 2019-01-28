@@ -96,9 +96,11 @@ public class DashBoardActivity extends AppCompatActivity
                 check = true;
                 navigationView.getMenu().findItem(R.id.manage_area).setTitle("Manage Admin/Employee");
                 navigationView.getMenu().findItem(R.id.add_area).setTitle("Add New Admin");
+                navigationView.getMenu().findItem(R.id.area_subscription).setVisible(false);
+                navigationView.getMenu().findItem(R.id.rate_chart).setVisible(false);
                 navigationView.getMenu().findItem(R.id.add_station).setTitle("Show all Admin");
                 navigationView.getMenu().findItem(R.id.add_new_bicycle).setTitle("Edit Admin");
-                navigationView.getMenu().findItem(R.id.edit_station).setTitle("Delete Admin");
+                navigationView.getMenu().findItem(R.id.edit_station).setVisible(false);
                 navigationView.getMenu().findItem(R.id.delete_station).setTitle("Add Lock to database");
                 navigationView.getMenu().findItem(R.id.lists).setTitle("View Panel");
                 navigationView.getMenu().findItem(R.id.redistribution).setVisible(false);
@@ -170,10 +172,16 @@ public class DashBoardActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.area_subscription:
-                startActivity(new Intent(DashBoardActivity.this, AllAreaSubscriptions.class));
+                if (check == true) {
+                } else {
+                    startActivity(new Intent(DashBoardActivity.this, AllAreaSubscriptions.class));
+                }
                 break;
             case R.id.rate_chart:
-                startActivity(new Intent(DashBoardActivity.this, AllAreaRateChart.class));
+                if (check == true) {
+                } else {
+                    startActivity(new Intent(DashBoardActivity.this, AllAreaRateChart.class));
+                }
                 break;
             case R.id.profile:
                 if (check == true) {
@@ -213,6 +221,7 @@ public class DashBoardActivity extends AppCompatActivity
             case R.id.add_new_bicycle:
                 if (check == true) {
                     //edit Admin/Employee not yet done
+                    startActivity(new Intent(DashBoardActivity.this, OperatorArea.class));
                     break;
                 } else {
                     startActivity(new Intent(DashBoardActivity.this, AddNewBicycle.class));
@@ -250,7 +259,7 @@ public class DashBoardActivity extends AppCompatActivity
                 }
             case R.id.edit_station:
                 if (check == true) {
-                    startActivity(new Intent(DashBoardActivity.this, DeleteOperatorArea.class));
+                    //   startActivity(new Intent(DashBoardActivity.this, OperatorArea.class));
                     break;
                 } else {
                     //still not developed

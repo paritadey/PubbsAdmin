@@ -85,7 +85,7 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
            /* case R.id.deleteOperator_card:
-                Intent delete = new Intent(ManageOperator.this, DeleteOperatorArea.class);
+                Intent delete = new Intent(ManageOperator.this, OperatorArea.class);
                 delete.putExtra("admin_area_id", admin_area_id);
                 startActivity(delete);
                 break;*/
