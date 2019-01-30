@@ -49,5 +49,18 @@
                 android:textSize="@dimen/fourteen_sp" />
         </RadioGroup>
 
+        <Button
+            android:id="@+id/ok_btn"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/roll_over_type"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/twenty_four_dp"
+            android:background="@drawable/button_bg"
+            android:elevation="@dimen/four_dp"
+            android:text="Ok"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fourteen_sp" />
+
     </RelativeLayout>
 </RelativeLayout>

@@ -204,4 +204,5 @@
     <string name="subscription_list">List of Subscriptions</string>
     <string name="subscription_name">Enter Subscription name</string>
     <string name="roll_over">Do you want to roll over the sub-admin authority?</string>
+    <string name="roll_in">Do you want to give the sub-admin auhtority?</string>
 </resources>

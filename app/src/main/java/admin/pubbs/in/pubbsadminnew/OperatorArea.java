@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -31,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 /*created by Parita Dey*/
 
@@ -46,7 +48,12 @@ public class OperatorArea extends AppCompatActivity implements AsyncResponse {
     String area_id;
     SharedPreferences sharedPreferences;
     String admin_mobile;
-    boolean rollOver = false;
+    int rollOver;
+    String finalResult;
+    String UserUrl = "http://pubbs.in/api/1.0/updateOperatorStatus.php";
+    HashMap<String, String> hashMap = new HashMap<>();
+    HttpParse httpParse = new HttpParse();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +86,8 @@ public class OperatorArea extends AppCompatActivity implements AsyncResponse {
                 String adminmobile = lists.getAdminmobile();
                 String areaname = lists.getArea_name();
                 String admintype = lists.getAdmin_type();
-                showRollOverDialog(fullname, adminmobile, areaname, admintype);
+                int active = lists.getActive();
+                showRollOverDialog(fullname, adminmobile, areaname, admintype, active);
             }
 
             @Override
@@ -98,7 +106,7 @@ public class OperatorArea extends AppCompatActivity implements AsyncResponse {
         });
     }
 
-    private void showRollOverDialog(String fullname, String admin_mobile, String area_name, String admin_type) {
+    private void showRollOverDialog(String fullname, String admin_mobile, String area_name, String admin_type, int active) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
@@ -112,22 +120,73 @@ public class OperatorArea extends AppCompatActivity implements AsyncResponse {
         final RadioButton radioNo = (RadioButton) dialogView.findViewById(R.id.radioNo);
         radioYes.setTypeface(type1);
         radioNo.setTypeface(type1);
-        roll_over_type.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (R.id.radioYes == checkedId) {
-                    rollOver = true;
-                    Log.d(TAG, "Yes clicked"+rollOver);
-                } else if (R.id.radioNo == checkedId) {
-                    rollOver = false;
-                    Log.d(TAG, "No clicked"+false);
+        final Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
+
+        if (active == 0) {
+            roll_over_tv.setText(R.string.roll_in);
+            roll_over_type.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    if (R.id.radioYes == checkedId) {
+                        rollOver = 1;
+                        Log.d(TAG, "Yes clicked" + "--" + rollOver + "--" + admin_mobile);
+                    } else if (R.id.radioNo == checkedId) {
+                        rollOver = 0;
+                        Log.d(TAG, "No clicked" + "--" + rollOver + "--" + admin_mobile);
+                    }
                 }
+            });
+
+        } else {
+            roll_over_tv.setText(R.string.roll_over);
+            roll_over_type.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    if (R.id.radioYes == checkedId) {
+                        rollOver = 0;
+                        Log.d(TAG, "Yes clicked" + "--" + rollOver + "--" + admin_mobile);
+                    } else if (R.id.radioNo == checkedId) {
+                        rollOver = 1;
+                        Log.d(TAG, "No clicked" + "--" + rollOver + "--" + admin_mobile);
+                    }
+                }
+            });
+        }
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateOperatorStatusFunction(admin_mobile, String.valueOf(rollOver));
+                dialogBuilder.dismiss();
+                loadData();
             }
         });
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
-        dialogBuilder.setCancelable(true);
+        dialogBuilder.setCancelable(false);
 
+    }
+
+    public void updateOperatorStatusFunction(final String admin_mobile, final String active) {
+
+        class updateOperatorStatusClass extends AsyncTask<String, Void, String> {
+            @Override
+            protected void onPostExecute(String httpResponseMsg) {
+                super.onPostExecute(httpResponseMsg);
+                Log.d(TAG, httpResponseMsg.toString());
+              //  Toast.makeText(getApplicationContext(), "Authority is taken off !",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+                hashMap.put("admin_mobile", params[0]);
+                hashMap.put("active", params[1]);
+                finalResult = httpParse.postRequest(hashMap, UserUrl);
+                return finalResult;
+            }
+        }
+        updateOperatorStatusClass updateOperatorStatusClass = new updateOperatorStatusClass();
+        updateOperatorStatusClass.execute(admin_mobile, active);
     }
 
     @Override
@@ -160,12 +219,13 @@ public class OperatorArea extends AppCompatActivity implements AsyncResponse {
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
                             OperatorList user = new OperatorList(jo.getString("full_name"),
-                                    jo.getString("admin_mobile"), jo.getString("area_name"), jo.getString("admin_type"));
+                                    jo.getString("admin_mobile"), jo.getString("area_name"),
+                                    jo.getString("admin_type"), jo.getInt("active"));
                             operatorLists.add(user);
                         }
                     }
                 } else {
-                    showDialog("No operator is present.");
+                    Log.d(TAG, "No operator is present.");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -211,4 +271,5 @@ public class OperatorArea extends AppCompatActivity implements AsyncResponse {
         dialogBuilder.show();
         dialogBuilder.setCancelable(false);
     }
+
 }

@@ -19,8 +19,9 @@ public class OperatorAdapter extends RecyclerView.Adapter<OperatorAdapter.MyView
     private String TAG = OperatorAdapter.class.getSimpleName();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView fullname, area_name, adminmobile, admin_type;
+        public TextView fullname, area_name, adminmobile, admin_type, active_status;
         public RelativeLayout deleteOperatorLayout;
+
         public MyViewHolder(View view) {
             super(view);
             Typeface type1 = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
@@ -32,14 +33,17 @@ public class OperatorAdapter extends RecyclerView.Adapter<OperatorAdapter.MyView
             admin_type = (TextView) view.findViewById(R.id.admin_type);
             admin_type.setTypeface(type1);
             adminmobile = view.findViewById(R.id.adminmobile);
-            adminmobile.setTypeface(type1);
             area_name = view.findViewById(R.id.area_name);
+            area_name.setTypeface(type1);
+            active_status = view.findViewById(R.id.active_status);
+            active_status.setTypeface(type1);
         }
     }
 
     public OperatorAdapter(List<OperatorList> operatorList) {
         this.operatorLists = operatorList;
     }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -52,8 +56,14 @@ public class OperatorAdapter extends RecyclerView.Adapter<OperatorAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         OperatorList operatorList = operatorLists.get(position);
         holder.fullname.setText(operatorList.getFullname());
-        holder.adminmobile.setText(operatorList.getAdminmobile());
+        holder.area_name.setText(operatorList.getArea_name());
         holder.admin_type.setText(operatorList.getAdmin_type());
+        int active = operatorList.getActive();
+        if (active == 1) {
+            holder.active_status.setText("Status : Active");
+        } else {
+            holder.active_status.setText("Status : Not Active");
+        }
         String full_name = operatorList.getFullname();
         String admin_type = operatorList.getAdmin_type();
         String admin_mobile = operatorList.getAdminmobile();
@@ -61,7 +71,7 @@ public class OperatorAdapter extends RecyclerView.Adapter<OperatorAdapter.MyView
         holder.deleteOperatorLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              Log.d(TAG, "Admin details:"+full_name+"-"+admin_mobile+"-"+admin_type+"-"+area_name);
+                Log.d(TAG, "Admin details:" + full_name + "-" + admin_mobile + "-" + admin_type + "-" + area_name);
             }
         });
     }

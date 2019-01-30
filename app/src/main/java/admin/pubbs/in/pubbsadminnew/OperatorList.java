@@ -3,17 +3,26 @@ package admin.pubbs.in.pubbsadminnew;
 
 public class OperatorList {
     private String area_name, fullname, adminmobile, admin_type;
+    int active;
 
     public OperatorList() {
 
     }
-    public OperatorList(String fullname, String area_name, String adminmobile, String admin_type) {
+
+    public OperatorList(String fullname, String adminmobile, String area_name, String admin_type, int active) {
         this.fullname = fullname;
-        this.area_name = area_name;
         this.adminmobile = adminmobile;
+        this.area_name = area_name;
         this.admin_type = admin_type;
+        this.active = active;
     }
 
+    public void setActive(int active) {
+        this.active = active;
+    }
+    public int getActive() {
+        return active;
+    }
     public String getFullname() {
         return fullname;
     }
