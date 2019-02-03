@@ -36,7 +36,6 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
         initView();
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         admin_mobile = sharedPreferences.getString("adminmobile", null);
-        //admin_type = sharedPreferences.getString("admin_type", null);
         Log.d(TAG, "Admin Details: " + admin_mobile);
     }
 
@@ -53,7 +52,6 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
         addOperatorCard = findViewById(R.id.addOperator_card);
         editOperatorCard = findViewById(R.id.editOperator_card);
-        //deleteOperatorCard = findViewById(R.id.deleteOperator_card);
         manageOperatorTv = findViewById(R.id.manage_operator_tv);
         manageOperatorTv.setTypeface(type1);
         back = findViewById(R.id.back_button);
@@ -61,11 +59,8 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
         addOperator.setTypeface(type1);
         editOperator = findViewById(R.id.edit_operator);
         editOperator.setTypeface(type1);
-        //deleteOperator = findViewById(R.id.delete_operator);
-        //deleteOperator.setTypeface(type1);
         addOperatorCard.setOnClickListener(this);
         editOperatorCard.setOnClickListener(this);
-      //  deleteOperatorCard.setOnClickListener(this);
         back.setOnClickListener(this);
     }
 
@@ -79,16 +74,12 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
                 if (admin_area_id.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Some network issue occured. Give some moment.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent edit = new Intent(ManageOperator.this, EditOperator.class);
+                   /* Intent edit = new Intent(ManageOperator.this, EditOperator.class);
                     edit.putExtra("admin_area_id", admin_area_id);
-                    startActivity(edit);
+                    edit.putExtra("admin_mobile", admin_mobile);
+                    startActivity(edit);*/
                 }
                 break;
-           /* case R.id.deleteOperator_card:
-                Intent delete = new Intent(ManageOperator.this, OperatorArea.class);
-                delete.putExtra("admin_area_id", admin_area_id);
-                startActivity(delete);
-                break;*/
             case R.id.back_button:
                 Intent intent = new Intent(ManageOperator.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -1,0 +1,79 @@
+package admin.pubbs.in.pubbsadminnew;
+
+import android.graphics.Typeface;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import java.util.List;
+
+public class EditOperatorAdapter extends RecyclerView.Adapter<EditOperatorAdapter.MyViewHolder> {
+    private List<EditOperatorList> editOperatorLists;
+    private String TAG = EditOperatorAdapter.class.getSimpleName();
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView full_name, admin_mobile, admin_type, active_status;
+        public RelativeLayout editOperatorLayout;
+
+        public MyViewHolder(View view) {
+            super(view);
+            Typeface type1 = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
+            Typeface type2 = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+            editOperatorLayout = view.findViewById(R.id.editOperatorLayout);
+            admin_mobile = view.findViewById(R.id.admin_mobile);
+            admin_mobile.setTypeface(type1);
+            full_name = (TextView) view.findViewById(R.id.full_name);
+            full_name.setTypeface(type1);
+            admin_type = (TextView) view.findViewById(R.id.admin_type);
+            admin_type.setTypeface(type1);
+            active_status = view.findViewById(R.id.active_status);
+            active_status.setTypeface(type1);
+        }
+    }
+
+    public EditOperatorAdapter(List<EditOperatorList> editOperatorList) {
+        this.editOperatorLists = editOperatorList;
+    }
+
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.edit_operator_list, parent, false);
+
+        return new EditOperatorAdapter.MyViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(EditOperatorAdapter.MyViewHolder holder, int position) {
+        EditOperatorList editOperatorList = editOperatorLists.get(position);
+        holder.admin_mobile.setText(editOperatorList.getAdminmobile());
+        holder.full_name.setText(editOperatorList.getFullname());
+        holder.admin_type.setText(editOperatorList.getAdmin_type());
+        int active = editOperatorList.getActive();
+        if (active == 1) {
+            holder.active_status.setText("Status : Active");
+        } else {
+            holder.active_status.setText("Status : Not Active");
+        }
+        String full_name = editOperatorList.getFullname();
+        String admin_type = editOperatorList.getAdmin_type();
+        String admin_mobile = editOperatorList.getAdminmobile();
+        holder.editOperatorLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Admin details:" + full_name + "-" + admin_mobile + "-" + admin_type);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return editOperatorLists.size();
+    }
+
+}
