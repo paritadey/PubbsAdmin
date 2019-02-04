@@ -55,8 +55,8 @@ public class AddOperator extends AppCompatActivity implements AsyncResponse {
         back = findViewById(R.id.back_button);
         addOperatorTv = findViewById(R.id.add_operator_tv);
         addOperatorTv.setTypeface(type1);
-        inputSearch = findViewById(R.id.input_search);
-        inputSearch.setTypeface(type1);
+       // inputSearch = findViewById(R.id.input_search);
+       // inputSearch.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
         recyclerView = findViewById(R.id.recycler_view);
         addOperatorAdpater = new AddOperatorAdpater(areaLists);
@@ -157,7 +157,7 @@ public class AddOperator extends AppCompatActivity implements AsyncResponse {
                 if (circularProgressbar.isEnabled()) {
                     circularProgressbar.setVisibility(View.GONE);
                 }
-                Intent intent = new Intent(AddOperator.this, DashBoardActivity.class);
+                Intent intent = new Intent(AddOperator.this, ManageOperator.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -169,7 +169,7 @@ public class AddOperator extends AppCompatActivity implements AsyncResponse {
     }
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(AddOperator.this, DashBoardActivity.class);
+        Intent intent = new Intent(AddOperator.this, ManageOperator.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

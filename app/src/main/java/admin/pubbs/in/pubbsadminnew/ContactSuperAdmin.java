@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat;
 
 public class ContactSuperAdmin extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     ImageView back;
-    TextView contactTv;
+    TextView contactTv, contact_tv, disclaimer;
     String adminmobile, admin_type, msg_subject, msg_body, date_time;
     EditText subject, message;
     Button sendEmail;
@@ -44,6 +44,10 @@ public class ContactSuperAdmin extends AppCompatActivity implements View.OnClick
         adminmobile = intent.getStringExtra("uphone");
         admin_type = intent.getStringExtra("uadmin");
         Log.d(TAG, "Admin details: " + adminmobile + "-" + admin_type);
+        contact_tv = findViewById(R.id.contact_tv);
+        contact_tv.setTypeface(type1);
+        disclaimer = findViewById(R.id.disclaimer);
+        disclaimer.setTypeface(type1);
         back = findViewById(R.id.back_button);
         back.setOnClickListener(this);
         contactTv = findViewById(R.id.contact);

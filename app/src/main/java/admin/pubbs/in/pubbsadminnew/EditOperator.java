@@ -66,8 +66,8 @@ public class EditOperator extends AppCompatActivity implements AsyncResponse {
         back = findViewById(R.id.back_button);
         operatorTv = findViewById(R.id.delete_operator_tv);
         operatorTv.setTypeface(type1);
-        inputSearch = findViewById(R.id.input_search);
-        inputSearch.setTypeface(type1);
+       /* inputSearch = findViewById(R.id.input_search);
+        inputSearch.setTypeface(type1);*/
         recyclerView = findViewById(R.id.recyclerview);
         editOperatorAdapter = new EditOperatorAdapter(editOperatorLists);
         recyclerView.setHasFixedSize(true);
@@ -76,31 +76,39 @@ public class EditOperator extends AppCompatActivity implements AsyncResponse {
         recyclerView.addItemDecoration(new CustomDivider(this, LinearLayoutManager.VERTICAL, 8));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(editOperatorAdapter);
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                EditOperatorList lists = editOperatorLists.get(position);
-                String adminmobile = lists.getAdminmobile();
-                String fullname = lists.getFullname();
-                String admintype = lists.getAdmin_type();
-                int active = lists.getActive();
-                showRollOverDialog(fullname, adminmobile, admintype, active);
-            }
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView,
+                new RecyclerTouchListener.ClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+                        EditOperatorList lists = editOperatorLists.get(position);
+                        String adminmobile = lists.getAdminmobile();
+                        String fullname = lists.getFullname();
+                        String admintype = lists.getAdmin_type();
+                        int active = lists.getActive();
+                        showRollOverDialog(fullname, adminmobile, admintype, active);
+                    }
 
-            @Override
-            public void onLongClick(View view, int position) {
-                EditOperatorList lists = editOperatorLists.get(position);
+                    @Override
+                    public void onLongClick(View view, int position) {
+                        EditOperatorList lists = editOperatorLists.get(position);
 
-            }
-        }));
+                    }
+                }));
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditOperator.this, DashBoardActivity.class);
+                Intent intent = new Intent(EditOperator.this, ManageOperator.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(EditOperator.this, ManageOperator.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void showRollOverDialog(String fullname, String admin_mobile, String admin_type, int active) {
@@ -205,7 +213,7 @@ public class EditOperator extends AppCompatActivity implements AsyncResponse {
             @Override
             public void onClick(View view) {
                 dialogBuilder.dismiss();
-                Intent intent = new Intent(EditOperator.this, DashBoardActivity.class);
+                Intent intent = new Intent(EditOperator.this, ManageOperator.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }

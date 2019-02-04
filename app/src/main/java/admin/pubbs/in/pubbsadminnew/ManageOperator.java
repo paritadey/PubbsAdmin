@@ -74,10 +74,10 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
                 if (admin_area_id.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Some network issue occured. Give some moment.", Toast.LENGTH_SHORT).show();
                 } else {
-                   /* Intent edit = new Intent(ManageOperator.this, EditOperator.class);
+                    Intent edit = new Intent(ManageOperator.this, EditOperator.class);
                     edit.putExtra("admin_area_id", admin_area_id);
                     edit.putExtra("admin_mobile", admin_mobile);
-                    startActivity(edit);*/
+                    startActivity(edit);
                 }
                 break;
             case R.id.back_button:
