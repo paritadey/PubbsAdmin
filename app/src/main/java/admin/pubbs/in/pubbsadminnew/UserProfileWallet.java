@@ -1,6 +1,7 @@
 package admin.pubbs.in.pubbsadminnew;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,7 +30,7 @@ public class UserProfileWallet extends Fragment implements AsyncResponse {
     private UserProfileWalletAdapter userProfileWalletAdapter;
     private List<UserProfileWalletList> userProfileWalletLists = new ArrayList<>();
     private String TAG = UserProfileWallet.class.getSimpleName();
-    String userName, userPhone, userId;
+    String userPhone;
 
     public UserProfileWallet() {
     }
@@ -102,6 +103,8 @@ public class UserProfileWallet extends Fragment implements AsyncResponse {
                             userProfileWalletLists.add(user);
                         }
                     }
+                } else {
+                    showDialog("No Subscription plan is active.");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -125,7 +128,7 @@ public class UserProfileWallet extends Fragment implements AsyncResponse {
         View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
 
         final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
-        final TextView extraLine = (TextView)dialogView.findViewById(R.id.extra_line);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
         extraLine.setTypeface(type1);
         serverProblem.setTypeface(type1);
         serverProblem.setText(message);
@@ -135,6 +138,9 @@ public class UserProfileWallet extends Fragment implements AsyncResponse {
             @Override
             public void onClick(View view) {
                 dialogBuilder.dismiss();
+                Intent back = new Intent(getContext(), MyUsers.class);
+                back.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(back);
             }
         });
 

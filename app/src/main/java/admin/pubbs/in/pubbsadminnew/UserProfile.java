@@ -32,9 +32,7 @@ public class UserProfile extends AppCompatActivity {
     android.support.v7.widget.Toolbar toolbar;
     ImageView back;
     TextView userDetails, userID, userIMEI;
-    String androidid;
     Context context;
-
 
     @TargetApi(Build.VERSION_CODES.O)
     @Override
@@ -44,13 +42,9 @@ public class UserProfile extends AppCompatActivity {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
-        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout)
                 findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setContentScrimColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-        //  collapsingToolbarLayout.setTitleEnabled(false);
         Intent intent = getIntent();
         userName = intent.getStringExtra("username");
         userId = intent.getStringExtra("userid");
@@ -77,7 +71,7 @@ public class UserProfile extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back = new Intent(UserProfile.this, DashBoardActivity.class);
+                Intent back = new Intent(UserProfile.this, MyUsers.class);
                 back.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(back);
             }

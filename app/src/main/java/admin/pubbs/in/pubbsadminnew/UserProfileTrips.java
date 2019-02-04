@@ -78,10 +78,7 @@ public class UserProfileTrips extends android.support.v4.app.Fragment {
         userProfileTripsLists.add(tripsList);
         tripsList = new UserProfileTripsList("16 March 2018", "WB213426G", "23 mins", "5");
         userProfileTripsLists.add(tripsList);
-        tripsList = new UserProfileTripsList("16 March 2018", "WB213426G", "23 mins", "5");
-        userProfileTripsLists.add(tripsList);
-        tripsList = new UserProfileTripsList("16 March 2018", "WB213426G", "23 mins", "5");
-        userProfileTripsLists.add(tripsList);
+
     }
 
 }
