@@ -90,4 +90,9 @@
     <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem"></style>
 
     <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem"></style>
+    <style name="NavigationDrawerStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@fonts/AvenirNextLTPro-Medium.otf</item>
+    </style>
+
 </resources>

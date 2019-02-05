@@ -96,7 +96,7 @@
                 <group android:checkableBehavior="single">
                     <item
                         android:id="@+id/service"
-                        android:title="Start / Stop Service" />
+                        android:title="Launch Service" />
                     <item
                         android:id="@+id/manage_operator"
                         android:title="Manage Operators" />

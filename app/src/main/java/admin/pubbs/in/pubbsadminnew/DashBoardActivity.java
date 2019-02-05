@@ -155,16 +155,21 @@ public class DashBoardActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            Fragment f = getFragmentManager().findFragmentById(R.id.myFrame);
+            /*Fragment f = getFragmentManager().findFragmentById(R.id.myFrame);
             if (f instanceof DashboardFragment) {
+                 finish();
+            } else {*/
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 finish();
-            } else {
-                super.onBackPressed();
+             //   super.onBackPressed();
                /* this.finish();
                 System.exit(0);*/
             }
         }
-    }
+    //}
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

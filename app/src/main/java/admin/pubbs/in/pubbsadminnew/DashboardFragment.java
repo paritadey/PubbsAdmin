@@ -1,6 +1,9 @@
 package admin.pubbs.in.pubbsadminnew;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -37,6 +41,9 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
     Handler handler = new Handler();
     final int delay = 5000; //milliseconds
     TextView cycleId, cycleUsername, cycleUserPhone, call, locate, accident;
+    ImageView support;
+    String uphone, uadmin;
+    SharedPreferences sharedPreferences;
 
 
     @Nullable
@@ -46,7 +53,9 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
         View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
         Typeface type1 = Typeface.createFromAsset(getActivity().getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type2 = Typeface.createFromAsset(getActivity().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
+        sharedPreferences = getActivity().getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
+        uphone = sharedPreferences.getString("adminmobile", "null"); //uphone is the user_phone to store the mobile number of the user
+        uadmin = sharedPreferences.getString("admin_type", "null"); //uadmin is the admin type of the user who is using the app at the moment
         /*cycleId = v.findViewById(R.id.cycle_id);
         cycleId.setTypeface(type1);
         cycleUsername = v.findViewById(R.id.cycle_user_name);
@@ -61,6 +70,8 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
         locate.setOnClickListener(this);
         accident = v.findViewById(R.id.accident);
         accident.setTypeface(type2);*/
+        support = v.findViewById(R.id.support);
+        support.setOnClickListener(this);
         mapView = (MapView) v.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         try {
@@ -122,18 +133,18 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
     public void onResume() {
         super.onResume();
         mapView.onResume();
-      //  trackRide.run();
+        //  trackRide.run();
         loadData();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-      //  handler.removeCallbacks(trackRide);
+        //  handler.removeCallbacks(trackRide);
         loadData();
     }
 
-    public void loadData(){
+    public void loadData() {
         JSONObject jo = new JSONObject();
         try {
             //  jo.put("method", "trackrides");
@@ -165,6 +176,12 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
                 break;
             case R.id.locate:
                 break;*/
+            case R.id.support:
+                Intent intent = new Intent(getContext(), ContactSuperAdmin.class);
+                intent.putExtra("uphone", uphone);
+                intent.putExtra("uadmin", uadmin);
+                startActivity(intent);
+                break;
             default:
                 break;
         }
@@ -173,7 +190,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
     @Override
     public void onResponse(JSONObject jsonObject) {
         if (jsonObject.has("method")) {
-           // gmap.clear();
+            // gmap.clear();
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             try {
                 if (jsonObject.getString("method").equals("get_all_stations")) {
@@ -184,15 +201,15 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
                             String lat = jo.getString("station_latitude");
                             String lon = jo.getString("station_longitude");
                             double latitude = Double.parseDouble(lat);
-                            double longitude =Double.parseDouble(lon);
-                            LatLng ll = new LatLng(latitude,longitude);
+                            double longitude = Double.parseDouble(lon);
+                            LatLng ll = new LatLng(latitude, longitude);
                             gmap.addMarker(new MarkerOptions().position(ll)
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.station))
-                                    .title("Station Name:"+jo.getString("station_name")));
+                                    .title("Station Name:" + jo.getString("station_name")));
                             builder.include(ll);
                         }
                         LatLngBounds bounds = builder.build();
-                     //   int padding = 50; // offset from edges of the map in pixels
+                        //   int padding = 50; // offset from edges of the map in pixels
                         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 15);
                         gmap.moveCamera(cu);
                     }
