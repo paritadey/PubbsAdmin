@@ -131,6 +131,7 @@ public class DashBoardActivity extends AppCompatActivity
             } else if (uadmin.equals("Sub Admin")) { //if the admin_type of the user using the app is "Sub Admin" then all options
                 // will be shown in the app which are present in the drawer menu
                 check = false;
+                navigationView.getMenu().findItem(R.id.edit_station).setVisible(false);
             }
 
         } else {
