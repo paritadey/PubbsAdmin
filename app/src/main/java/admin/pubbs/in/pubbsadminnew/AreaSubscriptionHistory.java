@@ -31,7 +31,6 @@ import java.util.List;
 public class AreaSubscriptionHistory extends AppCompatActivity implements AsyncResponse {
     ImageView back;
     private TextView admin_subscription;
-    EditText inputSearch;
     ProgressBar circularProgressbar;
     private RecyclerView recyclerView;
     private AreaSubscriptionHistoryAdapter areaSubscriptionHistoryAdapter;
@@ -62,8 +61,6 @@ public class AreaSubscriptionHistory extends AppCompatActivity implements AsyncR
         back = findViewById(R.id.back_button);
         admin_subscription = findViewById(R.id.admin_subscription);
         admin_subscription.setTypeface(type1);
-        inputSearch = findViewById(R.id.input_search);
-        inputSearch.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
         recyclerView = findViewById(R.id.recycler_view);
         areaSubscriptionHistoryAdapter = new AreaSubscriptionHistoryAdapter(adminSubscriptionHistoryLists);

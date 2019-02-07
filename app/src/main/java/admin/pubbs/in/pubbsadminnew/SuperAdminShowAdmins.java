@@ -30,11 +30,11 @@ import java.util.List;
 public class SuperAdminShowAdmins extends AppCompatActivity implements AsyncResponse {
     ImageView back;
     private TextView addOperatorTv;
-    EditText inputSearch;
     ProgressBar circularProgressbar;
     private RecyclerView recyclerView;
     private AdminAdapter adminAdapter;
     private List<AdminList> adminLists = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +48,6 @@ public class SuperAdminShowAdmins extends AppCompatActivity implements AsyncResp
         back = findViewById(R.id.back_button);
         addOperatorTv = findViewById(R.id.add_operator_tv);
         addOperatorTv.setTypeface(type1);
-        inputSearch = findViewById(R.id.input_search);
-        inputSearch.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
         recyclerView = findViewById(R.id.recycler_view);
         adminAdapter = new AdminAdapter(adminLists);

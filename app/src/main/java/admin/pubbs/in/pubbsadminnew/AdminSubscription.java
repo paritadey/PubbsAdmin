@@ -27,10 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 /*created by Parita Dey*/
 
-public class AdminSubscription extends AppCompatActivity implements AsyncResponse{
+public class AdminSubscription extends AppCompatActivity implements AsyncResponse {
     ImageView back;
     private TextView admin_subscription_area;
-    EditText inputSearch;
     ProgressBar circularProgressbar;
     private RecyclerView recyclerView;
     private AdminSubscriptionAdapter adminSubscriptionAdapter;
@@ -54,8 +53,6 @@ public class AdminSubscription extends AppCompatActivity implements AsyncRespons
         back = findViewById(R.id.back_button);
         admin_subscription_area = findViewById(R.id.admin_subscription_area);
         admin_subscription_area.setTypeface(type1);
-        inputSearch = findViewById(R.id.input_search);
-        inputSearch.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
         recyclerView = findViewById(R.id.recycler_view);
         adminSubscriptionAdapter = new AdminSubscriptionAdapter(adminSubscriptionLists);
@@ -85,6 +82,7 @@ public class AdminSubscription extends AppCompatActivity implements AsyncRespons
         });
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -132,6 +130,7 @@ public class AdminSubscription extends AppCompatActivity implements AsyncRespons
     public void onResponseError(VolleyError error) {
         showDialog("Server Error !");
     }
+
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -141,7 +140,7 @@ public class AdminSubscription extends AppCompatActivity implements AsyncRespons
         View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
 
         final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
-        final TextView extraLine = (TextView)dialogView.findViewById(R.id.extra_line);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
         extraLine.setTypeface(type1);
         serverProblem.setTypeface(type1);
         serverProblem.setText(message);

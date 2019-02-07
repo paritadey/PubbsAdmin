@@ -109,7 +109,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(AddOperatorArea.this, AddOperator.class);
+        Intent intent = new Intent(AddOperatorArea.this, SuperAdminAddOperator.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
@@ -182,7 +182,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case R.id.back_button:
-                Intent intent = new Intent(AddOperatorArea.this, AddOperator.class);
+                Intent intent = new Intent(AddOperatorArea.this, SuperAdminAddOperator.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
@@ -209,7 +209,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View view) {
                 dialogBuilder.dismiss();
-                Intent intent = new Intent(AddOperatorArea.this, DashBoardActivity.class);
+                Intent intent = new Intent(AddOperatorArea.this, SuperAdminAddOperator.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }

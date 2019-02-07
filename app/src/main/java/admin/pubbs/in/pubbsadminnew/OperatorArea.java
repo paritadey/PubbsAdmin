@@ -43,7 +43,6 @@ public class OperatorArea extends AppCompatActivity implements AsyncResponse {
     ImageView back;
     private TextView operatorTv;
     private String TAG = OperatorArea.class.getSimpleName();
-    EditText inputSearch;
     ProgressBar circularProgressbar;
     String area_id;
     SharedPreferences sharedPreferences;
@@ -68,8 +67,6 @@ public class OperatorArea extends AppCompatActivity implements AsyncResponse {
         operatorTv = findViewById(R.id.delete_operator_tv);
         operatorTv.setTypeface(type1);
         back = findViewById(R.id.back_button);
-        inputSearch = findViewById(R.id.input_search);
-        inputSearch.setTypeface(type1);
         recyclerView = findViewById(R.id.recyclerview);
         operatorAdapter = new OperatorAdapter(operatorLists);
         recyclerView.setHasFixedSize(true);

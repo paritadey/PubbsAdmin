@@ -225,7 +225,7 @@ public class SuperAdminShowSpecificArea extends AppCompatActivity implements Vie
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(SuperAdminShowSpecificArea.this, AllAreaAdpater.class);
+        Intent intent = new Intent(SuperAdminShowSpecificArea.this, ShowAllAreas.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
@@ -234,7 +234,7 @@ public class SuperAdminShowSpecificArea extends AppCompatActivity implements Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button:
-                Intent intent = new Intent(SuperAdminShowSpecificArea.this, AllAreaAdpater.class);
+                Intent intent = new Intent(SuperAdminShowSpecificArea.this, ShowAllAreas.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;

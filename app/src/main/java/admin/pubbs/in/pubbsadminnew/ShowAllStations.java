@@ -80,7 +80,7 @@ public class ShowAllStations extends AppCompatActivity implements AsyncResponse{
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShowAllStations.this, DashBoardActivity.class);
+                Intent intent = new Intent(ShowAllStations.this, ShowAreaStations.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -157,7 +157,7 @@ public class ShowAllStations extends AppCompatActivity implements AsyncResponse{
                 if (circularProgressbar.isEnabled()) {
                     circularProgressbar.setVisibility(View.GONE);
                 }
-                Intent intent = new Intent(ShowAllStations.this, DashBoardActivity.class);
+                Intent intent = new Intent(ShowAllStations.this, ShowAreaStations.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -170,7 +170,7 @@ public class ShowAllStations extends AppCompatActivity implements AsyncResponse{
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(ShowAllStations.this, DashBoardActivity.class);
+        Intent intent = new Intent(ShowAllStations.this, ShowAreaStations.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

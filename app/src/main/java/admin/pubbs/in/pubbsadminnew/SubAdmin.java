@@ -30,7 +30,6 @@ import java.util.List;
 public class SubAdmin extends AppCompatActivity implements AsyncResponse {
     ImageView back;
     private TextView subadmin_tv;
-    EditText inputSearch;
     ProgressBar circularProgressbar;
     private RecyclerView recyclerView;
     private SubAdminAdpater subAdminAdpater;
@@ -59,8 +58,6 @@ public class SubAdmin extends AppCompatActivity implements AsyncResponse {
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
         subadmin_tv = findViewById(R.id.subadmin_tv);
         subadmin_tv.setTypeface(type1);
-        inputSearch = findViewById(R.id.input_search);
-        inputSearch.setTypeface(type1);
         back = findViewById(R.id.back_button);
         circularProgressbar = findViewById(R.id.circularProgressbar);
         recyclerView = findViewById(R.id.recycler_view);
