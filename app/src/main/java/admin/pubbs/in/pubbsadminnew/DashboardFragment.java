@@ -84,7 +84,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
         return v;
     }
 
-   /* @Override
+    @Override
     public void onResponse(JSONObject jsonObject) {
         if (jsonObject.has("method")) {
             gmap.clear();
@@ -96,7 +96,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
                             LatLng ll = new LatLng(jo.getDouble("lat"), jo.getDouble("lng"));
-                            gmap.addMarker(new MarkerOptions().position(ll).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_virtual_stn)).title(jo.getString("booking_id")));
+                            gmap.addMarker(new MarkerOptions().position(ll).icon(BitmapDescriptorFactory.fromResource(R.drawable.bicycle_rider)));//.title(jo.getString("booking_id")));
                             builder.include(ll);
                         }
                         LatLngBounds bounds = builder.build();
@@ -114,7 +114,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
     @Override
     public void onResponseError(VolleyError error) {
 
-    }*/
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -122,8 +122,8 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
         googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
-                //trackRide.run();
-                loadData();
+                trackRide.run();
+                //loadData();
             }
         });
 
@@ -133,29 +133,29 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
     public void onResume() {
         super.onResume();
         mapView.onResume();
-        //  trackRide.run();
-        loadData();
+          trackRide.run();
+       // loadData();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //  handler.removeCallbacks(trackRide);
-        loadData();
+          handler.removeCallbacks(trackRide);
+       // loadData();
     }
 
-    public void loadData() {
+   /* public void loadData() {
         JSONObject jo = new JSONObject();
         try {
-            //  jo.put("method", "trackrides");
-            jo.put("method", "get_all_stations");
+              jo.put("method", "trackrides");
+           // jo.put("method", "get_all_stations");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         new SendRequest(getString(R.string.url), jo, DashboardFragment.this, getActivity()).executeJsonRequest();
 
-    }
-  /*  private Runnable trackRide = new Runnable() {
+    }*/
+    private Runnable trackRide = new Runnable() {
         @Override
         public void run() {
             JSONObject jo = new JSONObject();
@@ -167,7 +167,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
             new SendRequest(getString(R.string.url), jo, DashboardFragment.this, getActivity()).executeJsonRequest();
             handler.postDelayed(trackRide, delay);
         }
-    };*/
+    };
 
     @Override
     public void onClick(View v) {
@@ -187,7 +187,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
         }
     }
 
-    @Override
+  /*  @Override
     public void onResponse(JSONObject jsonObject) {
         if (jsonObject.has("method")) {
             // gmap.clear();
@@ -224,5 +224,5 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
     @Override
     public void onResponseError(VolleyError error) {
 
-    }
+    }*/
 }

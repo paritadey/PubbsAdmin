@@ -202,7 +202,7 @@ public class SetAreaAgreement extends AppCompatActivity implements View.OnClickL
             @Override
             public void onClick(View view) {
                 dialogBuilder.dismiss();
-                Intent intent = new Intent(SetAreaAgreement.this, DashBoardActivity.class);
+                Intent intent = new Intent(SetAreaAgreement.this, AreaLegal.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 

@@ -50,8 +50,8 @@ public class AreaLegalAdapter extends RecyclerView.Adapter<AreaLegalAdapter.MyVi
     @Override
     public void onBindViewHolder(AreaLegalAdapter.MyViewHolder holder, int position) {
         AreaList areaList = areaLists.get(position);
-        holder.areaName.setText(areaList.getAreaName());
-        holder.areaId.setText(areaList.getAreaId());
+        holder.areaName.setText(areaList.getAreaId());
+        holder.areaId.setText(areaList.getAreaName());
         holder.areaLatLon.setText(areaList.getAreaLatLon());
         String areaname = areaList.getAreaName();
         String areaid = areaList.getAreaId();

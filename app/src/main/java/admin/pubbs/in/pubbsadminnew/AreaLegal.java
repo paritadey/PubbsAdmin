@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 /*created by Parita Dey*/
 
-public class AreaLegal extends AppCompatActivity implements AsyncResponse{
+public class AreaLegal extends AppCompatActivity implements AsyncResponse {
     ImageView back;
     private TextView addNewStationTv;
     ProgressBar circularProgressbar;
@@ -88,16 +88,18 @@ public class AreaLegal extends AppCompatActivity implements AsyncResponse{
             }
         });
     }
+
     @Override
     public void onResume() {
         super.onResume();
         loadData();
     }
+
     private void loadData() {
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
         try {
-            jo.put("method", "getallmaparea");
+            jo.put("method", "getlegalmaparea");
             jo.put("adminmobile", adminmobile);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -112,7 +114,7 @@ public class AreaLegal extends AppCompatActivity implements AsyncResponse{
         areaLists.clear();
         if (jsonObject.has("method")) {
             try {
-                if (jsonObject.getString("method").equals("getallmaparea") && jsonObject.getBoolean("success")) {
+                if (jsonObject.getString("method").equals("getlegalmaparea") && jsonObject.getBoolean("success")) {
                     JSONArray ja = jsonObject.getJSONArray("data");
                     if (ja.length() > 0) {
                         for (int i = 0; i < ja.length(); i++) {
@@ -122,6 +124,8 @@ public class AreaLegal extends AppCompatActivity implements AsyncResponse{
                             areaLists.add(list);
                         }
                     }
+                } else {
+                    showDialog("Legal is set for all areas !");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -134,6 +138,7 @@ public class AreaLegal extends AppCompatActivity implements AsyncResponse{
     public void onResponseError(VolleyError error) {
         showDialog("Server Error !");
     }
+
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -143,7 +148,7 @@ public class AreaLegal extends AppCompatActivity implements AsyncResponse{
         View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
 
         final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
-        final TextView extraLine = (TextView)dialogView.findViewById(R.id.extra_line);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
         extraLine.setTypeface(type1);
         serverProblem.setTypeface(type1);
         serverProblem.setText(message);
