@@ -14,7 +14,7 @@
         app:srcCompat="@drawable/ic_bicycle" />
 
     <TextView
-        android:id="@+id/date_time"
+        android:id="@+id/arrival_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/thirty_dp"
@@ -26,7 +26,7 @@
         android:textSize="@dimen/fourteen_sp" />
 
     <TextView
-        android:id="@+id/bicycle_id"
+        android:id="@+id/booking_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/thirty_dp"
@@ -37,22 +37,9 @@
         android:textColor="@color/color_black_01"
         android:textSize="@dimen/sixteen_sp" />
 
-    <TextView
-        android:id="@+id/text_required"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bicycle_id"
-        android:layout_marginBottom="@dimen/eight_dp"
-        android:layout_marginStart="@dimen/thirty_dp"
-        android:layout_marginTop="@dimen/two_dp"
-        android:layout_toRightOf="@id/bicycle"
-        android:padding="@dimen/two_dp"
-        android:text="Some text if required"
-        android:textColor="@color/color_grey_01"
-        android:textSize="@dimen/tweleve_sp" />
 
     <TextView
-        android:id="@+id/time_stamp"
+        android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -67,9 +54,10 @@
         android:id="@+id/money_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/fifty_dp"
-        android:layout_marginTop="@dimen/sixty_dp"
+        android:layout_marginStart="@dimen/thirty_dp"
+        android:layout_marginTop="@dimen/ten_dp"
+        android:layout_toRightOf="@id/bicycle"
+        android:layout_below="@id/booking_id"
         android:padding="@dimen/two_dp"
         android:text="₹"
         android:textColor="@color/green_800" />
@@ -78,9 +66,10 @@
         android:id="@+id/money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/thirty_six_dp"
-        android:layout_marginTop="@dimen/sixty_dp"
+        android:layout_marginStart="@dimen/fourty_dp"
+        android:layout_marginTop="@dimen/ten_dp"
+        android:layout_toRightOf="@id/bicycle"
+        android:layout_below="@id/booking_id"
         android:padding="@dimen/four_dp"
         android:text="5"
         android:textColor="@color/green_800" />

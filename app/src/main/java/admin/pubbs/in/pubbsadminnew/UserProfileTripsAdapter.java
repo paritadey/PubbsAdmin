@@ -15,24 +15,23 @@ public class UserProfileTripsAdapter extends RecyclerView.Adapter<UserProfileTri
     private List<UserProfileTripsList> userTrips;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView bicycleId;
-        public TextView dateTime, timeStamp, money, text_required;
+        public TextView arrival_time, booking_id, duration, money_tv, money;
 
         public MyViewHolder(View view) {
             super(view);
             Typeface type1 = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
             Typeface type2 = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
-            bicycleId = (TextView) view.findViewById(R.id.bicycle_id);
-            bicycleId.setTypeface(type1);
-            dateTime = view.findViewById(R.id.date_time);
-            dateTime.setTypeface(type1);
-            timeStamp = view.findViewById(R.id.time_stamp);
-            timeStamp.setTypeface(type1);
+            arrival_time = (TextView) view.findViewById(R.id.arrival_time);
+            arrival_time.setTypeface(type1);
+            booking_id = view.findViewById(R.id.booking_id);
+            booking_id.setTypeface(type1);
+            duration = view.findViewById(R.id.duration);
+            duration.setTypeface(type1);
             money = view.findViewById(R.id.money);
             money.setTypeface(type1);
-            text_required = view.findViewById(R.id.text_required);
-            text_required.setTypeface(type1);
+            money_tv = view.findViewById(R.id.money_tv);
+            money_tv.setTypeface(type2);
         }
     }
 
@@ -51,10 +50,10 @@ public class UserProfileTripsAdapter extends RecyclerView.Adapter<UserProfileTri
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         UserProfileTripsList tripsList = userTrips.get(position);
-        holder.bicycleId.setText(tripsList.getBicycleId());
-        holder.dateTime.setText(tripsList.getDateTime());
-        holder.timeStamp.setText(tripsList.getTimeStamp());
-        holder.money.setText(tripsList.getMoney());
+        holder.arrival_time.setText(tripsList.getArrivalTime());
+        holder.booking_id.setText("Booking ID: "+tripsList.getBookingId());
+        holder.duration.setText(tripsList.getDuration()+"mins");
+        holder.money.setText(tripsList.getAmount());
     }
 
     @Override

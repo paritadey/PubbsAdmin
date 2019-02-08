@@ -8,7 +8,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -56,6 +56,7 @@
                         android:layout_marginEnd="@dimen/eight_dp"
                         android:layout_marginStart="@dimen/eight_dp"
                         android:background="@color/white"
+                        android:visibility="gone"
                         android:backgroundTint="@android:color/transparent"
                         android:hint="@string/search_suggestion"
                         android:imeOptions="actionSearch"
@@ -72,6 +73,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/ten_dp"
+                        android:visibility="gone"
                         app:srcCompat="@drawable/ic_search_black_24dp" />
 
                 </RelativeLayout>

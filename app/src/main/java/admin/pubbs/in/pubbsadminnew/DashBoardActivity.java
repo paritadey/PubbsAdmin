@@ -28,7 +28,6 @@ public class DashBoardActivity extends AppCompatActivity
     NavigationView navigationView;
     ImageView close;
     TextView allBicycleTv;
-    EditText inputSearch;
     private String TAG = DashBoardActivity.class.getSimpleName();
     TextView phone_number, admin_type;
     String uphone, uadmin;
@@ -43,8 +42,6 @@ public class DashBoardActivity extends AppCompatActivity
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         allBicycleTv = findViewById(R.id.all_bicycle_tv);
         allBicycleTv.setTypeface(type);
-        inputSearch = findViewById(R.id.input_search);
-        inputSearch.setTypeface(type);
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -160,16 +157,16 @@ public class DashBoardActivity extends AppCompatActivity
             if (f instanceof DashboardFragment) {
                  finish();
             } else {*/
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-             //   super.onBackPressed();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+            //   super.onBackPressed();
                /* this.finish();
                 System.exit(0);*/
-            }
         }
+    }
     //}
 
     @SuppressWarnings("StatementWithEmptyBody")

@@ -2,37 +2,38 @@ package admin.pubbs.in.pubbsadminnew;
 /*created by Parita Dey*/
 
 public class UserProfileTripsList {
-    private String dateTime, bicycleId, timeStamp, money;
+    private String arrival_time, booking_id;
+    private int duration, amount;
     public UserProfileTripsList(){
     }
-    public UserProfileTripsList(String dateTime, String bicycleId, String timeStamp, String money){
-        this.dateTime = dateTime;
-        this.bicycleId = bicycleId;
-        this.timeStamp = timeStamp;
-        this.money = money;
+    public UserProfileTripsList(String booking_id, String arrival_time, int amount, int duration){
+        this.booking_id = booking_id;
+        this.arrival_time = arrival_time;
+        this.amount = amount;
+        this.duration = duration;
     }
-    public void setDateTime(String dateTime){
-        this.dateTime = dateTime;
+    public void setArrivalTime(String arrival_time){
+        this.arrival_time = arrival_time;
     }
-    public String getDateTime(){
-        return dateTime;
+    public String getArrivalTime(){
+        return arrival_time;
     }
-    public void setBicycleId(String bicycleId){
-        this.bicycleId = bicycleId;
+    public void setBookingId(String booking_id){
+        this.booking_id = booking_id;
     }
-    public String getBicycleId(){
-        return bicycleId;
+    public String getBookingId(){
+        return booking_id;
     }
-    public void setTimeStamp(String timeStamp){
-        this.timeStamp = timeStamp;
+    public void setDuration(int duration){
+        this.duration = duration;
     }
-    public String getTimeStamp(){
-        return timeStamp;
+    public int getDuration(){
+        return duration;
     }
-    public void setMoney(String money){
-        this.money = money;
+    public void setAmount(int amount){
+        this.amount = amount;
     }
-    public String getMoney() {
-        return money;
+    public int getAmount() {
+        return amount;
     }
 }
