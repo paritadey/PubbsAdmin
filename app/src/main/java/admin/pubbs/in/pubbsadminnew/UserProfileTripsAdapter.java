@@ -50,10 +50,10 @@ public class UserProfileTripsAdapter extends RecyclerView.Adapter<UserProfileTri
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         UserProfileTripsList tripsList = userTrips.get(position);
-        holder.arrival_time.setText(tripsList.getArrivalTime());
         holder.booking_id.setText("Booking ID: "+tripsList.getBookingId());
-        holder.duration.setText(tripsList.getDuration()+"mins");
-        holder.money.setText(tripsList.getAmount());
+        holder.arrival_time.setText(tripsList.getArrivalTime());
+        holder.duration.setText(String.valueOf(tripsList.getDuration())+"mins");
+        holder.money.setText(String.valueOf(tripsList.getAmount()));
     }
 
     @Override

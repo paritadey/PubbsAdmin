@@ -104,7 +104,7 @@ public class UserProfileWallet extends Fragment implements AsyncResponse {
                         }
                     }
                 } else {
-                    showDialog("No Subscription plan is active.");
+                    showDialog("No wallet transcation is present.");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

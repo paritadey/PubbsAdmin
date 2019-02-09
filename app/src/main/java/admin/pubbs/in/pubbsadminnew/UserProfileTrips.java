@@ -23,12 +23,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserProfileTrips extends android.support.v4.app.Fragment{// implements AsyncResponse {
+public class UserProfileTrips extends android.support.v4.app.Fragment implements AsyncResponse {
     private RecyclerView recyclerView;
     private UserProfileTripsAdapter userProfileTripsAdapter;
     private List<UserProfileTripsList> userProfileTripsLists = new ArrayList<>();
     private String TAG = UserProfileTrips.class.getSimpleName();
-    String userName, userPhone, userId;
+    String userPhone;
 
     public UserProfileTrips() {
     }
@@ -65,10 +65,9 @@ public class UserProfileTrips extends android.support.v4.app.Fragment{// impleme
             public void onLongClick(View view, int position) {
             }
         }));
-      //  prepareUserTripsData();
         return rootView;
     }
-  /*  @Override
+   @Override
     public void onResume() {
         super.onResume();
         loadData();
@@ -135,9 +134,9 @@ public class UserProfileTrips extends android.support.v4.app.Fragment{// impleme
             @Override
             public void onClick(View view) {
                 dialogBuilder.dismiss();
-                Intent back = new Intent(getContext(), MyUsers.class);
+               /* Intent back = new Intent(getContext(), MyUsers.class);
                 back.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(back);
+                startActivity(back);*/
             }
         });
 
@@ -145,5 +144,5 @@ public class UserProfileTrips extends android.support.v4.app.Fragment{// impleme
         dialogBuilder.show();
         dialogBuilder.setCancelable(false);
     }
-    */
+
 }
