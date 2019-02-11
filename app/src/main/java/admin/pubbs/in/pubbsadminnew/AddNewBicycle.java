@@ -167,12 +167,15 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
                             areaLists.add(list);
                         }
                     }
+                } else {
+                    showDialog("No Station is present.");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        areaAdpater.notifyDataSetChanged();    }
+        areaAdpater.notifyDataSetChanged();
+    }
 
     @Override
     public void onResponseError(VolleyError error) {

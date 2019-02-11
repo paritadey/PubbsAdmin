@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -180,6 +181,7 @@ public class SignIn extends Fragment {
                     startActivity(intent);
                 } else {
                     Log.d("Signin", "server result: " + httpResponseMsg);
+                    Toast.makeText(getContext(), "User is not active or Username/password is incorrect.", Toast.LENGTH_LONG).show();
                 }
             }
 

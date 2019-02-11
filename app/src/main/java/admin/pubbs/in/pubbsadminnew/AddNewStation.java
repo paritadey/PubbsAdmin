@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*created by Parita Dey*/
-public class AddNewStation extends AppCompatActivity implements AsyncResponse{
+public class AddNewStation extends AppCompatActivity implements AsyncResponse {
     ImageView back;
     private TextView addNewStationTv;
     EditText inputSearch;
@@ -42,6 +42,7 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse{
     SharedPreferences sharedPreferences;
     String adminmobile;
     private String TAG = AddNewStation.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +60,8 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse{
         back = findViewById(R.id.back_button);
         addNewStationTv = findViewById(R.id.add_new_station_tv);
         addNewStationTv.setTypeface(type1);
-      //  inputSearch = findViewById(R.id.input_search);
-       // inputSearch.setTypeface(type1);
+        //  inputSearch = findViewById(R.id.input_search);
+        // inputSearch.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
         recyclerView = findViewById(R.id.recycler_view);
         addNewStationAdpater = new AddNewStationAdpater(areaLists);
@@ -90,11 +91,13 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse{
         });
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
         loadData();
     }
+
     private void loadData() {
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
@@ -124,6 +127,8 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse{
                             areaLists.add(list);
                         }
                     }
+                } else {
+                    showDialog("No Area is present.");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -136,6 +141,7 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse{
     public void onResponseError(VolleyError error) {
         showDialog("Server Error !");
     }
+
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -145,7 +151,7 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse{
         View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
 
         final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
-        final TextView extraLine = (TextView)dialogView.findViewById(R.id.extra_line);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
         extraLine.setTypeface(type1);
         serverProblem.setTypeface(type1);
         serverProblem.setText(message);

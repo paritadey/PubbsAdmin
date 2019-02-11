@@ -116,6 +116,9 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
             } else if (uadmin.equals("Employee")) { //if the admin_type of the user using the app is "Employee" then following options will be shown in the app
                 check = false;
+                navigationView.getMenu().findItem(R.id.rate_chart).setVisible(false);
+                navigationView.getMenu().findItem(R.id.area_subscription).setVisible(false);
+                navigationView.getMenu().findItem(R.id.area_legal).setVisible(false);
                 navigationView.getMenu().findItem(R.id.add_area).setVisible(false);
                 navigationView.getMenu().findItem(R.id.edit_station).setVisible(false);
                 navigationView.getMenu().findItem(R.id.delete_station).setVisible(false);
@@ -295,8 +298,14 @@ public class DashBoardActivity extends AppCompatActivity
                 break;
             case R.id.log_out:
                 sharedPreferences.edit().clear().commit();
-                this.finish();
-                System.exit(0);
+                Intent intent1 = new Intent(Intent.ACTION_MAIN);
+                intent1.addCategory(Intent.CATEGORY_HOME);
+                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent1);
+                finish();
+
+                // this.finish();
+               // System.exit(0);
                 break;
         }
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
