@@ -31,7 +31,8 @@ public class DashBoardActivity extends AppCompatActivity
     private String TAG = DashBoardActivity.class.getSimpleName();
     TextView phone_number, admin_type;
     String uphone, uadmin;
-    boolean check = false;
+    //boolean check = false;
+    int check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,8 @@ public class DashBoardActivity extends AppCompatActivity
             admin_type.setTypeface(type);
             admin_type.setText(uadmin);
             if (uadmin.equals("Super Admin")) { //if the admin_type of the user using the app is "Super Admin" then following options will be shown in the app
-                check = true;
+                //check = true;
+                check = 1;
                 navigationView.getMenu().findItem(R.id.manage_area).setTitle("Manage Admin/Employee");
                 navigationView.getMenu().findItem(R.id.add_area).setTitle("Add New Admin");
                 navigationView.getMenu().findItem(R.id.area_subscription).setVisible(false);
@@ -115,7 +117,8 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
             } else if (uadmin.equals("Employee")) { //if the admin_type of the user using the app is "Employee" then following options will be shown in the app
-                check = false;
+                // check = false;
+                check = 2;
                 navigationView.getMenu().findItem(R.id.rate_chart).setVisible(false);
                 navigationView.getMenu().findItem(R.id.area_subscription).setVisible(false);
                 navigationView.getMenu().findItem(R.id.area_legal).setVisible(false);
@@ -130,7 +133,8 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
             } else if (uadmin.equals("Sub Admin")) { //if the admin_type of the user using the app is "Sub Admin" then all options
                 // will be shown in the app which are present in the drawer menu
-                check = false;
+                // check = false;
+                check = 3;
                 navigationView.getMenu().findItem(R.id.edit_station).setVisible(false);
             }
 
@@ -178,21 +182,21 @@ public class DashBoardActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.area_subscription:
-                if (check == true) {
-                } else {
+                if (check == 1) {
+                } else if (check == 2 || check == 3) {
                     startActivity(new Intent(DashBoardActivity.this, AllAreaSubscriptions.class));
                 }
                 break;
             case R.id.rate_chart:
-                if (check == true) {
-                } else {
+                if (check == 1) {
+                } else if (check == 2 || check == 3) {
                     startActivity(new Intent(DashBoardActivity.this, AllAreaRateChart.class));
                 }
                 break;
             case R.id.profile:
-                if (check == true) {
+                if (check == 1) {
                     startActivity(new Intent(DashBoardActivity.this, Settings.class));
-                } else {
+                } else if (check == 2 || check == 3) {
                     startActivity(new Intent(DashBoardActivity.this, Settings.class));
                 }
                 break;
@@ -200,36 +204,36 @@ public class DashBoardActivity extends AppCompatActivity
                 startActivity(new Intent(DashBoardActivity.this, AreaLegal.class));
                 break;
             case R.id.redistribution:
-                if (check == true) {
+                if (check == 1) {
                     // startActivity(new Intent(DashBoardActivity.this, ShowAllAreas.class));
                     break;
-                } else {
+                } else if (check == 2 || check == 3) {
                     startActivity(new Intent(DashBoardActivity.this, Redistribution.class));
                     break;
                 }
             case R.id.repair:
-                if (check == true) {
+                if (check == 1) {
                     startActivity(new Intent(DashBoardActivity.this, ShowAllAreas.class));
                     break;
-                } else {
+                } else if (check == 2 || check == 3) {
                     startActivity(new Intent(DashBoardActivity.this, Repair.class));
                     break;
                 }
             case R.id.recharge_battery:
-                if (check == true) {
+                if (check == 1) {
                     startActivity(new Intent(DashBoardActivity.this, ShowAreaStations.class));
                     break;
-                } else {
+                } else if (check == 2 || check == 3) {
                     setMenuCounter(R.id.recharge_battery, 3);
                     startActivity(new Intent(DashBoardActivity.this, RechargeBattery.class));
                     break;
                 }
             case R.id.add_new_bicycle:
-                if (check == true) {
+                if (check == 1) {
                     //edit Admin/Employee not yet done
                     startActivity(new Intent(DashBoardActivity.this, OperatorArea.class));
                     break;
-                } else {
+                } else if (check == 2 || check == 3) {
                     startActivity(new Intent(DashBoardActivity.this, AddNewBicycle.class));
                     break;
                 }
@@ -237,53 +241,53 @@ public class DashBoardActivity extends AppCompatActivity
                 startActivity(new Intent(DashBoardActivity.this, RemoveBicycle.class));
                 break;
             case R.id.my_users:
-                if (check == true) {
+                if (check == 1) {
                     startActivity(new Intent(DashBoardActivity.this, FeedBack.class));
                     break;
-                } else {
+                } else if (check == 2 || check == 3) {
                     startActivity(new Intent(DashBoardActivity.this, MyUsers.class));
                     break;
                 }
             case R.id.support_user:
                 break;
             case R.id.add_area:
-                if (check == true) {
+                if (check == 1) {
                     // startActivity(new Intent(DashBoardActivity.this, AddOperator.class));
                     startActivity(new Intent(DashBoardActivity.this, SuperAdminAddOperator.class));
                     break;
-                } else {
+                } else if (check == 2 || check == 3) {
                     startActivity(new Intent(DashBoardActivity.this, AddNewArea.class));
                     break;
                 }
             case R.id.add_station:
-                if (check == true) {
+                if (check == 1) {
                     startActivity(new Intent(DashBoardActivity.this, SuperAdminShowAdmins.class));
                     break;
-                } else {
+                } else if (check == 2 || check == 3) {
                     startActivity(new Intent(DashBoardActivity.this, AddNewStation.class));
                     break;
                 }
             case R.id.edit_station:
-                if (check == true) {
+                if (check == 1) {
                     //   startActivity(new Intent(DashBoardActivity.this, OperatorArea.class));
                     break;
-                } else {
+                } else if (check == 2 || check == 3) {
                     //still not developed
                     break;
                 }
             case R.id.delete_station:
-                if (check == true) {
+                if (check == 1) {
                     startActivity(new Intent(DashBoardActivity.this, SubAdmin.class));
                     break;
-                } else {
+                } else if (check == 2 || check == 3) {
                     startActivity(new Intent(DashBoardActivity.this, DeleteStation.class));
                     break;
                 }
             case R.id.service:
-                if (check == true) {
+                if (check == 1) {
                     startActivity(new Intent(DashBoardActivity.this, AdminSubscription.class));
                     break;
-                } else {
+                } else if(check == 2 || check == 3){
                     startActivity(new Intent(DashBoardActivity.this, StartStopService.class));
                     break;
                 }
@@ -305,7 +309,7 @@ public class DashBoardActivity extends AppCompatActivity
                 finish();
 
                 // this.finish();
-               // System.exit(0);
+                // System.exit(0);
                 break;
         }
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

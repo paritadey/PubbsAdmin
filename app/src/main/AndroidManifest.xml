@@ -16,7 +16,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".EmployeeAddNewStation"></activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -24,7 +27,7 @@
         <activity
             android:name=".DashBoardActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddNewArea"
             android:screenOrientation="portrait"
@@ -277,7 +280,7 @@
             android:name=".AreaRateChart"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

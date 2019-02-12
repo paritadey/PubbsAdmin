@@ -39,7 +39,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
     MapView mapView;
     GoogleMap gmap;
     Handler handler = new Handler();
-    final int delay = 5000; //milliseconds
+    final int delay = 1000; //milliseconds
     TextView cycleId, cycleUsername, cycleUserPhone, call, locate, accident;
     ImageView support;
     String uphone, uadmin;
@@ -100,8 +100,10 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
                             builder.include(ll);
                         }
                         LatLngBounds bounds = builder.build();
-                        int padding = 50; // offset from edges of the map in pixels
-                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                        int width = getResources().getDisplayMetrics().widthPixels;
+                        int height = getResources().getDisplayMetrics().heightPixels;
+                        int padding = (int) (width * 0.40); // offset from edges of the map 40% of screen*/
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
                         gmap.moveCamera(cu);
                     }
                 }

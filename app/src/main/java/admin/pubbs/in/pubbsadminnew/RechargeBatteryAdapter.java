@@ -48,7 +48,9 @@ public class RechargeBatteryAdapter extends RecyclerView.Adapter<RechargeBattery
     public void onBindViewHolder(MyViewHolder holder, int position) {
         RechargeBatteryList rechargeBatteryList = rechargeBatteryLists.get(position);
         holder.bicycleId.setText(rechargeBatteryList.getCycle_id());
+       // String status = rechargeBatteryList.getBattery_status();
         holder.battery_status.setText(rechargeBatteryList.getBattery_status());
+
     }
 
     @Override
