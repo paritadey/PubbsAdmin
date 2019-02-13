@@ -98,6 +98,13 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse {
         loadData();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AddNewStation.this, DashBoardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
     private void loadData() {
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();

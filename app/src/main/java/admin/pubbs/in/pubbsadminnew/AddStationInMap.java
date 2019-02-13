@@ -76,7 +76,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-    private static final float DEFAULT_ZOOM = 15f;
+    private static final float DEFAULT_ZOOM = 12f;
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -107,8 +107,9 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         areaLatLng = intent.getStringExtra("latlon");
         Log.d(TAG, "Area Details:" + areaName + "--" + areaId + "--" + areaLatLng);
         gson = new Gson();
-        polygon = gson.fromJson(areaLatLng, new TypeToken<List<LatLng>>(){}.getType());
-        Log.d(TAG, "Lat/Long:"+polygon);
+        polygon = gson.fromJson(areaLatLng, new TypeToken<List<LatLng>>() {
+        }.getType());
+        Log.d(TAG, "Lat/Long:" + polygon);
 
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminMobile = sharedPreferences.getString("adminmobile", null);
@@ -166,7 +167,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(AddStationInMap.this, DashBoardActivity.class);
+        Intent intent = new Intent(AddStationInMap.this, AddNewStation.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
@@ -435,7 +436,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button:
-                Intent intent = new Intent(AddStationInMap.this, DashBoardActivity.class);
+                Intent intent = new Intent(AddStationInMap.this, AddNewStation.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
