@@ -1,7 +1,11 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +16,9 @@ import java.util.List;
 
 public class RechargeBatteryAdapter extends RecyclerView.Adapter<RechargeBatteryAdapter.MyViewHolder> {
     private List<RechargeBatteryList> rechargeBatteryLists;
+    private String TAG = RechargeBatteryAdapter.class.getSimpleName();
+    Context mContext;
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView bicycleId;
         public TextView battery_status, battery_status_tv, battery_status_percentage;
@@ -48,9 +55,14 @@ public class RechargeBatteryAdapter extends RecyclerView.Adapter<RechargeBattery
     public void onBindViewHolder(MyViewHolder holder, int position) {
         RechargeBatteryList rechargeBatteryList = rechargeBatteryLists.get(position);
         holder.bicycleId.setText(rechargeBatteryList.getCycle_id());
-       // String status = rechargeBatteryList.getBattery_status();
-        holder.battery_status.setText(rechargeBatteryList.getBattery_status());
-
+        String status = rechargeBatteryList.getBattery_status();
+        Log.d(TAG, "battery status:" + status);
+        if (Integer.parseInt(status) <= 40) {
+            holder.battery_status.setText(rechargeBatteryList.getBattery_status());
+            holder.battery_status.setTextColor(Color.RED);
+        } else {
+            holder.battery_status.setText(rechargeBatteryList.getBattery_status());
+        }
     }
 
     @Override

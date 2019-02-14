@@ -36,6 +36,7 @@ public class ShowAllAreas extends AppCompatActivity implements AsyncResponse {
     private RecyclerView recyclerView;
     private AllAreaAdpater allAreaAdpater;
     private List<AreaList> areaLists = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +79,7 @@ public class ShowAllAreas extends AppCompatActivity implements AsyncResponse {
         });
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -112,6 +114,8 @@ public class ShowAllAreas extends AppCompatActivity implements AsyncResponse {
                             areaLists.add(list);
                         }
                     }
+                } else {
+                    showDialog("No area is present against this Sub-Admin");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

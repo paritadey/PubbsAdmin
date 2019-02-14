@@ -123,6 +123,8 @@ public class ShowAllStations extends AppCompatActivity implements AsyncResponse{
                             stationLists.add(list);
                         }
                     }
+                }else{
+                    showDialog("No station is present under this area");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

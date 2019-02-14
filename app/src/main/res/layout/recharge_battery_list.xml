@@ -4,61 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/eight_dp">
+    android:paddingBottom="@dimen/twenty_four_dp">
 
-  <ImageView
-      android:id="@+id/bicycle"
-      android:layout_width="40dp"
-      android:layout_height="40dp"
-      android:layout_marginStart="@dimen/twenty_four_dp"
-      android:layout_marginTop="@dimen/twenty_dp"
-      app:srcCompat="@drawable/ic_bicycle" />
+    <ImageView
+        android:id="@+id/bicycle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/twenty_four_dp"
+        android:layout_marginTop="@dimen/twenty_dp"
+        app:srcCompat="@drawable/ic_bicycle" />
 
-  <TextView
-      android:id="@+id/bicycle_id"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/thirty_dp"
-      android:layout_marginTop="@dimen/twenty_four_dp"
-      android:layout_toRightOf="@id/bicycle"
-      android:padding="@dimen/two_dp"
-      android:text="WB213426G"
-      android:textColor="@color/color_black_01"
-      android:textSize="@dimen/sixteen_sp" />
+    <TextView
+        android:id="@+id/bicycle_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/thirty_dp"
+        android:layout_marginTop="@dimen/twenty_four_dp"
+        android:layout_toRightOf="@id/bicycle"
+        android:padding="@dimen/two_dp"
+        android:text="WB213426G"
+        android:textColor="@color/color_black_01"
+        android:textSize="@dimen/sixteen_sp" />
 
-  <TextView
-      android:id="@+id/battery_status_tv"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/thirty_dp"
-      android:layout_marginTop="@dimen/twenty_dp"
-      android:layout_marginEnd="@dimen/eight_dp"
-      android:layout_below="@+id/bicycle_id"
-      android:layout_toRightOf="@id/bicycle"
-      android:text="Battery Precentage :"
-      android:textColor="@color/black"
-      android:textSize="@dimen/fourteen_sp" />
-  <TextView
-      android:id="@+id/battery_status"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/ten_dp"
-      android:layout_marginTop="@dimen/sixty_eight_dp"
-      android:layout_marginEnd="@dimen/eight_dp"
-      android:layout_toRightOf="@id/battery_status_tv"
-      android:text="40"
-      android:textColor="@color/color_blue_02"
-      android:textSize="@dimen/fourteen_sp" />
-  <TextView
-      android:id="@+id/battery_status_percentage"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/four_dp"
-      android:layout_marginTop="@dimen/sixty_eight_dp"
-      android:layout_marginEnd="@dimen/eight_dp"
-      android:layout_toRightOf="@id/battery_status"
-      android:text="%"
-      android:textColor="@color/black"
-      android:textSize="@dimen/fourteen_sp" />
+    <TextView
+        android:id="@+id/battery_status_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bicycle_id"
+        android:layout_marginStart="@dimen/thirty_dp"
+        android:layout_marginTop="@dimen/twenty_dp"
+        android:layout_marginEnd="@dimen/eight_dp"
+        android:layout_toRightOf="@id/bicycle"
+        android:text="Battery Precentage :"
+        android:textColor="@color/black"
+        android:textSize="@dimen/fourteen_sp" />
+
+    <TextView
+        android:id="@+id/battery_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/ten_dp"
+        android:layout_marginTop="@dimen/sixty_eight_dp"
+        android:layout_marginEnd="@dimen/eight_dp"
+        android:layout_toRightOf="@id/battery_status_tv"
+        android:text="40"
+        android:textColor="@color/color_blue_02"
+        android:textSize="@dimen/fourteen_sp" />
+
+    <TextView
+        android:id="@+id/battery_status_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/four_dp"
+        android:layout_marginTop="@dimen/sixty_eight_dp"
+        android:layout_marginEnd="@dimen/eight_dp"
+        android:layout_toRightOf="@id/battery_status"
+        android:text="%"
+        android:textColor="@color/black"
+        android:textSize="@dimen/fourteen_sp" />
 
 </RelativeLayout>

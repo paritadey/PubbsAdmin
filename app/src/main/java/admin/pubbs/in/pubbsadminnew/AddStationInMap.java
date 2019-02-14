@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -86,7 +87,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         }.getType());
         Log.d(TAG, "Lat/Long:" + polygon);
         cordinate = polygon.get(0);
-        Log.d(TAG, "First Cordinate:"+cordinate);
+        Log.d(TAG, "First Cordinate:" + cordinate);
 
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminMobile = sharedPreferences.getString("adminmobile", null);
@@ -160,6 +161,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         procced.setTypeface(type2);
         procced.setOnClickListener(this);
     }
+
     public void selectStationDialog() {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -192,6 +194,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         dialogBuilder.show();
         dialogBuilder.setCancelable(false);
     }
+
     public void drawStation() {
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -216,6 +219,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
             }
         });
     }
+
     @SuppressLint("ResourceType")
     private void init() {
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
@@ -250,6 +254,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
             }
         });
     }
+
     public String generateStation() {
         String stationNumber = "station_";
         String station;
@@ -261,6 +266,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         return station;
 
     }
+
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -320,6 +326,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         AddNewStation addNewStation = new AddNewStation();
         addNewStation.execute(station_id, station_name, station_latitude, station_longitude, adminmobile, area_name, area_id);
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -365,6 +372,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
     private void moveCamera(LatLng latLng, float zoom, String title) {
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));

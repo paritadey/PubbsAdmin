@@ -112,6 +112,8 @@ public class ShowAreaStations extends AppCompatActivity implements AsyncResponse
                             areaLists.add(list);
                         }
                     }
+                } else {
+                    showDialog("No stations present under this area");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
