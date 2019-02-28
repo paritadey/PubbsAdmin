@@ -38,7 +38,7 @@ import java.util.HashMap;
 
 public class ServiceArea extends AppCompatActivity implements View.OnClickListener {
     SharedPreferences sharedPreferences;
-    String adminmobile;
+    String finalResult, adminmobile, startStatus, date;
     private String TAG = ServiceArea.class.getSimpleName();
     String area_id, area_name, date_time;
     ImageView back;
@@ -46,15 +46,13 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
     Button start_service, stop_service;
     ProgressBar circularProgressbar;
     SharedPreferences.Editor editor;
-    String service;
     public static final int CONNECTION_TIMEOUT = 20000;
     public static final int READ_TIMEOUT = 20000;
-    String startStatus, date;
-    String finalResult;
     String url = "http://pubbs.in/api/1.0/launchArea.php";
     String UserUrl = "http://pubbs.in/api/1.0/setservice.php";
     HashMap<String, String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,25 +61,28 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
     }
 
     public void initView() {
+        //initializing the typeface/fonts for this particular screen
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+        //setting the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        //getting the intent values area_id, area_name from StartStopService
         Intent intent = getIntent();
         area_id = intent.getStringExtra("area_id");
         area_name = intent.getStringExtra("area_name");
         Log.d(TAG, area_id + "\n" + area_name);
-
+        //sharedpreference will store the admin mobile number who is using the app
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         editor = sharedPreferences.edit();
         adminmobile = sharedPreferences.getString("adminmobile", null);
         Log.d(TAG, "Area details: " + adminmobile + "-" + area_name + "-" + area_id);
+        //getting the date of the system
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("EEE dd/MM/yyyy HH:mm");
         date_time = sdf.format(date);
-        new AsyncFetch(area_id).execute();
+        new AsyncFetch(area_id).execute();//fetching the status of the area whether it is launched for other people or not
         circularProgressbar = findViewById(R.id.circularProgressbar);
         back = findViewById(R.id.back_button);
         back.setOnClickListener(this);
@@ -105,8 +106,17 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
         stop_service.setOnClickListener(this);
     }
 
+    @Override
+    public void onBackPressed() {
+        //on back press move back to the main landing screen i.e Dashboard by clearing all the previous stack history
+        Intent intent = new Intent(ServiceArea.this, DashBoardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    //if the launch status of the area is true then show the toast of 'area already launched' otherwise show the other toast
     public void setStatus(boolean stat) {
-        Log.d(TAG, "Status:" + startStatus+ "--"+stat);
+        Log.d(TAG, "Status:" + startStatus + "--" + stat);
         if (stat == true) {
             start_service.setEnabled(false);
             Toast.makeText(getApplicationContext(), "Area is already launched", Toast.LENGTH_SHORT).show();
@@ -120,6 +130,7 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button:
+                //this will redirect back to the previous page Dashboard clearing the stack history
                 Intent intent = new Intent(ServiceArea.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -135,6 +146,7 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    //if stop button is pressed then update the corrospnding status to the database
     public void updateServiceFunction(final String area_id, final String date_time,
                                       final String status) {
 
@@ -159,6 +171,7 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
         updateServiceFunctionClass.execute(area_id, date_time, status);
     }
 
+    //this function will fetch the status of the area
     public class AsyncFetch extends AsyncTask<String, String, String> {
         HttpURLConnection conn;
         URL url = null;
@@ -247,17 +260,18 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    //send the updated status of the launched/relaunched service area to the db using Asynctask
     public void sendServiceArea(String adminmobile, String area_id, String area_name, String date_time, String status) {
         class sendServiceAreaFunction extends AsyncTask<String, Void, String> {
             @Override
             protected void onPostExecute(String httpResponseMsg) {
                 super.onPostExecute(httpResponseMsg);
                 Log.d(TAG, httpResponseMsg.toString());
-                if(httpResponseMsg.toString().equals("Area service is re-launched")) {
-                   showDialog("Area service is re-launched");
-                }else if (httpResponseMsg.toString().equals("Area Service is Successfully Launched !!!")){
+                if (httpResponseMsg.toString().equals("Area service is re-launched")) {
+                    showDialog("Area service is re-launched");
+                } else if (httpResponseMsg.toString().equals("Area Service is Successfully Launched !!!")) {
                     showDialog("Area Service is Successfully Launched !!!");
-                } else{
+                } else {
                     showDialog("Something went wrong");
                 }
             }
@@ -278,6 +292,7 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    //if any error occurred or success msg will show via a dialog box
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");

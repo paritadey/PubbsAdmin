@@ -37,12 +37,15 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
     TextView userListTv, filter, sort;
     ImageView back;
     ProgressBar circularProgressbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_users);
+        //setting toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //initializing the typeface/fonts for this particular screen
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
@@ -56,6 +59,7 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
         filter.setTypeface(type3);
         sort = findViewById(R.id.sort);
         sort.setTypeface(type3);
+        //Recylcer view will show the objects
         recyclerView = findViewById(R.id.recycler_view);
         userAdapter = new UserAdapter(userList);
         recyclerView.setHasFixedSize(true);
@@ -76,6 +80,7 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
             }
         }));
         back.setOnClickListener(new View.OnClickListener() {
+            //this will redirect back to the previous page Dashboard clearing the stack history
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MyUsers.this, DashBoardActivity.class);
@@ -83,6 +88,7 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
                 startActivity(intent);
             }
         });
+        //on text change in input search edittext show the filtered results
         inputSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -91,16 +97,14 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filter(s.toString());
+                filter(s.toString());//show the search result
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // loadData();
             }
         });
-        // prepareUserData();
     }
 
     private void filter(String text) {
@@ -119,11 +123,13 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
 
     @Override
     public void onResume() {
+        //on tapping the menu item of 'My Users' in DashboardActivity fetch the result from the server
         super.onResume();
         loadData();
     }
 
 
+    //loadData() will fetch the result set from the server
     private void loadData() {
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
@@ -135,6 +141,7 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
         new SendRequest(getResources().getString(R.string.url), jo, MyUsers.this, getApplicationContext()).executeJsonRequest();
     }
 
+    //if any error occurred or success msg will show via a dialog box
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -144,7 +151,7 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
         View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
 
         final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
-        final TextView extraLine = (TextView)dialogView.findViewById(R.id.extra_line);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
         extraLine.setTypeface(type1);
         serverProblem.setTypeface(type1);
         serverProblem.setText(message);
@@ -171,7 +178,6 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
 
     @Override
     public void onResponse(JSONObject jsonObject) {
-        //showDialog("Downloading data from server !");
         circularProgressbar.setVisibility(View.GONE);
         userList.clear();
         if (jsonObject.has("method")) {
@@ -185,7 +191,7 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
                                     jo.getString("imei"));
                             userList.add(user);
                         }
-                    } else{
+                    } else {
                         showDialog("No user is present.");
                     }
                 }

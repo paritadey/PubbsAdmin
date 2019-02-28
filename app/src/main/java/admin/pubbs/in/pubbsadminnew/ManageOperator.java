@@ -22,8 +22,8 @@ import org.json.JSONObject;
 public class ManageOperator extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     TextView manageOperatorTv;
     ImageView back;
-    TextView addOperator, editOperator, deleteOperator;
-    CardView addOperatorCard, editOperatorCard, deleteOperatorCard;
+    TextView addOperator, editOperator;
+    CardView addOperatorCard, editOperatorCard;
     private String TAG = ManageOperator.class.getSimpleName();
     SharedPreferences sharedPreferences;
     String admin_mobile, admin_type, admin_area_id;
@@ -34,6 +34,7 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_operator);
         initView();
+        //sharedpreference will store the admin mobile number who is using the app
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         admin_mobile = sharedPreferences.getString("adminmobile", null);
         Log.d(TAG, "Admin Details: " + admin_mobile);
@@ -41,12 +42,14 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
+        //on back press move back to the main landing screen i.e Dashboard by clearing all the previous stack history
         Intent intent = new Intent(ManageOperator.this, DashBoardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
     private void initView() {
+        //initializing the typeface/fonts for this particular screen
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -68,9 +71,12 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch ((v.getId())) {
             case R.id.addOperator_card:
+                //will move to AddOperator class
                 startActivity(new Intent(ManageOperator.this, AddOperator.class));
                 break;
             case R.id.editOperator_card:
+                //if admin's area_id is not present or couldn't fetched from the server then will
+                // not proceed further otherwise go to EditOperator class with admin's phne number and admin type
                 if (admin_area_id.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Some network issue occured. Give some moment.", Toast.LENGTH_SHORT).show();
                 } else {
@@ -81,6 +87,7 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
             case R.id.back_button:
+                //on back press move back to the main landing screen i.e Dashboard by clearing all the previous stack history
                 Intent intent = new Intent(ManageOperator.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -94,6 +101,7 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
         loadData();
     }
 
+    //get the area_id from the server
     private void loadData() {
         JSONObject jo = new JSONObject();
         try {

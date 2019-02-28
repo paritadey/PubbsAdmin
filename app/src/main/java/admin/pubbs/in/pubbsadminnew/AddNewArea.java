@@ -59,9 +59,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
 
     ImageView backButton;
     CoordinatorLayout selectArea;
-    ImageView upArrow;
-    ImageView mapGps;
-    ImageView search;
+    ImageView upArrow, mapGps, search;
     private static final String TAG = AddNewArea.class.getSimpleName();
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -74,16 +72,10 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
     Context mContext;
     View v;
     TextView selectAreaTv, bottomsheetText;
-    boolean polygonCreation = false;
     public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
-    public ArrayList<LatLng> stationList = new ArrayList<LatLng>();
     Button procced;
-    String stationName;
-    String area_name, station_name;
-    String areaNumber;
-    String area_Name;
+    String area_name, station_name, areaNumber, area_Name, adminMobile;
     SharedPreferences sharedPreferences;
-    String adminMobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +83,8 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_add_new_area);
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         //getting the mobile number of the admin/superadmin using the app from sharedpreference
-        adminMobile = sharedPreferences.getString("adminmobile",null);
-        Log.d(TAG, "Admin Mobile:"+adminMobile);
+        adminMobile = sharedPreferences.getString("adminmobile", null);
+        Log.d(TAG, "Admin Mobile:" + adminMobile);
         selectArea = findViewById(R.id.selectArea);
         getLocationPermission();
         setUpToolbar();
@@ -128,8 +120,9 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
 
     @SuppressLint("ResourceType")
     private void init() {
+        //this method will help to find the address or location in the map and locate the point using a green marker in the map
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
-        inputSearch = findViewById(R.id.input_search);
+        inputSearch = findViewById(R.id.input_search);//search bar to find an address in the map
         inputSearch.setTypeface(type);
         search = findViewById(R.id.ic_magnify);
         search.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +153,8 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
             }
         });
     }
-//setting the toolbar of the xml
+
+    //setting the toolbar of the xml
     private void setUpToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -172,6 +166,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button:
+                //this will redirect back to the main page i.e Dashboard clearing the history stack
                 Intent intent = new Intent(AddNewArea.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -180,10 +175,10 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
                 getDeviceLocation();
                 break;
             case R.id.proceed_btn:
-                showArrayList(markerList, areaNumber, adminMobile);
-                Log.d(TAG, "Area name:"+area_Name);
+                // proceed to the new activity:- ManageSystem and pass data markerlist, areaNumber, area_Name, adminMobile as intent values
+                Log.d(TAG, "Area name:" + area_Name);
                 Intent intent_rate = new Intent(AddNewArea.this, ManageSystem.class);
-                intent_rate.putExtra("markerList",markerList);
+                intent_rate.putExtra("markerList", markerList);
                 intent_rate.putExtra("areaNumber", areaNumber);
                 intent_rate.putExtra("area_Name", area_Name);
                 intent_rate.putExtra("adminMobile", adminMobile);
@@ -194,6 +189,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
         }
     }
 
+    //this will redirect back to the main page i.e Dashboard clearing the history stack
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(AddNewArea.this, DashBoardActivity.class);
@@ -216,7 +212,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
-            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() { //placeing a dynamic marker
+            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() { //placeing a dynamic marker in the map
                 @Override
                 public void onMapClick(LatLng latLng) {
                     BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.circumference);
@@ -229,7 +225,6 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
                     Log.d(TAG, "Area added");
                     markerList.add(latLng);
                     drawPolygon(markerList);
-                    //showArrayList(markerList, areaNumber, adminMobile);
                 }
             });
 
@@ -238,30 +233,22 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
 
     }
 
-    public void showArrayList(ArrayList<LatLng> list, String areaNumber, String adminMobile) {
-        for (int i = 0; i < list.size(); i++) {
-            Log.d(TAG, "markers: " + list.get(i));
-        }
-        Log.d(TAG, "Selected area details:" + areaNumber);
-        Log.d(TAG, "Admin mobile:" + adminMobile);
-        showDistance(markerList);
-    }
-
     //distance is in mile
-    public void showDistance(ArrayList<LatLng> list){
-        for(int i=0; i<list.size(); i++){
-            for (int j=i+1; j<list.size(); j++){
+    public void showDistance(ArrayList<LatLng> list) {
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = i + 1; j < list.size(); j++) {
                 LatLng A = list.get(i);
                 LatLng B = list.get(j);
-                double toLat=A.latitude;
-                double toLng=A.longitude;
-                double fromLat=B.latitude;
-                double fromLng=B.longitude;;
+                double toLat = A.latitude;
+                double toLng = A.longitude;
+                double fromLat = B.latitude;
+                double fromLng = B.longitude;
+                ;
                 /*int R = 6371; // km
                 double x = (toLng - fromLng) * Math.cos((toLat + fromLat) / 2);
                 double y = (toLat - fromLat);
                 double distance = Math.sqrt(x * x + y * y) * R;*/
-                double theta =fromLng-toLng; //lon1 - lon2;
+                double theta = fromLng - toLng; //lon1 - lon2;
                 double dist = Math.sin(deg2rad(fromLat))
                         * Math.sin(deg2rad(toLat))
                         + Math.cos(deg2rad(fromLat))
@@ -271,21 +258,25 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
                 dist = rad2deg(dist);
                 dist = dist * 60 * 1.1515;
 
-                Log.d(TAG, "Distance of A and B:"+dist+"---------cord_one:"+fromLat+"/"+fromLng+"------------cord_two:"+toLat+"/"+toLng);
+                Log.d(TAG, "Distance of A and B:" + dist + "---------cord_one:" + fromLat + "/" + fromLng + "------------cord_two:" + toLat + "/" + toLng);
                 Log.d(TAG, "\t");
             }
         }
     }
+
     private double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
     }
+
     private double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
     }
 
+    //on plotting 12 points in the map an polygonal area will create in the map and after
+    // creating the area it will ask to give the name of the area by entering the function selectAreaDialog()
     public void drawPolygon(ArrayList<LatLng> myLatLng) {
         Log.d(TAG, "Drawing polygon");
-        if (myLatLng.size() >= 12){//6) {
+        if (myLatLng.size() >= 12) {//6) {
             PolygonOptions polygonOptions = new PolygonOptions();
             polygonOptions.addAll(myLatLng);
             polygonOptions.strokeColor(getResources().getColor(R.color.blue_300));
@@ -298,11 +289,11 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
             areaNumber = generateArea();
             Log.d(TAG, "Area Number: " + areaNumber);
             procced.setVisibility(View.VISIBLE);
-            // polygonCreation = true;
         }
-        //  drawStation(polygonCreation);
     }
 
+    //on creating the polygonal area it will ask to give name of the selected area. A custom dialog box
+    // will open and areaName will hold the name of the area
     private String selectAreaDialog() {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -337,76 +328,8 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
         return area_Name;
     }
 
-    public void selectStationDialog() {
-        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
-        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
-        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.custom_add_station_layout, null);
-
-        final TextView stationHeader = (TextView) dialogView.findViewById(R.id.station_header);
-        stationHeader.setTypeface(type1);
-        final EditText stationName = (EditText) dialogView.findViewById(R.id.station_name);
-        stationName.setTypeface(type1);
-        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
-        ok.setTypeface(type2);
-        ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
-                if (stationName.getText().toString().isEmpty()) {
-                    stationName.startAnimation(animShake);
-                } else {
-                    station_name = stationName.getText().toString().trim();
-                    Log.d(TAG, "Station Name : " + station_name);
-                    dialogBuilder.dismiss();
-                }
-            }
-        });
-
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.show();
-        dialogBuilder.setCancelable(false);
-    }
-
-    public void drawStation(boolean drawStation) {
-        if (drawStation == true) {
-            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                @Override
-                public void onMapClick(LatLng latLng) {
-                    selectStationDialog();
-                    String stationName = generateStation();
-                    BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.station);
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(latLng);
-                    markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-                    markerOptions.icon(icon);
-                    markerOptions.snippet(stationName);
-                    mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                    mMap.addMarker(markerOptions);
-                    Log.d(TAG, "Station added");
-                    stationList.add(latLng);
-                    //showArrayList(stationList);
-                    //procced.setVisibility(View.VISIBLE);
-
-                }
-            });
-        }
-    }
-
-    public String generateStation() {
-        String stationNumber = "station_";
-        String station;
-        int max = 999;
-        int min = 1;
-        int randomNum = (int) (Math.random() * (max - min)) + min;
-        station = stationNumber + randomNum;
-        Log.d(TAG, "Station Number: " + station);
-        return station;
-
-    }
-
+    //generate a random number starting from 1 to 999. This random number will concatenate with the word 'area_'.
+    //Every time when the user create a new area with its name then this function will create an area_id with this random number function
     public String generateArea() {
         String areaNumber = "area_";
         String area;
@@ -419,22 +342,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
 
     }
 
-    public String showStationLayout() {
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        View inflatedLayout = inflater.inflate(R.layout.custom_marker_title, null, false);
-        EditText markerTitle = (EditText) inflatedLayout.findViewById(R.id.marker_title);
-        Button addStation = (Button) inflatedLayout.findViewById(R.id.add_station);
-        RelativeLayout stationLayout = (RelativeLayout) inflatedLayout.findViewById(R.id.stationLayout);
-        addStation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stationName = markerTitle.getText().toString();
-                stationLayout.setVisibility(View.GONE);
-            }
-        });
-        return stationName;
-    }
-
+    //getting the devices current location
     private void getDeviceLocation() {
         Log.d(TAG, "getDeviceLocation: getting the devices current location");
 
@@ -479,13 +387,14 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
         }
     }
 
+    //Show the map in the xml
     private void initMap() {
         Log.d(TAG, "initMap: initializing map");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-
         mapFragment.getMapAsync(AddNewArea.this);
     }
 
+    //getting the location permission from the user by considering all the conditions
     private void getLocationPermission() {
         Log.d(TAG, "getLocationPermission: getting location permissions");
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
@@ -509,6 +418,8 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
         }
     }
 
+    //if the user permitts to access the location of the device then it
+    // will move forward and do rest part of the code, otherwise show permission failed msg in the Log
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         Log.d(TAG, "onRequestPermissionsResult: called.");
@@ -533,31 +444,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-    private void geoLocate() {
-        Log.d(TAG, "geoLocate: geolocating");
-
-        String searchString = inputSearch.getText().toString();
-
-        Geocoder geocoder = new Geocoder(AddNewArea.this);
-        List<Address> list = new ArrayList<>();
-        try {
-            list = geocoder.getFromLocationName(searchString, 1);
-        } catch (IOException e) {
-            Log.e(TAG, "geoLocate: IOException: " + e.getMessage());
-        }
-
-        if (list.size() > 0) {
-            Address address = list.get(0);
-
-            Log.d(TAG, "geoLocate: found a location: " + address.toString());
-            //Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
-
-            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM,
-                    address.getAddressLine(0));
-        }
-
-    }
-
+    //hide the keyboard on loading the map
     private void hideSoftKeyboard(Context context, View view) {
         InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);

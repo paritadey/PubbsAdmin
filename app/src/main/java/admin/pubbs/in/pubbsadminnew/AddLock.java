@@ -64,6 +64,7 @@ public class AddLock extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lock);
+        //initializing the typeface/fonts for this particular screen
         type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -72,6 +73,8 @@ public class AddLock extends AppCompatActivity {
     }
 
     public void initView() {
+        //intent data will pass from SubAdmin class to AddLock class which
+        // contains fullname, adminmobile, areaid of the user/super-admin/sub-admin
         Intent intent = getIntent();
         fullname = intent.getStringExtra("fullname");
         adminmobile = intent.getStringExtra("adminmobile");
@@ -87,6 +90,8 @@ public class AddLock extends AppCompatActivity {
         simNumber = findViewById(R.id.sim_number);
         lock_type_tv = findViewById(R.id.lock_type_tv);
         cart = findViewById(R.id.cart);
+        //on clicking cart button it will save all the data in intent and pass to LockCart class
+        // if lockIDList, bleAddress, simNoList and choosenLockType lists are not empty, otherwise nothning will add to cart
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +115,7 @@ public class AddLock extends AppCompatActivity {
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
+            //this back button will redirect to previous page clearing the stack history
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddLock.this, DashBoardActivity.class);

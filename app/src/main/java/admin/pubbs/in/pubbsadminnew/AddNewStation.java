@@ -47,22 +47,22 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_station);
+        //initializing the typeface/fonts for this particular screen
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
+        //setting the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //sharedpreference will store the admin mobile number who is using the app
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminmobile = sharedPreferences.getString("adminmobile", null);
         Log.d(TAG, "Admin Mobile" + adminmobile);
-
         back = findViewById(R.id.back_button);
         addNewStationTv = findViewById(R.id.add_new_station_tv);
         addNewStationTv.setTypeface(type1);
-        //  inputSearch = findViewById(R.id.input_search);
-        // inputSearch.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
+        //RecyclerView will show all the objects
         recyclerView = findViewById(R.id.recycler_view);
         addNewStationAdpater = new AddNewStationAdpater(areaLists);
         recyclerView.setHasFixedSize(true);
@@ -82,6 +82,7 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse {
             }
         }));
         back.setOnClickListener(new View.OnClickListener() {
+            //this will redirect back to the previous page Dashboard clearing the stack history
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddNewStation.this, DashBoardActivity.class);
@@ -94,17 +95,20 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse {
 
     @Override
     public void onResume() {
+        //on tapping the menu item of 'Add New Station' in DashboardActivity fetch the result from the server
         super.onResume();
         loadData();
     }
 
     @Override
     public void onBackPressed() {
+        //this will redirect back to the previous page Dashboard clearing the stack history
         Intent intent = new Intent(AddNewStation.this, DashBoardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
+    //loadData() will fetch the result set from the server
     private void loadData() {
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
@@ -149,6 +153,7 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse {
         showDialog("Server Error !");
     }
 
+    //if any error occurred or success msg will show via a dialog box
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -181,5 +186,4 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse {
         dialogBuilder.show();
         dialogBuilder.setCancelable(false);
     }
-
 }

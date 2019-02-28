@@ -35,8 +35,6 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
     private final String TAG = AddBicycleQRActivity.class.getSimpleName();
     TextView addBicyeleTv, scanQrTv, enterNumberTv, bicycleTv, bicycleNumberTv, bottomSheetTv;
     EditText bicycleId;
-    // Button proceed;
-    ProgressDialog pd;
     String station_name, station_id, area_name, area_id, adminmobile, admin_type;
     String cycle_id, address, date_time;
 
@@ -44,9 +42,11 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bicycle_qr);
+        //initializing the typeface/fonts for this particular screen
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+        //getting the station_name, station_id, area_name, area_id, adminmobile, admin_type as intent data from AddBicycle
         Intent intent = getIntent();
         station_name = intent.getStringExtra("station_name");
         station_id = intent.getStringExtra("station_id");
@@ -55,6 +55,7 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
         adminmobile = intent.getStringExtra("adminmobile");
         admin_type = intent.getStringExtra("admin_type");
         Log.d(TAG, "Station Details:" + station_name + "-" + station_id + "-" + area_name + "-" + area_id + "-" + adminmobile + "-" + admin_type);
+        //getting the system time from calendar in simpledateformat
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("EEE dd/MM/yyyy HH:mm");
         date_time = sdf.format(date);
@@ -70,8 +71,6 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
         bicycleNumberTv.setTypeface(type2);
         bicycleId = findViewById(R.id.bicycle_id);
         bicycleId.setTypeface(type2);
-      /*  proceed = findViewById(R.id.proceed_btn);
-        proceed.setTypeface(type3);*/
         bottomSheetTv = findViewById(R.id.bottomsheet_text);
         bottomSheetTv.setTypeface(type1);
         back = findViewById(R.id.back_button);
@@ -87,6 +86,7 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
 
     @Override
     public void onResume() {
+        //if the app is forcefully minimized, then on resuming the app app will open the camera again to scan the qr code
         super.onResume();
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();
@@ -94,14 +94,17 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
 
     @Override
     public void onPause() {
+        //if the app is forcefully minimized by another priority, then on releasing the top priority app this app will close the camera
         super.onPause();
         mScannerView.stopCamera();
     }
 
     @Override
     public void handleResult(Result rawResult) {
+        //after scanning the qr code the scan result will be the 14digits cycle_id with colons
         cycle_id = rawResult.getText();
         Log.d(TAG, cycle_id);
+        //address will store the cycle_id replacing all the colons inside it
         address = cycle_id.replaceAll(":", "");
         Log.d(TAG, "replacing colon:" + address);
         bicycleId.setText(address);
@@ -113,6 +116,8 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
         }
     }
 
+    //this function will send cycle_id, address, area_id, station_name, station_id,
+    // adminmobile, admin_type, date_time from the app to the server on clicking yes button of the alertdialog builder
     private void addCnfirmationDialog(String msg, String cycle_id, String address, String area_id, String station_name,
                                       String station_id, String adminmobile, String admin_type, String date_time, Context applicationContext) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -153,6 +158,7 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
 
     @Override
     public void onBackPressed() {
+        //back_button will go back to the previous page by clearing the stack history
         Intent intent = new Intent(AddBicycleQRActivity.this, DashBoardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -162,10 +168,11 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.up_arrow:
+                //on clicking of up_arrow in the xml Bottom Sheet Fragment will be seen
                 new BottomSheetAreaFragment().show(getSupportFragmentManager(), "dialog");
                 break;
             case R.id.back_button:
-                Log.d(TAG, "Back button pressed");
+                //back_button will go back to the previous page by clearing the stack history
                 Intent intent = new Intent(AddBicycleQRActivity.this, Redistribution.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -196,6 +203,7 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
         showDialog("Server Problem !");
     }
 
+    //if error occured then show this dialogbox
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -227,6 +235,7 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
         dialogBuilder.setCancelable(false);
     }
 
+    //if the cycle is successfully added to the server then show the success msg or if any error occured then also shows the error msg
     public void showCycleAddedDialog(String msg) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");

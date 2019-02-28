@@ -35,14 +35,12 @@ import java.util.List;
 public class EditOperator extends AppCompatActivity implements AsyncResponse {
     ImageView back;
     private TextView operatorTv;
-    EditText inputSearch;
-    String area_id, admin_mobile;
+    String area_id, admin_mobile, finalResult;
     private String TAG = EditOperator.class.getSimpleName();
     private RecyclerView recyclerView;
     private EditOperatorAdapter editOperatorAdapter;
     private List<EditOperatorList> editOperatorLists = new ArrayList<>();
     int rollOver;
-    String finalResult;
     String UserUrl = "http://pubbs.in/api/1.0/updateOperatorStatus.php";
     HashMap<String, String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
@@ -53,11 +51,14 @@ public class EditOperator extends AppCompatActivity implements AsyncResponse {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_operator);
+        //initializing the typeface/fonts for this particular screen
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+        //setting the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //get the values of area_id, admin_mobile via intent from ManageOperator
         Intent intent = getIntent();
         area_id = intent.getStringExtra("admin_area_id");
         admin_mobile = intent.getStringExtra("admin_mobile");
@@ -66,8 +67,7 @@ public class EditOperator extends AppCompatActivity implements AsyncResponse {
         back = findViewById(R.id.back_button);
         operatorTv = findViewById(R.id.delete_operator_tv);
         operatorTv.setTypeface(type1);
-       /* inputSearch = findViewById(R.id.input_search);
-        inputSearch.setTypeface(type1);*/
+        //Recyclerview will show the objects
         recyclerView = findViewById(R.id.recyclerview);
         editOperatorAdapter = new EditOperatorAdapter(editOperatorLists);
         recyclerView.setHasFixedSize(true);
@@ -80,6 +80,7 @@ public class EditOperator extends AppCompatActivity implements AsyncResponse {
                 new RecyclerTouchListener.ClickListener() {
                     @Override
                     public void onClick(View view, int position) {
+                        //on single click of each object shows a dialog box to edit the active status of the sub-admin/employee
                         EditOperatorList lists = editOperatorLists.get(position);
                         String adminmobile = lists.getAdminmobile();
                         String fullname = lists.getFullname();
@@ -95,6 +96,7 @@ public class EditOperator extends AppCompatActivity implements AsyncResponse {
                     }
                 }));
         back.setOnClickListener(new View.OnClickListener() {
+            //this will redirect back to the previous page ManageOperator clearing the stack history
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EditOperator.this, ManageOperator.class);
@@ -106,11 +108,13 @@ public class EditOperator extends AppCompatActivity implements AsyncResponse {
 
     @Override
     public void onBackPressed() {
+        //this will redirect back to the previous page ManageOperator clearing the stack history
         Intent intent = new Intent(EditOperator.this, ManageOperator.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
+    //Roll over the active status of the sub-admin/employee by clicking the radio button.
     private void showRollOverDialog(String fullname, String admin_mobile, String admin_type, int active) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -172,6 +176,7 @@ public class EditOperator extends AppCompatActivity implements AsyncResponse {
 
     }
 
+    //this function will update the active status of the sub-admin/employee in the database
     public void updateOperatorStatusFunction(final String admin_mobile, final String active) {
 
         class updateOperatorStatusClass extends AsyncTask<String, Void, String> {
@@ -179,7 +184,6 @@ public class EditOperator extends AppCompatActivity implements AsyncResponse {
             protected void onPostExecute(String httpResponseMsg) {
                 super.onPostExecute(httpResponseMsg);
                 Log.d(TAG, httpResponseMsg.toString());
-                //  Toast.makeText(getApplicationContext(), "Authority is taken off !",Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -194,6 +198,7 @@ public class EditOperator extends AppCompatActivity implements AsyncResponse {
         updateOperatorStatusClass.execute(admin_mobile, active);
     }
 
+    //if any error occurred or success msg will show via a dialog box
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -226,10 +231,13 @@ public class EditOperator extends AppCompatActivity implements AsyncResponse {
 
     @Override
     public void onResume() {
+        //on tapping the menu item of 'Manage Operator' in DashboardActivity will move to Edit Operator
+        // class that will fetch the result from the server
         super.onResume();
         loadData();
     }
 
+    //loadData() will fetch the result set from the server
     private void loadData() {
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();

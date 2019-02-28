@@ -11,25 +11,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 /*created by Parita Dey*/
-
+//bottomsheet fragment, on clicking a button in any xml this fragment will be shown with its own xml designed
 public class BottomSheetRateChartTimeFragment extends BottomSheetDialogFragment {
     private BottomSheetBehavior mBehavior;
     private TextView descriptionHeader, description, bicycleNow;
 
-    /* @Override
-     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                              Bundle savedInstanceState) {
-         View v = inflater.inflate(R.layout.bottom_sheet_area_description, container, false);
-
-         ImageView showMap = (ImageView) v.findViewById(R.id.show_map);
-         showMap.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 dismiss();
-             }
-         });
-         return v;
-     }*/
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

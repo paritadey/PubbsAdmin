@@ -39,8 +39,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
     RelativeLayout layoutFullname, layoutMobile, layoutEmail, layoutAddress, layoutPassword;
     Spinner choice;
     private static final String[] operator = {"Select Operator", "Sub Admin", "Employee"};
-    String operator_type, full_name, admin_mobile, admin_email, admin_address, admin_password;
-    String finalResult;
+    String operator_type, full_name, admin_mobile, admin_email, admin_address, admin_password, finalResult;
     ProgressDialog progressDialog;
     String UserUrl = "http://pubbs.in/api/1.0/Operator.php";
     HashMap<String, String> hashMap = new HashMap<>();
@@ -51,6 +50,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_operator_area);
+        //get the areaName and areaId from AddOperator class as intent data
         Intent intent = getIntent();
         areaName = intent.getStringExtra("area_name");
         areaId = intent.getStringExtra("area_id");
@@ -60,6 +60,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initView() {
+        //initializing the typeface/fonts for this particular screen
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -118,6 +119,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_operator:
+                //checks if all the textviews are filled up or not then send the data to the server otherwise sows animation with message
                 if (fullname.getText().toString().trim().isEmpty() || phone.getText().toString().trim().isEmpty()
                         || address.getText().toString().trim().isEmpty() || email.getText().toString().trim().isEmpty()
                         || password.getText().toString().trim().isEmpty()) {
@@ -189,37 +191,8 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void showDialog(String message) {
-        sendSms(admin_mobile, admin_password);
-        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
-        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
-        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
-
-        final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
-        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
-        extraLine.setTypeface(type1);
-        serverProblem.setTypeface(type1);
-        serverProblem.setText(message);
-        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
-        ok.setTypeface(type2);
-        ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogBuilder.dismiss();
-                Intent intent = new Intent(AddOperatorArea.this, SuperAdminAddOperator.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
-
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.show();
-        dialogBuilder.setCancelable(false);
-    }
-
+    //sending the default password and the sub-admin's phone number as sms. To send sms this
+    // app will redirect to the default message app of the user's phone
     public void sendSms(String adminmobile, String password) {
         String msg = "Your Login id for PubbsAdmin application :" + adminmobile + "\n" + "Password:" + password;
         Log.d(TAG, "Message: " + msg);
@@ -240,6 +213,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    //choose items from spinner and store the operator_type
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
@@ -261,6 +235,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
     }
 
 
+    //send admin's fullname, phone_number, email, address, password, admin_type, area_name, area_id to the server to store in db
     public void Operator(final String adminfullname, final String adminemail, final String adminmobile, final String adminaddress,
                          final String adminpassword, final String admin_type, final String area_name, final String area_id) {
 
@@ -280,11 +255,6 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
                 progressDialog.dismiss();
                 Log.d(TAG, "Asynctask msg:" + httpResponseMsg.toString());
                 showOperatorDialog();
-                /*if (httpResponseMsg.toString().equals("Operator is Successfully Added !!!")) {
-                    showOperatorDialog();
-                } else {
-                    showDialog("Server Problem !");
-                }*/
             }
 
             @Override
@@ -315,10 +285,13 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    //show error msg in snackbar
     public void showSnackbar(View view, String message, int duration) {
         Snackbar.make(view, message, duration).show();
     }
 
+    //if successfull in adding the operator to the server then show msg in dialog box and send
+    // admin's default passowrd and phone number
     public void showOperatorDialog() {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");

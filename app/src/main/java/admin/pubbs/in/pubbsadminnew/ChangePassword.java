@@ -28,19 +28,17 @@ import java.util.HashMap;
 /*created by Parita Dey*/
 
 public class ChangePassword extends AppCompatActivity implements View.OnClickListener {
-    String adminmobile, admintype;
+    String adminmobile, userPhone, userNewPassword, admintype, finalResult;
     SharedPreferences sharedPreferences;
     private String TAG = ChangePassword.class.getSimpleName();
     ImageView back;
     TextView change_pass, mobile_tv, password_tv;
     EditText user_id, password;
-    String userPhone, userNewPassword;
     Button changePassword_btn;
     ProgressDialog progressDialog;
     String UserUrl = "http://pubbs.in/api/1.0/updatePassword.php";
     HashMap<String, String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
-    String finalResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +48,11 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
     }
 
     public void initView() {
+        //initializing the typeface/fonts for this particular screen
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
+        //sharedpreference will store the admin mobile number and admin type who is using the app
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminmobile = sharedPreferences.getString("adminmobile", null);
         admintype = sharedPreferences.getString("admin_type", "null");
@@ -77,6 +76,7 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
+        //on back press move back to Setting class by clearing all the previous stack history
         Intent intent = new Intent(ChangePassword.this, Settings.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -86,11 +86,14 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button:
+                //on back press move back to Setting class by clearing all the previous stack history
                 Intent intent = new Intent(ChangePassword.this, Settings.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
             case R.id.changePassword_btn:
+                //on clicking of this button checks whether user_id(i.e admin mobile), password are provided
+                // or not then move forward otherwise asks for both of them
                 final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                 if (user_id.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
                     if (user_id.getText().toString().isEmpty() && password.getText().toString().isEmpty()) {
@@ -119,23 +122,22 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    //this function will update the password in the database in server by sending the user_id(i.e admin mobile) and the updated password
     public void PasswordChangeFunction(final String userPhone, final String userNewPassword) {
-
         class PasswordChangeFunctionClass extends AsyncTask<String, Void, String> {
-
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
                 progressDialog = ProgressDialog.show
                         (ChangePassword.this, "Connecting to the server", "Updating Password...", true, true);
             }
+
             @Override
             protected void onPostExecute(String httpResponseMsg) {
-
                 super.onPostExecute(httpResponseMsg);
                 progressDialog.dismiss();
-                Log.d("Password", ""+httpResponseMsg.toString());
-               // Toast.makeText(getApplicationContext(), httpResponseMsg.toString(), Toast.LENGTH_LONG).show();
+                Log.d("Password", "" + httpResponseMsg.toString());
+                // Toast.makeText(getApplicationContext(), httpResponseMsg.toString(), Toast.LENGTH_LONG).show();
                 if (httpResponseMsg.equalsIgnoreCase("Password updated successfully")) {
                     sharedPreferences.edit().clear().commit();
                     Intent intent = new Intent(ChangePassword.this, SignInUp.class);
@@ -157,6 +159,7 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
         passwordChangeFunctionClass.execute(userPhone, userNewPassword);
     }
 
+    //showing the snackbar if any msg has to show to the user
     public void showSnackbar(View view, String message, int duration) {
         Snackbar.make(view, message, duration).show();
     }

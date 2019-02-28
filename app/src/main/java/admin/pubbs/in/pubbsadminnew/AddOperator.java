@@ -31,7 +31,6 @@ import java.util.List;
 public class AddOperator extends AppCompatActivity implements AsyncResponse {
     ImageView back;
     private TextView addOperatorTv;
-    EditText inputSearch;
     ProgressBar circularProgressbar;
     private RecyclerView recyclerView;
     private AddOperatorAdpater addOperatorAdpater;
@@ -43,23 +42,23 @@ public class AddOperator extends AppCompatActivity implements AsyncResponse {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_operator);
+        //initializing the typeface/fonts for this particular screen
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
+        //setting the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //sharedpreference will store the admin mobile number who is using the app
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminmobile = sharedPreferences.getString("adminmobile", null);
-
         back = findViewById(R.id.back_button);
         addOperatorTv = findViewById(R.id.add_operator_tv);
         addOperatorTv.setTypeface(type1);
-       // inputSearch = findViewById(R.id.input_search);
-       // inputSearch.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
         recyclerView = findViewById(R.id.recycler_view);
         addOperatorAdpater = new AddOperatorAdpater(areaLists);
+        //RecyclerView will show all the objects
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -77,9 +76,10 @@ public class AddOperator extends AppCompatActivity implements AsyncResponse {
             }
         }));
         back.setOnClickListener(new View.OnClickListener() {
+            //this will redirect back to the previous page ManageOperator clearing the stack history
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddOperator.this, DashBoardActivity.class);
+                Intent intent = new Intent(AddOperator.this, ManageOperator.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -89,16 +89,19 @@ public class AddOperator extends AppCompatActivity implements AsyncResponse {
 
     @Override
     public void onResume() {
+        //on tapping the menu item of 'Manage Operator' in DashboardActivity will move to Add Operator
+        // class that will fetch the result from the server
         super.onResume();
         loadData();
     }
 
+    //loadData() will fetch the result set from the server
     private void loadData() {
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "getallmaparea");
-            jo.put("adminmobile",adminmobile);
+            jo.put("adminmobile", adminmobile);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -122,6 +125,8 @@ public class AddOperator extends AppCompatActivity implements AsyncResponse {
                             areaLists.add(list);
                         }
                     }
+                } else {
+                    showDialog("No Area is present");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -135,6 +140,7 @@ public class AddOperator extends AppCompatActivity implements AsyncResponse {
         showDialog("Server Error !");
     }
 
+    //if any error occurred or success msg will show via a dialog box
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -167,8 +173,10 @@ public class AddOperator extends AppCompatActivity implements AsyncResponse {
         dialogBuilder.show();
         dialogBuilder.setCancelable(false);
     }
+
     @Override
     public void onBackPressed() {
+        //this will redirect back to the previous page ManageOperator clearing the stack history
         Intent intent = new Intent(AddOperator.this, ManageOperator.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

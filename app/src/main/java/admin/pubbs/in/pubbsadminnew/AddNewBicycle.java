@@ -46,29 +46,22 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_bicycle);
+        //initializing the typeface/fonts for this particular screen
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
+        //setting the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         back = findViewById(R.id.back_button);
         bicycleTv = findViewById(R.id.bicycle_tv);
         bicycleTv.setTypeface(type1);
-        // inputSearch = findViewById(R.id.input_search);
-        //inputSearch.setTypeface(type1);
+        //sharedpreference will store the admin mobile number who is using the app
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminmobile = sharedPreferences.getString("adminmobile", null);
         Log.d(TAG, "Admin Mobile" + adminmobile);
-
         circularProgressbar = findViewById(R.id.circularProgressbar);
-        /*addBicycle = findViewById(R.id.add_bicycle);
-        addBicycle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AddNewBicycle.this, AddBicycle.class));
-            }
-        });*/
+        //RecyclerView will show the objects
         recyclerView = findViewById(R.id.recycler_view);
         areaAdpater = new Area_Adpater(areaLists);
         recyclerView.setHasFixedSize(true);
@@ -89,6 +82,7 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
             }
         }));
         back.setOnClickListener(new View.OnClickListener() {
+            //on clicking the back button redirects back to Dashboard
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddNewBicycle.this, DashBoardActivity.class);
@@ -101,10 +95,12 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
 
     @Override
     public void onResume() {
+        //on tapping the menu item of 'Add New Bicycle' in DashboardActivity fetch the result from the server
         super.onResume();
         loadData();
     }
 
+    //loadData() will fetch the result set from the server
     private void loadData() {
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
@@ -118,6 +114,7 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
 
     }
 
+    //if any error occurred or success msg will show via a dialog box
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");

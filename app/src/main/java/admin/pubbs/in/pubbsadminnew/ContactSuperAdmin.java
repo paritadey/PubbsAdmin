@@ -37,9 +37,10 @@ public class ContactSuperAdmin extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_super_admin);
+        //initializing the typeface/fonts for this particular screen
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
+        //get the adminmobile and admin_type from DashboardActivity class via intent
         Intent intent = getIntent();
         adminmobile = intent.getStringExtra("uphone");
         admin_type = intent.getStringExtra("uadmin");
@@ -65,12 +66,15 @@ public class ContactSuperAdmin extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button:
+                //on back press move back to the main landing screen i.e Dashboard by clearing all the previous stack history
                 Intent intent = new Intent(ContactSuperAdmin.this, DashBoardActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
                 break;
             case R.id.send_email:
+                //checks if the subject, message are not emptied then send the msg as email by
+                // opening the email app in the user's phone otherwise animate subject and message textviews
                 final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                 if (subject.getText().toString().isEmpty() || message.getText().toString().isEmpty()) {
                     if (subject.getText().toString().isEmpty() && message.getText().toString().isEmpty()) {
@@ -89,7 +93,7 @@ public class ContactSuperAdmin extends AppCompatActivity implements View.OnClick
                     msg_body = message.getText().toString().trim();
                     sendQuery(adminmobile, admin_type, msg_subject, msg_body, date_time);
                     Intent email = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "paritadey@gmail.com"));
-                    email.putExtra(Intent.EXTRA_SUBJECT, "Pubbs Admin : "+""+msg_subject);
+                    email.putExtra(Intent.EXTRA_SUBJECT, "Pubbs Admin : " + "" + msg_subject);
                     email.putExtra(Intent.EXTRA_TEXT, "Admin/Employee ID is: " + "" + adminmobile + "" + "of admin type :" + "" + admin_type + "\n"
                             + msg_body);
                     startActivity(email);
@@ -102,7 +106,8 @@ public class ContactSuperAdmin extends AppCompatActivity implements View.OnClick
 
     }
 
-    public void sendQuery(String adminmobile, String admin_type, String subject, String message, String date_time){
+    //this function will send the query to the server with all details like adminmobile, admin_Type, subject, message and date_time
+    public void sendQuery(String adminmobile, String admin_type, String subject, String message, String date_time) {
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "add_query");
@@ -117,12 +122,12 @@ public class ContactSuperAdmin extends AppCompatActivity implements View.OnClick
         }
         new SendRequest(getResources().getString(R.string.url), jo, ContactSuperAdmin.this, getApplicationContext()).executeJsonRequest();
     }
+
     @Override
     public void onResponse(JSONObject jsonObject) {
         if (jsonObject.has("method")) {
             try {
                 if (jsonObject.getString("method").equals("add_query") && jsonObject.getBoolean("success")) {
-                    //showQueryAddedDialog();
                     Log.d(TAG, "Suceess");
                 } else {
                     Log.d(TAG, "couldn't save try again later");
@@ -135,38 +140,15 @@ public class ContactSuperAdmin extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onResponseError(VolleyError error) {
-        Log.d(TAG, "msg: "+error.toString());
+        Log.d(TAG, "msg: " + error.toString());
     }
+
     @Override
     public void onBackPressed() {
+        //on back press move back to the main landing screen i.e Dashboard by clearing all the previous stack history
         Intent intent = new Intent(ContactSuperAdmin.this, DashBoardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-    }
-
-    public void showQueryAddedDialog() {
-        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
-        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.area_added_dialog, null);
-        final TextView areaAdd = (TextView) dialogView.findViewById(R.id.area_add_tv);
-        final Button ok = (Button)dialogView.findViewById(R.id.ok_btn);
-        ok.setTypeface(type2);
-        areaAdd.setTypeface(type1);
-        ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogBuilder.dismiss();
-                Intent intent = new Intent(ContactSuperAdmin.this, DashBoardActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-
-            }
-        });
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.show();
-        dialogBuilder.setCancelable(false);
     }
 
 }

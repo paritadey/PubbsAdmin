@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 /*created by Parita Dey*/
+//bottomsheet fragment, on clicking a button in any xml this fragment will be shown with its own xml designed
 public class BottomSheetAreaFragment extends BottomSheetDialogFragment {
     private BottomSheetBehavior mBehavior;
     private TextView descriptionHeader, description, areaNow;
