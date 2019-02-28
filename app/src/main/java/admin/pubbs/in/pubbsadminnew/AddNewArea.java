@@ -90,6 +90,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_area);
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
+        //getting the mobile number of the admin/superadmin using the app from sharedpreference
         adminMobile = sharedPreferences.getString("adminmobile",null);
         Log.d(TAG, "Admin Mobile:"+adminMobile);
         selectArea = findViewById(R.id.selectArea);
@@ -98,6 +99,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
         initView();
 
         upArrow = findViewById(R.id.up_arrow);
+        //onclicking of the upArrow button in the xml a bottom sheet fragment will show in the screen
         upArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,7 +160,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
             }
         });
     }
-
+//setting the toolbar of the xml
     private void setUpToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -283,7 +285,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
 
     public void drawPolygon(ArrayList<LatLng> myLatLng) {
         Log.d(TAG, "Drawing polygon");
-        if (myLatLng.size() >= 6) {
+        if (myLatLng.size() >= 12){//6) {
             PolygonOptions polygonOptions = new PolygonOptions();
             polygonOptions.addAll(myLatLng);
             polygonOptions.strokeColor(getResources().getColor(R.color.blue_300));

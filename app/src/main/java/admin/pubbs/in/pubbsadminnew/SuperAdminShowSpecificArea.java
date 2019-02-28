@@ -45,114 +45,21 @@ import java.io.IOException;
 import java.util.List;
 /*created by Parita Dey*/
 
-public class SuperAdminShowSpecificArea extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback,
-        GoogleApiClient.OnConnectionFailedListener {
+public class SuperAdminShowSpecificArea extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback{
     private String areaName, areaId, areaLatLng;
     private String TAG = SuperAdminShowSpecificArea.class.getSimpleName();
-    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
-    private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-    private static final float DEFAULT_ZOOM = 11.5f;
-    private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
-    private FusedLocationProviderClient mFusedLocationProviderClient;
     Gson gson;
     List<LatLng> polygon;
     TextView show_area_tv;
     ImageView backButton;
+    LatLng cordinate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_super_admin_show_specific_area);
-        getLocationPermission();
         initView();
-    }
-
-    private void getDeviceLocation() {
-        Log.d(TAG, "getDeviceLocation: getting the devices current location");
-
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        try {
-            if (mLocationPermissionsGranted) {
-
-                final Task location = mFusedLocationProviderClient.getLastLocation();
-                location.addOnCompleteListener(new OnCompleteListener() {
-                    @Override
-                    public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "onComplete: found location!");
-                            Location currentLocation = (Location) task.getResult();
-
-                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                    DEFAULT_ZOOM,
-                                    "My Location");
-
-                        } else {
-                            Log.d(TAG, "onComplete: current location is null");
-                            Toast.makeText(SuperAdminShowSpecificArea.this, "unable to get current location", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        } catch (SecurityException e) {
-            Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage());
-        }
-    }
-
-    private void getLocationPermission() {
-        Log.d(TAG, "getLocationPermission: getting location permissions");
-        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION};
-
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                mLocationPermissionsGranted = true;
-                initMap();
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        permissions,
-                        LOCATION_PERMISSION_REQUEST_CODE);
-            }
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    permissions,
-                    LOCATION_PERMISSION_REQUEST_CODE);
-        }
-    }
-
-    private void initMap() {
-        Log.d(TAG, "initMap: initializing map");
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-
-        mapFragment.getMapAsync(SuperAdminShowSpecificArea.this);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        Log.d(TAG, "onRequestPermissionsResult: called.");
-        mLocationPermissionsGranted = false;
-
-        switch (requestCode) {
-            case LOCATION_PERMISSION_REQUEST_CODE: {
-                if (grantResults.length > 0) {
-                    for (int i = 0; i < grantResults.length; i++) {
-                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                            mLocationPermissionsGranted = false;
-                            Log.d(TAG, "onRequestPermissionsResult: permission failed");
-                            return;
-                        }
-                    }
-                    Log.d(TAG, "onRequestPermissionsResult: permission granted");
-                    mLocationPermissionsGranted = true;
-                    //initialize our map
-                    initMap();
-                }
-            }
-        }
     }
 
     public void drawAreaPolygon(List<LatLng> coordinates) {
@@ -164,18 +71,8 @@ public class SuperAdminShowSpecificArea extends AppCompatActivity implements Vie
             polygonOptions.strokeWidth(5);
             polygonOptions.fillColor(getResources().getColor(R.color.blue_100));
             Polygon polygon = mMap.addPolygon(polygonOptions);
-        }
-    }
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cordinate, 12f));
 
-    private void moveCamera(LatLng latLng, float zoom, String title) {
-        Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
-
-        if (!title.equals("My Location")) {
-            MarkerOptions options = new MarkerOptions()
-                    .position(latLng)
-                    .title(title);
-            mMap.addMarker(options);
         }
     }
 
@@ -190,16 +87,17 @@ public class SuperAdminShowSpecificArea extends AppCompatActivity implements Vie
         polygon = gson.fromJson(areaLatLng, new TypeToken<List<LatLng>>() {
         }.getType());
         Log.d(TAG, "Lat/Long:" + polygon);
+        int size = polygon.size();
+        Log.d(TAG, "Size of the Polygon:"+size);
+        cordinate = polygon.get(0);
+        Log.d(TAG, "First Cordinate:" + cordinate);
         backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(this);
         show_area_tv = findViewById(R.id.show_area_tv);
         show_area_tv.setTypeface(type);
         show_area_tv.setText(areaName);
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(SuperAdminShowSpecificArea.this);
     }
 
     @Override
@@ -207,19 +105,6 @@ public class SuperAdminShowSpecificArea extends AppCompatActivity implements Vie
         Log.d(TAG, "onMapReady: map is ready");
         mMap = googleMap;
         drawAreaPolygon(polygon);
-
-        if (mLocationPermissionsGranted) {
-            getDeviceLocation();
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-
-        }
 
     }
 
