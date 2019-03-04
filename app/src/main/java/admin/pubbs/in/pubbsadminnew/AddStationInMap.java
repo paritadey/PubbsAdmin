@@ -48,27 +48,21 @@ import java.util.List;
 public class AddStationInMap extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
     private String areaName, areaId, areaLatLng;
     private String TAG = AddStationInMap.class.getSimpleName();
-    ImageView backButton;
+    ImageView backButton, search, upArrow;
     CoordinatorLayout selectArea;
-    ImageView upArrow;
     Button procced;
     SharedPreferences sharedPreferences;
-    String adminMobile;
-    ImageView search;
     private static final float DEFAULT_ZOOM = 12f;
     private GoogleMap mMap;
     EditText inputSearch;
     Context mContext;
     View v;
     TextView selectStationTv, bottomsheetText;
-    String station_name;
-    String stationid;
+    String station_name, stationid, stationLatitude, stationLongitude, finalResult, adminMobile;
     double station_latitude, station_longitude;
-    String finalResult;
     String UserUrl = "http://pubbs.in/api/1.0/AdminStation.php";
     HashMap<String, String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
-    String stationLatitude, stationLongitude;
     Gson gson;
     List<LatLng> polygon;
     LatLng cordinate;
@@ -77,29 +71,30 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_station_in_map);
-
+        //getting the intent data like area_name, area_id, latlon from AddNewStation class
         Intent intent = getIntent();
         areaName = intent.getStringExtra("area_name");
         areaId = intent.getStringExtra("area_id");
         areaLatLng = intent.getStringExtra("latlon");
         Log.d(TAG, "Area Details:" + areaName + "--" + areaId + "--" + areaLatLng);
         gson = new Gson();
+        //converting string to LatLng
         polygon = gson.fromJson(areaLatLng, new TypeToken<List<LatLng>>() {
         }.getType());
         Log.d(TAG, "Lat/Long:" + polygon);
         cordinate = polygon.get(0);
         Log.d(TAG, "First Cordinate:" + cordinate);
-
+        //sharedpreference will store the admin mobile number who is using the app
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminMobile = sharedPreferences.getString("adminmobile", null);
         Log.d(TAG, "Admin Mobile" + adminMobile);
         selectArea = findViewById(R.id.selectArea);
         setUpToolbar();
         initView();
-
+        //inflating the map inside the fragment
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(AddStationInMap.this);
-
+        //on clicking the up arrow it will show the bottomsheetfragment with details in it
         upArrow = findViewById(R.id.up_arrow);
         upArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +109,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
+        //this will redirect back to the previous page AddNewStation clearing the stack history
         Intent intent = new Intent(AddStationInMap.this, AddNewStation.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -127,6 +123,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         init();
     }
 
+    //drawing the Polygonal area in the map
     public void drawAreaPolygon(List<LatLng> coordinates) {
         Log.d(TAG, "Drawing polygon");
         if (coordinates.size() >= 6) {
@@ -141,7 +138,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         drawStation();
     }
 
-
+    //setting the toolbar
     private void setUpToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -163,6 +160,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         procced.setOnClickListener(this);
     }
 
+    //alert dialog to set the name of the station
     public void selectStationDialog() {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -196,15 +194,18 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         dialogBuilder.setCancelable(false);
     }
 
+    //drawing the station on tapping in map
     public void drawStation() {
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
+                //if the tapped point is inside the polygonal area then only station will be created
+                // and that will be checked by Ray Casting algorith,
                 boolean point= isPointInPolygon(latLng, polygon);
                 Log.d(TAG, "Point value:"+point);
                 if(point==true) {
                     selectStationDialog();
-                    stationid = generateStation();
+                    stationid = generateStation(); //generate random number station id
                     BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.station);
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(latLng);
@@ -269,6 +270,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     }
 
 
+    //if user search for a place then geocoder will find the place and locate it by a green pointer
     @SuppressLint("ResourceType")
     private void init() {
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
@@ -304,6 +306,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         });
     }
 
+    //generate the random id concatinate with 'station_'
     public String generateStation() {
         String stationNumber = "station_";
         String station;
@@ -316,6 +319,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    //if any error occurred or success msg will show via a dialog box
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -346,7 +350,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         dialogBuilder.show();
         dialogBuilder.setCancelable(false);
     }
-
+    //if the tapped point is outside the polygonal area then show dialog showing to create the area inside the polygonal area
     private void showStation(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -379,6 +383,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     }
 
 
+    //on clicking proceed button it will send all the data to the server
     public void SendBicycleData(final String station_id, final String station_name, final String station_latitude, final String station_longitude,
                                 final String adminmobile, final String area_name, final String area_id) {
 
@@ -411,6 +416,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button:
+                //this will redirect back to the previous page AddNewStation clearing the stack history
                 Intent intent = new Intent(AddStationInMap.this, AddNewStation.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
