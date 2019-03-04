@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -199,26 +200,74 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                selectStationDialog();
-                stationid = generateStation();
-                BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.station);
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
-                markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-                markerOptions.icon(icon);
-                markerOptions.snippet(stationid);
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                mMap.addMarker(markerOptions);
-                Log.d(TAG, "Station added");
-                station_latitude = latLng.latitude;
-                stationLatitude = String.valueOf(station_latitude);
-                station_longitude = latLng.longitude;
-                stationLongitude = String.valueOf(station_longitude);
-                procced.setVisibility(View.VISIBLE);
+                boolean point= isPointInPolygon(latLng, polygon);
+                Log.d(TAG, "Point value:"+point);
+                if(point==true) {
+                    selectStationDialog();
+                    stationid = generateStation();
+                    BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.station);
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(latLng);
+                    markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+                    markerOptions.icon(icon);
+                    markerOptions.snippet(stationid);
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                    mMap.addMarker(markerOptions);
+
+                    Log.d(TAG, "Station added");
+                    station_latitude = latLng.latitude;
+                    stationLatitude = String.valueOf(station_latitude);
+                    station_longitude = latLng.longitude;
+                    stationLongitude = String.valueOf(station_longitude);
+
+                    procced.setVisibility(View.VISIBLE);
+                }else{
+                    showStation("Please create station inside the area.");
+                }
 
             }
         });
     }
+
+    //Ray Casting algorithm :One simple way of finding whether the point is inside or outside a simple polygon
+    // is to test how many times a ray, starting from the point and going in any fixed direction, intersects the edges
+    // of the polygon. If the point is on the outside of the polygon the ray will intersect its edge an even number of times.
+    // If the point is on the inside of the polygon then it will intersect the edge an odd number of times. This method won't work
+    // if the point is on the edge of the polygon.
+    //Ray Casting algorithm : identifies point in polygon
+    private boolean isPointInPolygon(LatLng tap, List<LatLng> vertices) {
+        int intersectCount = 0;
+        for (int j = 0; j < vertices.size() - 1; j++) {
+            if (rayCastIntersect(tap, vertices.get(j), vertices.get(j + 1))) {
+                intersectCount++;
+            }
+        }
+
+        return ((intersectCount % 2) == 1); // odd = inside, even = outside;
+    }
+
+    private boolean rayCastIntersect(LatLng tap, LatLng vertA, LatLng vertB) {
+
+        double aY = vertA.latitude;
+        double bY = vertB.latitude;
+        double aX = vertA.longitude;
+        double bX = vertB.longitude;
+        double pY = tap.latitude;
+        double pX = tap.longitude;
+
+        if ((aY > pY && bY > pY) || (aY < pY && bY < pY)
+                || (aX < pX && bX < pX)) {
+            return false; // a and b can't both be above or below pt.y, and a or
+            // b must be east of pt.x
+        }
+
+        double m = (aY - bY) / (aX - bX); // Rise over run
+        double bee = (-aX) * m + aY; // y = mx + b
+        double x = (pY - bee) / m; // algebra is neat!
+
+        return x > pX;
+    }
+
 
     @SuppressLint("ResourceType")
     private void init() {
@@ -289,6 +338,37 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
                 Intent intent = new Intent(AddStationInMap.this, AddNewStation.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+        dialogBuilder.setCancelable(false);
+    }
+
+    private void showStation(String message) {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+
+        final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
+        extraLine.setTypeface(type1);
+        serverProblem.setTypeface(type1);
+        serverProblem.setText(message);
+        Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
+        ok.setTypeface(type2);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+                /*Intent intent = new Intent(AddStationInMap.this, AddNewStation.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);*/
 
             }
         });
