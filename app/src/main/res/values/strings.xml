@@ -206,6 +206,20 @@
     <string name="roll_over">Do you want to roll over the sub-admin authority?</string>
     <string name="roll_in">Do you want to give the sub-admin auhtority?</string>
     <string name="contact_superadmin">Write message to Super-Admin</string>
-    <string name="disclaimer">ⓘ All messages will send as email to the Super-Admin email id. After composing the message it will take the user
+    <string name="disclaimer">ⓘ All messages will send as email to the Super-Admin email id. After composing the message
+        it will take the user
     to the default email app of the user phone.</string>
+    <string name="about">About</string>
+    <string name="aboutText">Our reserach group works broadly in Transportation planning with work
+        experience in: Non-motorized transportation (Bicycle and pedestrian infrastructure and facilities,
+        public bicycle sharing and associated software and hardware, Level of Service, Last Mile Connectivity),
+        Public transportation (Bus transit and BRT service design, service optimization and software development,
+        route design and rationalization, feeder service design), Landuse Transport interaction modeling (Activity- based models,
+        Behavioral models on mode choice, Transit oriented development), and Intelligent transportation systems
+</string>
+    <string name="contact">Indian Institute of Technology Kharagpur\n
+Kharagpur, India - 721302\n\n
+Phone: +91-3222-255221\n
+FAX : +91-3222-255303
+</string>
 </resources>

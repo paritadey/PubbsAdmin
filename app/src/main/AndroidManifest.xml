@@ -14,11 +14,15 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EmployeeAddNewStation"></activity>
+
+        <activity android:name=".About"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"></activity>
+        <activity android:name=".EmployeeAddNewStation" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

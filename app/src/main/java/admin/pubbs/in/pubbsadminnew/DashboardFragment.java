@@ -72,6 +72,9 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
         accident.setTypeface(type2);*/
         support = v.findViewById(R.id.support);
         support.setOnClickListener(this);
+        if(uadmin.equals("Super Admin")){
+            support.setVisibility(View.GONE);
+        }
         mapView = (MapView) v.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         try {
@@ -135,28 +138,28 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
     public void onResume() {
         super.onResume();
         mapView.onResume();
-          trackRide.run();
-       // loadData();
+        trackRide.run();
+        // loadData();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-          handler.removeCallbacks(trackRide);
-       // loadData();
+        handler.removeCallbacks(trackRide);
+        // loadData();
     }
 
-   /* public void loadData() {
-        JSONObject jo = new JSONObject();
-        try {
-              jo.put("method", "trackrides");
-           // jo.put("method", "get_all_stations");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        new SendRequest(getString(R.string.url), jo, DashboardFragment.this, getActivity()).executeJsonRequest();
+    /* public void loadData() {
+         JSONObject jo = new JSONObject();
+         try {
+               jo.put("method", "trackrides");
+            // jo.put("method", "get_all_stations");
+         } catch (JSONException e) {
+             e.printStackTrace();
+         }
+         new SendRequest(getString(R.string.url), jo, DashboardFragment.this, getActivity()).executeJsonRequest();
 
-    }*/
+     }*/
     private Runnable trackRide = new Runnable() {
         @Override
         public void run() {

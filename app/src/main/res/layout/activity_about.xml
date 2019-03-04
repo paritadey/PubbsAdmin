@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/manage_system"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".About">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/four_dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:id="@+id/toolbar_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/sixteen_dp">
+
+                <ImageView
+                    android:id="@+id/back_button"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/manage_area_tv"
+                    android:layout_alignParentStart="true"
+                    app:srcCompat="@drawable/ic_arrow_back_24dp" />
+
+                <TextView
+                    android:id="@+id/about_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/one_fifty_dp"
+                    android:layout_marginTop="@dimen/eight_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/about"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fourteen_sp" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/manage_system_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/eighty_dp">
+
+                <ImageView
+                    android:id="@+id/iitkgp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:padding="@dimen/four_dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/iit_logo"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/about"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:layout_marginEnd="@dimen/sixteen_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/aboutText"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintTop_toBottomOf="@+id/iitkgp" />
+
+                <TextView
+                    android:id="@+id/contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
+                    android:layout_marginEnd="@dimen/sixteen_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/contact"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintTop_toBottomOf="@+id/about" />
+
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
+    </FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

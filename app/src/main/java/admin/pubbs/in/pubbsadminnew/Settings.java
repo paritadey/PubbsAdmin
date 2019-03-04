@@ -96,6 +96,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
             case R.id.payments:
                 break;
             case R.id.about:
+                startActivity(new Intent(Settings.this, About.class));
                 break;
             default:
                 break;
