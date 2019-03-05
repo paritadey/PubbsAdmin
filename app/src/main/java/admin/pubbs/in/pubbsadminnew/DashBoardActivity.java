@@ -97,7 +97,7 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.add_area).setTitle("Add New Admin");
                 navigationView.getMenu().findItem(R.id.area_subscription).setVisible(false);
                 navigationView.getMenu().findItem(R.id.rate_chart).setVisible(false);
-                navigationView.getMenu().findItem(R.id.add_station).setTitle("Show all Admin");
+                navigationView.getMenu().findItem(R.id.add_station).setTitle("Show all Sub-Admins");
                 navigationView.getMenu().findItem(R.id.add_new_bicycle).setTitle("Edit Admin");
                 navigationView.getMenu().findItem(R.id.edit_station).setVisible(false);
                 navigationView.getMenu().findItem(R.id.delete_station).setTitle("Add Lock to database");
