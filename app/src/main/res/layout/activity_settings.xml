@@ -44,7 +44,7 @@
                     android:layout_marginStart="@dimen/one_fourty_dp"
                     android:layout_marginTop="@dimen/eight_dp"
                     android:padding="@dimen/four_dp"
-                    android:text="@string/settings"
+                    android:text="@string/profile"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/fourteen_sp" />
