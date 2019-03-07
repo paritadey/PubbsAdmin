@@ -31,7 +31,6 @@ import java.util.List;
 public class ShowAllStations extends AppCompatActivity implements AsyncResponse{
     ImageView back;
     private TextView addOperatorTv;
-    EditText inputSearch;
     ProgressBar circularProgressbar;
     private RecyclerView recyclerView;
     private AllStationAdapter allStationAdapter;
@@ -56,8 +55,6 @@ public class ShowAllStations extends AppCompatActivity implements AsyncResponse{
         back = findViewById(R.id.back_button);
         addOperatorTv = findViewById(R.id.add_operator_tv);
         addOperatorTv.setTypeface(type1);
-        inputSearch = findViewById(R.id.input_search);
-        inputSearch.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
         recyclerView = findViewById(R.id.recycler_view);
         allStationAdapter = new AllStationAdapter(stationLists);
