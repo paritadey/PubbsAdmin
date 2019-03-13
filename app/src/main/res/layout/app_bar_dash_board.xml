@@ -32,7 +32,7 @@
                     android:layout_marginStart="@dimen/sixty_four_dp"
                     android:layout_marginTop="@dimen/tweleve_dp"
                     android:padding="@dimen/four_dp"
-                    android:text="@string/all_bicycle"
+                    android:text="@string/my_dashboard"
                     android:textAlignment="center"
                     android:textSize="@dimen/fourteen_sp"
                     android:textColor="@color/white"/>

@@ -36,6 +36,9 @@
                     <item
                         android:id="@+id/delete_station"
                         android:title="Delete Station" />
+                    <item
+                        android:id="@+id/live_track"
+                        android:title="Live Track"/>
                 </group>
             </menu>
         </item>

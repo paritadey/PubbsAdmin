@@ -223,4 +223,7 @@ Phone: +91-3222-255221\n
 FAX : +91-3222-255303
 </string>
     <string name="profile">Profile</string>
+    <string name="live_track">Live Track</string>
+    <string name="my_dashboard">My Dashboard</string>
+    <string name="area_name">Choose Your Area</string>
 </resources>

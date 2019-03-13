@@ -287,7 +287,7 @@ public class DashBoardActivity extends AppCompatActivity
                 if (check == 1) {
                     startActivity(new Intent(DashBoardActivity.this, AdminSubscription.class));
                     break;
-                } else if(check == 2 || check == 3){
+                } else if (check == 2 || check == 3) {
                     startActivity(new Intent(DashBoardActivity.this, StartStopService.class));
                     break;
                 }
@@ -299,6 +299,9 @@ public class DashBoardActivity extends AppCompatActivity
                 intent.putExtra("uphone", uphone);
                 intent.putExtra("uadmin", uadmin);
                 startActivity(intent);
+                break;
+            case R.id.live_track:
+                startActivity(new Intent(DashBoardActivity.this, LiveTrack.class));
                 break;
             case R.id.log_out:
                 sharedPreferences.edit().clear().commit();
