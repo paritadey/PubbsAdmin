@@ -1,21 +1,15 @@
 package admin.pubbs.in.pubbsadminnew;
 
-import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.os.Build;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,53 +22,69 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by LORD on 9/17/2017.
- */
-
-public class DashboardFragment extends Fragment implements AsyncResponse {
-
+public class GenerateReport extends AppCompatActivity implements AsyncResponse {
     String uphone, uadmin;
     TextView admin_type, choose_area_tv, report_tv, financial_report, usage_report, growth_report;
     SharedPreferences sharedPreferences;
     Spinner choose_area;
+    ImageView back;
     ArrayList<String> area_list = new ArrayList<>();
     ArrayAdapter<String> adapter;
-    private String TAG = DashboardFragment.class.getSimpleName();
+    private String TAG = GenerateReport.class.getSimpleName();
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Dashboard");
-        View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        Typeface type1 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
-        Typeface type2 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
-        Typeface type3 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-        sharedPreferences = getActivity().getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
-        uphone = sharedPreferences.getString("adminmobile", "null"); //uphone is the user_phone to store the mobile number of the user
-        uadmin = sharedPreferences.getString("admin_type", "null"); //uadmin is the admin type of the user who is using the app at the moment
-        report_tv = v.findViewById(R.id.report_tv);
-        report_tv.setTypeface(type1);
-        financial_report = v.findViewById(R.id.financial_report);
-        financial_report.setTypeface(type1);
-        usage_report = v.findViewById(R.id.usage_report);
-        usage_report.setTypeface(type1);
-        growth_report = v.findViewById(R.id.growth_report);
-        growth_report.setTypeface(type1);
-        admin_type = v.findViewById(R.id.admin_type);
-        admin_type.setTypeface(type1);
-        admin_type.setText("My Admin Type:" + "\t" + uadmin);
-        choose_area_tv = v.findViewById(R.id.choose_area_tv);
-        choose_area_tv.setTypeface(type1);
-        choose_area = v.findViewById(R.id.choose_area);
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, area_list);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        choose_area.setAdapter(adapter);
-        return v;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_generate_report);
+        initView();
     }
 
-    public void onStart() {
-        super.onStart();
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(GenerateReport.this, ManageOperator.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void initView() {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
+        Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
+        uphone = sharedPreferences.getString("adminmobile", "null"); //uphone is the user_phone to store the mobile number of the user
+        uadmin = sharedPreferences.getString("admin_type", "null"); //uadmin is the admin type of the user who is using the app at the moment
+        report_tv = findViewById(R.id.report_tv);
+        report_tv.setTypeface(type1);
+        financial_report = findViewById(R.id.financial_report);
+        financial_report.setTypeface(type1);
+        usage_report = findViewById(R.id.usage_report);
+        usage_report.setTypeface(type1);
+        growth_report = findViewById(R.id.growth_report);
+        growth_report.setTypeface(type1);
+        admin_type = findViewById(R.id.admin_type);
+        admin_type.setTypeface(type1);
+        admin_type.setText("My Admin Type:" + "\t" + uadmin);
+        choose_area_tv = findViewById(R.id.choose_area_tv);
+        choose_area_tv.setTypeface(type1);
+        choose_area = findViewById(R.id.choose_area);
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, area_list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        choose_area.setAdapter(adapter);
+        back = findViewById(R.id.back_button);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GenerateReport.this, ManageOperator.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         loadData();
     }
 
@@ -87,7 +97,8 @@ public class DashboardFragment extends Fragment implements AsyncResponse {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            new SendRequest(getResources().getString(R.string.url), jo, DashboardFragment.this, getActivity()).executeJsonRequest();
+            new SendRequest(getResources().getString(R.string.url), jo, GenerateReport.this,
+                    getApplicationContext()).executeJsonRequest();
         } else if (uadmin.equals("Super Admin")) {
             JSONObject jo_one = new JSONObject();
             try {
@@ -96,11 +107,11 @@ public class DashboardFragment extends Fragment implements AsyncResponse {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            new SendRequest(getResources().getString(R.string.url), jo_one, DashboardFragment.this, getActivity()).executeJsonRequest();
+            new SendRequest(getResources().getString(R.string.url), jo_one, GenerateReport.this,
+                    getApplicationContext()).executeJsonRequest();
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onResponse(JSONObject jsonObject) {
         area_list.add("Area List");
@@ -116,7 +127,7 @@ public class DashboardFragment extends Fragment implements AsyncResponse {
                             }
                         }
                     } else {
-                        Toast.makeText(getContext(), "No Area is present", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "No Area is present", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "No Area is present.");
                     }
                 } catch (JSONException e) {
@@ -136,7 +147,7 @@ public class DashboardFragment extends Fragment implements AsyncResponse {
                             }
                         }
                     } else {
-                        Toast.makeText(getContext(), "No Area is present", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "No Area is present", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "No Area is present.");
                     }
                 } catch (JSONException e) {
@@ -147,11 +158,8 @@ public class DashboardFragment extends Fragment implements AsyncResponse {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onResponseError(VolleyError error) {
-        Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "Server Error");
+        Log.d(TAG, "Network issue");
     }
-
 }

@@ -226,4 +226,6 @@ FAX : +91-3222-255303
     <string name="live_track">Live Track</string>
     <string name="my_dashboard">My Dashboard</string>
     <string name="area_name">Choose Your Area</string>
+    <string name="generate_report">Generate Area Report</string>
+    <string name="report">Generate Report</string>
 </resources>

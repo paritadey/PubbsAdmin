@@ -211,7 +211,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
                         }
                         LatLngBounds bounds = builder.build();
                         //   int padding = 50; // offset from edges of the map in pixels
-                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 15);
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 21);
                         gmap.moveCamera(cu);
                     }
                 }

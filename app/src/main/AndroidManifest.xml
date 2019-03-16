@@ -18,10 +18,14 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LiveTrack"
+        <activity android:name=".GenerateReport"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar" />
+        <activity
+            android:name=".LiveTrack"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".About"
             android:screenOrientation="portrait"

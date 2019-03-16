@@ -22,8 +22,8 @@ import org.json.JSONObject;
 public class ManageOperator extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     TextView manageOperatorTv;
     ImageView back;
-    TextView addOperator, editOperator;
-    CardView addOperatorCard, editOperatorCard;
+    TextView addOperator, editOperator, reportGeneration;
+    CardView addOperatorCard, editOperatorCard, reportCard;
     private String TAG = ManageOperator.class.getSimpleName();
     SharedPreferences sharedPreferences;
     String admin_mobile, admin_type, admin_area_id;
@@ -53,6 +53,9 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+        reportCard = findViewById(R.id.reportCard);
+        reportGeneration = findViewById(R.id.reportGeneration);
+        reportGeneration.setTypeface(type1);
         addOperatorCard = findViewById(R.id.addOperator_card);
         editOperatorCard = findViewById(R.id.editOperator_card);
         manageOperatorTv = findViewById(R.id.manage_operator_tv);
@@ -62,6 +65,7 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
         addOperator.setTypeface(type1);
         editOperator = findViewById(R.id.edit_operator);
         editOperator.setTypeface(type1);
+        reportGeneration.setOnClickListener(this);
         addOperatorCard.setOnClickListener(this);
         editOperatorCard.setOnClickListener(this);
         back.setOnClickListener(this);
@@ -85,6 +89,10 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
                     edit.putExtra("admin_mobile", admin_mobile);
                     startActivity(edit);
                 }
+                break;
+            case R.id.reportGeneration:
+                //will move to GenerateReport class
+                startActivity(new Intent(ManageOperator.this, GenerateReport.class));
                 break;
             case R.id.back_button:
                 //on back press move back to the main landing screen i.e Dashboard by clearing all the previous stack history
