@@ -22,9 +22,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class GenerateReport extends AppCompatActivity implements AsyncResponse {
+public class GenerateReport extends AppCompatActivity implements AsyncResponse, View.OnClickListener {
     String uphone, uadmin;
-    TextView admin_type, choose_area_tv, report_tv, financial_report, usage_report, growth_report;
+    TextView admin_type, choose_area_tv, report_tv, financial_report, usage_report;
     SharedPreferences sharedPreferences;
     Spinner choose_area;
     ImageView back;
@@ -57,10 +57,9 @@ public class GenerateReport extends AppCompatActivity implements AsyncResponse {
         report_tv.setTypeface(type1);
         financial_report = findViewById(R.id.financial_report);
         financial_report.setTypeface(type1);
+        financial_report.setOnClickListener(this);
         usage_report = findViewById(R.id.usage_report);
         usage_report.setTypeface(type1);
-        growth_report = findViewById(R.id.growth_report);
-        growth_report.setTypeface(type1);
         admin_type = findViewById(R.id.admin_type);
         admin_type.setTypeface(type1);
         admin_type.setText("My Admin Type:" + "\t" + uadmin);
@@ -71,15 +70,7 @@ public class GenerateReport extends AppCompatActivity implements AsyncResponse {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         choose_area.setAdapter(adapter);
         back = findViewById(R.id.back_button);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(GenerateReport.this, ManageOperator.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
-
+        back.setOnClickListener(this);
     }
 
     @Override
@@ -161,5 +152,22 @@ public class GenerateReport extends AppCompatActivity implements AsyncResponse {
     @Override
     public void onResponseError(VolleyError error) {
         Log.d(TAG, "Network issue");
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.financial_report:
+                startActivity(new Intent(GenerateReport.this, FinancialReport.class));
+                break;
+            case R.id.back_button:
+                Intent intent = new Intent(GenerateReport.this, ManageOperator.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
+
     }
 }
