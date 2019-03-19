@@ -228,4 +228,6 @@ FAX : +91-3222-255303
     <string name="area_name">Choose Your Area</string>
     <string name="generate_report">Generate Area Report</string>
     <string name="report">Generate Report</string>
+    <string name="financial_report">Financial Report</string>
+    <string name="get_financial">Get Financial Report</string>
 </resources>

@@ -18,7 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FinancialReport"></activity>
+        <activity android:name=".FinancialReport"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"/>
         <activity
             android:name=".GenerateReport"
             android:screenOrientation="portrait"
