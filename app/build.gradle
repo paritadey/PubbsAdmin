@@ -46,5 +46,6 @@ dependencies {
     // implementation 'com.evrencoskun.library:tableview:0.8.8'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
+    implementation 'com.github.CardinalNow:Android-CircleProgressIndicator:v0.2'
 
 }

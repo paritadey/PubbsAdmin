@@ -210,12 +210,12 @@
         it will take the user
     to the default email app of the user phone.</string>
     <string name="about">About</string>
-    <string name="aboutText">Our reserach group works broadly in Transportation planning with work
-        experience in: Non-motorized transportation (Bicycle and pedestrian infrastructure and facilities,
-        public bicycle sharing and associated software and hardware, Level of Service, Last Mile Connectivity),
-        Public transportation (Bus transit and BRT service design, service optimization and software development,
-        route design and rationalization, feeder service design), Landuse Transport interaction modeling (Activity- based models,
-        Behavioral models on mode choice, Transit oriented development), and Intelligent transportation systems
+    <string name="aboutText">We believe that a seamless transportation system is the heart of a smart city.
+        Our research group’s expertise lies broadly in the field of non- motorised transportation (bicycle and pedestrian
+        infrastructure, public bicycle sharing, last mile connectivity), public transportation (bus transit service design,
+        service optimisation and software development, network optimisation, route design and rationalisation, feeder service design),
+        land-use transportation modelling (activity-based models, behavioural models based on mode choice, transit oriented development),
+        and intelligent transportation systems.
 </string>
     <string name="contact">Indian Institute of Technology Kharagpur\n
 Kharagpur, India - 721302\n\n

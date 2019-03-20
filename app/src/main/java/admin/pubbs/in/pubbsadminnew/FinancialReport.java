@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class FinancialReport extends AppCompatActivity implements View.OnClickListener {
@@ -17,6 +18,7 @@ public class FinancialReport extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_financial_report);
         initView();
+
     }
 
     private void initView() {
@@ -28,6 +30,8 @@ public class FinancialReport extends AppCompatActivity implements View.OnClickLi
         financial_report_tv.setTypeface(type1);
         back = findViewById(R.id.back_button);
         back.setOnClickListener(this);
+        ProgressBar progress = (ProgressBar) findViewById(R.id.circle_progress_bar);
+        progress.setProgress(33);
 
     }
 
