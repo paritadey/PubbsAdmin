@@ -105,7 +105,7 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.redistribution).setVisible(false);
                 navigationView.getMenu().findItem(R.id.repair).setTitle("Show all Areas");
                 navigationView.getMenu().findItem(R.id.recharge_battery).setTitle("Show all Stations");
-                navigationView.getMenu().findItem(R.id.remove_bicycle).setVisible(false);
+                navigationView.getMenu().findItem(R.id.remove_bicycle).setTitle("Show Report");
                 navigationView.getMenu().findItem(R.id.manage_users).setTitle("Feedback History");
                 navigationView.getMenu().findItem(R.id.my_users).setTitle("Feedback");
                 navigationView.getMenu().findItem(R.id.support_user).setVisible(false);
@@ -238,8 +238,13 @@ public class DashBoardActivity extends AppCompatActivity
                     break;
                 }
             case R.id.remove_bicycle:
-                startActivity(new Intent(DashBoardActivity.this, RemoveBicycle.class));
-                break;
+                if (check == 1) {
+                    startActivity(new Intent(DashBoardActivity.this, FinancialReport.class));
+                    break;
+                } else if (check == 2 || check == 3) {
+                    startActivity(new Intent(DashBoardActivity.this, RemoveBicycle.class));
+                    break;
+                }
             case R.id.my_users:
                 if (check == 1) {
                     startActivity(new Intent(DashBoardActivity.this, FeedBack.class));

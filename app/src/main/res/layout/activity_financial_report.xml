@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginStart="@dimen/one_fourty_dp"
+                    android:layout_marginStart="@dimen/one_twenty_dp"
                     android:layout_marginTop="@dimen/eight_dp"
                     android:padding="@dimen/four_dp"
                     android:text="@string/financial_report"
@@ -115,80 +115,84 @@
                                 android:id="@+id/radioRide"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:onClick="onRadioClicked"
                                 android:padding="@dimen/four_dp"
                                 android:text="Ride Transaction"
-                                android:textSize="@dimen/fourteen_sp" />
+                                android:textSize="@dimen/fourteen_sp"
+                                tools:ignore="OnClick" />
 
                             <RadioButton
                                 android:id="@+id/radioWallet"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:onClick="onRadioClicked"
                                 android:padding="@dimen/four_dp"
                                 android:text="Wallet Transaction"
-                                android:textSize="@dimen/fourteen_sp" />
+                                android:textSize="@dimen/fourteen_sp"
+                                tools:ignore="OnClick" />
 
                         </RadioGroup>
 
-                        <Button
-                            android:id="@+id/daily_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/fourty_six_dp"
-                            android:layout_marginTop="@dimen/twenty_four_dp"
-                            android:background="@drawable/report_bg"
-                            android:text="Daily"
-                            android:textAllCaps="false"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/fourteen_sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/transaction_type"
-                            tools:ignore="MissingConstraints" />
+                        <!--  <Button
+                              android:id="@+id/daily_button"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginStart="@dimen/fourty_six_dp"
+                              android:layout_marginTop="@dimen/twenty_four_dp"
+                              android:background="@drawable/report_bg"
+                              android:text="Daily"
+                              android:textAllCaps="false"
+                              android:textColor="@color/black"
+                              android:textSize="@dimen/fourteen_sp"
+                              app:layout_constraintStart_toStartOf="parent"
+                              app:layout_constraintTop_toBottomOf="@+id/transaction_type"
+                              tools:ignore="MissingConstraints" />
 
-                        <Button
-                            android:id="@+id/weekly_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/twenty_four_dp"
-                            android:background="@drawable/report_bg"
-                            android:text="Weekly"
-                            android:textAllCaps="false"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/fourteen_sp"
-                            app:layout_constraintBaseline_toBaselineOf="@+id/daily_button"
-                            app:layout_constraintLeft_toRightOf="@id/daily_button"
-                            app:layout_constraintTop_toBottomOf="@+id/transaction_type"
-                            tools:ignore="MissingConstraints" />
+                          <Button
+                              android:id="@+id/weekly_button"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginLeft="@dimen/twenty_four_dp"
+                              android:background="@drawable/report_bg"
+                              android:text="Weekly"
+                              android:textAllCaps="false"
+                              android:textColor="@color/black"
+                              android:textSize="@dimen/fourteen_sp"
+                              app:layout_constraintBaseline_toBaselineOf="@+id/daily_button"
+                              app:layout_constraintLeft_toRightOf="@id/daily_button"
+                              app:layout_constraintTop_toBottomOf="@+id/transaction_type"
+                              tools:ignore="MissingConstraints" />
 
 
-                        <Button
-                            android:id="@+id/monthly_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/fourty_six_dp"
-                            android:layout_marginTop="@dimen/twenty_four_dp"
-                            android:background="@drawable/report_bg"
-                            android:text="Monthly"
-                            android:textAllCaps="false"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/fourteen_sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/daily_button"
-                            tools:ignore="MissingConstraints" />
+                          <Button
+                              android:id="@+id/monthly_button"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginStart="@dimen/fourty_six_dp"
+                              android:layout_marginTop="@dimen/twenty_four_dp"
+                              android:background="@drawable/report_bg"
+                              android:text="Monthly"
+                              android:textAllCaps="false"
+                              android:textColor="@color/black"
+                              android:textSize="@dimen/fourteen_sp"
+                              app:layout_constraintStart_toStartOf="parent"
+                              app:layout_constraintTop_toBottomOf="@+id/daily_button"
+                              tools:ignore="MissingConstraints" />
 
-                        <Button
-                            android:id="@+id/yearly_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/twenty_four_dp"
-                            android:background="@drawable/report_bg"
-                            android:text="Yearly"
-                            android:textAllCaps="false"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/fourteen_sp"
-                            app:layout_constraintBaseline_toBaselineOf="@+id/monthly_button"
-                            app:layout_constraintLeft_toRightOf="@+id/monthly_button"
-                            app:layout_constraintTop_toBottomOf="@+id/transaction_type"
-                            tools:ignore="MissingConstraints" />
+                          <Button
+                              android:id="@+id/yearly_button"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginLeft="@dimen/twenty_four_dp"
+                              android:background="@drawable/report_bg"
+                              android:text="Yearly"
+                              android:textAllCaps="false"
+                              android:textColor="@color/black"
+                              android:textSize="@dimen/fourteen_sp"
+                              app:layout_constraintBaseline_toBaselineOf="@+id/monthly_button"
+                              app:layout_constraintLeft_toRightOf="@+id/monthly_button"
+                              app:layout_constraintTop_toBottomOf="@+id/transaction_type"
+                              tools:ignore="MissingConstraints" />-->
 
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
@@ -201,6 +205,7 @@
                     android:layout_marginStart="@dimen/twenty_four_dp"
                     android:layout_marginTop="@dimen/twenty_four_dp"
                     android:layout_marginEnd="@dimen/twenty_four_dp"
+                    android:visibility="gone"
                     app:cardCornerRadius="@dimen/four_dp"
                     app:cardElevation="@dimen/eight_dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -226,8 +231,8 @@
                             tools:ignore="MissingConstraints" />
 
                         <TextView
-                            android:id="@+id/progress"
-                            android:layout_width="45dp"
+                            android:id="@+id/progress_indication"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginTop="@dimen/one_hundred_dp"
@@ -270,6 +275,158 @@
 
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/wallet_result_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/twenty_four_dp"
+                    android:layout_marginTop="@dimen/twenty_four_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
+                    android:visibility="gone"
+                    app:cardCornerRadius="@dimen/four_dp"
+                    app:cardElevation="@dimen/eight_dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/choice_card">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/progress_two_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:padding="@dimen/eight_dp"
+                            android:text="Wallet transaction"
+                            android:textAlignment="center"
+                            android:textSize="@dimen/fourteen_sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="MissingConstraints" />
+
+                        <TextView
+                            android:id="@+id/debit_progress_indication"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="@dimen/sixty_dp"
+                            android:layout_marginTop="@dimen/one_hundred_dp"
+                            android:padding="@dimen/eight_dp"
+                            android:text="65%"
+                            android:textSize="@dimen/fourteen_sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="MissingConstraints" />
+
+                        <ProgressBar
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="150dp"
+                            android:layout_height="160dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="@dimen/ten_dp"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progress="100"
+                            android:progressDrawable="@drawable/circle_progress_background"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/progress_two_tv"
+                            tools:ignore="MissingConstraints" />
+
+                        <ProgressBar
+                            android:id="@+id/debit_progress_bar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="150dp"
+                            android:layout_height="160dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="@dimen/ten_dp"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progressDrawable="@drawable/circle_progress_foreground"
+                            android:rotation="-90"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/progress_two_tv"
+                            tools:ignore="MissingConstraints" />
+
+                        <TextView
+                            android:id="@+id/debit_progress_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="@dimen/twenty_four_dp"
+                            android:padding="@dimen/eight_dp"
+                            android:text="Debit Transaction"
+                            android:textAlignment="center"
+                            android:textSize="@dimen/fourteen_sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/debit_progress_bar"
+                            tools:ignore="MissingConstraints" />
+
+
+                        <TextView
+                            android:id="@+id/credit_progress_indication"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="@dimen/one_hundred_dp"
+                            android:layout_marginEnd="@dimen/sixty_dp"
+                            android:padding="@dimen/eight_dp"
+                            android:text="65%"
+                            android:textSize="@dimen/fourteen_sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="MissingConstraints" />
+
+                        <ProgressBar
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="150dp"
+                            android:layout_height="160dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginEnd="@dimen/ten_dp"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progress="100"
+                            android:progressDrawable="@drawable/circle_progress_background"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/progress_two_tv"
+                            tools:ignore="MissingConstraints" />
+
+                        <ProgressBar
+                            android:id="@+id/credit_progress_bar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="150dp"
+                            android:layout_height="160dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginEnd="@dimen/ten_dp"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progressDrawable="@drawable/circle_progress_foreground"
+                            android:rotation="-90"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/progress_two_tv"
+                            tools:ignore="MissingConstraints" />
+
+                        <TextView
+                            android:id="@+id/credit_progress_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginEnd="@dimen/twenty_four_dp"
+                            android:padding="@dimen/eight_dp"
+                            android:text="Credit Transaction"
+                            android:textAlignment="center"
+                            android:textSize="@dimen/fourteen_sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/credit_progress_bar"
+                            tools:ignore="MissingConstraints" />
+
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
+
             </android.support.constraint.ConstraintLayout>
         </ScrollView>
     </FrameLayout>

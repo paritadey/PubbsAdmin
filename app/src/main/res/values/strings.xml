@@ -230,4 +230,5 @@ FAX : +91-3222-255303
     <string name="report">Generate Report</string>
     <string name="financial_report">Financial Report</string>
     <string name="get_financial">Get Financial Report</string>
+    <string name="employee_authority">Set Employee Authority</string>
 </resources>

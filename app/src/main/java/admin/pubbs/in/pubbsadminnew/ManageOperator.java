@@ -22,8 +22,8 @@ import org.json.JSONObject;
 public class ManageOperator extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     TextView manageOperatorTv;
     ImageView back;
-    TextView addOperator, editOperator, reportGeneration;
-    CardView addOperatorCard, editOperatorCard, reportCard;
+    TextView addOperator, editOperator, authority;
+    CardView addOperatorCard, editOperatorCard, authority_card;
     private String TAG = ManageOperator.class.getSimpleName();
     SharedPreferences sharedPreferences;
     String admin_mobile, admin_type, admin_area_id;
@@ -53,9 +53,9 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-        reportCard = findViewById(R.id.reportCard);
-        reportGeneration = findViewById(R.id.reportGeneration);
-        reportGeneration.setTypeface(type1);
+        authority_card = findViewById(R.id.authority_card);
+        authority = findViewById(R.id.authority);
+        authority.setTypeface(type1);
         addOperatorCard = findViewById(R.id.addOperator_card);
         editOperatorCard = findViewById(R.id.editOperator_card);
         manageOperatorTv = findViewById(R.id.manage_operator_tv);
@@ -65,7 +65,7 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
         addOperator.setTypeface(type1);
         editOperator = findViewById(R.id.edit_operator);
         editOperator.setTypeface(type1);
-        reportGeneration.setOnClickListener(this);
+        authority.setOnClickListener(this);
         addOperatorCard.setOnClickListener(this);
         editOperatorCard.setOnClickListener(this);
         back.setOnClickListener(this);
@@ -90,9 +90,16 @@ public class ManageOperator extends AppCompatActivity implements View.OnClickLis
                     startActivity(edit);
                 }
                 break;
-            case R.id.reportGeneration:
-                //will move to GenerateReport class
-                startActivity(new Intent(ManageOperator.this, GenerateReport.class));
+            case R.id.authority:
+                //will move to Set authority of Employee
+                if (admin_area_id.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Some network issue occured. Give some moment.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent edit = new Intent(ManageOperator.this, SetEmployeeAuthority.class);
+                    edit.putExtra("admin_area_id", admin_area_id);
+                    edit.putExtra("admin_mobile", admin_mobile);
+                    startActivity(edit);
+                }
                 break;
             case R.id.back_button:
                 //on back press move back to the main landing screen i.e Dashboard by clearing all the previous stack history

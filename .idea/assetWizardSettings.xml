@@ -29,8 +29,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_background" />
-                            <entry key="sourceFile" value="E:\downloads\svg\background.svg" />
+                            <entry key="outputName" value="ic_authority" />
+                            <entry key="sourceFile" value="E:\downloads\svg\authority.svg" />
                           </map>
                         </option>
                       </PersistentState>
