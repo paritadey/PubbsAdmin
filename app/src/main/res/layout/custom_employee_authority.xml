@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/twenty_four_dp"
+        android:elevation="@dimen/eight_dp">
+
+        <TextView
+            android:id="@+id/authority_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/thirty_six_dp"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
+            android:padding="@dimen/four_dp"
+            android:text="@string/employee_authority"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp" />
+
+        <CheckBox
+            android:id="@+id/managerCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/authority_tv"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/ten_dp"
+            android:checked="false"
+            android:padding="@dimen/four_dp"
+            android:text="Manager"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp" />
+
+        <CheckBox
+            android:id="@+id/financeCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/managerCheck"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/ten_dp"
+            android:checked="false"
+            android:padding="@dimen/four_dp"
+            android:text="Finance Employee"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp" />
+
+        <CheckBox
+            android:id="@+id/serviceCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/financeCheck"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/ten_dp"
+            android:checked="false"
+            android:padding="@dimen/four_dp"
+            android:text="Service Employee"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp" />
+
+        <CheckBox
+            android:id="@+id/driverCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/serviceCheck"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/ten_dp"
+            android:checked="false"
+            android:padding="@dimen/four_dp"
+            android:text="Driver Employee"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp" />
+
+        <Button
+            android:id="@+id/ok_btn"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/driverCheck"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/twenty_four_dp"
+            android:background="@drawable/button_bg"
+            android:elevation="@dimen/four_dp"
+            android:text="Ok"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fourteen_sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

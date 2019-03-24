@@ -1,8 +1,10 @@
 package admin.pubbs.in.pubbsadminnew;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,9 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
@@ -24,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResponse {
@@ -31,10 +36,17 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
     private TextView operatorTv;
     String area_id, admin_mobile;
     private RecyclerView recyclerView;
-    private EditOperatorAdapter editOperatorAdapter;
+    private SetEmployeeAuthorityAdapter setEmployeeAuthorityAdapter;
     private List<EditOperatorList> editOperatorLists = new ArrayList<>();
     ProgressBar circularProgressbar;
     private String TAG = SetEmployeeAuthority.class.getSimpleName();
+    int rank;
+    String manager, finance, service, driver;
+    String finalResult;
+    String UserUrl = "http://pubbs.in/api/1.0/setEmployeeAuthority.php";
+    HashMap<String, String> hashMap = new HashMap<>();
+    HttpParse httpParse = new HttpParse();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,19 +74,22 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
         operatorTv.setTypeface(type1);
         //Recyclerview will show the objects
         recyclerView = findViewById(R.id.recyclerview);
-        editOperatorAdapter = new EditOperatorAdapter(editOperatorLists);
+        setEmployeeAuthorityAdapter = new SetEmployeeAuthorityAdapter(editOperatorLists);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new CustomDivider(this, LinearLayoutManager.VERTICAL, 8));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(editOperatorAdapter);
+        recyclerView.setAdapter(setEmployeeAuthorityAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView,
                 new RecyclerTouchListener.ClickListener() {
                     @Override
                     public void onClick(View view, int position) {
                         EditOperatorList lists = editOperatorLists.get(position);
-
+                        String adminmobile = lists.getAdminmobile();
+                        String fullname = lists.getFullname();
+                        String admintype = lists.getAdmin_type();
+                        showAuthorityDialog(fullname, adminmobile, admintype);
                     }
 
                     @Override
@@ -94,6 +109,96 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
         });
 
     }
+
+    private void showAuthorityDialog(String fullname, String admin_mobile, String admin_type) {
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
+
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(SetEmployeeAuthority.this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_employee_authority, null);
+        final TextView authority_tv = (TextView) dialogView.findViewById(R.id.authority_tv);
+        authority_tv.setTypeface(type1);
+        final CheckBox managerCheck = dialogView.findViewById(R.id.managerCheck);
+        managerCheck.setTypeface(type1);
+        managerCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (managerCheck.isChecked()) {
+                    rank = 1;
+                }
+            }
+        });
+        final CheckBox financeCheck = dialogView.findViewById(R.id.financeCheck);
+        financeCheck.setTypeface(type1);
+        financeCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (financeCheck.isChecked()) {
+                    rank = 2;
+                }
+            }
+        });
+        final CheckBox serviceCheck = dialogView.findViewById(R.id.serviceCheck);
+        serviceCheck.setTypeface(type1);
+        serviceCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (serviceCheck.isChecked()) {
+                    rank = 3;
+                }
+            }
+        });
+        final CheckBox driverCheck = dialogView.findViewById(R.id.driverCheck);
+        driverCheck.setTypeface(type1);
+        driverCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (driverCheck.isChecked()) {
+                    rank = 4;
+                }
+            }
+        });
+        final Button ok_btn = dialogView.findViewById(R.id.ok_btn);
+        ok_btn.setTypeface(type2);
+        ok_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addAuthorityFunction(fullname, admin_mobile, admin_type, String.valueOf(rank));
+                dialogBuilder.dismiss();
+
+            }
+        });
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+        dialogBuilder.setCancelable(false);
+
+    }
+
+    public void addAuthorityFunction(String fullname, String admin_mobile, String admin_type,String rank) {
+        class addAuthorityFunctionClass extends AsyncTask<String, Void, String> {
+            @Override
+            protected void onPostExecute(String httpResponseMsg) {
+                super.onPostExecute(httpResponseMsg);
+                Toast.makeText(getApplicationContext(), httpResponseMsg.toString(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+                hashMap.put("fullname", params[0]);
+                hashMap.put("admin_mobile", params[1]);
+                hashMap.put("admin_type", params[2]);
+                hashMap.put("rank", params[3]);
+                finalResult = httpParse.postRequest(hashMap, UserUrl);
+                return finalResult;
+            }
+        }
+
+        addAuthorityFunctionClass addAuthorityFunctionClass = new addAuthorityFunctionClass();
+        addAuthorityFunctionClass.execute(fullname, admin_mobile, admin_type, rank);
+
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -149,7 +254,7 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
                 e.printStackTrace();
             }
         }
-        editOperatorAdapter.notifyDataSetChanged();
+        setEmployeeAuthorityAdapter.notifyDataSetChanged();
 
     }
 

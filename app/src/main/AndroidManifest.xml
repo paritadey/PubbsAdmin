@@ -18,10 +18,12 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SetEmployeeAuthority"
+        <activity android:name=".ChangeAuthorityEmployee"></activity>
+        <activity
+            android:name=".SetEmployeeAuthority"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".FinancialReport"
             android:screenOrientation="portrait"
