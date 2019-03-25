@@ -40,8 +40,7 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
     private List<EditOperatorList> editOperatorLists = new ArrayList<>();
     ProgressBar circularProgressbar;
     private String TAG = SetEmployeeAuthority.class.getSimpleName();
-    int rank;
-    String manager, finance, service, driver;
+    int rank, manager, finance, service, driver, total_rank;
     String finalResult;
     String UserUrl = "http://pubbs.in/api/1.0/setEmployeeAuthority.php";
     HashMap<String, String> hashMap = new HashMap<>();
@@ -125,8 +124,14 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
             @Override
             public void onClick(View v) {
                 if (managerCheck.isChecked()) {
-                    rank = 1;
+                    rank = 1; // rank 1 is manager
+                    manager = 1;
+                } else {
+                    rank = 0;
+                    manager = 0;
                 }
+                total_rank += rank;
+                Log.d(TAG, "Total Rank:" + total_rank);
             }
         });
         final CheckBox financeCheck = dialogView.findViewById(R.id.financeCheck);
@@ -135,8 +140,14 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
             @Override
             public void onClick(View v) {
                 if (financeCheck.isChecked()) {
-                    rank = 2;
+                    rank = 2; // rank 2 is finance
+                    finance = 1;
+                } else {
+                    rank = 0;
+                    finance = 0;
                 }
+                total_rank += rank;
+                Log.d(TAG, "Total Rank:" + total_rank);
             }
         });
         final CheckBox serviceCheck = dialogView.findViewById(R.id.serviceCheck);
@@ -145,8 +156,14 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
             @Override
             public void onClick(View v) {
                 if (serviceCheck.isChecked()) {
-                    rank = 3;
+                    rank = 3; //rank 3 is service
+                    service = 1;
+                } else {
+                    rank = 0;
+                    service = 0;
                 }
+                total_rank += rank;
+                Log.d(TAG, "Total Rank:" + total_rank);
             }
         });
         final CheckBox driverCheck = dialogView.findViewById(R.id.driverCheck);
@@ -155,8 +172,14 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
             @Override
             public void onClick(View v) {
                 if (driverCheck.isChecked()) {
-                    rank = 4;
+                    rank = 4; // rank 4 is driver
+                    driver = 1;
+                } else {
+                    rank = 0;
+                    driver = 0;
                 }
+                total_rank += rank;
+                Log.d(TAG, "Total Rank:" + total_rank);
             }
         });
         final Button ok_btn = dialogView.findViewById(R.id.ok_btn);
@@ -164,7 +187,8 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addAuthorityFunction(fullname, admin_mobile, admin_type, String.valueOf(rank));
+                addAuthorityFunction(fullname, admin_mobile, admin_type, String.valueOf(total_rank), String.valueOf(manager),
+                        String.valueOf(finance), String.valueOf(service), String.valueOf(driver));
                 dialogBuilder.dismiss();
 
             }
@@ -175,12 +199,14 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
 
     }
 
-    public void addAuthorityFunction(String fullname, String admin_mobile, String admin_type,String rank) {
+    public void addAuthorityFunction(String fullname, String admin_mobile, String admin_type, String rank, String manager,
+                                     String finance, String service, String driver) {
         class addAuthorityFunctionClass extends AsyncTask<String, Void, String> {
             @Override
             protected void onPostExecute(String httpResponseMsg) {
                 super.onPostExecute(httpResponseMsg);
-                Toast.makeText(getApplicationContext(), httpResponseMsg.toString(), Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(), httpResponseMsg.toString(), Toast.LENGTH_LONG).show();
+                showDialog(httpResponseMsg.toString());
             }
 
             @Override
@@ -189,13 +215,17 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
                 hashMap.put("admin_mobile", params[1]);
                 hashMap.put("admin_type", params[2]);
                 hashMap.put("rank", params[3]);
+                hashMap.put("manager", params[4]);
+                hashMap.put("finance", params[5]);
+                hashMap.put("service", params[6]);
+                hashMap.put("driver", params[7]);
                 finalResult = httpParse.postRequest(hashMap, UserUrl);
                 return finalResult;
             }
         }
 
         addAuthorityFunctionClass addAuthorityFunctionClass = new addAuthorityFunctionClass();
-        addAuthorityFunctionClass.execute(fullname, admin_mobile, admin_type, rank);
+        addAuthorityFunctionClass.execute(fullname, admin_mobile, admin_type, rank, manager, finance, service, driver);
 
     }
 
