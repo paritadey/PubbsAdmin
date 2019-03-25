@@ -34,7 +34,8 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/fourteen_sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints" />
 
                 <ImageView
                     android:id="@+id/back_button"
@@ -42,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/eight_dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/ic_arrow_back_24dp" />
+                    app:srcCompat="@drawable/ic_arrow_back_24dp"
+                    tools:ignore="MissingConstraints" />
 
               <!--  <RelativeLayout
                     android:id="@+id/search_bar_layout"

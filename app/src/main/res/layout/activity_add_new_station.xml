@@ -2,9 +2,11 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddNewStation">
+
     <include
         layout="@layout/app_bar_addnewstation"
         android:layout_width="match_parent"
@@ -15,7 +17,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="250dp"
-        android:indeterminateDrawable="@drawable/progressbar"
+        android:indeterminate="true"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

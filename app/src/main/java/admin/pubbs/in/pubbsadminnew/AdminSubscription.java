@@ -1,5 +1,6 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -54,6 +56,10 @@ public class AdminSubscription extends AppCompatActivity implements AsyncRespons
         admin_subscription_area = findViewById(R.id.admin_subscription_area);
         admin_subscription_area.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
+        ObjectAnimator progressAnimator = ObjectAnimator.ofInt(circularProgressbar, "progress", 100, 0);
+        progressAnimator.setDuration(300);
+        progressAnimator.setInterpolator(new LinearInterpolator());
+        progressAnimator.start();
         recyclerView = findViewById(R.id.recycler_view);
         adminSubscriptionAdapter = new AdminSubscriptionAdapter(adminSubscriptionLists);
         recyclerView.setHasFixedSize(true);

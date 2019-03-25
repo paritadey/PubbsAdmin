@@ -1,5 +1,6 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -52,6 +54,10 @@ public class RechargeBattery extends AppCompatActivity implements AsyncResponse 
         adminmobile = sharedPreferences.getString("adminmobile", null);
         admin_type = sharedPreferences.getString("admin_type", null);
         circularProgressbar = findViewById(R.id.circularProgressbar);
+        ObjectAnimator progressAnimator = ObjectAnimator.ofInt(circularProgressbar, "progress", 100, 0);
+        progressAnimator.setDuration(300);
+        progressAnimator.setInterpolator(new LinearInterpolator());
+        progressAnimator.start();
         back = findViewById(R.id.back_button);
         bicycleTv = findViewById(R.id.bicycle_tv);
         bicycleTv.setTypeface(type1);

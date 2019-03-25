@@ -1,5 +1,6 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -63,6 +65,10 @@ public class AreaStations extends AppCompatActivity implements AsyncResponse {
         bicycleTv = findViewById(R.id.bicycle_tv);
         bicycleTv.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
+        ObjectAnimator progressAnimator = ObjectAnimator.ofInt(circularProgressbar, "progress", 100, 0);
+        progressAnimator.setDuration(300);
+        progressAnimator.setInterpolator(new LinearInterpolator());
+        progressAnimator.start();
         recyclerView = findViewById(R.id.recycler_view);
         addNewBicycleAdapter = new AddNewBicycleAdapter(deleteStationLists);
         recyclerView.setHasFixedSize(true);

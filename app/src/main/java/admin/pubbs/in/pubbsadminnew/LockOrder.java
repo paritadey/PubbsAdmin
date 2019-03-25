@@ -1,5 +1,6 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -62,6 +64,10 @@ public class LockOrder extends AppCompatActivity implements AsyncResponse {
         //  inputSearch = findViewById(R.id.input_search);
         // inputSearch.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
+        ObjectAnimator progressAnimator = ObjectAnimator.ofInt(circularProgressbar, "progress", 100, 0);
+        progressAnimator.setDuration(300);
+        progressAnimator.setInterpolator(new LinearInterpolator());
+        progressAnimator.start();
         recyclerView = findViewById(R.id.recycler_view);
         lockOrderAdpater = new LockOrderAdpater(lockDetailsLists);
         recyclerView.setHasFixedSize(true);

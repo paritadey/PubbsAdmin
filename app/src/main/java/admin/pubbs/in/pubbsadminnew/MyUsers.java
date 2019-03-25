@@ -1,5 +1,6 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -13,6 +14,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,6 +52,10 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         circularProgressbar = findViewById(R.id.circularProgressbar);
+        ObjectAnimator progressAnimator = ObjectAnimator.ofInt(circularProgressbar, "progress", 100, 0);
+        progressAnimator.setDuration(300);
+        progressAnimator.setInterpolator(new LinearInterpolator());
+        progressAnimator.start();
         back = findViewById(R.id.back_button);
         inputSearch = findViewById(R.id.input_search);
         userListTv = findViewById(R.id.user_list_tv);
