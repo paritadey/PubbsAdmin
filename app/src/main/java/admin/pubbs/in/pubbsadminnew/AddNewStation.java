@@ -65,6 +65,7 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse {
         addNewStationTv = findViewById(R.id.add_new_station_tv);
         addNewStationTv.setTypeface(type1);
         circularProgressbar = findViewById(R.id.circularProgressbar);
+        //objectanimator will show the animation
         ObjectAnimator progressAnimator = ObjectAnimator.ofInt(circularProgressbar, "progress", 100, 0);
         progressAnimator.setDuration(300);
         progressAnimator.setInterpolator(new LinearInterpolator());
