@@ -115,7 +115,7 @@
     <string name="add_new_bicycle_message">To add a new bicycle click "Add Now"  button. \n Scan the QR code and enter the
         Bicycle ID</string>
     <string name="add_new_area_message">To add new area, Admin can choose any area by writting the name of the place in the search bar. \n
-    Admin has to choose six coordinates/points in the map of her/his choice. \n
+    Admin has to choose tweleve coordinates/points in the map of her/his choice. \n
     A pop-up window will open to set the name of the area. \n
     Hit OK button and then Proceed button to move forward. \n
     Set all the timeslabs as well as price for rate chart and press Proceed.\n
