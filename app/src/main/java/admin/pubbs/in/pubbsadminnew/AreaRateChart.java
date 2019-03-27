@@ -47,14 +47,14 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
     private static final String[] rateTypes = {"Select Rate ", "Time", "Distance"};
     String rate_type, numberPickerMins, numberPickerHour, paymentType;
     ConstraintLayout rateChartTime, rateChartDistance;
-    TextView minute_tv, hour_tv, distance_tv, price_tv, distance_price_tv, rate_chart_heading, rupees_tv, rupees_distv, option, time_hour_tv;
+    TextView bottomsheet_text, minute_tv, hour_tv, distance_tv, price_tv, distance_price_tv, rate_chart_heading, rupees_tv, rupees_distv, option, time_hour_tv;
     com.travijuu.numberpicker.library.NumberPicker number_picker_mintues, number_picker_hour;
     com.warkiz.widget.IndicatorStayLayout km_indicator_layout;
     com.warkiz.widget.IndicatorSeekBar km_indicator;
     Button add_time_rate, add_distance_rate;
     RelativeLayout layout_price, layout_distance_price;
     EditText time_price, distance_price;
-    ImageView back;
+    ImageView back, upArrow;
     int hour, min;
     RadioGroup radioPayment;
     RadioButton radioTime, radioDistance, radioTimeDistance;
@@ -102,6 +102,10 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
         rupees_distv.setTypeface(type1);
         option = findViewById(R.id.option);
         option.setTypeface(type1);
+        upArrow = findViewById(R.id.up_arrow);
+        upArrow.setOnClickListener(this);
+        bottomsheet_text = findViewById(R.id.bottomsheet_text);
+        bottomsheet_text.setTypeface(type1);
         layout_distance_price = findViewById(R.id.layout_distance_price);
         distance_price = findViewById(R.id.distance_price);
         distance_price.setTypeface(type1);
@@ -295,6 +299,9 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                     final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                     layout_distance_price.startAnimation(animShake);
                 }
+                break;
+            case R.id.up_arrow:
+                new BottomSheetRateChartFragment().show(getSupportFragmentManager(), "dialog");
                 break;
             default:
                 break;

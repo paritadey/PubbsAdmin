@@ -47,6 +47,7 @@
         cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</string>
     <string name="area">Select your area now.</string>
     <string name="bottom_sheet_tv">Need help for location ?</string>
+    <string name="area_rate_chart_header">How do you add rate chart for your selected area?</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -231,4 +232,11 @@ FAX : +91-3222-255303
     <string name="financial_report">Financial Report</string>
     <string name="get_financial">Get Financial Report</string>
     <string name="employee_authority">Set Employee Authority</string>
+    <string name="bottom_area_rate">Need help to add rate chart ?</string>
+    <string name="description_add_rate">To add rate chart Sub Admin has to select the rate type from the spinner.\nThere are two types of rates like Time and Distance.\n\n
+        Another RadioGroup is present where Sub Admin has to choose the payment type of rate.\n On choosing any one of the radiobox item if
+        Sub Admin add time and distance basis rate chart then user will be charged money as per the chosen radiobox item.\n Sub Admin has to 
+        enter the amount of money for the choices made and hit Add Rate button to save the details.
+    </string>
+    <string name="rate_now">Add Rate for the area.</string>
 </resources>

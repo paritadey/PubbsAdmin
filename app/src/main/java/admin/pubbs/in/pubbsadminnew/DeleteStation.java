@@ -40,7 +40,6 @@ public class DeleteStation extends AppCompatActivity implements AsyncResponse {
     SharedPreferences sharedPreferences;
     String adminmobile;
     private String TAG = DeleteStation.class.getSimpleName();
-    EditText inputSearch;
     ProgressBar circularProgressbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +62,6 @@ public class DeleteStation extends AppCompatActivity implements AsyncResponse {
         stationTv = findViewById(R.id.station_tv);
         stationTv.setTypeface(type1);
         back = findViewById(R.id.back_button);
-        inputSearch = findViewById(R.id.input_search);
-        inputSearch.setTypeface(type1);
         recyclerView = findViewById(R.id.recyclerview);
         deleteStationAdpater = new DeleteStationAdpater(deleteStationLists);
         recyclerView.setHasFixedSize(true);
