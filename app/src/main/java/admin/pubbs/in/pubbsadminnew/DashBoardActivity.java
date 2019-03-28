@@ -254,6 +254,7 @@ public class DashBoardActivity extends AppCompatActivity
                     break;
                 }
             case R.id.support_user:
+                startActivity(new Intent(DashBoardActivity.this, SupportUsers.class));
                 break;
             case R.id.add_area:
                 if (check == 1) {

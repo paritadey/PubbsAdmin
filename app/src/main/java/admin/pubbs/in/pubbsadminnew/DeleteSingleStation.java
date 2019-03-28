@@ -48,7 +48,7 @@ public class DeleteSingleStation extends AppCompatActivity implements View.OnCli
         delete_station_tv = findViewById(R.id.delete_station_tv);
         all_set_tv = findViewById(R.id.all_set_tv);
         delete_stationTv = findViewById(R.id.delete_stationTv);
-        delete_station_tv.setTypeface(type1);
+        delete_stationTv.setTypeface(type1);
         all_set_tv.setTypeface(type2);
         delete_station_tv.setTypeface(type2);
         stationName = findViewById(R.id.station_name);
