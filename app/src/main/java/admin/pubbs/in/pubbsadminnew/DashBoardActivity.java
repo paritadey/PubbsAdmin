@@ -94,7 +94,7 @@ public class DashBoardActivity extends AppCompatActivity
                 //check = true;
                 check = 1;
                 navigationView.getMenu().findItem(R.id.manage_area).setTitle("Manage Admin/Employee");
-                navigationView.getMenu().findItem(R.id.add_area).setTitle("Add New Admin");
+                // navigationView.getMenu().findItem(R.id.add_area).setTitle("Add New Admin");
                 navigationView.getMenu().findItem(R.id.area_subscription).setVisible(false);
                 navigationView.getMenu().findItem(R.id.rate_chart).setVisible(false);
                 navigationView.getMenu().findItem(R.id.add_station).setTitle("Show all Sub-Admins");
@@ -113,7 +113,7 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.service).setTitle("Subscriptions");
                 navigationView.getMenu().findItem(R.id.manage_operator).setVisible(false);
                 navigationView.getMenu().findItem(R.id.contact_super_admin).setVisible(false);
-                navigationView.getMenu().findItem(R.id.area_legal).setVisible(false);
+                navigationView.getMenu().findItem(R.id.area_legal).setTitle("Add New Admin");
                 navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
             } else if (uadmin.equals("Employee")) { //if the admin_type of the user using the app is "Employee" then following options will be shown in the app
@@ -201,8 +201,13 @@ public class DashBoardActivity extends AppCompatActivity
                 }
                 break;
             case R.id.area_legal:
-                startActivity(new Intent(DashBoardActivity.this, AreaLegal.class));
-                break;
+                if (check == 1) {
+                    startActivity(new Intent(DashBoardActivity.this, SuperAdminAddOperator.class));
+                    break;
+                } else if (check == 2) {
+                    startActivity(new Intent(DashBoardActivity.this, AreaLegal.class));
+                    break;
+                }
             case R.id.redistribution:
                 if (check == 1) {
                     // startActivity(new Intent(DashBoardActivity.this, ShowAllAreas.class));
@@ -258,8 +263,8 @@ public class DashBoardActivity extends AppCompatActivity
                 break;
             case R.id.add_area:
                 if (check == 1) {
-                    // startActivity(new Intent(DashBoardActivity.this, AddOperator.class));
-                    startActivity(new Intent(DashBoardActivity.this, SuperAdminAddOperator.class));
+                    startActivity(new Intent(DashBoardActivity.this, AddNewArea.class));
+                    //      startActivity(new Intent(DashBoardActivity.this, SuperAdminAddOperator.class));
                     break;
                 } else if (check == 2 || check == 3) {
                     startActivity(new Intent(DashBoardActivity.this, AddNewArea.class));
