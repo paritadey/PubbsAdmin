@@ -56,13 +56,23 @@ public class SupportChatAdapter extends RecyclerView.Adapter<SupportChatAdapter.
         holder.date_time.setText(supportUserChatList.getDate_time());
         holder.message.setText(supportUserChatList.getMessage());
         holder.email.setText(supportUserChatList.getEmail());
+        String sender = supportUserChatList.getSender();
+        String date_time = supportUserChatList.getDate_time();
         String user_message = supportUserChatList.getMessage();
         String user_email = supportUserChatList.getEmail();
+        String area_id = supportUserChatList.getArea_id();
 
         holder.feedback_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "User message and email : " + user_message + "\t" + user_email);
+                Log.d(TAG, "User message and email : " + user_message + "\t" + user_email + "\t" + area_id);
+                Intent intent = new Intent(v.getContext(), SupportChatReply.class);
+                intent.putExtra("sender", sender);
+                intent.putExtra("date_time", date_time);
+                intent.putExtra("user_message", user_message);
+                intent.putExtra("user_email", user_email);
+                intent.putExtra("area_id", area_id);
+                v.getContext().startActivity(intent);
             }
         });
     }

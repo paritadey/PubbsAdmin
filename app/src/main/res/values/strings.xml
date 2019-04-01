@@ -239,4 +239,5 @@ FAX : +91-3222-255303
         enter the amount of money for the choices made and hit Add Rate button to save the details.
     </string>
     <string name="rate_now">Add Rate for the area.</string>
+    <string name="user_chat">User Chat</string>
 </resources>

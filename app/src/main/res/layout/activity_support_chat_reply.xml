@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SupportChatReply">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/four_dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:id="@+id/toolbar_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/sixteen_dp">
+
+                <ImageView
+                    android:id="@+id/back_button"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/manage_area_tv"
+                    android:layout_alignParentStart="true"
+                    app:srcCompat="@drawable/ic_arrow_back_24dp" />
+
+                <TextView
+                    android:id="@+id/reply_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/one_fifty_dp"
+                    android:layout_marginTop="@dimen/eight_dp"
+                    android:padding="@dimen/four_dp"
+                    android:text="@string/user_chat"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fourteen_sp" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/feedback_system_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/twenty_dp">
+
+                <ImageView
+                    android:id="@+id/message_img"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="@dimen/twenty_dp"
+                    android:layout_marginTop="@dimen/twenty_dp"
+                    android:padding="@dimen/four_dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_mail_outline_black" />
+
+                <TextView
+                    android:id="@+id/user_mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/twenty_dp"
+                    android:layout_marginTop="@dimen/twenty_four_dp"
+                    android:layout_marginEnd="@dimen/twenty_dp"
+                    android:text="User mobile"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintLeft_toRightOf="@+id/message_img"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/to_me_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/twenty_dp"
+                    android:layout_marginTop="@dimen/four_dp"
+                    android:layout_marginEnd="@dimen/twenty_dp"
+                    android:text="to me"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/eleven_sp"
+                    app:layout_constraintLeft_toRightOf="@+id/message_img"
+                    app:layout_constraintTop_toBottomOf="@+id/user_mobile" />
+
+                <ImageView
+                    android:id="@+id/reply"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="@dimen/twenty_four_dp"
+                    android:layout_marginEnd="@dimen/ten_dp"
+                    android:padding="@dimen/four_dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/user_mobile"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_chat_reply"
+                    tools:ignore="MissingConstraints" />
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/sender_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/twenty_four_dp"
+                    android:layout_marginTop="@dimen/ten_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
+                    app:cardCornerRadius="@dimen/eight_dp"
+                    app:cardElevation="@dimen/two_dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/to_me_tv">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/ten_dp"
+                        android:background="@android:color/transparent">
+
+                        <TextView
+                            android:id="@+id/reply_to_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/two_dp"
+                            android:padding="@dimen/two_dp"
+                            android:text="Reply to :"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:ignore="MissingConstraints" />
+
+                        <TextView
+                            android:id="@+id/reply_to"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/fourty_dp"
+                            android:padding="@dimen/two_dp"
+                            android:text="user1234@gmail.com"
+                            app:layout_constraintLeft_toRightOf="@+id/reply_to_tv"
+                            tools:ignore="MissingConstraints" />
+
+                        <TextView
+                            android:id="@+id/date_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/two_dp"
+                            android:padding="@dimen/two_dp"
+                            android:text="Date and Time:"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/reply_to_tv"
+                            tools:ignore="MissingConstraints" />
+
+                        <TextView
+                            android:id="@+id/date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/ten_dp"
+                            android:padding="@dimen/two_dp"
+                            android:text="28-03-2019 12:55"
+                            app:layout_constraintLeft_toRightOf="@+id/date_tv"
+                            app:layout_constraintTop_toBottomOf="@+id/reply_to"
+                            tools:ignore="MissingConstraints" />
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/user_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/twenty_four_dp"
+                    android:layout_marginTop="@dimen/ten_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
+                    android:background="@drawable/reply_background"
+                    android:padding="@dimen/eight_dp"
+                    android:text="Message from User"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintTop_toBottomOf="@id/sender_details" />
+
+                <EditText
+                    android:id="@+id/admin_reply"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/twenty_four_dp"
+                    android:layout_marginTop="@dimen/ten_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
+                    android:background="@drawable/reply_background"
+                    android:hint="Reply"
+                    android:visibility="gone"
+                    android:padding="@dimen/eight_dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey_600"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="@dimen/fourteen_sp"
+                    app:layout_constraintTop_toBottomOf="@id/user_message" />
+
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
+    </FrameLayout>
+</android.support.design.widget.CoordinatorLayout>
