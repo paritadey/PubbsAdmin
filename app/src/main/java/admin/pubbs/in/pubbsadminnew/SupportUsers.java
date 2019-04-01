@@ -123,7 +123,7 @@ public class SupportUsers extends AppCompatActivity implements AsyncResponse{
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
                             SupportUserChatList list = new SupportUserChatList(jo.getString("sender"),
-                                    jo.getString("email"), jo.getString("message"), jo.getString("date_time"));
+                                    jo.getString("email"), jo.getString("msg"), jo.getString("date"));
                             supportUserChatLists.add(list);
                         }
                     }

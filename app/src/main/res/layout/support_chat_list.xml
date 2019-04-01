@@ -26,9 +26,10 @@
             android:layout_marginTop="@dimen/twenty_four_dp"
             android:layout_toRightOf="@id/feedback"
             android:padding="@dimen/two_dp"
-            android:text="Sender Mobile"
+            android:text="Sender Name"
             android:textColor="@color/color_black_01"
             android:textSize="@dimen/sixteen_sp" />
+
 
         <TextView
             android:id="@+id/date_time_tv"
@@ -43,16 +44,18 @@
             android:textColor="@color/color_black_01"
             android:textSize="@dimen/tweleve_sp" />
 
+
         <TextView
             android:id="@+id/date_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/sender"
-            android:layout_marginStart="@dimen/ten_dp"
+            android:layout_marginStart="@dimen/tweleve_dp"
             android:layout_marginTop="@dimen/eight_dp"
             android:layout_toRightOf="@id/date_time_tv"
-            android:padding="@dimen/four_dp"
-            android:text="Date time"
+            android:padding="@dimen/two_dp"
+            android:text="28.3.2019"
+            android:layout_alignBaseline="@+id/date_time_tv"
             android:textColor="@color/color_black_01"
             android:textSize="@dimen/tweleve_sp" />
 
@@ -71,5 +74,7 @@
             android:layout_below="@id/date_time_tv"
             android:layout_toRightOf="@id/feedback"
             android:visibility="gone" />
+
     </RelativeLayout>
+
 </RelativeLayout>
