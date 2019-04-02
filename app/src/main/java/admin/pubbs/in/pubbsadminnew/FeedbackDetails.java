@@ -41,12 +41,12 @@ public class FeedbackDetails extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_feed_back_details);
         initView();
     }
-
+    //This method initializes all the variables, Typeface, intent data
     public void initView() {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
+        //sharedpreference stores the subadmin's details like phone number of the super admin
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
         super_admin_phone = sharedPreferences.getString("adminmobile", "null");
         Log.d(TAG, "Super admin phone: " + super_admin_phone);
@@ -59,6 +59,7 @@ public class FeedbackDetails extends AppCompatActivity implements View.OnClickLi
         admin_Email = intent.getStringExtra("email");
         Log.d(TAG, "Feedback details: " + admin_Mobile + "-" + admin_Type + "-" + admin_Subject + "-" + admin_Message + "-" + admin_Datetime +
                 "-" + admin_Email);
+        //defining the textviews in the xml
         admin_mobile = findViewById(R.id.admin_mobile);
         admin_mobile.setTypeface(type2);
         admin_mobile.setText(admin_Mobile);
@@ -118,6 +119,7 @@ public class FeedbackDetails extends AppCompatActivity implements View.OnClickLi
                     Log.d(TAG, "Date and message from super admin: " + reply_dateTime + "***" + reply_msg);
                     sendQuery(admin_Mobile, admin_Type, admin_Email, admin_Datetime, admin_Message, admin_Subject,
                             reply_msg, super_admin_phone, reply_dateTime);
+                    //this super admin's reply will go back to the user through email
                     Intent email = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + admin_Email));
                     email.putExtra(Intent.EXTRA_SUBJECT, "Reply from Super Admin of Subject: " + "" + admin_Subject);
                     email.putExtra(Intent.EXTRA_TEXT, reply_msg);
@@ -130,7 +132,7 @@ public class FeedbackDetails extends AppCompatActivity implements View.OnClickLi
         }
 
     }
-
+    //onback press go to the previous screen
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(FeedbackDetails.this, DashBoardActivity.class);
@@ -138,6 +140,7 @@ public class FeedbackDetails extends AppCompatActivity implements View.OnClickLi
         startActivity(intent);
     }
 
+    //this method will store super admin's reply with all other details in database
     public void sendQuery(String adminmobile, String admin_type, String email, String message_date_time,
                           String message, String subject, String reply, String super_admin, String reply_date_time) {
         JSONObject jo = new JSONObject();

@@ -201,23 +201,57 @@
                     android:textSize="@dimen/fourteen_sp"
                     app:layout_constraintTop_toBottomOf="@id/sender_details" />
 
-                <EditText
-                    android:id="@+id/admin_reply"
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/reply_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/twenty_four_dp"
-                    android:layout_marginTop="@dimen/ten_dp"
+                    android:layout_marginTop="@dimen/eight_dp"
                     android:layout_marginEnd="@dimen/twenty_four_dp"
-                    android:background="@drawable/reply_background"
-                    android:hint="Reply"
-                    android:visibility="gone"
-                    android:padding="@dimen/eight_dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey_600"
-                    android:textCursorDrawable="@drawable/custom_cursor"
-                    android:textSize="@dimen/fourteen_sp"
-                    app:layout_constraintTop_toBottomOf="@id/user_message" />
+                    android:layout_marginBottom="@dimen/twenty_four_dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/user_message"
+                    tools:ignore="MissingConstraints">
 
+                    <EditText
+                        android:id="@+id/admin_reply"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten_dp"
+                        android:background="@drawable/reply_background"
+                        android:hint="Reply"
+                        android:visibility="gone"
+                        android:padding="@dimen/eight_dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey_600"
+                        android:textCursorDrawable="@drawable/custom_cursor"
+                        android:textSize="@dimen/fourteen_sp"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.ebanx.swipebtn.SwipeButton
+                        android:id="@+id/send_reply_swipe"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten_dp"
+                        android:visibility="gone"
+                        app:button_bottom_padding="@dimen/eight_dp"
+                        app:button_background="@drawable/swipe_bg"
+                        app:button_image_disabled="@drawable/ic_keyboard_arrow_right"
+                        app:button_image_enabled="@drawable/ic_done"
+                        app:button_left_padding="@dimen/eight_dp"
+                        app:button_right_padding="@dimen/eight_dp"
+                        app:button_top_padding="@dimen/eight_dp"
+                        app:inner_text="Swipe to Reply"
+                        app:inner_text_background="@drawable/button_bg"
+                        app:inner_text_bottom_padding="@dimen/eight_dp"
+                        app:inner_text_color="@color/white"
+                        app:inner_text_size="@dimen/fourteen_sp"
+                        app:inner_text_top_padding="@dimen/eight_dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/admin_reply" />
+                </android.support.constraint.ConstraintLayout>
             </android.support.constraint.ConstraintLayout>
         </ScrollView>
     </FrameLayout>
