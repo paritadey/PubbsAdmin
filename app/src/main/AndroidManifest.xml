@@ -193,8 +193,7 @@
         <activity
             android:name=".ShowAllAreas"
             android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar"
-            android:windowSoftInputMode="adjustPan" />
+            android:theme="@style/MyNoActionBar" />
         <activity
             android:name=".ShowAllStations"
             android:screenOrientation="portrait"
