@@ -49,7 +49,6 @@
             android:name=".About"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
-        <activity android:name=".EmployeeAddNewStation" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

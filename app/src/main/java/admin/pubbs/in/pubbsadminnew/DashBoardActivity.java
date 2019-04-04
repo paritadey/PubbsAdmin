@@ -13,11 +13,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.android.volley.VolleyError;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 /*created by Parita Dey*/
 
 public class DashBoardActivity extends AppCompatActivity
@@ -31,8 +38,8 @@ public class DashBoardActivity extends AppCompatActivity
     private String TAG = DashBoardActivity.class.getSimpleName();
     TextView phone_number, admin_type;
     String uphone, uadmin;
-    //boolean check = false;
     int check;
+    int manager, finance, service, driver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,14 @@ public class DashBoardActivity extends AppCompatActivity
         setContentView(R.layout.activity_dash_board);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        manager = intent.getIntExtra("manager", 0);
+        finance = intent.getIntExtra("finance", 0);
+        service = intent.getIntExtra("service", 0);
+        driver = intent.getIntExtra("driver", 0);
+        Log.d(TAG, "Employee Authority:" + manager + "\t" + finance + "\t" + service + "\t" + driver);
+
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         allBicycleTv = findViewById(R.id.all_bicycle_tv);
         allBicycleTv.setTypeface(type);
@@ -88,6 +103,7 @@ public class DashBoardActivity extends AppCompatActivity
             phone_number.setTypeface(type);
             admin_type = hView.findViewById(R.id.admin_type);
             uadmin = sharedPreferences.getString("admin_type", "null"); //uadmin is the admin type of the user who is using the app at the moment
+            Log.d(TAG, "Admin Phone number and type:" + uphone + "\t" + uadmin);
             admin_type.setTypeface(type);
             admin_type.setText(uadmin);
             if (uadmin.equals("Super Admin")) { //if the admin_type of the user using the app is "Super Admin" then following options will be shown in the app
@@ -116,9 +132,12 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.area_legal).setTitle("Add New Admin");
                 navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
-            } else if (uadmin.equals("Employee")) { //if the admin_type of the user using the app is "Employee" then following options will be shown in the app
+            } else if (uadmin.equals("Employee")) {
+                //if the admin_type of the user using the app is "Employee" then following options will be shown in the app
                 // check = false;
                 check = 2;
+                //      Log.d(TAG, "Authority:" + manager + "\t" + finance + "\t" + service + "\t" + driver);
+                //if (manager == 1) {
                 navigationView.getMenu().findItem(R.id.rate_chart).setVisible(false);
                 navigationView.getMenu().findItem(R.id.area_subscription).setVisible(false);
                 navigationView.getMenu().findItem(R.id.area_legal).setVisible(false);
@@ -131,6 +150,7 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.contact_super_admin).setTitle("Contact Admin");
                 navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
+
             } else if (uadmin.equals("Sub Admin")) { //if the admin_type of the user using the app is "Sub Admin" then all options
                 // will be shown in the app which are present in the drawer menu
                 // check = false;
@@ -145,6 +165,7 @@ public class DashBoardActivity extends AppCompatActivity
         }
 
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -337,3 +358,18 @@ public class DashBoardActivity extends AppCompatActivity
     }
 
 }
+/*Employee can see the screens according to the rank.Sub Admin will set the authority rank.
+ * Manager : 1
+ * Finance : 2
+ * Service : 3
+ * Driver : 4
+ * Total rank = Sum of all of the choosen checkboxes by Sub Admin
+ * if rank=1 then employee has authority of Manager
+ * if rank=3 then employee has Manager+finance authority
+ * if rank=4 then employee has Manager+service
+ * if rank=5 then employee has Manager+driver
+ * maximum rank=10
+ * Manager can see all the screens like- 1.Add New Station, 2.Add New Bicycle, 3.Live Track, 4.Redistribution, 5.Repair, 6.Recharge Battery, 7.Remove Bicycle, 8.My Users, 9.Support to Users, 10.Contact Admin, 11.Profile
+ * Finance Employee can see only screens like- 1.Add Area Legal, 2. Add Area Subscription, 3.Rate Chart, 4.Contact Admin, 5.Profile
+ * Driver Employee can see only screens like- 1.Live Track, 2.Recharge Battery, 3.Remove Bicycle, 4.Support Users, 5.Contact Admin, 6.Profile
+ * Service Employee can see only screens like- 1.Redistribution, 2.Repair, 3.Contact Admin, 4.Profile*/

@@ -24,11 +24,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 /*created by Parita Dey*/
 
-public class SignIn extends Fragment {
+public class SignIn extends Fragment implements AsyncResponse {
     EditText userid, password;
     Button login;
     ProgressDialog pd;
@@ -45,6 +51,8 @@ public class SignIn extends Fragment {
     Spinner choice;
     private String TAG = SignIn.class.getSimpleName();
     private static final String[] operator = {"Select Operator", "Super Admin", "Sub Admin", "Employee"};
+    int rank, manager, finance, service, driver;
+    String adminmobile, admin_password, admin_type;
 
     public SignIn() {
     }
@@ -142,21 +150,80 @@ public class SignIn extends Fragment {
                     showSnackbar(view_layout, message, duration);
                 }
             } else {
-                String adminmobile = userid.getText().toString();
-                String admin_password = password.getText().toString();
-                String admin_type = operator_type;
-                UserLoginFunction(adminmobile, admin_password, admin_type);
+                adminmobile = userid.getText().toString();
+                admin_password = password.getText().toString();
+                admin_type = operator_type;
+                if (admin_type.equals("Employee")) {
+                    loadData(adminmobile);
+                } else {
+                    UserLoginFunction(adminmobile, admin_password, admin_type, manager, finance, service, driver);
+                }
             }
         });
 
         return rootView;
     }
 
+    private void getEmployeeRank(int manager, int finance, int service, int driver) {
+        Log.d(TAG, "Authority:" + manager + "\t" + finance + "\t" + service + "\t" + driver);
+        if (manager > 0 || finance > 0 || service > 0 || driver > 0) {
+            UserLoginFunction(adminmobile, admin_password, admin_type, manager, finance, service, driver);
+        }
+    }
+
+    public void loadData(String adminmobile) {
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("method", "getEmployeeRank");
+            jo.put("adminmobile", adminmobile);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new SendRequest(getString(R.string.url), jo, SignIn.this, getActivity()).executeJsonRequest();
+
+    }
+
+    @Override
+    public void onResponse(JSONObject jsonObject) {
+        if (jsonObject.has("method")) {
+            try {
+                if (jsonObject.getString("method").equals("getEmployeeRank") && jsonObject.getBoolean("success")) {
+                    JSONArray ja = jsonObject.getJSONArray("data");
+                    if (ja.length() > 0) {
+                        for (int i = 0; i < ja.length(); i++) {
+                            JSONObject jo = ja.getJSONObject(i);
+                            rank = Integer.parseInt(jo.getString("rank"));
+                            manager = Integer.parseInt(jo.getString("manager"));
+                            finance = Integer.parseInt(jo.getString("finance"));
+                            service = Integer.parseInt(jo.getString("service"));
+                            driver = Integer.parseInt(jo.getString("driver"));
+                        }
+                        Log.d(TAG, "Authority List of Employee:" + rank + "\t" + manager + "\t" + finance + "\t" + service + "\t" + driver);
+                        getEmployeeRank(manager, finance, service, driver);
+                    }
+                } else {
+                    Log.d(TAG, "Not Employee move further");
+                    // showDashboard(manager, finance, service, driver);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+
+    @Override
+    public void onResponseError(VolleyError error) {
+        Log.d(TAG, "Error:" + error.toString());
+    }
+
     public void showSnackbar(View view, String message, int duration) {
         Snackbar.make(view, message, duration).show();
     }
 
-    public void UserLoginFunction(final String adminmobile, final String adminpassword, final String admin_type) {
+    public void UserLoginFunction(final String adminmobile, final String adminpassword, final String admin_type,
+                                  final int manager, final int finance, final int service, final int driver) {
         class UserLoginClass extends AsyncTask<String, Void, String> {
             @Override
             protected void onPreExecute() {
@@ -178,6 +245,10 @@ public class SignIn extends Fragment {
                     editor.commit();
                     Log.d("SignIn.java", "SharedPreference stored the value");
                     Intent intent = new Intent(getActivity(), DashBoardActivity.class);
+                    intent.putExtra("manager", manager);
+                    intent.putExtra("finance", finance);
+                    intent.putExtra("service", service);
+                    intent.putExtra("driver", driver);
                     startActivity(intent);
                 } else {
                     Log.d("Signin", "server result: " + httpResponseMsg);
