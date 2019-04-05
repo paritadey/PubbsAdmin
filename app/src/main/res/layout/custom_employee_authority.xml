@@ -24,63 +24,54 @@
             android:textColor="@color/black"
             android:textSize="@dimen/fourteen_sp" />
 
-        <CheckBox
-            android:id="@+id/managerCheck"
+        <RadioGroup
+            android:id="@+id/authority_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/authority_tv"
             android:layout_marginStart="@dimen/twenty_four_dp"
-            android:layout_marginTop="@dimen/ten_dp"
-            android:checked="false"
-            android:padding="@dimen/four_dp"
-            android:text="Manager"
-            android:textColor="@color/black"
-            android:textSize="@dimen/fourteen_sp" />
+            android:layout_marginTop="@dimen/twenty_four_dp"
+            android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/financeCheck"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/managerCheck"
-            android:layout_marginStart="@dimen/twenty_four_dp"
-            android:layout_marginTop="@dimen/ten_dp"
-            android:checked="false"
-            android:padding="@dimen/four_dp"
-            android:text="Finance Employee"
-            android:textColor="@color/black"
-            android:textSize="@dimen/fourteen_sp" />
+            <RadioButton
+                android:id="@+id/radioManager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/four_dp"
+                android:text="Manager"
+                android:textSize="@dimen/fourteen_sp" />
 
-        <CheckBox
-            android:id="@+id/serviceCheck"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/financeCheck"
-            android:layout_marginStart="@dimen/twenty_four_dp"
-            android:layout_marginTop="@dimen/ten_dp"
-            android:checked="false"
-            android:padding="@dimen/four_dp"
-            android:text="Service Employee"
-            android:textColor="@color/black"
-            android:textSize="@dimen/fourteen_sp" />
+            <RadioButton
+                android:id="@+id/radioFinance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/four_dp"
+                android:text="Finance"
+                android:textSize="@dimen/fourteen_sp" />
 
-        <CheckBox
-            android:id="@+id/driverCheck"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/serviceCheck"
-            android:layout_marginStart="@dimen/twenty_four_dp"
-            android:layout_marginTop="@dimen/ten_dp"
-            android:checked="false"
-            android:padding="@dimen/four_dp"
-            android:text="Driver Employee"
-            android:textColor="@color/black"
-            android:textSize="@dimen/fourteen_sp" />
+            <RadioButton
+                android:id="@+id/radioService"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/four_dp"
+                android:text="Service"
+                android:textSize="@dimen/fourteen_sp" />
+
+            <RadioButton
+                android:id="@+id/radioDriver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/four_dp"
+                android:text="Driver"
+                android:textSize="@dimen/fourteen_sp" />
+
+        </RadioGroup>
 
         <Button
             android:id="@+id/ok_btn"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:layout_below="@id/driverCheck"
+            android:layout_below="@id/authority_type"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/twenty_four_dp"
             android:background="@drawable/button_bg"
@@ -90,4 +81,5 @@
             android:textSize="@dimen/fourteen_sp" />
 
     </RelativeLayout>
+
 </RelativeLayout>

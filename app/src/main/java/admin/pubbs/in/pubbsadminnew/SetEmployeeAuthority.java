@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +44,7 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
     private List<EditOperatorList> editOperatorLists = new ArrayList<>();
     ProgressBar circularProgressbar;
     private String TAG = SetEmployeeAuthority.class.getSimpleName();
-    int rank, manager, finance, service, driver, total_rank;
+    int rank, manager, finance, service, driver;
     String finalResult;
     String UserUrl = "http://pubbs.in/api/1.0/setEmployeeAuthority.php";
     HashMap<String, String> hashMap = new HashMap<>();
@@ -124,76 +126,44 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
         View dialogView = inflater.inflate(R.layout.custom_employee_authority, null);
         final TextView authority_tv = (TextView) dialogView.findViewById(R.id.authority_tv);
         authority_tv.setTypeface(type1);
-        final CheckBox managerCheck = dialogView.findViewById(R.id.managerCheck);
-        managerCheck.setTypeface(type1);
-        managerCheck.setOnClickListener(new View.OnClickListener() {
+        final RadioGroup authority_type = dialogView.findViewById(R.id.authority_type);
+        final RadioButton radioManager = dialogView.findViewById(R.id.radioManager);
+        radioManager.setTypeface(type1);
+        final RadioButton radiofinance = dialogView.findViewById(R.id.radioFinance);
+        radiofinance.setTypeface(type1);
+        final RadioButton radioService = dialogView.findViewById(R.id.radioService);
+        radioService.setTypeface(type1);
+        final RadioButton radioDriver = dialogView.findViewById(R.id.radioDriver);
+        radioDriver.setTypeface(type1);
+        authority_type.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                if (managerCheck.isChecked()) {
-                    rank = 1; // rank 1 is manager
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radioManager) {
+                    Log.d(TAG, "Manager checked");
+                    rank = 1;
                     manager = 1;
-                } else {
-                    rank = 0;
-                    manager = 0;
-                }
-                total_rank += rank;
-                Log.d(TAG, "Total Rank:" + total_rank);
-            }
-        });
-        final CheckBox financeCheck = dialogView.findViewById(R.id.financeCheck);
-        financeCheck.setTypeface(type1);
-        financeCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (financeCheck.isChecked()) {
-                    rank = 2; // rank 2 is finance
+                } else if (checkedId == R.id.radioFinance) {
+                    Log.d(TAG, "Finance checked");
+                    rank = 2;
                     finance = 1;
-                } else {
-                    rank = 0;
-                    finance = 0;
-                }
-                total_rank += rank;
-                Log.d(TAG, "Total Rank:" + total_rank);
-            }
-        });
-        final CheckBox serviceCheck = dialogView.findViewById(R.id.serviceCheck);
-        serviceCheck.setTypeface(type1);
-        serviceCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (serviceCheck.isChecked()) {
-                    rank = 3; //rank 3 is service
+                } else if (checkedId == R.id.radioService) {
+                    Log.d(TAG, "Service checked");
+                    rank = 3;
                     service = 1;
-                } else {
-                    rank = 0;
-                    service = 0;
-                }
-                total_rank += rank;
-                Log.d(TAG, "Total Rank:" + total_rank);
-            }
-        });
-        final CheckBox driverCheck = dialogView.findViewById(R.id.driverCheck);
-        driverCheck.setTypeface(type1);
-        driverCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (driverCheck.isChecked()) {
-                    rank = 4; // rank 4 is driver
+                } else if (checkedId == R.id.radioDriver) {
+                    Log.d(TAG, "Driver checked");
+                    rank = 4;
                     driver = 1;
-                } else {
-                    rank = 0;
-                    driver = 0;
                 }
-                total_rank += rank;
-                Log.d(TAG, "Total Rank:" + total_rank);
             }
         });
+
         final Button ok_btn = dialogView.findViewById(R.id.ok_btn);
         ok_btn.setTypeface(type2);
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addAuthorityFunction(fullname, admin_mobile, admin_type, String.valueOf(total_rank), String.valueOf(manager),
+                addAuthorityFunction(fullname, admin_mobile, admin_type, String.valueOf(rank), String.valueOf(manager),
                         String.valueOf(finance), String.valueOf(service), String.valueOf(driver));
                 dialogBuilder.dismiss();
 

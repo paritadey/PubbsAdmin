@@ -21,7 +21,7 @@
         <activity
             android:name=".SupportChatReply"
             android:screenOrientation="portrait"
-            android:theme="@style/MyNoActionBar"/>
+            android:theme="@style/MyNoActionBar" />
         <activity
             android:name=".SupportUsers"
             android:screenOrientation="portrait"

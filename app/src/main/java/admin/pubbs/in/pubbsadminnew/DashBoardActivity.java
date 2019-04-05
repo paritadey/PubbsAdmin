@@ -37,7 +37,7 @@ public class DashBoardActivity extends AppCompatActivity
     TextView allBicycleTv;
     private String TAG = DashBoardActivity.class.getSimpleName();
     TextView phone_number, admin_type;
-    String uphone, uadmin;
+    String uphone, uadmin, area_id;
     int check;
     int manager, finance, service, driver;
 
@@ -47,14 +47,6 @@ public class DashBoardActivity extends AppCompatActivity
         setContentView(R.layout.activity_dash_board);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        Intent intent = getIntent();
-        manager = intent.getIntExtra("manager", 0);
-        finance = intent.getIntExtra("finance", 0);
-        service = intent.getIntExtra("service", 0);
-        driver = intent.getIntExtra("driver", 0);
-        Log.d(TAG, "Employee Authority:" + manager + "\t" + finance + "\t" + service + "\t" + driver);
-
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         allBicycleTv = findViewById(R.id.all_bicycle_tv);
         allBicycleTv.setTypeface(type);
@@ -96,7 +88,14 @@ public class DashBoardActivity extends AppCompatActivity
                     .beginTransaction()
                     .add(R.id.myFrame, new DashboardFragment())
                     .commitAllowingStateLoss();
-            //getting the mobile_number, admin_type from sharedpreference
+            //getting the employee rank details and mobile_number, admin_type from sharedpreference
+            area_id = sharedPreferences.getString("area_id", null);
+            manager = sharedPreferences.getInt("manager", 0);
+            finance = sharedPreferences.getInt("finance", 0);
+            service = sharedPreferences.getInt("service", 0);
+            driver = sharedPreferences.getInt("driver", 0);
+            Log.d(TAG, "Employee Authority:" + area_id + "\t" + manager + "\t" + finance + "\t" + service + "\t" + driver);
+
             phone_number = hView.findViewById(R.id.phone_number);
             uphone = sharedPreferences.getString("adminmobile", "null"); //uphone is the user_phone to store the mobile number of the user
             phone_number.setText(uphone);
@@ -132,12 +131,8 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.area_legal).setTitle("Add New Admin");
                 navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
-            } else if (uadmin.equals("Employee")) {
-                //if the admin_type of the user using the app is "Employee" then following options will be shown in the app
-                // check = false;
+            } else if (uadmin.equals("Employee") && manager == 1) {
                 check = 2;
-                //      Log.d(TAG, "Authority:" + manager + "\t" + finance + "\t" + service + "\t" + driver);
-                //if (manager == 1) {
                 navigationView.getMenu().findItem(R.id.rate_chart).setVisible(false);
                 navigationView.getMenu().findItem(R.id.area_subscription).setVisible(false);
                 navigationView.getMenu().findItem(R.id.area_legal).setVisible(false);
@@ -148,6 +143,88 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.service).setVisible(false);
                 navigationView.getMenu().findItem(R.id.manage_operator).setVisible(false);
                 navigationView.getMenu().findItem(R.id.contact_super_admin).setTitle("Contact Admin");
+                navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
+                navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
+            } else if (uadmin.equals("Employee") && finance == 1) {
+                check = 2;
+                navigationView.getMenu().findItem(R.id.manage_area).setVisible(true);
+                navigationView.getMenu().findItem(R.id.add_station).setVisible(false);
+                navigationView.getMenu().findItem(R.id.add_new_bicycle).setVisible(false);
+                navigationView.getMenu().findItem(R.id.add_area).setVisible(false);
+                navigationView.getMenu().findItem(R.id.edit_station).setVisible(false);
+                navigationView.getMenu().findItem(R.id.delete_station).setVisible(false);
+                navigationView.getMenu().findItem(R.id.live_track).setVisible(false);
+                navigationView.getMenu().findItem(R.id.lists).setVisible(false);
+                navigationView.getMenu().findItem(R.id.redistribution).setVisible(false);
+                navigationView.getMenu().findItem(R.id.repair).setVisible(false);
+                navigationView.getMenu().findItem(R.id.recharge_battery).setVisible(false);
+                navigationView.getMenu().findItem(R.id.remove_bicycle).setVisible(false);
+                navigationView.getMenu().findItem(R.id.manage_users).setVisible(false);
+                navigationView.getMenu().findItem(R.id.my_users).setVisible(false);
+                navigationView.getMenu().findItem(R.id.support_user).setVisible(false);
+                navigationView.getMenu().findItem(R.id.service).setVisible(false);
+                navigationView.getMenu().findItem(R.id.manage_operator).setVisible(false);
+                navigationView.getMenu().findItem(R.id.area_legal).setVisible(true);
+                navigationView.getMenu().findItem(R.id.area_subscription).setVisible(true);
+                navigationView.getMenu().findItem(R.id.rate_chart).setVisible(true);
+                navigationView.getMenu().findItem(R.id.contact_super_admin).setTitle("Contact Admin");
+                navigationView.getMenu().findItem(R.id.logout).setVisible(true);
+                navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
+                navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
+
+            } else if (uadmin.equals("Employee") && service == 1) {
+                //if the admin_type of the user using the app is "Employee" then following options will be shown in the app
+                // check = false;
+                check = 2;
+                //      Log.d(TAG, "Authority:" + manager + "\t" + finance + "\t" + service + "\t" + driver);
+                navigationView.getMenu().findItem(R.id.manage_area).setVisible(false);
+                navigationView.getMenu().findItem(R.id.add_station).setVisible(false);
+                navigationView.getMenu().findItem(R.id.add_new_bicycle).setVisible(false);
+                navigationView.getMenu().findItem(R.id.rate_chart).setVisible(false);
+                navigationView.getMenu().findItem(R.id.live_track).setVisible(false);
+                navigationView.getMenu().findItem(R.id.area_subscription).setVisible(false);
+                navigationView.getMenu().findItem(R.id.area_legal).setVisible(false);
+                navigationView.getMenu().findItem(R.id.add_area).setVisible(false);
+                navigationView.getMenu().findItem(R.id.recharge_battery).setVisible(false);
+                navigationView.getMenu().findItem(R.id.remove_bicycle).setVisible(false);
+                navigationView.getMenu().findItem(R.id.manage_users).setVisible(false);
+                navigationView.getMenu().findItem(R.id.my_users).setVisible(false);
+                navigationView.getMenu().findItem(R.id.support_user).setVisible(false);
+                navigationView.getMenu().findItem(R.id.edit_station).setVisible(false);
+                navigationView.getMenu().findItem(R.id.delete_station).setVisible(false);
+                navigationView.getMenu().findItem(R.id.admin).setTitle("Contact");
+                navigationView.getMenu().findItem(R.id.service).setVisible(false);
+                navigationView.getMenu().findItem(R.id.manage_operator).setVisible(false);
+                navigationView.getMenu().findItem(R.id.redistribution).setVisible(true);
+                navigationView.getMenu().findItem(R.id.repair).setVisible(true);
+                navigationView.getMenu().findItem(R.id.support_user).setVisible(true);
+                navigationView.getMenu().findItem(R.id.contact_super_admin).setTitle("Contact Admin");
+                navigationView.getMenu().findItem(R.id.logout).setVisible(true);
+                navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
+                navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
+
+            } else if (uadmin.equals("Employee") && driver == 1) {
+                check = 2;
+                navigationView.getMenu().findItem(R.id.manage_area).setVisible(true);
+                navigationView.getMenu().findItem(R.id.add_station).setVisible(false);
+                navigationView.getMenu().findItem(R.id.add_new_bicycle).setVisible(false);
+                navigationView.getMenu().findItem(R.id.rate_chart).setVisible(false);
+                navigationView.getMenu().findItem(R.id.my_users).setVisible(false);
+                navigationView.getMenu().findItem(R.id.edit_station).setVisible(false);
+                navigationView.getMenu().findItem(R.id.delete_station).setVisible(false);
+                navigationView.getMenu().findItem(R.id.add_area).setVisible(false);
+                navigationView.getMenu().findItem(R.id.area_legal).setVisible(false);
+                navigationView.getMenu().findItem(R.id.area_subscription).setVisible(false);
+                navigationView.getMenu().findItem(R.id.manage_operator).setVisible(false);
+                navigationView.getMenu().findItem(R.id.service).setVisible(false);
+                navigationView.getMenu().findItem(R.id.repair).setVisible(false);
+                navigationView.getMenu().findItem(R.id.redistribution).setVisible(false);
+                navigationView.getMenu().findItem(R.id.live_track).setVisible(true);
+                navigationView.getMenu().findItem(R.id.recharge_battery).setVisible(true);
+                navigationView.getMenu().findItem(R.id.remove_bicycle).setVisible(true);
+                navigationView.getMenu().findItem(R.id.support_user).setVisible(true);
+                navigationView.getMenu().findItem(R.id.contact_super_admin).setTitle("Contact Admin");
+                navigationView.getMenu().findItem(R.id.logout).setVisible(true);
                 navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
 
@@ -363,12 +440,6 @@ public class DashBoardActivity extends AppCompatActivity
  * Finance : 2
  * Service : 3
  * Driver : 4
- * Total rank = Sum of all of the choosen checkboxes by Sub Admin
- * if rank=1 then employee has authority of Manager
- * if rank=3 then employee has Manager+finance authority
- * if rank=4 then employee has Manager+service
- * if rank=5 then employee has Manager+driver
- * maximum rank=10
  * Manager can see all the screens like- 1.Add New Station, 2.Add New Bicycle, 3.Live Track, 4.Redistribution, 5.Repair, 6.Recharge Battery, 7.Remove Bicycle, 8.My Users, 9.Support to Users, 10.Contact Admin, 11.Profile
  * Finance Employee can see only screens like- 1.Add Area Legal, 2. Add Area Subscription, 3.Rate Chart, 4.Contact Admin, 5.Profile
  * Driver Employee can see only screens like- 1.Live Track, 2.Recharge Battery, 3.Remove Bicycle, 4.Support Users, 5.Contact Admin, 6.Profile

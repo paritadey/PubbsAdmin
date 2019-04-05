@@ -51,8 +51,8 @@ public class SignIn extends Fragment implements AsyncResponse {
     Spinner choice;
     private String TAG = SignIn.class.getSimpleName();
     private static final String[] operator = {"Select Operator", "Super Admin", "Sub Admin", "Employee"};
-    int rank, manager, finance, service, driver;
-    String adminmobile, admin_password, admin_type;
+    int manager, finance, service, driver;
+    String adminmobile, admin_password, admin_type, area_id;
 
     public SignIn() {
     }
@@ -156,7 +156,7 @@ public class SignIn extends Fragment implements AsyncResponse {
                 if (admin_type.equals("Employee")) {
                     loadData(adminmobile);
                 } else {
-                    UserLoginFunction(adminmobile, admin_password, admin_type, manager, finance, service, driver);
+                    UserLoginFunction(adminmobile, admin_password, admin_type, area_id, manager, finance, service, driver);
                 }
             }
         });
@@ -164,10 +164,10 @@ public class SignIn extends Fragment implements AsyncResponse {
         return rootView;
     }
 
-    private void getEmployeeRank(int manager, int finance, int service, int driver) {
+    private void getEmployeeRank(String area_id, int manager, int finance, int service, int driver) {
         Log.d(TAG, "Authority:" + manager + "\t" + finance + "\t" + service + "\t" + driver);
         if (manager > 0 || finance > 0 || service > 0 || driver > 0) {
-            UserLoginFunction(adminmobile, admin_password, admin_type, manager, finance, service, driver);
+            UserLoginFunction(adminmobile, admin_password, admin_type, area_id, manager, finance, service, driver);
         }
     }
 
@@ -192,14 +192,14 @@ public class SignIn extends Fragment implements AsyncResponse {
                     if (ja.length() > 0) {
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
-                            rank = Integer.parseInt(jo.getString("rank"));
+                            area_id = jo.getString("area_id");
                             manager = Integer.parseInt(jo.getString("manager"));
                             finance = Integer.parseInt(jo.getString("finance"));
                             service = Integer.parseInt(jo.getString("service"));
                             driver = Integer.parseInt(jo.getString("driver"));
                         }
-                        Log.d(TAG, "Authority List of Employee:" + rank + "\t" + manager + "\t" + finance + "\t" + service + "\t" + driver);
-                        getEmployeeRank(manager, finance, service, driver);
+                        Log.d(TAG, "Authority List of Employee:" + area_id + "\t" + manager + "\t" + finance + "\t" + service + "\t" + driver);
+                        getEmployeeRank(area_id, manager, finance, service, driver);
                     }
                 } else {
                     Log.d(TAG, "Not Employee move further");
@@ -222,7 +222,7 @@ public class SignIn extends Fragment implements AsyncResponse {
         Snackbar.make(view, message, duration).show();
     }
 
-    public void UserLoginFunction(final String adminmobile, final String adminpassword, final String admin_type,
+    public void UserLoginFunction(final String adminmobile, final String adminpassword, final String admin_type, final String area_id,
                                   final int manager, final int finance, final int service, final int driver) {
         class UserLoginClass extends AsyncTask<String, Void, String> {
             @Override
@@ -241,6 +241,13 @@ public class SignIn extends Fragment implements AsyncResponse {
                     // stores the values of mobile_number, password, admin_type
                     editor.putString("password", adminpassword);
                     editor.putString("admin_type", admin_type);
+                    //sharedprefernce stores employee rank as well
+                    editor.putString("area_id", area_id);
+                    editor.putInt("manager", manager);
+                    editor.putInt("finance", finance);
+                    editor.putInt("service", service);
+                    editor.putInt("driver", driver);
+
                     editor.putBoolean("login", true);
                     editor.commit();
                     Log.d("SignIn.java", "SharedPreference stored the value");

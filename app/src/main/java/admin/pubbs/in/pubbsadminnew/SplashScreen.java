@@ -34,8 +34,8 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
     boolean internet;
     TextView appName;
     private String TAG = SplashScreen.class.getSimpleName();
-    String admin_mobile, admin_type;
-    int rank, manager, finance, service, driver;
+    String area_id, admin_mobile, admin_type;
+    int manager, finance, service, driver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,30 +60,20 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
 
     }
 
-    private void showDashboard(int manager, int finance, int service, int driver) {
-        Log.d(TAG, "Authority:"  + manager + "\t" + finance + "\t" + service + "\t" + driver);
+    private void showDashboard(String area_id, int manager, int finance, int service, int driver) {
+        Log.d(TAG, "Authority:" + area_id + "\t" + manager + "\t" + finance + "\t" + service + "\t" + driver);
         if (admin_type.equals("Employee") && manager > 0 || finance > 0 || service > 0 || driver > 0) {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    Intent intent= new Intent(SplashScreen.this, DashBoardActivity.class);
-                    intent.putExtra("manager", manager);
-                    intent.putExtra("finance", finance);
-                    intent.putExtra("service", service);
-                    intent.putExtra("driver", driver);
-                    startActivity(intent);
+                    startActivity(new Intent(SplashScreen.this, DashBoardActivity.class));
                 }
             }, 4000);
         } else if (admin_type.equals("Super Admin") || admin_type.equals("Sub Admin")) {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    Intent intent= new Intent(SplashScreen.this, DashBoardActivity.class);
-                    intent.putExtra("manager", manager);
-                    intent.putExtra("finance", finance);
-                    intent.putExtra("service", service);
-                    intent.putExtra("driver", driver);
-                    startActivity(intent);
+                    startActivity(new Intent(SplashScreen.this, DashBoardActivity.class));
                 }
             }, 4000);
         }
@@ -112,18 +102,18 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
                     if (ja.length() > 0) {
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
-                            rank = Integer.parseInt(jo.getString("rank"));
+                            area_id = jo.getString("area_id");
                             manager = Integer.parseInt(jo.getString("manager"));
                             finance = Integer.parseInt(jo.getString("finance"));
                             service = Integer.parseInt(jo.getString("service"));
                             driver = Integer.parseInt(jo.getString("driver"));
                         }
-                        Log.d(TAG, "Authority List of Employee:" + rank + "\t" + manager + "\t" + finance + "\t" + service + "\t" + driver);
-                        showDashboard(manager, finance, service, driver);
+                        Log.d(TAG, "Authority List of Employee:" + area_id + "\t" + manager + "\t" + finance + "\t" + service + "\t" + driver);
+                        showDashboard(area_id, manager, finance, service, driver);
                     }
                 } else {
                     Log.d(TAG, "Not Employee move further");
-                    showDashboard(manager, finance, service, driver);
+                    showDashboard(area_id, manager, finance, service, driver);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

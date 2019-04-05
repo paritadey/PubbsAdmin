@@ -11,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -39,7 +40,9 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
     EditText inputSearch;
     ProgressBar circularProgressbar;
     SharedPreferences sharedPreferences;
-    String adminmobile;
+    String adminmobile, area_id, admin_type;
+    private String TAG = RemoveBicycle.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,9 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
         setSupportActionBar(toolbar);
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminmobile = sharedPreferences.getString("adminmobile", null);
+        admin_type = sharedPreferences.getString("admin_type", null);
+        area_id = sharedPreferences.getString("area_id", null);
+        Log.d(TAG, "Area details:" + area_id + "\t" + adminmobile + "\t" + admin_type);
         circularProgressbar = findViewById(R.id.circularProgressbar);
         ObjectAnimator progressAnimator = ObjectAnimator.ofInt(circularProgressbar, "progress", 100, 0);
         progressAnimator.setDuration(300);
@@ -98,15 +104,28 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
 
     private void loadData() {
         circularProgressbar.setVisibility(View.VISIBLE);
-        JSONObject jo = new JSONObject();
-        try {
-            jo.put("method", "geteachcycle");
-            jo.put("adminmobile", adminmobile);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (admin_type.equals("Employee")) {
+            JSONObject jo = new JSONObject();
+            try {
+                jo.put("method", "getemployeecycle");
+                jo.put("area_id", area_id);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            new SendRequest(getResources().getString(R.string.url), jo, RemoveBicycle.this,
+                    getApplicationContext()).executeJsonRequest();
+
+        } else if (admin_type.equals("Sub Admin")) {
+            JSONObject jo = new JSONObject();
+            try {
+                jo.put("method", "geteachcycle");
+                jo.put("adminmobile", adminmobile);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            new SendRequest(getResources().getString(R.string.url), jo, RemoveBicycle.this,
+                    getApplicationContext()).executeJsonRequest();
         }
-        new SendRequest(getResources().getString(R.string.url), jo, RemoveBicycle.this,
-                getApplicationContext()).executeJsonRequest();
     }
 
     private void showDialog(String message) {
@@ -119,7 +138,7 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
         View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
 
         final TextView serverProblem = (TextView) dialogView.findViewById(R.id.server_problem);
-        final TextView extraLine = (TextView)dialogView.findViewById(R.id.extra_line);
+        final TextView extraLine = (TextView) dialogView.findViewById(R.id.extra_line);
         extraLine.setTypeface(type1);
         serverProblem.setTypeface(type1);
         serverProblem.setText(message);
@@ -147,20 +166,43 @@ public class RemoveBicycle extends AppCompatActivity implements AsyncResponse {
     public void onResponse(JSONObject jsonObject) {
         circularProgressbar.setVisibility(View.GONE);
         removeBicycleLists.clear();
-        if (jsonObject.has("method")) {
-            try {
-                if (jsonObject.getString("method").equals("geteachcycle") && jsonObject.getBoolean("success")) {
-                    JSONArray ja = jsonObject.getJSONArray("data");
-                    if (ja.length() > 0) {
-                        for (int i = 0; i < ja.length(); i++) {
-                            JSONObject jo = ja.getJSONObject(i);
-                            RemoveBicycleList list = new RemoveBicycleList(jo.getString("address"));
-                            removeBicycleLists.add(list);
+        if (admin_type.equals("Employee")) {
+            if (jsonObject.has("method")) {
+                try {
+                    if (jsonObject.getString("method").equals("getemployeecycle") && jsonObject.getBoolean("success")) {
+                        JSONArray ja = jsonObject.getJSONArray("data");
+                        if (ja.length() > 0) {
+                            for (int i = 0; i < ja.length(); i++) {
+                                JSONObject jo = ja.getJSONObject(i);
+                                RemoveBicycleList list = new RemoveBicycleList(jo.getString("address"));
+                                removeBicycleLists.add(list);
+                            }
                         }
+                    } else {
+                        showDialog("No Cycles is present under this");
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+            }
+        } else if (admin_type.equals("Sub Admin")) {
+            if (jsonObject.has("method")) {
+                try {
+                    if (jsonObject.getString("method").equals("geteachcycle") && jsonObject.getBoolean("success")) {
+                        JSONArray ja = jsonObject.getJSONArray("data");
+                        if (ja.length() > 0) {
+                            for (int i = 0; i < ja.length(); i++) {
+                                JSONObject jo = ja.getJSONObject(i);
+                                RemoveBicycleList list = new RemoveBicycleList(jo.getString("address"));
+                                removeBicycleLists.add(list);
+                            }
+                        }
+                    } else {
+                        showDialog("No Cycles is present under this");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
         removeBicycleAdapter.notifyDataSetChanged();
