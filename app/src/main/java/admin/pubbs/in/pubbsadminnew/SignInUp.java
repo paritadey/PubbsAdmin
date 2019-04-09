@@ -43,6 +43,7 @@ public class SignInUp extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    //it creates the tabbed icon
     private void createTabIcons() {
 
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);

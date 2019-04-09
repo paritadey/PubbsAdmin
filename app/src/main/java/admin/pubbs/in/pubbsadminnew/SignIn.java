@@ -35,24 +35,24 @@ import java.util.HashMap;
 /*created by Parita Dey*/
 
 public class SignIn extends Fragment implements AsyncResponse {
+    //xml based variables' declaration
     EditText userid, password;
     Button login;
-    ProgressDialog pd;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    ProgressDialog pd, progressDialog;
+    Spinner choice;
     TextView mobileTv, passwordTv;
     RelativeLayout layoutMobile, layoutPassword;
-    String finalResult;
-    String HttpURL = "http://pubbs.in/api/1.0/admin_login.php";
-    ProgressDialog progressDialog;
+    //java file based variables' declaration
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     HashMap<String, String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
-    String operator_type;
-    Spinner choice;
     private String TAG = SignIn.class.getSimpleName();
+    String HttpURL = "http://pubbs.in/api/1.0/admin_login.php";
     private static final String[] operator = {"Select Operator", "Super Admin", "Sub Admin", "Employee"};
+    //global variables
     int manager, service, driver;
-    String adminmobile, admin_password, admin_type, area_id;
+    String adminmobile, admin_password, admin_type, area_id, operator_type, finalResult;
 
     public SignIn() {
     }

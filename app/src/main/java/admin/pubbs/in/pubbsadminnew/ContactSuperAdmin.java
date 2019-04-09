@@ -25,12 +25,12 @@ import java.text.SimpleDateFormat;
 /*created by Parita Dey*/
 
 public class ContactSuperAdmin extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
+    //declaring the variables
     ImageView back;
     TextView contactTv, contact_tv, disclaimer;
     String adminmobile, admin_type, msg_subject, msg_body, date_time;
     EditText subject, message;
     Button sendEmail;
-
     private String TAG = ContactSuperAdmin.class.getSimpleName();
 
     @Override
@@ -45,6 +45,7 @@ public class ContactSuperAdmin extends AppCompatActivity implements View.OnClick
         adminmobile = intent.getStringExtra("uphone");
         admin_type = intent.getStringExtra("uadmin");
         Log.d(TAG, "Admin details: " + adminmobile + "-" + admin_type);
+
         disclaimer = findViewById(R.id.disclaimer);
         disclaimer.setTypeface(type1);
         back = findViewById(R.id.back_button);

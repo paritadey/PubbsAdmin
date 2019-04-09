@@ -27,8 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 /*created by Parita Dey*/
 
-public class DashBoardActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class DashBoardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    //declaring the variables
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
     SharedPreferences sharedPreferences;
@@ -45,21 +45,25 @@ public class DashBoardActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
+        //setting the toolbar for the xml
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //declare and initialize the typeface
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
-        allBicycleTv = findViewById(R.id.all_bicycle_tv);
+        //initializing the variables
+        allBicycleTv = findViewById(R.id.all_bicycle_tv); //textview to declare "My Dashboard"
         allBicycleTv.setTypeface(type);
+        //sharedprefernece stores the app user's details like mobile number, admin type
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);//initialize the drawer_layout in activity_dash_board
+        //toggle the navigation drawer
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
+        //initialize the navigation view of activity_dash_board
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         View hView = navigationView.getHeaderView(0);
         close = hView.findViewById(R.id.close_drawer);
         close.setOnClickListener(new View.OnClickListener() {
@@ -83,32 +87,43 @@ public class DashBoardActivity extends AppCompatActivity
                 toggle.setToolbarNavigationClickListener(v -> onBackPressed());
             }
         });
+        //if sharedprefernce has 'login' then directly opens DashboardFragment to show the map
         if (sharedPreferences.contains("login")) {
             getFragmentManager()
                     .beginTransaction()
                     .add(R.id.myFrame, new DashboardFragment())
                     .commitAllowingStateLoss();
-            //getting the employee rank details and mobile_number, admin_type from sharedpreference
+            //getting the area_id, employee rank details like  manager, service, driver and mobile_number, admin_type from sharedpreference
             area_id = sharedPreferences.getString("area_id", null);
             manager = sharedPreferences.getInt("manager", 0);
             service = sharedPreferences.getInt("service", 0);
             driver = sharedPreferences.getInt("driver", 0);
-            Log.d(TAG, "Employee Authority:" + area_id + "\t" + manager + "\t" +  "\t" + service + "\t" + driver);
-
+            Log.d(TAG, "Employee Authority:" + area_id + "\t" + manager + "\t" + "\t" + service + "\t" + driver);
+            //initializing phone_number textview of nav_header_dash_board, if sharedprefernce has adminmobile then set text with the declared typeface
             phone_number = hView.findViewById(R.id.phone_number);
             uphone = sharedPreferences.getString("adminmobile", "null"); //uphone is the user_phone to store the mobile number of the user
             phone_number.setText(uphone);
             phone_number.setTypeface(type);
+            //initializing admin_type of nav_header_dash_board, if sharedprefernce has admin_type details then set the text with the declared typeface
             admin_type = hView.findViewById(R.id.admin_type);
             uadmin = sharedPreferences.getString("admin_type", "null"); //uadmin is the admin type of the user who is using the app at the moment
             Log.d(TAG, "Admin Phone number and type:" + uphone + "\t" + uadmin);
             admin_type.setTypeface(type);
             admin_type.setText(uadmin);
-            if (uadmin.equals("Super Admin")) { //if the admin_type of the user using the app is "Super Admin" then following options will be shown in the app
-                //check = true;
+            //depending upon the admin_type stored in the sharedprefernce, the naviagtion drawer sets the menuitems
+            /*Employee can see the screens according to the rank.Sub Admin will set the authority rank.
+             * Manager : 1
+             * Finance : 2
+             * Service : 3
+             * Driver : 4
+             * Manager can see all the screens like- 1.Add New Station, 2.Add New Bicycle, 3.Live Track, 4.Redistribution, 5.Repair, 6.Recharge Battery, 7.Remove Bicycle, 8.My Users, 9.Support to Users, 10.Contact Admin, 11.Profile
+             * Finance Employee can see only screens like- 1.Add Area Legal, 2. Add Area Subscription, 3.Rate Chart, 4.Contact Admin, 5.Profile
+             * Driver Employee can see only screens like- 1.Live Track, 2.Recharge Battery, 3.Remove Bicycle, 4.Support Users, 5.Contact Admin, 6.Profile
+             * Service Employee can see only screens like- 1.Redistribution, 2.Repair, 3.Contact Admin, 4.Profile*/
+            if (uadmin.equals("Super Admin")) {
+                //if the admin_type of the user using the app is "Super Admin" then following menuitem options will be shown in the app
                 check = 1;
                 navigationView.getMenu().findItem(R.id.manage_area).setTitle("Manage Admin/Employee");
-                // navigationView.getMenu().findItem(R.id.add_area).setTitle("Add New Admin");
                 navigationView.getMenu().findItem(R.id.area_subscription).setVisible(false);
                 navigationView.getMenu().findItem(R.id.rate_chart).setVisible(false);
                 navigationView.getMenu().findItem(R.id.add_station).setTitle("Show all Sub-Admins");
@@ -131,6 +146,7 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
             } else if (uadmin.equals("Employee") && manager == 1) {
+                //if the admin_type of the user using the app is "Employee" then following menuitem options will be shown in the app
                 check = 2;
                 navigationView.getMenu().findItem(R.id.rate_chart).setVisible(false);
                 navigationView.getMenu().findItem(R.id.area_subscription).setVisible(false);
@@ -148,9 +164,7 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
             } else if (uadmin.equals("Employee") && service == 1) {
                 //if the admin_type of the user using the app is "Employee" then following options will be shown in the app
-                // check = false;
                 check = 2;
-                //      Log.d(TAG, "Authority:" + manager + "\t"  + "\t" + service + "\t" + driver);
                 navigationView.getMenu().findItem(R.id.manage_area).setVisible(false);
                 navigationView.getMenu().findItem(R.id.add_station).setVisible(false);
                 navigationView.getMenu().findItem(R.id.add_new_bicycle).setVisible(false);
@@ -178,6 +192,7 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
 
             } else if (uadmin.equals("Employee") && driver == 1) {
+                //if the admin_type of the user using the app is "Employee" then following menuitem options will be shown in the app
                 check = 2;
                 navigationView.getMenu().findItem(R.id.manage_area).setVisible(true);
                 navigationView.getMenu().findItem(R.id.add_station).setVisible(false);
@@ -202,9 +217,9 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
 
-            } else if (uadmin.equals("Sub Admin")) { //if the admin_type of the user using the app is "Sub Admin" then all options
+            } else if (uadmin.equals("Sub Admin")) {
+                //if the admin_type of the user using the app is "Sub Admin" then all options
                 // will be shown in the app which are present in the drawer menu
-                // check = false;
                 check = 3;
                 navigationView.getMenu().findItem(R.id.edit_station).setVisible(false);
             }
@@ -228,27 +243,21 @@ public class DashBoardActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        //on back press if the drawer is opened then first it closes
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            /*Fragment f = getFragmentManager().findFragmentById(R.id.myFrame);
-            if (f instanceof DashboardFragment) {
-                 finish();
-            } else {*/
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
-            //   super.onBackPressed();
-               /* this.finish();
-                System.exit(0);*/
         }
     }
-    //}
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    //check is an integer variable; if check=1 then its Super Admin; if check=2 then its Employee; if check=3 then its Sub Admin
+    //on the basis of check value navigation drawer menu will open consecutive activities/fragments
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -390,6 +399,7 @@ public class DashBoardActivity extends AppCompatActivity
                 startActivity(new Intent(DashBoardActivity.this, LiveTrack.class));
                 break;
             case R.id.log_out:
+                //logout will clear all the data stored in the sharedprefernce and exit from the application
                 sharedPreferences.edit().clear().commit();
                 Intent intent1 = new Intent(Intent.ACTION_MAIN);
                 intent1.addCategory(Intent.CATEGORY_HOME);
@@ -412,12 +422,3 @@ public class DashBoardActivity extends AppCompatActivity
     }
 
 }
-/*Employee can see the screens according to the rank.Sub Admin will set the authority rank.
- * Manager : 1
- * Finance : 2
- * Service : 3
- * Driver : 4
- * Manager can see all the screens like- 1.Add New Station, 2.Add New Bicycle, 3.Live Track, 4.Redistribution, 5.Repair, 6.Recharge Battery, 7.Remove Bicycle, 8.My Users, 9.Support to Users, 10.Contact Admin, 11.Profile
- * Finance Employee can see only screens like- 1.Add Area Legal, 2. Add Area Subscription, 3.Rate Chart, 4.Contact Admin, 5.Profile
- * Driver Employee can see only screens like- 1.Live Track, 2.Recharge Battery, 3.Remove Bicycle, 4.Support Users, 5.Contact Admin, 6.Profile
- * Service Employee can see only screens like- 1.Redistribution, 2.Repair, 3.Contact Admin, 4.Profile*/
