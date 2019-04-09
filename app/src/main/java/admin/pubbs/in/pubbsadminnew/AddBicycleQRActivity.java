@@ -173,7 +173,7 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
                 break;
             case R.id.back_button:
                 //back_button will go back to the previous page by clearing the stack history
-                Intent intent = new Intent(AddBicycleQRActivity.this, Redistribution.class);
+                Intent intent = new Intent(AddBicycleQRActivity.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;

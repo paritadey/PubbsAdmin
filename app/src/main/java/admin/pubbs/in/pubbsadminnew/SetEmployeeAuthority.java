@@ -44,7 +44,7 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
     private List<EditOperatorList> editOperatorLists = new ArrayList<>();
     ProgressBar circularProgressbar;
     private String TAG = SetEmployeeAuthority.class.getSimpleName();
-    int rank, manager, finance, service, driver;
+    int rank, manager, service, driver;
     String finalResult;
     String UserUrl = "http://pubbs.in/api/1.0/setEmployeeAuthority.php";
     HashMap<String, String> hashMap = new HashMap<>();
@@ -129,8 +129,6 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
         final RadioGroup authority_type = dialogView.findViewById(R.id.authority_type);
         final RadioButton radioManager = dialogView.findViewById(R.id.radioManager);
         radioManager.setTypeface(type1);
-        final RadioButton radiofinance = dialogView.findViewById(R.id.radioFinance);
-        radiofinance.setTypeface(type1);
         final RadioButton radioService = dialogView.findViewById(R.id.radioService);
         radioService.setTypeface(type1);
         final RadioButton radioDriver = dialogView.findViewById(R.id.radioDriver);
@@ -142,17 +140,13 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
                     Log.d(TAG, "Manager checked");
                     rank = 1;
                     manager = 1;
-                } else if (checkedId == R.id.radioFinance) {
-                    Log.d(TAG, "Finance checked");
-                    rank = 2;
-                    finance = 1;
                 } else if (checkedId == R.id.radioService) {
                     Log.d(TAG, "Service checked");
-                    rank = 3;
+                    rank = 2;
                     service = 1;
                 } else if (checkedId == R.id.radioDriver) {
                     Log.d(TAG, "Driver checked");
-                    rank = 4;
+                    rank = 3;
                     driver = 1;
                 }
             }
@@ -164,7 +158,7 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
             @Override
             public void onClick(View v) {
                 addAuthorityFunction(fullname, admin_mobile, admin_type, String.valueOf(rank), String.valueOf(manager),
-                        String.valueOf(finance), String.valueOf(service), String.valueOf(driver));
+                        String.valueOf(service), String.valueOf(driver));
                 dialogBuilder.dismiss();
 
             }
@@ -176,7 +170,7 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
     }
 
     public void addAuthorityFunction(String fullname, String admin_mobile, String admin_type, String rank, String manager,
-                                     String finance, String service, String driver) {
+                                     String service, String driver) {
         class addAuthorityFunctionClass extends AsyncTask<String, Void, String> {
             @Override
             protected void onPostExecute(String httpResponseMsg) {
@@ -192,7 +186,6 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
                 hashMap.put("admin_type", params[2]);
                 hashMap.put("rank", params[3]);
                 hashMap.put("manager", params[4]);
-                hashMap.put("finance", params[5]);
                 hashMap.put("service", params[6]);
                 hashMap.put("driver", params[7]);
                 finalResult = httpParse.postRequest(hashMap, UserUrl);
@@ -201,7 +194,7 @@ public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResp
         }
 
         addAuthorityFunctionClass addAuthorityFunctionClass = new addAuthorityFunctionClass();
-        addAuthorityFunctionClass.execute(fullname, admin_mobile, admin_type, rank, manager, finance, service, driver);
+        addAuthorityFunctionClass.execute(fullname, admin_mobile, admin_type, rank, manager,service, driver);
 
     }
 

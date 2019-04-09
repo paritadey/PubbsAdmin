@@ -45,14 +45,21 @@ public class ContactSuperAdmin extends AppCompatActivity implements View.OnClick
         adminmobile = intent.getStringExtra("uphone");
         admin_type = intent.getStringExtra("uadmin");
         Log.d(TAG, "Admin details: " + adminmobile + "-" + admin_type);
-        contact_tv = findViewById(R.id.contact_tv);
-        contact_tv.setTypeface(type1);
         disclaimer = findViewById(R.id.disclaimer);
         disclaimer.setTypeface(type1);
         back = findViewById(R.id.back_button);
         back.setOnClickListener(this);
+        contact_tv = findViewById(R.id.contact_tv);
+        contact_tv.setTypeface(type1);
         contactTv = findViewById(R.id.contact);
         contactTv.setTypeface(type1);
+        if(admin_type.equals("Sub Admin")){
+            contactTv.setText("Contact Super Admin");
+            contact_tv.setText("Write message to Super-Admin");
+        }else if(admin_type.equals("Employee")){
+            contactTv.setText("Contact Sub Admin");
+            contact_tv.setText("Write message to Sub-Admin");
+        }
         subject = findViewById(R.id.subject);
         subject.setTypeface(type1);
         message = findViewById(R.id.message);

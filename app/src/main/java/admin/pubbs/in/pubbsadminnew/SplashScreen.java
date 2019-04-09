@@ -35,7 +35,7 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
     TextView appName;
     private String TAG = SplashScreen.class.getSimpleName();
     String area_id, admin_mobile, admin_type;
-    int manager, finance, service, driver;
+    int manager, service, driver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +60,9 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
 
     }
 
-    private void showDashboard(String area_id, int manager, int finance, int service, int driver) {
-        Log.d(TAG, "Authority:" + area_id + "\t" + manager + "\t" + finance + "\t" + service + "\t" + driver);
-        if (admin_type.equals("Employee") && manager > 0 || finance > 0 || service > 0 || driver > 0) {
+    private void showDashboard(String area_id, int manager, int service, int driver) {
+        Log.d(TAG, "Authority:" + area_id + "\t" + manager + "\t" +  "\t" + service + "\t" + driver);
+        if (admin_type.equals("Employee") && manager > 0 ||  service > 0 || driver > 0) {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
@@ -104,16 +104,15 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
                             JSONObject jo = ja.getJSONObject(i);
                             area_id = jo.getString("area_id");
                             manager = Integer.parseInt(jo.getString("manager"));
-                            finance = Integer.parseInt(jo.getString("finance"));
                             service = Integer.parseInt(jo.getString("service"));
                             driver = Integer.parseInt(jo.getString("driver"));
                         }
-                        Log.d(TAG, "Authority List of Employee:" + area_id + "\t" + manager + "\t" + finance + "\t" + service + "\t" + driver);
-                        showDashboard(area_id, manager, finance, service, driver);
+                        Log.d(TAG, "Authority List of Employee:" + area_id + "\t" + manager + "\t" + "\t" + service + "\t" + driver);
+                        showDashboard(area_id, manager, service, driver);
                     }
                 } else {
                     Log.d(TAG, "Not Employee move further");
-                    showDashboard(area_id, manager, finance, service, driver);
+                    showDashboard(area_id, manager, service, driver);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

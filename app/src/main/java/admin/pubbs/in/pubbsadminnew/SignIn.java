@@ -51,7 +51,7 @@ public class SignIn extends Fragment implements AsyncResponse {
     Spinner choice;
     private String TAG = SignIn.class.getSimpleName();
     private static final String[] operator = {"Select Operator", "Super Admin", "Sub Admin", "Employee"};
-    int manager, finance, service, driver;
+    int manager, service, driver;
     String adminmobile, admin_password, admin_type, area_id;
 
     public SignIn() {
@@ -156,7 +156,7 @@ public class SignIn extends Fragment implements AsyncResponse {
                 if (admin_type.equals("Employee")) {
                     loadData(adminmobile);
                 } else {
-                    UserLoginFunction(adminmobile, admin_password, admin_type, area_id, manager, finance, service, driver);
+                    UserLoginFunction(adminmobile, admin_password, admin_type, area_id, manager, service, driver);
                 }
             }
         });
@@ -164,10 +164,10 @@ public class SignIn extends Fragment implements AsyncResponse {
         return rootView;
     }
 
-    private void getEmployeeRank(String area_id, int manager, int finance, int service, int driver) {
-        Log.d(TAG, "Authority:" + manager + "\t" + finance + "\t" + service + "\t" + driver);
-        if (manager > 0 || finance > 0 || service > 0 || driver > 0) {
-            UserLoginFunction(adminmobile, admin_password, admin_type, area_id, manager, finance, service, driver);
+    private void getEmployeeRank(String area_id, int manager, int service, int driver) {
+        Log.d(TAG, "Authority:" + manager + "\t"  + "\t" + service + "\t" + driver);
+        if (manager  > 0 || service > 0 || driver > 0) {
+            UserLoginFunction(adminmobile, admin_password, admin_type, area_id, manager, service, driver);
         }
     }
 
@@ -194,16 +194,15 @@ public class SignIn extends Fragment implements AsyncResponse {
                             JSONObject jo = ja.getJSONObject(i);
                             area_id = jo.getString("area_id");
                             manager = Integer.parseInt(jo.getString("manager"));
-                            finance = Integer.parseInt(jo.getString("finance"));
                             service = Integer.parseInt(jo.getString("service"));
                             driver = Integer.parseInt(jo.getString("driver"));
                         }
-                        Log.d(TAG, "Authority List of Employee:" + area_id + "\t" + manager + "\t" + finance + "\t" + service + "\t" + driver);
-                        getEmployeeRank(area_id, manager, finance, service, driver);
+                        Log.d(TAG, "Authority List of Employee:" + area_id + "\t" + manager + "\t"  + "\t" + service + "\t" + driver);
+                        getEmployeeRank(area_id, manager, service, driver);
                     }
                 } else {
                     Log.d(TAG, "Not Employee move further");
-                    // showDashboard(manager, finance, service, driver);
+                    // showDashboard(manager, service, driver);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -223,7 +222,7 @@ public class SignIn extends Fragment implements AsyncResponse {
     }
 
     public void UserLoginFunction(final String adminmobile, final String adminpassword, final String admin_type, final String area_id,
-                                  final int manager, final int finance, final int service, final int driver) {
+                                  final int manager, final int service, final int driver) {
         class UserLoginClass extends AsyncTask<String, Void, String> {
             @Override
             protected void onPreExecute() {
@@ -244,7 +243,6 @@ public class SignIn extends Fragment implements AsyncResponse {
                     //sharedprefernce stores employee rank as well
                     editor.putString("area_id", area_id);
                     editor.putInt("manager", manager);
-                    editor.putInt("finance", finance);
                     editor.putInt("service", service);
                     editor.putInt("driver", driver);
 
@@ -253,7 +251,6 @@ public class SignIn extends Fragment implements AsyncResponse {
                     Log.d("SignIn.java", "SharedPreference stored the value");
                     Intent intent = new Intent(getActivity(), DashBoardActivity.class);
                     intent.putExtra("manager", manager);
-                    intent.putExtra("finance", finance);
                     intent.putExtra("service", service);
                     intent.putExtra("driver", driver);
                     startActivity(intent);

@@ -43,7 +43,7 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse {
     private AddNewStationAdpater addNewStationAdpater;
     private List<AreaList> areaLists = new ArrayList<>();
     SharedPreferences sharedPreferences;
-    String adminmobile;
+    String adminmobile, area_id;
     private String TAG = AddNewStation.class.getSimpleName();
 
     @Override
@@ -60,7 +60,8 @@ public class AddNewStation extends AppCompatActivity implements AsyncResponse {
         //sharedpreference will store the admin mobile number who is using the app
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminmobile = sharedPreferences.getString("adminmobile", null);
-        Log.d(TAG, "Admin Mobile" + adminmobile);
+        area_id = sharedPreferences.getString("area_id", null);
+        Log.d(TAG, "Admin Mobile" + adminmobile+ "\t"+area_id);
         back = findViewById(R.id.back_button);
         addNewStationTv = findViewById(R.id.add_new_station_tv);
         addNewStationTv.setTypeface(type1);

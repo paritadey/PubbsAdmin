@@ -65,6 +65,13 @@ public class AddBicycle extends AppCompatActivity implements View.OnClickListene
     }
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AddBicycle.this, DashBoardActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.up_arrow:
@@ -73,7 +80,7 @@ public class AddBicycle extends AppCompatActivity implements View.OnClickListene
                 break;
             case R.id.back_button:
                 //back_button will go back to the previous page by clearing the stack history
-                Intent intent = new Intent(AddBicycle.this, AddNewBicycle.class);
+                Intent intent = new Intent(AddBicycle.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;

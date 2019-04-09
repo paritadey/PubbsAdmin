@@ -39,7 +39,7 @@ public class DashBoardActivity extends AppCompatActivity
     TextView phone_number, admin_type;
     String uphone, uadmin, area_id;
     int check;
-    int manager, finance, service, driver;
+    int manager, service, driver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +91,9 @@ public class DashBoardActivity extends AppCompatActivity
             //getting the employee rank details and mobile_number, admin_type from sharedpreference
             area_id = sharedPreferences.getString("area_id", null);
             manager = sharedPreferences.getInt("manager", 0);
-            finance = sharedPreferences.getInt("finance", 0);
             service = sharedPreferences.getInt("service", 0);
             driver = sharedPreferences.getInt("driver", 0);
-            Log.d(TAG, "Employee Authority:" + area_id + "\t" + manager + "\t" + finance + "\t" + service + "\t" + driver);
+            Log.d(TAG, "Employee Authority:" + area_id + "\t" + manager + "\t" +  "\t" + service + "\t" + driver);
 
             phone_number = hView.findViewById(R.id.phone_number);
             uphone = sharedPreferences.getString("adminmobile", "null"); //uphone is the user_phone to store the mobile number of the user
@@ -136,7 +135,9 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.rate_chart).setVisible(false);
                 navigationView.getMenu().findItem(R.id.area_subscription).setVisible(false);
                 navigationView.getMenu().findItem(R.id.area_legal).setVisible(false);
+                navigationView.getMenu().findItem(R.id.lists).setVisible(true);
                 navigationView.getMenu().findItem(R.id.add_area).setVisible(false);
+                navigationView.getMenu().findItem(R.id.add_station).setVisible(false);
                 navigationView.getMenu().findItem(R.id.edit_station).setVisible(false);
                 navigationView.getMenu().findItem(R.id.delete_station).setVisible(false);
                 navigationView.getMenu().findItem(R.id.admin).setTitle("Contact");
@@ -145,38 +146,11 @@ public class DashBoardActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.contact_super_admin).setTitle("Contact Admin");
                 navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
                 navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
-            } else if (uadmin.equals("Employee") && finance == 1) {
-                check = 2;
-                navigationView.getMenu().findItem(R.id.manage_area).setVisible(true);
-                navigationView.getMenu().findItem(R.id.add_station).setVisible(false);
-                navigationView.getMenu().findItem(R.id.add_new_bicycle).setVisible(false);
-                navigationView.getMenu().findItem(R.id.add_area).setVisible(false);
-                navigationView.getMenu().findItem(R.id.edit_station).setVisible(false);
-                navigationView.getMenu().findItem(R.id.delete_station).setVisible(false);
-                navigationView.getMenu().findItem(R.id.live_track).setVisible(false);
-                navigationView.getMenu().findItem(R.id.lists).setVisible(false);
-                navigationView.getMenu().findItem(R.id.redistribution).setVisible(false);
-                navigationView.getMenu().findItem(R.id.repair).setVisible(false);
-                navigationView.getMenu().findItem(R.id.recharge_battery).setVisible(false);
-                navigationView.getMenu().findItem(R.id.remove_bicycle).setVisible(false);
-                navigationView.getMenu().findItem(R.id.manage_users).setVisible(false);
-                navigationView.getMenu().findItem(R.id.my_users).setVisible(false);
-                navigationView.getMenu().findItem(R.id.support_user).setVisible(false);
-                navigationView.getMenu().findItem(R.id.service).setVisible(false);
-                navigationView.getMenu().findItem(R.id.manage_operator).setVisible(false);
-                navigationView.getMenu().findItem(R.id.area_legal).setVisible(true);
-                navigationView.getMenu().findItem(R.id.area_subscription).setVisible(true);
-                navigationView.getMenu().findItem(R.id.rate_chart).setVisible(true);
-                navigationView.getMenu().findItem(R.id.contact_super_admin).setTitle("Contact Admin");
-                navigationView.getMenu().findItem(R.id.logout).setVisible(true);
-                navigationView.getMenu().findItem(R.id.profile).setTitle("Profile");
-                navigationView.getMenu().findItem(R.id.log_out).setTitle("Log Out");
-
             } else if (uadmin.equals("Employee") && service == 1) {
                 //if the admin_type of the user using the app is "Employee" then following options will be shown in the app
                 // check = false;
                 check = 2;
-                //      Log.d(TAG, "Authority:" + manager + "\t" + finance + "\t" + service + "\t" + driver);
+                //      Log.d(TAG, "Authority:" + manager + "\t"  + "\t" + service + "\t" + driver);
                 navigationView.getMenu().findItem(R.id.manage_area).setVisible(false);
                 navigationView.getMenu().findItem(R.id.add_station).setVisible(false);
                 navigationView.getMenu().findItem(R.id.add_new_bicycle).setVisible(false);
@@ -302,7 +276,7 @@ public class DashBoardActivity extends AppCompatActivity
                 if (check == 1) {
                     startActivity(new Intent(DashBoardActivity.this, SuperAdminAddOperator.class));
                     break;
-                } else if (check == 2) {
+                } else if (check == 2 || check == 3) {
                     startActivity(new Intent(DashBoardActivity.this, AreaLegal.class));
                     break;
                 }
@@ -336,7 +310,10 @@ public class DashBoardActivity extends AppCompatActivity
                     //edit Admin/Employee not yet done
                     startActivity(new Intent(DashBoardActivity.this, OperatorArea.class));
                     break;
-                } else if (check == 2 || check == 3) {
+                } else if (check == 2) {
+                    startActivity(new Intent(DashBoardActivity.this, EmployeeAddNewBicycle.class));
+                    break;
+                } else if (check == 3) {
                     startActivity(new Intent(DashBoardActivity.this, AddNewBicycle.class));
                     break;
                 }

@@ -1,13 +1,12 @@
-
 package admin.pubbs.in.pubbsadminnew;
 
 import android.animation.ObjectAnimator;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,71 +30,75 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/*created by Parita Dey*/
-
-public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
+public class EmployeeAddNewBicycle extends AppCompatActivity implements AsyncResponse {
     private RecyclerView recyclerView;
-    private Area_Adpater areaAdpater;
-    private List<AreaList> areaLists = new ArrayList<>();
+    private AddNewBicycleAdapter addNewBicycleAdapter;
+    private List<DeleteStationList> deleteStationLists = new ArrayList<>();
     ImageView back;
     private TextView bicycleTv;
     EditText inputSearch;
     ProgressBar circularProgressbar;
-    SharedPreferences sharedPreferences;
     String adminmobile, area_id, admin_type;
-    private String TAG = AddNewBicycle.class.getSimpleName();
+    SharedPreferences sharedPreferences;
+    private String TAG = EmployeeAddNewBicycle.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_bicycle);
-        //initializing the typeface/fonts for this particular screen
+        setContentView(R.layout.activity_employee_add_new_bicycle);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        initView();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(EmployeeAddNewBicycle.this, DashBoardActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
+    }
+
+    private void initView() {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-        //setting the toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
+        adminmobile = sharedPreferences.getString("adminmobile", null);
+        admin_type = sharedPreferences.getString("admin_type", null);
+        area_id = sharedPreferences.getString("area_id", null);
+        Log.d(TAG, "Area details:" + area_id + "\t" + adminmobile + "\t" + admin_type);
         back = findViewById(R.id.back_button);
         bicycleTv = findViewById(R.id.bicycle_tv);
         bicycleTv.setTypeface(type1);
-        //sharedpreference will store the admin mobile number who is using the app
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
-        adminmobile = sharedPreferences.getString("adminmobile", null);
-        area_id = sharedPreferences.getString("area_id", null);
-        admin_type = sharedPreferences.getString("admin_type", null);
-        Log.d(TAG, "Admin Mobile" + adminmobile + "\t" + area_id + "\t" + admin_type);
         circularProgressbar = findViewById(R.id.circularProgressbar);
         ObjectAnimator progressAnimator = ObjectAnimator.ofInt(circularProgressbar, "progress", 100, 0);
         progressAnimator.setDuration(300);
         progressAnimator.setInterpolator(new LinearInterpolator());
         progressAnimator.start();
-
-        //RecyclerView will show the objects
         recyclerView = findViewById(R.id.recycler_view);
-        areaAdpater = new Area_Adpater(areaLists);
+        addNewBicycleAdapter = new AddNewBicycleAdapter(deleteStationLists);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new CustomDivider(this, LinearLayoutManager.VERTICAL, 8));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(areaAdpater);
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                AreaList lists = areaLists.get(position);
+        recyclerView.setAdapter(addNewBicycleAdapter);
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView,
+                new RecyclerTouchListener.ClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+                        DeleteStationList lists = deleteStationLists.get(position);
+                    }
 
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-            }
-        }));
+                    @Override
+                    public void onLongClick(View view, int position) {
+                    }
+                }));
         back.setOnClickListener(new View.OnClickListener() {
-            //on clicking the back button redirects back to Dashboard
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddNewBicycle.this, DashBoardActivity.class);
+                Intent intent = new Intent(EmployeeAddNewBicycle.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -105,27 +108,23 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
 
     @Override
     public void onResume() {
-        //on tapping the menu item of 'Add New Bicycle' in DashboardActivity fetch the result from the server
         super.onResume();
         loadData();
     }
 
-    //loadData() will fetch the result set from the server
     private void loadData() {
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
         try {
-            jo.put("method", "getallmaparea");
-            jo.put("adminmobile", adminmobile);
+            jo.put("method", "getAreaStation");
+            jo.put("area_id", area_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new SendRequest(getResources().getString(R.string.url), jo, AddNewBicycle.this,
-                getApplicationContext()).executeJsonRequest();
+        new SendRequest(getResources().getString(R.string.url), jo, EmployeeAddNewBicycle.this, getApplicationContext()).executeJsonRequest();
 
     }
 
-    //if any error occurred or success msg will show via a dialog box
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -148,7 +147,7 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
                 if (circularProgressbar.isEnabled()) {
                     circularProgressbar.setVisibility(View.GONE);
                 }
-                Intent intent = new Intent(AddNewBicycle.this, DashBoardActivity.class);
+                Intent intent = new Intent(EmployeeAddNewBicycle.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -162,32 +161,32 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
     @Override
     public void onResponse(JSONObject jsonObject) {
         circularProgressbar.setVisibility(View.GONE);
-        areaLists.clear();
+        deleteStationLists.clear();
         if (jsonObject.has("method")) {
             try {
-                if (jsonObject.getString("method").equals("getallmaparea") && jsonObject.getBoolean("success")) {
+                if (jsonObject.getString("method").equals("getAreaStation") && jsonObject.getBoolean("success")) {
                     JSONArray ja = jsonObject.getJSONArray("data");
                     if (ja.length() > 0) {
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
-                            AreaList list = new AreaList(jo.getString("area_name"),
-                                    jo.getString("area_id"), jo.getString("area_lat_lon"));
-                            areaLists.add(list);
+                            DeleteStationList user = new DeleteStationList(jo.getString("station_name"),
+                                    jo.getString("station_id"), jo.getString("area_name"), jo.getString("area_id"));
+                            deleteStationLists.add(user);
                         }
                     }
                 } else {
-                    showDialog("No Station is present.");
+                    showDialog("No Station has created.");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        areaAdpater.notifyDataSetChanged();
-
+        addNewBicycleAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onResponseError(VolleyError error) {
         showDialog("Server Error !");
     }
+
 }

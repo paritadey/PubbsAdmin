@@ -42,14 +42,6 @@
                 android:textSize="@dimen/fourteen_sp" />
 
             <RadioButton
-                android:id="@+id/radioFinance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/four_dp"
-                android:text="Finance"
-                android:textSize="@dimen/fourteen_sp" />
-
-            <RadioButton
                 android:id="@+id/radioService"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
