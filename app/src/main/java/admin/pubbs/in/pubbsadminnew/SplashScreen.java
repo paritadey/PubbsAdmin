@@ -29,23 +29,29 @@ import org.json.JSONObject;
 
 /*created by Parita Dey*/
 public class SplashScreen extends AppCompatActivity implements AsyncResponse {
+    //xml based variables' declaration
+    TextView appName;
+    //java file based variables' declaration
     SharedPreferences sharedpreferences;
     Context context;
     boolean internet;
-    TextView appName;
     private String TAG = SplashScreen.class.getSimpleName();
-    String area_id, admin_mobile, admin_type;
-    int manager, service, driver;
+    // private keyword is the access modifier
+    //private variables are only accessible inside the class they are declared or inside inner classes.
+    private String area_id, admin_mobile, admin_type;
+    private int manager, service, driver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        sharedpreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
-        appName = findViewById(R.id.app_name);
+        //declare and initialize typeface
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
+        appName = findViewById(R.id.app_name);
         appName.setTypeface(type);
         appName.setLetterSpacing(0.1f);
+        //get the admin mobile number and admin type from sharedprefernce
+        sharedpreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
         internet = isConnectingToInternet(context);
         if (internet == true && sharedpreferences.contains("login")) { //if sharedpreference contains the
             // word "login" then it will go to DashboardActivity for Dashboard in app
@@ -55,12 +61,13 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
             loadData(admin_mobile);
         } else {
             startActivity(new Intent(SplashScreen.this, SignInUp.class));
-            selectAreaDialog("Connection Problem !", "Please connect to the internet.");
+            internetErrorDialog("Connection Problem !", "Please connect to the internet.");
         }
 
     }
 
-    private void showDashboard(String area_id, int manager, int service, int driver) {
+    //if the app user is an employee then show the dashboard's menuitem accordingly,
+    private void showDashboardNavigation(String area_id, int manager, int service, int driver) {
         Log.d(TAG, "Authority:" + area_id + "\t" + manager + "\t" +  "\t" + service + "\t" + driver);
         if (admin_type.equals("Employee") && manager > 0 ||  service > 0 || driver > 0) {
             final Handler handler = new Handler();
@@ -79,7 +86,7 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
         }
     }
 
-
+    //load data from server if the user is an employee. It is used to fetch employee rank from the server
     public void loadData(String adminmobile) {
         JSONObject jo = new JSONObject();
         try {
@@ -108,11 +115,11 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
                             driver = Integer.parseInt(jo.getString("driver"));
                         }
                         Log.d(TAG, "Authority List of Employee:" + area_id + "\t" + manager + "\t" + "\t" + service + "\t" + driver);
-                        showDashboard(area_id, manager, service, driver);
+                        showDashboardNavigation(area_id, manager, service, driver);
                     }
                 } else {
                     Log.d(TAG, "Not Employee move further");
-                    showDashboard(area_id, manager, service, driver);
+                    showDashboardNavigation(area_id, manager, service, driver);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -127,7 +134,8 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
         Log.d(TAG, "Error:" + error.toString());
     }
 
-    private void selectAreaDialog(String title, String message) {
+    //if error occured due to no internet then show this dialogbox
+    private void internetErrorDialog(String title, String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 

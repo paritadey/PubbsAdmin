@@ -39,8 +39,8 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
     private String adminFullName, adminPhoneNumber, adminEmail, adminAddress, adminPassword;
     private final String TAG = SignUp.class.getSimpleName();
     Spinner choice;
-    private static final String[] operator = {"Select Operator", "Sub Admin", "Employee"};
-    String operator_type;
+  //  private static final String[] operator = {"Select Operator", "Super Admin", "Sub Admin", "Employee"};
+    String operator_type="Super Admin", area_id="NO", area_name="NO";
 
     public SignUp() {
     }
@@ -57,14 +57,6 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
         Typeface type1 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
-        choice = rootView.findViewById(R.id.choice);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_spinner_item, operator);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        choice.setAdapter(adapter);
-        choice.setOnItemSelectedListener(this);
 
         layoutFullname = rootView.findViewById(R.id.layout_fullname);
         layoutMobile = rootView.findViewById(R.id.layout_mobile);
@@ -170,7 +162,7 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
                     if (confirmPassword.getText().toString().trim().equals(password.getText().toString().trim())) {
                         if (operator_type.equals("Select Operator") || operator_type.equals("Sub Admin") || operator_type.equals("Employee")) {
                             showDialog("You are not eligible to Sign Up !!! Please Sign In.");
-                        } else {
+                        } else if(operator_type.equals("Super Admin")){
                             View view_layout = rootView.findViewById(R.id.constraintLayout);
                             String message = "Password matches !!!";
                             int duration = Snackbar.LENGTH_SHORT;
@@ -183,7 +175,7 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
 
                             Log.d(TAG, "Admin details: " + adminFullName + "--" + adminEmail + "--" +
                                     adminPhoneNumber + "--" + adminAddress + "--" + adminPassword);
-                            AdminRegisterFunction(adminFullName, adminEmail, adminPhoneNumber, adminAddress, adminPassword);
+                            AdminRegisterFunction(adminFullName, adminEmail, adminPhoneNumber, adminAddress, adminPassword, operator_type, area_name, area_id);
                         }
                     }
                 }
@@ -227,7 +219,7 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
     }
 
     public void AdminRegisterFunction(final String admin_fullname, final String admin_email, final String admin_mobile, final String admin_address,
-                                      final String admin_password) {
+                                      final String admin_password, final String operator_type, final String area_name, final String area_id) {
 
         class AdminRegisterFunctionClass extends AsyncTask<String, Void, String> {
 
@@ -259,6 +251,12 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
 
                 hashMap.put("adminpassword", params[4]);
 
+                hashMap.put("operator_type", params[5]);
+
+                hashMap.put("area_name", params[6]);
+
+                hashMap.put("area_id", params[7]);
+
                 finalResult = httpParse.postRequest(hashMap, UserUrl);
 
                 return finalResult;
@@ -267,7 +265,7 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
 
         AdminRegisterFunctionClass adminRegisterFunctionClass = new AdminRegisterFunctionClass();
 
-        adminRegisterFunctionClass.execute(admin_fullname, admin_email, admin_mobile, admin_address, admin_password);
+        adminRegisterFunctionClass.execute(admin_fullname, admin_email, admin_mobile, admin_address, admin_password, operator_type, area_name, area_id);
     }
 
     @Override
@@ -287,6 +285,11 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
                 operator_type = choice.getSelectedItem().toString();
                 Log.d(TAG, "Option:" + operator_type);
                 break;
+            case 3:
+                operator_type = choice.getSelectedItem().toString();
+                Log.d(TAG, "Option:" + operator_type);
+                break;
+
         }
     }
 

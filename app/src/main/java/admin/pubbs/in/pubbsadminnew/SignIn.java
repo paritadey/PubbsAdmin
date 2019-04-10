@@ -72,6 +72,7 @@ public class SignIn extends Fragment implements AsyncResponse {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_sign_in, container, false);
+        //declare and initialize typeface
         Typeface type1 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -154,8 +155,10 @@ public class SignIn extends Fragment implements AsyncResponse {
                 admin_password = password.getText().toString();
                 admin_type = operator_type;
                 if (admin_type.equals("Employee")) {
+                    //if the user is Employee then get the rank from the server and stores
                     loadData(adminmobile);
                 } else {
+                    //if the user is not of Employee type then directly go this function
                     UserLoginFunction(adminmobile, admin_password, admin_type, area_id, manager, service, driver);
                 }
             }
@@ -164,13 +167,14 @@ public class SignIn extends Fragment implements AsyncResponse {
         return rootView;
     }
 
+    //get the employee rank from the server if the user is an employee
     private void getEmployeeRank(String area_id, int manager, int service, int driver) {
         Log.d(TAG, "Authority:" + manager + "\t"  + "\t" + service + "\t" + driver);
         if (manager  > 0 || service > 0 || driver > 0) {
             UserLoginFunction(adminmobile, admin_password, admin_type, area_id, manager, service, driver);
         }
     }
-
+    //load data from server
     public void loadData(String adminmobile) {
         JSONObject jo = new JSONObject();
         try {
@@ -202,7 +206,6 @@ public class SignIn extends Fragment implements AsyncResponse {
                     }
                 } else {
                     Log.d(TAG, "Not Employee move further");
-                    // showDashboard(manager, service, driver);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -211,16 +214,18 @@ public class SignIn extends Fragment implements AsyncResponse {
 
     }
 
-
     @Override
     public void onResponseError(VolleyError error) {
         Log.d(TAG, "Error:" + error.toString());
     }
 
+    //show snack bar if user doesnt put all the details for login
     public void showSnackbar(View view, String message, int duration) {
         Snackbar.make(view, message, duration).show();
     }
 
+    //this function gets the admin mobile, password , spinner choice, from the xml and send to server
+    // to check whether the user is present in the database or not
     public void UserLoginFunction(final String adminmobile, final String adminpassword, final String admin_type, final String area_id,
                                   final int manager, final int service, final int driver) {
         class UserLoginClass extends AsyncTask<String, Void, String> {
@@ -245,7 +250,6 @@ public class SignIn extends Fragment implements AsyncResponse {
                     editor.putInt("manager", manager);
                     editor.putInt("service", service);
                     editor.putInt("driver", driver);
-
                     editor.putBoolean("login", true);
                     editor.commit();
                     Log.d("SignIn.java", "SharedPreference stored the value");

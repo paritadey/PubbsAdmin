@@ -23,9 +23,9 @@
                 android:id="@+id/layout_fullname"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/twenty_four_dp"
                 android:layout_marginStart="@dimen/twenty_four_dp"
                 android:layout_marginTop="@dimen/sixty_four_dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
                 android:background="@drawable/edittext_bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -36,8 +36,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginTop="@dimen/tweleve_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:text="@string/fullname_tv"
                     android:textColor="@color/grey_400" />
 
@@ -58,9 +58,9 @@
                 android:id="@+id/layout_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/twenty_four_dp"
                 android:layout_marginStart="@dimen/twenty_four_dp"
                 android:layout_marginTop="@dimen/sixteen_dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
                 android:background="@drawable/edittext_bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,8 +71,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginTop="@dimen/tweleve_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:text="@string/mobile_tv"
                     android:textColor="@color/grey_400" />
 
@@ -96,9 +96,9 @@
                 android:id="@+id/layout_email"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/twenty_four_dp"
                 android:layout_marginStart="@dimen/twenty_four_dp"
                 android:layout_marginTop="@dimen/sixteen_dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
                 android:background="@drawable/edittext_bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -109,8 +109,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginTop="@dimen/tweleve_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:text="@string/email_tv"
                     android:textColor="@color/grey_400" />
 
@@ -132,9 +132,9 @@
                 android:id="@+id/layout_address"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/twenty_four_dp"
                 android:layout_marginStart="@dimen/twenty_four_dp"
                 android:layout_marginTop="@dimen/sixteen_dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
                 android:background="@drawable/edittext_bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -145,8 +145,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginTop="@dimen/tweleve_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:text="@string/address"
                     android:textColor="@color/grey_400" />
 
@@ -168,9 +168,9 @@
                 android:id="@+id/layout_password"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/twenty_four_dp"
                 android:layout_marginStart="@dimen/twenty_four_dp"
                 android:layout_marginTop="@dimen/sixteen_dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
                 android:background="@drawable/edittext_bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -181,8 +181,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginTop="@dimen/tweleve_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:text="@string/password_tv"
                     android:textColor="@color/grey_400" />
 
@@ -205,9 +205,9 @@
                 android:id="@+id/layout_confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/twenty_four_dp"
                 android:layout_marginStart="@dimen/twenty_four_dp"
                 android:layout_marginTop="@dimen/sixteen_dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
                 android:background="@drawable/edittext_bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -218,8 +218,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:layout_marginTop="@dimen/tweleve_dp"
+                    android:layout_marginEnd="@dimen/twenty_four_dp"
                     android:text="@string/confirm_password"
                     android:textColor="@color/grey_400" />
 
@@ -238,16 +238,6 @@
 
             </RelativeLayout>
 
-            <Spinner
-                android:id="@+id/choice"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/twenty_four_dp"
-                android:layout_marginStart="@dimen/twenty_four_dp"
-                android:layout_marginTop="@dimen/sixteen_dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_confirm_password" />
 
             <Button
                 android:id="@+id/otp_btn"
@@ -256,12 +246,12 @@
                 android:layout_marginEnd="@dimen/twenty_four_dp"
                 android:layout_marginTop="@dimen/twenty_four_dp"
                 android:background="@drawable/button_bg"
-                android:text="@string/get_otp"
+                android:text="Sign Up"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/fourteen_sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/choice" />
+                app:layout_constraintTop_toBottomOf="@id/layout_confirm_password" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
