@@ -240,7 +240,7 @@
 
 
             <Button
-                android:id="@+id/otp_btn"
+                android:id="@+id/signup"
                 android:layout_width="@dimen/one_fifty_dp"
                 android:layout_height="@dimen/thirty_six_dp"
                 android:layout_marginEnd="@dimen/twenty_four_dp"

@@ -219,7 +219,7 @@ public class SignIn extends Fragment implements AsyncResponse {
         Log.d(TAG, "Error:" + error.toString());
     }
 
-    //show snack bar if user doesnt put all the details for login
+    //show snack bar if user does not put all the details for login
     public void showSnackbar(View view, String message, int duration) {
         Snackbar.make(view, message, duration).show();
     }

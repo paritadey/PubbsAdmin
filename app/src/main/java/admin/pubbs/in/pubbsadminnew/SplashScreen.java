@@ -1,18 +1,14 @@
 package admin.pubbs.in.pubbsadminnew;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,8 +64,8 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
 
     //if the app user is an employee then show the dashboard's menuitem accordingly,
     private void showDashboardNavigation(String area_id, int manager, int service, int driver) {
-        Log.d(TAG, "Authority:" + area_id + "\t" + manager + "\t" +  "\t" + service + "\t" + driver);
-        if (admin_type.equals("Employee") && manager > 0 ||  service > 0 || driver > 0) {
+        Log.d(TAG, "Authority:" + area_id + "\t" + manager + "\t" + "\t" + service + "\t" + driver);
+        if (admin_type.equals("Employee") && manager > 0 || service > 0 || driver > 0) {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
@@ -176,7 +172,7 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
             return true;
     }
 
-    private void EnableGPS() {
+  /*  private void EnableGPS() {
         LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 !lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
@@ -188,13 +184,14 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
                     // Show location settings when the user acknowledges the alert dialog
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     startActivity(intent);
+                    finish();
                 }
             });
             Dialog alertDialog = builder.create();
             alertDialog.setCanceledOnTouchOutside(false);
             alertDialog.show();
         }
-    }
+    }*/
 
 
 }

@@ -57,9 +57,12 @@ import java.util.List;
 public class AddNewArea extends AppCompatActivity implements View.OnClickListener,
         OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
 
+    //xml based variables
     ImageView backButton;
     CoordinatorLayout selectArea;
     ImageView upArrow, mapGps, search;
+    EditText inputSearch;
+    //java based variables
     private static final String TAG = AddNewArea.class.getSimpleName();
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -68,7 +71,6 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    EditText inputSearch;
     Context mContext;
     View v;
     TextView selectAreaTv, bottomsheetText;
@@ -273,7 +275,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
     }
 
     //on plotting 12 points in the map an polygonal area will create in the map and after
-    // creating the area it will ask to give the name of the area by entering the function selectAreaDialog()
+    // creating the area it will ask to give the name of the area by entering the function setAreaName()
     public void drawPolygon(ArrayList<LatLng> myLatLng) {
         Log.d(TAG, "Drawing polygon");
         if (myLatLng.size() >= 12) {//6) {
@@ -284,9 +286,9 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
             polygonOptions.fillColor(getResources().getColor(R.color.blue_100));
             Polygon polygon = mMap.addPolygon(polygonOptions);
 
-            selectAreaDialog();
+            setAreaName();
             Log.d(TAG, "Polygon created");
-            areaNumber = generateArea();
+            areaNumber = generateAreaID();
             Log.d(TAG, "Area Number: " + areaNumber);
             procced.setVisibility(View.VISIBLE);
         }
@@ -294,7 +296,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
 
     //on creating the polygonal area it will ask to give name of the selected area. A custom dialog box
     // will open and areaName will hold the name of the area
-    private String selectAreaDialog() {
+    private String setAreaName() {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
@@ -330,7 +332,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
 
     //generate a random number starting from 1 to 999. This random number will concatenate with the word 'area_'.
     //Every time when the user create a new area with its name then this function will create an area_id with this random number function
-    public String generateArea() {
+    public String generateAreaID() {
         String areaNumber = "area_";
         String area;
         int max = 999;

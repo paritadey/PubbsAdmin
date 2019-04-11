@@ -33,25 +33,24 @@ import java.util.Calendar;
 
 /*created by Parita Dey*/
 public class ManageSystem extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
+    //xml based variables
     private TextView bottomSheetTv, manageSytem, allSetTv, manageYourSystem, moreEfficient, maxRideTv, maxHoldtv, minWalletTv;
     private Button proceed;
     ImageView upArrow, back;
-    private final String TAG = ManageSystem.class.getSimpleName();
     CoordinatorLayout manageSystem;
+    //private - access modifer, accessible only within the class in which they are declared
     private EditText maxRide, maxHold, minWallet;
     private TextView openingHrTv, closingHrTv, geofencingFineTv, rupeesTv, emergencyContactTv, emergency_contact;
     private ImageView openingTimer, closingTimer;
     private TextView openingHour, closingHour;
-    private int currentHour, currentMinute;
     private EditText geofencingFine;
-    private String amPm;
-    public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
-    public JsonArray markers;
-    private String areaNumber, area_Name, adminMobile;
-    private String openHr, closeHr, geofenceFine, max_ride, max_hold, min_wallet, emergencyContact;
     RelativeLayout layoutGeofenceFine, layoutClosingHr, layoutOpeningHr, layoutEmergencyContact;
-    String markerArray;
-    String json;
+    //java based private variables
+    private int currentHour, currentMinute;
+    private String amPm, json, markerArray, openHr, closeHr, geofenceFine, max_ride, max_hold, min_wallet, emergencyContact;
+    private String areaNumber, area_Name, adminMobile;
+    private final String TAG = ManageSystem.class.getSimpleName();
+    public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -356,10 +355,10 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onResponseError(VolleyError error) {
-        showDialog("Server Error !");
+        showMessageDialog("Server Error !");
     }
 
-    private void showDialog(String message) {
+    private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 

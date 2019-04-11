@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -28,19 +27,20 @@ import java.util.HashMap;
 
 public class SignUp extends Fragment implements AdapterView.OnItemSelectedListener {
     EditText fullname, phone, address, email, password, confirmPassword;
-    Button getOtp;
+    Button signup;
     TextView fullnameTv, mobileTv, emailTv, addressTv, passwordTv, confirmPasswordTv;
     RelativeLayout layoutFullname, layoutMobile, layoutEmail, layoutAddress, layoutPassword, layoutConfirmpassword;
-    String finalResult;
     ProgressDialog progressDialog;
+    Spinner choice;
+    //java file based variables' declaration
     String UserUrl = "http://pubbs.in/api/1.0/admin_registration.php";
     HashMap<String, String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
-    private String adminFullName, adminPhoneNumber, adminEmail, adminAddress, adminPassword;
     private final String TAG = SignUp.class.getSimpleName();
-    Spinner choice;
-  //  private static final String[] operator = {"Select Operator", "Super Admin", "Sub Admin", "Employee"};
-    String operator_type="Super Admin", area_id="NO", area_name="NO";
+    //private - access modifer, accessible only within the class in which they are declared
+    private String adminFullName, adminPhoneNumber, adminEmail, adminAddress, adminPassword;
+    //global variables
+    String operator_type = "Super Admin", area_id = "NO", area_name = "NO", finalResult;
 
     public SignUp() {
     }
@@ -54,6 +54,7 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_sign_up, container, false);
+        //declare and initialize typeface
         Typeface type1 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -64,7 +65,6 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
         layoutAddress = rootView.findViewById(R.id.layout_address);
         layoutPassword = rootView.findViewById(R.id.layout_password);
         layoutConfirmpassword = rootView.findViewById(R.id.layout_confirm_password);
-
         fullnameTv = rootView.findViewById(R.id.fullname_tv);
         fullnameTv.setTypeface(type2);
         fullname = rootView.findViewById(R.id.fullname);
@@ -89,10 +89,9 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
         confirmPasswordTv.setTypeface(type1);
         confirmPassword = rootView.findViewById(R.id.confirm_password);
         confirmPassword.setTypeface(type1);
-
-        getOtp = rootView.findViewById(R.id.otp_btn);
-        getOtp.setTypeface(type3);
-        getOtp.setOnClickListener(new View.OnClickListener() {
+        signup = rootView.findViewById(R.id.signup);
+        signup.setTypeface(type3);
+        signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -162,7 +161,7 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
                     if (confirmPassword.getText().toString().trim().equals(password.getText().toString().trim())) {
                         if (operator_type.equals("Select Operator") || operator_type.equals("Sub Admin") || operator_type.equals("Employee")) {
                             showDialog("You are not eligible to Sign Up !!! Please Sign In.");
-                        } else if(operator_type.equals("Super Admin")){
+                        } else if (operator_type.equals("Super Admin")) {
                             View view_layout = rootView.findViewById(R.id.constraintLayout);
                             String message = "Password matches !!!";
                             int duration = Snackbar.LENGTH_SHORT;
@@ -184,6 +183,7 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
         return rootView;
     }
 
+    //show alert dialog if server sends some message
     private void showDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getContext().getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -214,10 +214,12 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
         dialogBuilder.setCancelable(false);
     }
 
+    //show snack bar if user does not put all the details for registration
     public void showSnackbar(View view, String message, int duration) {
         Snackbar.make(view, message, duration).show();
     }
 
+    //this function gets the admin mobile, password , address, email id from the xml and insert into the table in server
     public void AdminRegisterFunction(final String admin_fullname, final String admin_email, final String admin_mobile, final String admin_address,
                                       final String admin_password, final String operator_type, final String area_name, final String area_id) {
 
@@ -240,31 +242,20 @@ public class SignUp extends Fragment implements AdapterView.OnItemSelectedListen
 
             @Override
             protected String doInBackground(String... params) {
-
                 hashMap.put("adminfullname", params[0]);
-
                 hashMap.put("adminemail", params[1]);
-
                 hashMap.put("adminmobile", params[2]);
-
                 hashMap.put("adminaddress", params[3]);
-
                 hashMap.put("adminpassword", params[4]);
-
                 hashMap.put("operator_type", params[5]);
-
                 hashMap.put("area_name", params[6]);
-
                 hashMap.put("area_id", params[7]);
-
                 finalResult = httpParse.postRequest(hashMap, UserUrl);
-
                 return finalResult;
             }
         }
 
         AdminRegisterFunctionClass adminRegisterFunctionClass = new AdminRegisterFunctionClass();
-
         adminRegisterFunctionClass.execute(admin_fullname, admin_email, admin_mobile, admin_address, admin_password, operator_type, area_name, area_id);
     }
 
