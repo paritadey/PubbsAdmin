@@ -205,7 +205,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
                 Log.d(TAG, "Point value:"+point);
                 if(point==true) {
                     selectStationDialog();
-                    stationid = generateStation(); //generate random number station id
+                    stationid = generateStationID(); //generate random number station id
                     BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.station);
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(latLng);
@@ -223,7 +223,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
 
                     procced.setVisibility(View.VISIBLE);
                 }else{
-                    showStation("Please create station inside the area.");
+                    showStationIsOutside("Please create station inside the area.");
                 }
 
             }
@@ -307,7 +307,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     }
 
     //generate the random id concatinate with 'station_'
-    public String generateStation() {
+    public String generateStationID() {
         String stationNumber = "station_";
         String station;
         int max = 999;
@@ -320,7 +320,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     }
 
     //if any error occurred or success msg will show via a dialog box
-    private void showDialog(String message) {
+    private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
@@ -351,7 +351,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         dialogBuilder.setCancelable(false);
     }
     //if the tapped point is outside the polygonal area then show dialog showing to create the area inside the polygonal area
-    private void showStation(String message) {
+    private void showStationIsOutside(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
@@ -384,14 +384,14 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
 
 
     //on clicking proceed button it will send all the data to the server
-    public void SendBicycleData(final String station_id, final String station_name, final String station_latitude, final String station_longitude,
+    public void addStationData(final String station_id, final String station_name, final String station_latitude, final String station_longitude,
                                 final String adminmobile, final String area_name, final String area_id) {
 
         class AddNewStation extends AsyncTask<String, Void, String> {
             @Override
             protected void onPostExecute(String httpResponseMsg) {
                 super.onPostExecute(httpResponseMsg);
-                showDialog(httpResponseMsg.toString());
+                showMessageDialog(httpResponseMsg.toString());
             }
 
             @Override
@@ -422,7 +422,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
             case R.id.proceed_btn:
-                SendBicycleData(stationid, station_name, stationLatitude, stationLongitude, adminMobile, areaName, areaId);
+                addStationData(stationid, station_name, stationLatitude, stationLongitude, adminMobile, areaName, areaId);
                 break;
             default:
                 break;

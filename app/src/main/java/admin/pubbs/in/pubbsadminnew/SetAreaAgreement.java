@@ -169,7 +169,7 @@ public class SetAreaAgreement extends AppCompatActivity implements View.OnClickL
         if (jsonObject.has("method")) {
             try {
                 if (jsonObject.getString("method").equals("set_area_legal") && jsonObject.getBoolean("success")) {
-                    showDialog("Area Legal is updated");
+                    showMessageDialog("Area Legal is updated");
                 } else {
                     Toast.makeText(getApplicationContext(), "couldn't save try again later", Toast.LENGTH_SHORT).show();
                 }
@@ -181,9 +181,9 @@ public class SetAreaAgreement extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onResponseError(VolleyError error) {
-        showDialog("Server Error !");
+        showMessageDialog("Server Error !");
     }
-    private void showDialog(String message) {
+    private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 

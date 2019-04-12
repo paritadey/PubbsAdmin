@@ -277,7 +277,7 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                         Log.d(TAG, "Min:" + rideTime);
                     }
 
-                    sendSubscriptionPlan(adminmobile, areaName, areaId, subsName, subsTime,
+                    addSubscriptionPlan(adminmobile, areaName, areaId, subsName, subsTime,
                             subsStartDate, subsEndDate, subsDesc, subsMoney, subscription_id, subsRideNo, rideTime, carryForward);
 
                 }
@@ -288,7 +288,7 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
 
     }
 
-    public void sendSubscriptionPlan(String admin_mobile, String area_id, String area_name, String subscription_plan_name, int time_limit,
+    public void addSubscriptionPlan(String admin_mobile, String area_id, String area_name, String subscription_plan_name, int time_limit,
                                      String start_date, String end_date, String description, int money,
                                      String subscription_plan_id, int ride_number, int ride_mintues, int carry_forward) {
         JSONObject jo = new JSONObject();
@@ -316,11 +316,7 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
 
     }
 
-
-    public void showSnackbar(View view, String message, int duration) {
-        Snackbar.make(view, message, duration).show();
-    }
-
+    
     //clearing the fileds after uploading all the data in db
     public void clearFields() {
         subscriptionPlanName.setText("");
@@ -340,9 +336,9 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
         if (jsonObject.has("method")) {
             try {
                 if (jsonObject.getString("method").equals("add_subscription_plan") && jsonObject.getBoolean("success")) {
-                    showDialog("Subscriptional Plan is done against an area");
+                    showMessageDialog("Subscriptional Plan is done against an area");
                 } else {
-                    showDialog("couldn't save try again later");
+                    showMessageDialog("couldn't save try again later");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -352,10 +348,10 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onResponseError(VolleyError error) {
-        showDialog("Server Problem !");
+        showMessageDialog("Server Problem !");
     }
 
-    private void showDialog(String message) {
+    private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 

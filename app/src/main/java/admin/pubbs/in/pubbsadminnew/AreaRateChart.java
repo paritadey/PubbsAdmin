@@ -337,9 +337,9 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
         if (jsonObject.has("method")) {
             try {
                 if (jsonObject.getString("method").equals("add_rate_chart") && jsonObject.getBoolean("success")) {
-                    showDialog("Rate Chart Plan is done against an area");
+                    showMessageDialog("Rate Chart Plan is done against an area");
                 } else {
-                    showDialog("couldn't save try again later");
+                    showMessageDialog("couldn't save try again later");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -350,10 +350,10 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onResponseError(VolleyError error) {
-        showDialog("Server Error!");
+        showMessageDialog("Server Error!");
     }
 
-    private void showDialog(String message) {
+    private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 

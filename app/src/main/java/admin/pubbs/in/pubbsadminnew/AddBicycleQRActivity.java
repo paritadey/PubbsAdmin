@@ -109,7 +109,7 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
         Log.d(TAG, "replacing colon:" + address);
         bicycleId.setText(address);
         if (bicycleId.getText().toString().isEmpty() == false) {
-            addCnfirmationDialog("Do you want to add this cycle?", cycle_id, address, area_id, station_name, station_id, adminmobile,
+            addCycleConfirmationDialog("Do you want to add this cycle?", cycle_id, address, area_id, station_name, station_id, adminmobile,
                     admin_type, date_time, getApplicationContext());
         } else {
             Log.d(TAG, "Problem occures");
@@ -118,7 +118,7 @@ public class AddBicycleQRActivity extends AppCompatActivity implements ZXingScan
 
     //this function will send cycle_id, address, area_id, station_name, station_id,
     // adminmobile, admin_type, date_time from the app to the server on clicking yes button of the alertdialog builder
-    private void addCnfirmationDialog(String msg, String cycle_id, String address, String area_id, String station_name,
+    private void addCycleConfirmationDialog(String msg, String cycle_id, String address, String area_id, String station_name,
                                       String station_id, String adminmobile, String admin_type, String date_time, Context applicationContext) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage(msg);

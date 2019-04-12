@@ -117,7 +117,7 @@ public class AreaStations extends AppCompatActivity implements AsyncResponse {
 
     }
 
-    private void showDialog(String message) {
+    private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
@@ -167,7 +167,7 @@ public class AreaStations extends AppCompatActivity implements AsyncResponse {
                         }
                     }
                 }else{
-                    showDialog("No Station has created.");
+                    showMessageDialog("No Station has created.");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -178,7 +178,7 @@ public class AreaStations extends AppCompatActivity implements AsyncResponse {
 
     @Override
     public void onResponseError(VolleyError error) {
-        showDialog("Server Error !");
+        showMessageDialog("Server Error !");
     }
 
 }
