@@ -129,7 +129,7 @@ public class RechargeBattery extends AppCompatActivity implements AsyncResponse 
                         }
                     }
                 } else {
-                    showDialog("No recharge battery data is present.");
+                    showMessageDialog("No recharge battery data is present.");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -141,10 +141,10 @@ public class RechargeBattery extends AppCompatActivity implements AsyncResponse 
 
     @Override
     public void onResponseError(VolleyError error) {
-        showDialog("Server Problem !");
+        showMessageDialog("Server Problem !");
     }
 
-    private void showDialog(String message) {
+    private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 

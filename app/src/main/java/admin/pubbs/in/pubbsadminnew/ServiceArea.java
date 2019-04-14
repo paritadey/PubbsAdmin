@@ -155,7 +155,7 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
             protected void onPostExecute(String httpResponseMsg) {
                 super.onPostExecute(httpResponseMsg);
                 Log.d(TAG, httpResponseMsg.toString());
-                showDialog("Service is taken off !");
+                showMessageDialog("Service is taken off !");
             }
 
             @Override
@@ -268,11 +268,11 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
                 super.onPostExecute(httpResponseMsg);
                 Log.d(TAG, httpResponseMsg.toString());
                 if (httpResponseMsg.toString().equals("Area service is re-launched")) {
-                    showDialog("Area service is re-launched");
+                    showMessageDialog("Area service is re-launched");
                 } else if (httpResponseMsg.toString().equals("Area Service is Successfully Launched !!!")) {
-                    showDialog("Area Service is Successfully Launched !!!");
+                    showMessageDialog("Area Service is Successfully Launched !!!");
                 } else {
-                    showDialog("Something went wrong");
+                    showMessageDialog("Something went wrong");
                 }
             }
 
@@ -293,7 +293,7 @@ public class ServiceArea extends AppCompatActivity implements View.OnClickListen
     }
 
     //if any error occurred or success msg will show via a dialog box
-    private void showDialog(String message) {
+    private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 

@@ -142,11 +142,11 @@ public class StartStopService extends AppCompatActivity implements AsyncResponse
 
     @Override
     public void onResponseError(VolleyError error) {
-        showDialog("Server Error !");
+        showMessageDialog("Server Error !");
     }
 
     //if any error occurred or success msg will show via a dialog box
-    private void showDialog(String message) {
+    private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 

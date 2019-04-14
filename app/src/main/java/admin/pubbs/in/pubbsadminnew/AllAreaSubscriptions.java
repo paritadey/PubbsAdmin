@@ -139,9 +139,9 @@ public class AllAreaSubscriptions extends AppCompatActivity implements AsyncResp
 
     @Override
     public void onResponseError(VolleyError error) {
-        showDialog("Server Problem");
+        showMessageDialog("Server Problem");
     }
-    private void showDialog(String message) {
+    private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 

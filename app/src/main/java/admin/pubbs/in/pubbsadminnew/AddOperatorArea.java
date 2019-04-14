@@ -180,7 +180,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
                     admin_password = password.getText().toString().trim();
                     Log.d(TAG, "Operator details:" + areaName + "-" + areaId + "-" + full_name + "-" + admin_mobile + "-"
                             + admin_address + "-" + admin_email + "-" + admin_password + "-" + operator_type);
-                    Operator(full_name, admin_email, admin_mobile, admin_address, admin_password, operator_type, areaName, areaId);
+                    addOperator(full_name, admin_email, admin_mobile, admin_address, admin_password, operator_type, areaName, areaId);
                 }
                 break;
             case R.id.back_button:
@@ -236,7 +236,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
 
 
     //send admin's fullname, phone_number, email, address, password, admin_type, area_name, area_id to the server to store in db
-    public void Operator(final String adminfullname, final String adminemail, final String adminmobile, final String adminaddress,
+    public void addOperator(final String adminfullname, final String adminemail, final String adminmobile, final String adminaddress,
                          final String adminpassword, final String admin_type, final String area_name, final String area_id) {
 
         class OperatorClass extends AsyncTask<String, Void, String> {
