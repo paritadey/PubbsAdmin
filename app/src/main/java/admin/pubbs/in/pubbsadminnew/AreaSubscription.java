@@ -39,19 +39,19 @@ import java.util.Date;
 
 public class AreaSubscription extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     private String TAG = AreaSubscription.class.getSimpleName();
-    String areaId, areaName, adminmobile, subsName, subsStartDate, subsEndDate, subsDesc;
-    int subsMoney, subsTime, subsRideNo;
+    String areaid, areaname, adminmobile, subscriptionName, subscriptionStartDate, subscriptionEndDate, subscriptionDescription;
+    int subscriptionMoney, subscriptionTimePeriod, subscriptionRideNumber;
     ImageView back;
     TextView subscriptionTv;
     ImageView upArrow;
     TextView bottomsheetText;
     SharedPreferences sharedPreferences;
-    String subscription_id, launch_plan_date, numberPickerMins, numberPickerHour;
+    String subscriptionId, launch_plan_date, numberPickerMins, numberPickerHour;
     EditText subscriptionPlanName, timeLimit, descriptionPlan, money, ride_number;
     TextView startDate, endDate, ride_time, time_minute_tv, time_hour_tv, option;
     Button add_plan;
     private int mYear, mMonth, mDay;
-    Date sdate, eNdDate;
+    Date start_date, end_date;
     int limitDay, carryForward, rideTime, min, hour;
     RadioGroup radioGroupChoice;
     RadioButton radioNo, radioYes;
@@ -69,9 +69,9 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
         Intent intent = getIntent();
-        areaName = intent.getStringExtra("areaname");
-        areaId = intent.getStringExtra("areaid");
-        Log.d(TAG, "Area details:" + areaId + "--" + areaName);
+        areaname = intent.getStringExtra("areaname");
+        areaid = intent.getStringExtra("areaid");
+        Log.d(TAG, "Area details:" + areaid + "--" + areaname);
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         adminmobile = sharedPreferences.getString("adminmobile", null);
         Log.d(TAG, "Admin Mobile" + adminmobile);
@@ -194,15 +194,15 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                                 launch_plan_date = startDate.getText().toString();
                                 limitDay = Integer.parseInt(timeLimit.getText().toString());
                                 try {
-                                    sdate = formatter2.parse(launch_plan_date); //start date
-                                    Log.d(TAG, "Terminated date in DATE format:" + sdate);
+                                    start_date = formatter2.parse(launch_plan_date); //start date
+                                    Log.d(TAG, "Terminated date in DATE format:" + start_date);
                                     Calendar cal = Calendar.getInstance();
-                                    cal.setTime(sdate);
+                                    cal.setTime(start_date);
                                     cal.add(Calendar.DATE, limitDay); // add corrosponding days
-                                    eNdDate = cal.getTime();//end date
-                                    Log.d(TAG, "End Date :" + eNdDate);
+                                    end_date = cal.getTime();//end date
+                                    Log.d(TAG, "End Date :" + end_date);
                                     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                                    String strDate = dateFormat.format(eNdDate);
+                                    String strDate = dateFormat.format(end_date);
                                     Log.d(TAG, "String format of date:" + strDate);
                                     endDate.setText(strDate);
                                 } catch (ParseException e) {
@@ -247,14 +247,14 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                         ride_number.startAnimation(animShake);
                     }
                 } else {
-                    subsName = subscriptionPlanName.getText().toString();//subscription name
-                    subsTime = Integer.parseInt(timeLimit.getText().toString());//subscription time
-                    subsStartDate = startDate.getText().toString();//subscription start date
-                    subsEndDate = endDate.getText().toString();//subscription end date
-                    subsMoney = Integer.parseInt(money.getText().toString());//subscription money
-                    subsDesc = descriptionPlan.getText().toString();//subscription description
-                    subsRideNo = Integer.parseInt(ride_number.getText().toString());//number of rides for a particular subscription
-                    subscription_id = generateSubscriptionID();//subscription id
+                    subscriptionName = subscriptionPlanName.getText().toString();//subscription name
+                    subscriptionTimePeriod = Integer.parseInt(timeLimit.getText().toString());//subscription time
+                    subscriptionStartDate = startDate.getText().toString();//subscription start date
+                    subscriptionEndDate = endDate.getText().toString();//subscription end date
+                    subscriptionMoney = Integer.parseInt(money.getText().toString());//subscription money
+                    subscriptionDescription = descriptionPlan.getText().toString();//subscription description
+                    subscriptionRideNumber = Integer.parseInt(ride_number.getText().toString());//number of rides for a particular subscription
+                    subscriptionId = generateSubscriptionID();//subscription id
                     if (numberPickerMins == null || numberPickerHour == null) {
                         if (numberPickerMins == null && numberPickerHour == null) {
                             rideTime = 0;
@@ -277,8 +277,8 @@ public class AreaSubscription extends AppCompatActivity implements View.OnClickL
                         Log.d(TAG, "Min:" + rideTime);
                     }
 
-                    addSubscriptionPlan(adminmobile, areaName, areaId, subsName, subsTime,
-                            subsStartDate, subsEndDate, subsDesc, subsMoney, subscription_id, subsRideNo, rideTime, carryForward);
+                    addSubscriptionPlan(adminmobile, areaname, areaid, subscriptionName, subscriptionTimePeriod,
+                            subscriptionStartDate, subscriptionEndDate, subscriptionDescription, subscriptionMoney, subscriptionId, subscriptionRideNumber, rideTime, carryForward);
 
                 }
                 break;

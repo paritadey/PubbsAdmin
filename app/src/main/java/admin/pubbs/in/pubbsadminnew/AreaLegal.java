@@ -131,7 +131,7 @@ public class AreaLegal extends AppCompatActivity implements AsyncResponse {
                         }
                     }
                 } else {
-                    showDialog("Legal is set for all areas !");
+                    showMessageDialog("Legal is set for all areas !");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -142,10 +142,10 @@ public class AreaLegal extends AppCompatActivity implements AsyncResponse {
 
     @Override
     public void onResponseError(VolleyError error) {
-        showDialog("Server Error !");
+        showMessageDialog("Server Error !");
     }
 
-    private void showDialog(String message) {
+    private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 

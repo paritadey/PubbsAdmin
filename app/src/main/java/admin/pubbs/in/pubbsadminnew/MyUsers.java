@@ -148,7 +148,7 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
     }
 
     //if any error occurred or success msg will show via a dialog box
-    private void showDialog(String message) {
+    private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
@@ -198,7 +198,7 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
                             userList.add(user);
                         }
                     } else {
-                        showDialog("No user is present.");
+                        showMessageDialog("No user is present.");
                     }
                 }
             } catch (JSONException e) {
@@ -211,7 +211,7 @@ public class MyUsers extends AppCompatActivity implements AsyncResponse {//, Sea
     @Override
     public void onResponseError(VolleyError error) {
         // AppConfig.alertMsg(getApplicationContext(), getResources().getString(R.string.server_error));
-        showDialog("Server Error !");
+        showMessageDialog("Server Error !");
     }
 
 }

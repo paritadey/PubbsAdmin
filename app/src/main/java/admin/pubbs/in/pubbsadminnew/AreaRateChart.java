@@ -39,13 +39,13 @@ import java.text.SimpleDateFormat;
 
 public class AreaRateChart extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
 
-    String areaname, areaid, adminmobile, rate_id, date_time;
+    String areaname, areaid, adminmobile, rateId, date_time;
     int rateByTime, rateByDistance, kmRate, amount;
     private String TAG = AreaRateChart.class.getSimpleName();
     SharedPreferences sharedPreferences;
     Spinner choice;
     private static final String[] rateTypes = {"Select Rate ", "Time", "Distance"};
-    String rate_type, numberPickerMins, numberPickerHour, paymentType;
+    String rateType, numberPickerMins, numberPickerHour, paymentType;
     ConstraintLayout rateChartTime, rateChartDistance;
     TextView bottomsheet_text, minute_tv, hour_tv, distance_tv, price_tv, distance_price_tv, rate_chart_heading, rupees_tv, rupees_distv, option, time_hour_tv;
     com.travijuu.numberpicker.library.NumberPicker number_picker_mintues, number_picker_hour;
@@ -173,15 +173,15 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                         showSnackbar(view, "Choose Your Option", duration);
                         break;
                     case 1:
-                        rate_type = choice.getSelectedItem().toString();
-                        Log.d(TAG, "Option:" + rate_type);
+                        rateType = choice.getSelectedItem().toString();
+                        Log.d(TAG, "Option:" + rateType);
                         rateChartTime.setVisibility(View.VISIBLE);
                         rateChartDistance.setVisibility(View.GONE);
                         Log.d(TAG, "Number Picker values:" + numberPickerMins + "\t" + numberPickerHour);
                         break;
                     case 2:
-                        rate_type = choice.getSelectedItem().toString();
-                        Log.d(TAG, "Option:" + rate_type);
+                        rateType = choice.getSelectedItem().toString();
+                        Log.d(TAG, "Option:" + rateType);
                         rateChartDistance.setVisibility(View.VISIBLE);
                         rateChartTime.setVisibility(View.GONE);
                         Log.d(TAG, "Chosen Seekbar data:" + kmRate);
@@ -254,7 +254,7 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                 if (!time_price.getText().toString().isEmpty()) {
                     amount = Integer.parseInt(time_price.getText().toString());
                     kmRate = 0;
-                    rate_id = generateRateID();
+                    rateId = generateRateID();
                     if (numberPickerMins == null || numberPickerHour == null) {
                         if (numberPickerMins == null && numberPickerHour == null) {
                             rateByTime = 0;
@@ -276,10 +276,10 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                         rateByTime = hour + min;
                         Log.d(TAG, "Min:" + rateByTime);
                     }
-                    Log.d(TAG, "Time based rate:" + rate_type + "\t" + numberPickerHour + "\t"
+                    Log.d(TAG, "Time based rate:" + rateType + "\t" + numberPickerHour + "\t"
                             + numberPickerMins + "\t" + amount + "\t" + kmRate + "\t"
-                            + rate_id + "\t" + "\t" + paymentType);
-                    addRateChart(rate_id, adminmobile, areaname, rate_type, rateByTime, rateByDistance, amount, paymentType);
+                            + rateId + "\t" + "\t" + paymentType);
+                    addRateChart(rateId, adminmobile, areaname, rateType, rateByTime, rateByDistance, amount, paymentType);
 
                 } else {
                     final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
@@ -291,10 +291,10 @@ public class AreaRateChart extends AppCompatActivity implements View.OnClickList
                     amount = Integer.parseInt(distance_price.getText().toString());
                     rateByDistance = kmRate;
                     rateByTime = 0;
-                    rate_id = generateRateID();
-                    Log.d(TAG, "Distance based rate:" + rate_type + "\t" + kmRate + "\t" + amount
-                            + "\t" + numberPickerHour + "\t" + numberPickerMins + "\t" + rate_id + "\t" + rateByDistance + "\t" + paymentType);
-                    addRateChart(rate_id, adminmobile, areaname, rate_type, rateByTime, rateByDistance, amount, paymentType);
+                    rateId = generateRateID();
+                    Log.d(TAG, "Distance based rate:" + rateType + "\t" + kmRate + "\t" + amount
+                            + "\t" + numberPickerHour + "\t" + numberPickerMins + "\t" + rateId + "\t" + rateByDistance + "\t" + paymentType);
+                    addRateChart(rateId, adminmobile, areaname, rateType, rateByTime, rateByDistance, amount, paymentType);
                 } else {
                     final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                     layout_distance_price.startAnimation(animShake);
