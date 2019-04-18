@@ -1,7 +1,9 @@
 package admin.pubbs.in.pubbsadminnew;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ public class ContactSuperAdmin extends AppCompatActivity implements View.OnClick
     String adminmobile, admin_type, msg_subject, msg_body, date_time;
     EditText subject, message;
     Button sendEmail;
+    SharedPreferences sharedPreferences;
     private String TAG = ContactSuperAdmin.class.getSimpleName();
 
     @Override
@@ -40,10 +43,10 @@ public class ContactSuperAdmin extends AppCompatActivity implements View.OnClick
         //initializing the typeface/fonts for this particular screen
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-        //get the adminmobile and admin_type from DashboardActivity class via intent
-        Intent intent = getIntent();
-        adminmobile = intent.getStringExtra("uphone");
-        admin_type = intent.getStringExtra("uadmin");
+        //get the adminmobile and admin_type from SharedPrefernce
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
+        adminmobile = sharedPreferences.getString("adminmobile", "null");
+        admin_type = sharedPreferences.getString("admin_type", "null");
         Log.d(TAG, "Admin details: " + adminmobile + "-" + admin_type);
 
         disclaimer = findViewById(R.id.disclaimer);

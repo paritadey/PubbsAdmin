@@ -391,8 +391,8 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                 break;
             case R.id.contact_super_admin:
                 Intent intent = new Intent(DashBoardActivity.this, ContactSuperAdmin.class);
-                intent.putExtra("uphone", uphone);
-                intent.putExtra("uadmin", uadmin);
+                //intent.putExtra("uphone", uphone);
+                //intent.putExtra("uadmin", uadmin);
                 startActivity(intent);
                 break;
             case R.id.live_track:
