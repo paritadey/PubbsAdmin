@@ -35,7 +35,7 @@ public class LiveTrack extends AppCompatActivity implements View.OnClickListener
     Handler handler = new Handler();
     final int delay = 5000; //milliseconds
     ImageView support, back;
-    String uphone, uadmin;
+    String admin_mobile, admin_type;
     SharedPreferences sharedPreferences;
 
     @Override
@@ -54,11 +54,11 @@ public class LiveTrack extends AppCompatActivity implements View.OnClickListener
         back = findViewById(R.id.back_button);
         back.setOnClickListener(this);
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), Context.MODE_PRIVATE);
-        uphone = sharedPreferences.getString("adminmobile", "null"); //uphone is the user_phone to store the mobile number of the user
-        uadmin = sharedPreferences.getString("admin_type", "null"); //uadmin is the admin type of the user who is using the app at the moment
+        admin_mobile = sharedPreferences.getString("adminmobile", "null"); //admin_mobile is the user_phone to store the mobile number of the user
+        admin_type = sharedPreferences.getString("admin_type", "null"); //admin_type is the admin type of the user who is using the app at the moment
         support = findViewById(R.id.support);
         support.setOnClickListener(this);
-        if (uadmin.equals("Super Admin")) {
+        if (admin_type.equals("Super Admin")) {
             support.setVisibility(View.GONE);
         }
         //inflating the map inside the fragment
@@ -85,8 +85,8 @@ public class LiveTrack extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.support:
                 Intent intent = new Intent(getApplicationContext(), ContactSuperAdmin.class);
-                intent.putExtra("uphone", uphone);
-                intent.putExtra("uadmin", uadmin);
+               /* intent.putExtra("uphone", admin_mobile);
+                intent.putExtra("uadmin", uadmin);*/
                 startActivity(intent);
                 break;
             default:

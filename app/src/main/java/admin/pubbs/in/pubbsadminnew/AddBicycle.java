@@ -18,10 +18,11 @@ import android.widget.Toast;
 
 /*created by Parita Dey*/
 public class AddBicycle extends AppCompatActivity implements View.OnClickListener {
-
+    //xml based variables
     private TextView addBicycleTv, bicycleTv, bottomsheetText;
     private Button addBicycle;
     private ImageView back, upArrow;
+    //java based variables
     private static final int ZXING_CAMERA_PERMISSION = 1;//camera permission for scanning qr code
     private Class<?> mClss;
     String station_name, station_id, area_name, area_id;

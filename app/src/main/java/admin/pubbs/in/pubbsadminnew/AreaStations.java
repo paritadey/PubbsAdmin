@@ -31,36 +31,40 @@ import java.util.List;
 /*created by Parita Dey*/
 
 public class AreaStations extends AppCompatActivity implements AsyncResponse {
+    //xml based variables
     private RecyclerView recyclerView;
-    private AddNewBicycleAdapter addNewBicycleAdapter;
-    private List<DeleteStationList> deleteStationLists = new ArrayList<>();
     ImageView back;
     private TextView bicycleTv;
     EditText inputSearch;
     ProgressBar circularProgressbar;
-    String areaname, areaid, arealatlon;
+    //java based variables
+    String area_name, area_id, areaLatLon;
+    //private modifier-- accessible in the inner class only, where the variable is declared
+    private AddNewBicycleAdapter addNewBicycleAdapter;
+    private List<DeleteStationList> deleteStationLists = new ArrayList<>();
     private String TAG = AreaStations.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_area_stations);
-
+        //setting the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initView();
     }
 
     private void initView() {
+        //initializing the typeface/fonts for this particular screen
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-
+        //getting area_id, area_name, areaLatLon data as intent data from AddNewBicycle class
         Intent intent = getIntent();
-        areaid = intent.getStringExtra("area_name");
-        areaname = intent.getStringExtra("area_id");
-        arealatlon = intent.getStringExtra("latlon");
-        Log.d(TAG, "Area details: " + areaid + "\t" + areaname + "\t" + arealatlon);
+        area_id = intent.getStringExtra("area_name");
+        area_name = intent.getStringExtra("area_id");
+        areaLatLon = intent.getStringExtra("latlon");
+        Log.d(TAG, "Area details: " + area_id + "\t" + area_name + "\t" + areaLatLon);
         back = findViewById(R.id.back_button);
         bicycleTv = findViewById(R.id.bicycle_tv);
         bicycleTv.setTypeface(type1);
@@ -69,6 +73,7 @@ public class AreaStations extends AppCompatActivity implements AsyncResponse {
         progressAnimator.setDuration(300);
         progressAnimator.setInterpolator(new LinearInterpolator());
         progressAnimator.start();
+        //RecyclerView will show the objects
         recyclerView = findViewById(R.id.recycler_view);
         addNewBicycleAdapter = new AddNewBicycleAdapter(deleteStationLists);
         recyclerView.setHasFixedSize(true);
@@ -87,6 +92,7 @@ public class AreaStations extends AppCompatActivity implements AsyncResponse {
             public void onLongClick(View view, int position) {
             }
         }));
+        //on clicking the back button redirects back to Dashboard
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,12 +110,13 @@ public class AreaStations extends AppCompatActivity implements AsyncResponse {
         loadData();
     }
 
+    //loadData() will fetch the result set from the server
     private void loadData() {
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "getAreaStation");
-            jo.put("area_id", areaname);
+            jo.put("area_id", area_name);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -117,6 +124,7 @@ public class AreaStations extends AppCompatActivity implements AsyncResponse {
 
     }
 
+    //if any error occurred or success msg will show via a dialog box
     private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
@@ -166,7 +174,7 @@ public class AreaStations extends AppCompatActivity implements AsyncResponse {
                             deleteStationLists.add(user);
                         }
                     }
-                }else{
+                } else {
                     showMessageDialog("No Station has created.");
                 }
             } catch (JSONException e) {

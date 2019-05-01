@@ -34,15 +34,17 @@ import java.util.List;
 /*created by Parita Dey*/
 
 public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
+    //xml based variables
     private RecyclerView recyclerView;
-    private Area_Adpater areaAdpater;
-    private List<AreaList> areaLists = new ArrayList<>();
     ImageView back;
     private TextView bicycleTv;
     EditText inputSearch;
     ProgressBar circularProgressbar;
+    //java based variables
     SharedPreferences sharedPreferences;
     String adminmobile, area_id, admin_type;
+    private Area_Adpater areaAdpater;
+    private List<AreaList> areaLists = new ArrayList<>();
     private String TAG = AddNewBicycle.class.getSimpleName();
 
     @Override
@@ -70,7 +72,6 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
         progressAnimator.setDuration(300);
         progressAnimator.setInterpolator(new LinearInterpolator());
         progressAnimator.start();
-
         //RecyclerView will show the objects
         recyclerView = findViewById(R.id.recycler_view);
         areaAdpater = new Area_Adpater(areaLists);
@@ -126,7 +127,7 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
     }
 
     //if any error occurred or success msg will show via a dialog box
-    private void showDialog(String message) {
+    private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
@@ -176,7 +177,7 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
                         }
                     }
                 } else {
-                    showDialog("No Station is present.");
+                    showMessageDialog("No Station is present.");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -188,6 +189,6 @@ public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
 
     @Override
     public void onResponseError(VolleyError error) {
-        showDialog("Server Error !");
+        showMessageDialog("Server Error !");
     }
 }
