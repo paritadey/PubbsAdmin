@@ -241,4 +241,8 @@ FAX : +91-3222-255303
     <string name="rate_now">Add Rate for the area.</string>
     <string name="user_chat">User Chat</string>
     <string name="add_bank_details">Add Bank Details</string>
+    <string name="add_bank">Add Bank</string>
+    <string name="add_bank_account">Add Bank Account</string>
+    <string name="account_description">You can send money to your contact using their bank account number and ifsc code.</string>
+    <string name="confirm">CONFIRM</string>
 </resources>

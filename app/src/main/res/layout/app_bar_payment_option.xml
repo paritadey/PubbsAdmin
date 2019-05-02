@@ -25,11 +25,11 @@
                 android:layout_marginBottom="@dimen/twenty_four_dp">
 
                 <TextView
-                    android:id="@+id/bicycle_tv"
+                    android:id="@+id/add_bank_account_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/four_dp"
-                    android:text="@string/repair_bicycle_tv"
+                    android:text="@string/add_bank_details"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/fourteen_sp"
@@ -45,46 +45,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:srcCompat="@drawable/ic_arrow_back_24dp"
                     tools:ignore="MissingConstraints" />
-
-               <!-- <RelativeLayout
-                    android:id="@+id/search_bar_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_six_dp"
-                    android:layout_marginEnd="@dimen/twenty_four_dp"
-                    android:layout_marginTop="@dimen/eight_dp"
-                    android:background="@drawable/black_border"
-                    android:elevation="10dp"
-                    app:layout_constraintTop_toBottomOf="@+id/bicycle_tv">
-
-
-                    <EditText
-                        android:id="@+id/input_search"
-                        android:layout_width="264dp"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/eight_dp"
-                        android:layout_marginStart="@dimen/eight_dp"
-                        android:background="@color/white"
-                        android:backgroundTint="@android:color/transparent"
-                        android:hint="@string/repair_bicycle"
-                        android:imeOptions="actionSearch"
-                        android:paddingStart="@dimen/eight_dp"
-                        android:textColor="@color/color_grey_01"
-                        android:textColorHint="@color/color_grey_01"
-                        android:textSize="@dimen/fourteen_sp" />
-
-                    <ImageView
-                        android:id="@+id/ic_magnify"
-                        android:layout_width="@dimen/thirty_dp"
-                        android:layout_height="@dimen/thirty_dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/ten_dp"
-                        app:srcCompat="@drawable/ic_search_black_24dp" />
-
-                </RelativeLayout>-->
-
-
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.Toolbar>
 
