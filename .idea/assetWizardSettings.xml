@@ -28,8 +28,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_done" />
-                            <entry key="sourceFile" value="E:\downloads\svg\reply_arrow.svg" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_bank" />
+                            <entry key="sourceFile" value="E:\downloads\svg\bank.svg" />
                           </map>
                         </option>
                       </PersistentState>

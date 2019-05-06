@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class PaymentOption extends AppCompatActivity implements View.OnClickListener {
@@ -20,7 +21,7 @@ public class PaymentOption extends AppCompatActivity implements View.OnClickList
     TextView add_bank_account_tv, add_bank_tv;
     ImageView back;
     ProgressBar circularProgressbar;
-
+    RelativeLayout add_bank_sheet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,8 @@ public class PaymentOption extends AppCompatActivity implements View.OnClickList
         adminmobile = sharedPreferences.getString("adminmobile", null);
         admintype = sharedPreferences.getString("admin_type", "null");
         Log.d(TAG, "Admin Details:" + adminmobile + "-" + admintype);
+        add_bank_sheet = findViewById(R.id.add_bank_sheet);
+        add_bank_sheet.setOnClickListener(this);
         add_bank_account_tv = findViewById(R.id.add_bank_account_tv);
         add_bank_account_tv.setTypeface(type1);
         back = findViewById(R.id.back_button);
@@ -69,7 +72,10 @@ public class PaymentOption extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.add_bank_tv:
-                new BottomSheetAddBank().show(getSupportFragmentManager(), "dialog");
+                startActivity(new Intent(PaymentOption.this, AddBankDetails.class));
+                break;
+            case R.id.add_bank_sheet:
+                startActivity(new Intent(PaymentOption.this, AddBankDetails.class));
                 break;
             default:
                 break;

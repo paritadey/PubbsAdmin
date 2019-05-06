@@ -19,7 +19,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_area" />
+            app:srcCompat="@drawable/ic_wallet" />
 
         <TextView
             android:id="@+id/area_add_tv"
@@ -43,6 +43,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/area_add_tv" />
+
         <Button
             android:id="@+id/ok_btn"
             android:layout_width="80dp"

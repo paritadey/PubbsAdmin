@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/eight_dp">
+
+    <ImageView
+        android:id="@+id/bank"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/twenty_four_dp"
+        android:layout_marginTop="@dimen/twenty_dp"
+        app:srcCompat="@drawable/ic_bank" />
+
+    <TextView
+        android:id="@+id/bank_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/thirty_dp"
+        android:layout_marginTop="@dimen/twenty_four_dp"
+        android:layout_toRightOf="@id/bank"
+        android:padding="@dimen/two_dp"
+        android:text="Bank Name"
+        android:textColor="@color/color_black_01"
+        android:textSize="@dimen/sixteen_sp" />
+
+    <TextView
+        android:id="@+id/branch_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bank_name"
+        android:layout_marginStart="@dimen/thirty_dp"
+        android:layout_marginTop="@dimen/two_dp"
+        android:layout_marginBottom="@dimen/eight_dp"
+        android:layout_toRightOf="@id/bank"
+        android:text="Branch name"
+        android:textColor="@color/color_grey_01"
+        android:textSize="@dimen/tweleve_sp" />
+
+    <TextView
+        android:id="@+id/ifsc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/branch_name"
+        android:layout_marginStart="@dimen/thirty_dp"
+        android:layout_marginTop="@dimen/two_dp"
+        android:layout_marginBottom="@dimen/eight_dp"
+        android:layout_toRightOf="@id/bank"
+        android:text="Branch name"
+        android:textColor="@color/color_grey_01"
+        android:textSize="@dimen/tweleve_sp" />
+
+    <TextView
+        android:id="@+id/account_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ifsc"
+        android:layout_marginStart="@dimen/thirty_dp"
+        android:layout_marginTop="@dimen/two_dp"
+        android:layout_marginBottom="@dimen/eight_dp"
+        android:layout_toRightOf="@id/bank"
+        android:text="Branch name"
+        android:textColor="@color/color_grey_01"
+        android:textSize="@dimen/tweleve_sp" />
+
+</RelativeLayout>
