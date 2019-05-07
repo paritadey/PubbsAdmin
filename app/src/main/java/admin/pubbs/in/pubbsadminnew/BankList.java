@@ -1,12 +1,13 @@
 package admin.pubbs.in.pubbsadminnew;
 
 public class BankList {
-    private String bank_name, branch_name, ifsc, account_number, active;
+    private String bank_name, branch_name, ifsc, account_number;
+    int active;
 
     public BankList() {
     }
 
-    public BankList(String bank_name, String branch_name, String ifsc, String account_number, String active) {
+    public BankList(String bank_name, String branch_name, String ifsc, String account_number, int active) {
         this.bank_name = bank_name;
         this.branch_name = branch_name;
         this.ifsc = ifsc;
@@ -46,11 +47,11 @@ public class BankList {
         this.account_number = account_number;
     }
 
-    public String getActive() {
+    public int getActive() {
         return active;
     }
 
-    public void setActive(String active) {
+    public void setActive(int active) {
         this.active = active;
     }
 }

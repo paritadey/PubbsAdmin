@@ -245,4 +245,6 @@ FAX : +91-3222-255303
     <string name="add_bank_account">Add Bank Account</string>
     <string name="account_description">You can send money to your contact using their bank account number and ifsc code.</string>
     <string name="confirm">CONFIRM</string>
+    <string name="primary">Do you want to make this account as primary account?</string>
+    <string name="non_primary"></string>
 </resources>

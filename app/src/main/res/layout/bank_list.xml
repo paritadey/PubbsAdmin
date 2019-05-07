@@ -53,7 +53,7 @@
         android:textSize="@dimen/tweleve_sp" />
 
     <TextView
-        android:id="@+id/account_number"
+        android:id="@+id/account_number_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ifsc"
@@ -61,8 +61,34 @@
         android:layout_marginTop="@dimen/two_dp"
         android:layout_marginBottom="@dimen/eight_dp"
         android:layout_toRightOf="@id/bank"
-        android:text="Branch name"
+        android:text="A/C No:"
         android:textColor="@color/color_grey_01"
         android:textSize="@dimen/tweleve_sp" />
+
+    <TextView
+        android:id="@+id/account_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ifsc"
+        android:layout_marginStart="@dimen/tweleve_dp"
+        android:layout_marginTop="@dimen/two_dp"
+        android:layout_marginBottom="@dimen/eight_dp"
+        android:layout_toRightOf="@id/account_number_tv"
+        android:inputType="textWebPassword"
+        android:text="Account number"
+        android:textColor="@color/color_grey_01"
+        android:textSize="@dimen/tweleve_sp" />
+
+
+    <RadioButton
+        android:id="@+id/radioActive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/bank_name"
+        android:layout_marginStart="@dimen/seventy_four_dp"
+        android:layout_marginTop="@dimen/twenty_four_dp"
+        android:layout_marginEnd="@dimen/twenty_four_dp"
+        android:layout_toRightOf="@id/bank_name"
+        android:padding="@dimen/two_dp" />
 
 </RelativeLayout>

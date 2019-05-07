@@ -172,7 +172,7 @@ public class AddBankDetails extends AppCompatActivity implements AsyncResponse {
                     showBankDetailsDialog("Bank details is added");
                 } else {
                     // Toast.makeText(getApplicationContext(), "couldn't save try again later", Toast.LENGTH_SHORT).show();
-                    showBankDetailsDialog("couldn't save try again later");
+                    showBankDetailsDialog("Bank details already added/Couldn't save try again later");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

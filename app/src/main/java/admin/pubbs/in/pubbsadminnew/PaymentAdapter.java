@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -13,8 +15,8 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
     private List<BankList> bankLists;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView bank_name, account_number;
-        public TextView branch_name, ifsc;
+        public TextView bank_name, account_number, branch_name, ifsc, account_number_tv;
+        public RadioButton radioActive;
 
         public MyViewHolder(View view) {
             super(view);
@@ -27,8 +29,11 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
             branch_name.setTypeface(type1);
             ifsc = view.findViewById(R.id.ifsc);
             ifsc.setTypeface(type1);
+            account_number_tv = view.findViewById(R.id.account_number_tv);
+            account_number_tv.setTypeface(type1);
             account_number = view.findViewById(R.id.account_number);
             account_number.setTypeface(type1);
+            radioActive = view.findViewById(R.id.radioActive);
         }
     }
 
@@ -48,9 +53,15 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
     public void onBindViewHolder(PaymentAdapter.MyViewHolder holder, int position) {
         BankList bankList = bankLists.get(position);
         holder.bank_name.setText(bankList.getBank_name());
-        holder.branch_name.setText("Branch:"+ ""+bankList.getBranch_name());
-        holder.ifsc.setText("IFSC:"+""+bankList.getIfsc());
-        holder.ifsc.setText("A/C:"+""+bankList.getAccount_number());
+        holder.branch_name.setText("Branch:" + "" + bankList.getBranch_name());
+        holder.ifsc.setText("IFSC:" + "" + bankList.getIfsc());
+        holder.account_number.setText(bankList.getAccount_number());
+        int active = bankList.getActive();
+        if (active == 0) {
+            holder.radioActive.setChecked(false);
+        } else if (active == 1) {
+            holder.radioActive.setChecked(true);
+        }
     }
 
     @Override
