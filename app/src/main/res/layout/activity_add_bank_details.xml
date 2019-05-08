@@ -206,6 +206,14 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/sixteen_sp" />
 
+                <Spinner
+                    android:id="@+id/choice_account_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/phone_number"
+                    android:layout_margin="@dimen/sixteen_dp"
+                    android:textColor="@color/grey_900"
+                    android:textSize="@dimen/fourteen_sp"/>
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>

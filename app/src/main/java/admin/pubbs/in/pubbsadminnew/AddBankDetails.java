@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,9 +34,12 @@ public class AddBankDetails extends AppCompatActivity implements AsyncResponse {
     TextView ifsc_layout, account_holder_bank_layout, account_holder_branch_layout, account_number_layout, confirm_account_number_layout, account_holder_layout, phone_number_layout;
     EditText ifsc, account_holder_bank, account_holder_branch, account_number, confirm_account_number, account_holder, phone_number;
     Button confirm;
-    String user_ifsc, user_bank_name, user_branch_name, user_account_number, user_account_holder, user_phone_number, admin_mobile, admin_type, area_id, finalResult;
+    String user_ifsc, account_type, user_bank_name, user_branch_name, user_account_number, user_account_holder, user_phone_number,  admin_mobile, admin_type, area_id, finalResult;
     SharedPreferences sharedPreferences;
     private String TAG = AddBankDetails.class.getSimpleName();
+    Spinner choice_account_type;
+    private static final String[] account = {"default", "secondary"};
+    int active_account ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +94,35 @@ public class AddBankDetails extends AppCompatActivity implements AsyncResponse {
         phone_number = findViewById(R.id.phone_number);
         phone_number.setTypeface(type1);
         user_phone_number = phone_number.getText().toString();
+        choice_account_type = findViewById(R.id.choice_account_type);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_spinner_item, account);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        choice_account_type.setAdapter(adapter);
+        choice_account_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        account_type = choice_account_type.getSelectedItem().toString();
+                        Log.d(TAG, "Option:" + account_type);
+                        active_account = 1;
+                        break;
+                    case 1:
+                        account_type = choice_account_type.getSelectedItem().toString();
+                        Log.d(TAG, "Option:" + account_type);
+                        active_account = 0;
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         confirm = findViewById(R.id.confirm);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +184,7 @@ public class AddBankDetails extends AppCompatActivity implements AsyncResponse {
                             jo.put("user_account_number", user_account_number);
                             jo.put("user_account_holder", user_account_holder);
                             jo.put("user_phone_number", user_phone_number);
+                            jo.put("active_account", active_account);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

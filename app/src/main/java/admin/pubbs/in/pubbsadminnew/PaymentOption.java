@@ -45,7 +45,7 @@ public class PaymentOption extends AppCompatActivity implements View.OnClickList
     private PaymentAdapter paymentAdapter;
     private List<BankList> bankLists = new ArrayList<>();
     String finalResult;
-    String UserUrl = "http://pubbs.in/api/1.0/updateOperatorStatus.php";
+    String UserUrl = "http://pubbs.in/api/1.0/updateBank.php";
     HashMap<String, String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
     int primary;
@@ -154,7 +154,7 @@ public class PaymentOption extends AppCompatActivity implements View.OnClickList
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateBankStatusFunction(adminmobile, ifsc, String.valueOf(primary));
+                updateBankStatusFunction(adminmobile, ifsc);//, String.valueOf(primary));
                 dialogBuilder.dismiss();
                 loadData();
             }
@@ -165,7 +165,7 @@ public class PaymentOption extends AppCompatActivity implements View.OnClickList
 
     }
 
-    public void updateBankStatusFunction(final String adminmobile, final String ifsc, final String active) {
+    public void updateBankStatusFunction(final String adminmobile, final String ifsc) {
 
         class updateOperatorStatusClass extends AsyncTask<String, Void, String> {
             @Override
@@ -179,13 +179,13 @@ public class PaymentOption extends AppCompatActivity implements View.OnClickList
             protected String doInBackground(String... params) {
                 hashMap.put("adminmobile", params[0]);
                 hashMap.put("ifsc", params[1]);
-                hashMap.put("active", params[2]);
+                //hashMap.put("active", params[2]);
                 finalResult = httpParse.postRequest(hashMap, UserUrl);
                 return finalResult;
             }
         }
         updateOperatorStatusClass updateOperatorStatusClass = new updateOperatorStatusClass();
-        updateOperatorStatusClass.execute(adminmobile, ifsc, active);
+        updateOperatorStatusClass.execute(adminmobile, ifsc);
     }
 
     @Override
