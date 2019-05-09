@@ -29,6 +29,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.Adapter.AreaLegalAdapter;
+import admin.pubbs.in.pubbsadminnew.List.AreaList;
 /*created by Parita Dey*/
 
 public class AreaLegal extends AppCompatActivity implements AsyncResponse {

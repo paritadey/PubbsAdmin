@@ -1,5 +1,6 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +11,22 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.AddStationInMap;
+import admin.pubbs.in.pubbsadminnew.List.AreaList;
+import admin.pubbs.in.pubbsadminnew.R;
 /*created by Parita Dey*/
 
-public class AllAreaRateAdapter extends RecyclerView.Adapter<AllAreaRateAdapter.MyViewHolder> {
+public class AddNewStationAdpater extends RecyclerView.Adapter<AddNewStationAdpater.MyViewHolder> {
     private List<AreaList> areaLists;
-    private String TAG = AllAreaRateAdapter.class.getSimpleName();
+    private String TAG = AddNewStationAdpater.class.getSimpleName();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView areaName, areaId, areaLatLon;
@@ -35,7 +46,7 @@ public class AllAreaRateAdapter extends RecyclerView.Adapter<AllAreaRateAdapter.
         }
     }
 
-    public AllAreaRateAdapter(List<AreaList> areaLists) {
+    public AddNewStationAdpater(List<AreaList> areaLists) {
         this.areaLists = areaLists;
     }
 
@@ -44,26 +55,28 @@ public class AllAreaRateAdapter extends RecyclerView.Adapter<AllAreaRateAdapter.
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.area_list, parent, false);
 
-        return new AllAreaRateAdapter.MyViewHolder(itemView);
+        return new AddNewStationAdpater.MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(AllAreaRateAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
         AreaList areaList = areaLists.get(position);
         holder.areaName.setText(areaList.getAreaName());
         holder.areaId.setText(areaList.getAreaId());
         holder.areaLatLon.setText(areaList.getAreaLatLon());
-        String areaname = areaList.getAreaName();
-        String areaid = areaList.getAreaId();
-        String latlon = areaList.getAreaLatLon();
+        String areaname =areaList.getAreaName(); //holder.areaName.getText().toString();
+        String areaid = areaList.getAreaId();//holder.areaId.getText().toString();
+        String latlon = areaList.getAreaLatLon();//holder.areaLatLon.getText().toString();
         Log.d(TAG, "LatLong:" + latlon);
+        //String areaLatLang = Arrays.toString(latlon.split("lat/lng:"));
+        //Log.d(TAG, "Array of latlng:" + areaLatLang);
         holder.areaLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //onclicking single recycler_view object it will move forward to AreaRateChart with areaname and areaid
-                Intent intent = new Intent(v.getContext(), AreaRateChart.class);
-                intent.putExtra("areaname", areaname);
-                intent.putExtra("areaid", areaid);
+                Intent intent = new Intent(v.getContext(), AddStationInMap.class);
+                intent.putExtra("area_name", areaid);
+                intent.putExtra("area_id", areaname);
+                intent.putExtra("latlon", latlon);
                 v.getContext().startActivity(intent);
             }
         });

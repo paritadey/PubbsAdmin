@@ -1,9 +1,8 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.List.AreaList;
+import admin.pubbs.in.pubbsadminnew.R;
+import admin.pubbs.in.pubbsadminnew.SuperAdminShowSpecificArea;
 /*created by Parita Dey*/
 
-public class AllAreaSubscriptionAdpater extends RecyclerView.Adapter<AllAreaSubscriptionAdpater.MyViewHolder> {
+public class AllAreaAdpater extends RecyclerView.Adapter<AllAreaAdpater.MyViewHolder> {
     private List<AreaList> areaLists;
-    private String TAG = AllAreaSubscriptionAdpater.class.getSimpleName();
-
+    private String TAG = AllAreaAdpater.class.getSimpleName();
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView areaName, areaId, areaLatLon;
         public RelativeLayout areaLayout;
@@ -35,16 +37,16 @@ public class AllAreaSubscriptionAdpater extends RecyclerView.Adapter<AllAreaSubs
         }
     }
 
-    public AllAreaSubscriptionAdpater(List<AreaList> areaLists) {
+    public AllAreaAdpater(List<AreaList> areaLists) {
         this.areaLists = areaLists;
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AllAreaAdpater.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.area_list, parent, false);
 
-        return new AllAreaSubscriptionAdpater.MyViewHolder(itemView);
+        return new AllAreaAdpater.MyViewHolder(itemView);
     }
 
     @Override
@@ -53,17 +55,16 @@ public class AllAreaSubscriptionAdpater extends RecyclerView.Adapter<AllAreaSubs
         holder.areaName.setText(areaList.getAreaName());
         holder.areaId.setText(areaList.getAreaId());
         holder.areaLatLon.setText(areaList.getAreaLatLon());
-        String areaname = areaList.getAreaName();
-        String areaid = areaList.getAreaId();
-        String latlon = areaList.getAreaLatLon();
-        Log.d(TAG, "LatLong:" + latlon);
+        String area_name = areaList.getAreaName();
+        String area_id = areaList.getAreaId();
+        String area_latlon = areaList.getAreaLatLon();
         holder.areaLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //onclicking single recycler_view object it will move forward to AreaSubscription with areaname and areaid
-                Intent intent = new Intent(v.getContext(), AreaSubscription.class);
-                intent.putExtra("areaname", areaname);
-                intent.putExtra("areaid", areaid);
+                Intent intent = new Intent(v.getContext(), SuperAdminShowSpecificArea.class);
+                intent.putExtra("area_name", area_name);
+                intent.putExtra("area_id", area_id);
+                intent.putExtra("area_latlon", area_latlon);
                 v.getContext().startActivity(intent);
             }
         });
@@ -73,5 +74,6 @@ public class AllAreaSubscriptionAdpater extends RecyclerView.Adapter<AllAreaSubs
     public int getItemCount() {
         return areaLists.size();
     }
+
 
 }

@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.BottomSheet;
 
 import android.app.Dialog;
 import android.graphics.Typeface;
@@ -10,17 +10,21 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import admin.pubbs.in.pubbsadminnew.R;
 /*created by Parita Dey*/
 
 //bottomsheet fragment, on clicking a button in any xml this fragment will be shown with its own xml designed
-public class BottomSheetAreaSubscriptionFragment extends BottomSheetDialogFragment {
+public class BottomSheetAddNewBicycleFragment extends BottomSheetDialogFragment {
     private BottomSheetBehavior mBehavior;
-    private TextView descriptionHeader, description, bicycleNow;
+    private TextView descriptionHeader, description, areaNow;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
-        View view = View.inflate(getContext(), R.layout.bottom_sheet_area_subscription_plan, null);
+
+        View view = View.inflate(getContext(), R.layout.bottom_sheet_addnewbicycel, null);
         dialog.setContentView(view);
         mBehavior = BottomSheetBehavior.from((View) view.getParent());
         Typeface type = Typeface.createFromAsset(getContext().getAssets(),"fonts/AvenirLTStd-Book.otf");
@@ -30,8 +34,8 @@ public class BottomSheetAreaSubscriptionFragment extends BottomSheetDialogFragme
         description = view.findViewById(R.id.description);
         description.setTypeface(type);
 
-        bicycleNow = view.findViewById(R.id.bicycle_now);
-        bicycleNow.setTypeface(type);
+        areaNow = view.findViewById(R.id.bicycle_now);
+        areaNow.setTypeface(type);
 
         ImageView showMap = (ImageView) view.findViewById(R.id.show_map);
         showMap.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +52,5 @@ public class BottomSheetAreaSubscriptionFragment extends BottomSheetDialogFragme
         super.onStart();
         mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
-
 
 }

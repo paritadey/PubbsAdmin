@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -12,12 +12,15 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.List.AreaList;
+import admin.pubbs.in.pubbsadminnew.R;
+import admin.pubbs.in.pubbsadminnew.ServiceArea;
 /*created by Parita Dey*/
 
-public class AddOperatorAdpater extends RecyclerView.Adapter<AddOperatorAdpater.MyViewHolder> {
+public class ServiceAdpater extends RecyclerView.Adapter<ServiceAdpater.MyViewHolder> {
     private List<AreaList> areaLists;
-    private String TAG = AddOperatorAdpater.class.getSimpleName();
-
+    private String TAG = ServiceAdpater.class.getSimpleName();
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView areaName, areaId, areaLatLon;
         public RelativeLayout areaLayout;
@@ -36,7 +39,7 @@ public class AddOperatorAdpater extends RecyclerView.Adapter<AddOperatorAdpater.
         }
     }
 
-    public AddOperatorAdpater(List<AreaList> areaLists) {
+    public ServiceAdpater(List<AreaList> areaLists) {
         this.areaLists = areaLists;
     }
 
@@ -45,11 +48,11 @@ public class AddOperatorAdpater extends RecyclerView.Adapter<AddOperatorAdpater.
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.area_list, parent, false);
 
-        return new AddOperatorAdpater.MyViewHolder(itemView);
+        return new ServiceAdpater.MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(ServiceAdpater.MyViewHolder holder, int position) {
         AreaList areaList = areaLists.get(position);
         holder.areaName.setText(areaList.getAreaName());
         holder.areaId.setText(areaList.getAreaId());
@@ -63,7 +66,7 @@ public class AddOperatorAdpater extends RecyclerView.Adapter<AddOperatorAdpater.
         holder.areaLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AddOperatorArea.class);
+                Intent intent = new Intent(v.getContext(), ServiceArea.class);
                 intent.putExtra("area_name", areaid);
                 intent.putExtra("area_id", areaname);
                 v.getContext().startActivity(intent);
@@ -75,5 +78,4 @@ public class AddOperatorAdpater extends RecyclerView.Adapter<AddOperatorAdpater.
     public int getItemCount() {
         return areaLists.size();
     }
-
 }

@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.List;
 
 public class BankList {
     private String bank_name, branch_name, ifsc, account_number;

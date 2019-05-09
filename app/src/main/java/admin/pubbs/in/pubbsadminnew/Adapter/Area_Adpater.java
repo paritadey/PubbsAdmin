@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -11,6 +11,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.AreaStations;
+import admin.pubbs.in.pubbsadminnew.List.AreaList;
+import admin.pubbs.in.pubbsadminnew.R;
+
 /*created by Parita Dey*/
 public class Area_Adpater extends RecyclerView.Adapter<Area_Adpater.MyViewHolder> {
     private List<AreaList> areaLists;

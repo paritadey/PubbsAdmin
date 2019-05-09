@@ -1,6 +1,5 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
@@ -11,18 +10,16 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.AreaSubscription;
+import admin.pubbs.in.pubbsadminnew.List.AreaList;
+import admin.pubbs.in.pubbsadminnew.R;
 /*created by Parita Dey*/
 
-public class AddNewStationAdpater extends RecyclerView.Adapter<AddNewStationAdpater.MyViewHolder> {
+public class AllAreaSubscriptionAdpater extends RecyclerView.Adapter<AllAreaSubscriptionAdpater.MyViewHolder> {
     private List<AreaList> areaLists;
-    private String TAG = AddNewStationAdpater.class.getSimpleName();
+    private String TAG = AllAreaSubscriptionAdpater.class.getSimpleName();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView areaName, areaId, areaLatLon;
@@ -42,7 +39,7 @@ public class AddNewStationAdpater extends RecyclerView.Adapter<AddNewStationAdpa
         }
     }
 
-    public AddNewStationAdpater(List<AreaList> areaLists) {
+    public AllAreaSubscriptionAdpater(List<AreaList> areaLists) {
         this.areaLists = areaLists;
     }
 
@@ -51,7 +48,7 @@ public class AddNewStationAdpater extends RecyclerView.Adapter<AddNewStationAdpa
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.area_list, parent, false);
 
-        return new AddNewStationAdpater.MyViewHolder(itemView);
+        return new AllAreaSubscriptionAdpater.MyViewHolder(itemView);
     }
 
     @Override
@@ -60,19 +57,17 @@ public class AddNewStationAdpater extends RecyclerView.Adapter<AddNewStationAdpa
         holder.areaName.setText(areaList.getAreaName());
         holder.areaId.setText(areaList.getAreaId());
         holder.areaLatLon.setText(areaList.getAreaLatLon());
-        String areaname =areaList.getAreaName(); //holder.areaName.getText().toString();
-        String areaid = areaList.getAreaId();//holder.areaId.getText().toString();
-        String latlon = areaList.getAreaLatLon();//holder.areaLatLon.getText().toString();
+        String areaname = areaList.getAreaName();
+        String areaid = areaList.getAreaId();
+        String latlon = areaList.getAreaLatLon();
         Log.d(TAG, "LatLong:" + latlon);
-        //String areaLatLang = Arrays.toString(latlon.split("lat/lng:"));
-        //Log.d(TAG, "Array of latlng:" + areaLatLang);
         holder.areaLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AddStationInMap.class);
-                intent.putExtra("area_name", areaid);
-                intent.putExtra("area_id", areaname);
-                intent.putExtra("latlon", latlon);
+                //onclicking single recycler_view object it will move forward to AreaSubscription with areaname and areaid
+                Intent intent = new Intent(v.getContext(), AreaSubscription.class);
+                intent.putExtra("areaname", areaname);
+                intent.putExtra("areaid", areaid);
                 v.getContext().startActivity(intent);
             }
         });
@@ -82,4 +77,5 @@ public class AddNewStationAdpater extends RecyclerView.Adapter<AddNewStationAdpa
     public int getItemCount() {
         return areaLists.size();
     }
+
 }

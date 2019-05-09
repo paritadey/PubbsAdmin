@@ -31,6 +31,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import admin.pubbs.in.pubbsadminnew.Adapter.Area_Adpater;
+import admin.pubbs.in.pubbsadminnew.List.AreaList;
+
 /*created by Parita Dey*/
 
 public class AddNewBicycle extends AppCompatActivity implements AsyncResponse {
