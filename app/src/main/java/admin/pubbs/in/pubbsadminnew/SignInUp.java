@@ -23,6 +23,7 @@ public class SignInUp extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,7 @@ public class SignInUp extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         createTabIcons();
     }
+
     //onBackPress it will exit from the application
     @Override
     public void onBackPressed() {
@@ -43,12 +45,13 @@ public class SignInUp extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
     //it creates the tabbed icon
     private void createTabIcons() {
 
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabOne.setText("Log In");
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/AvenirNextLTPro-Bold.otf");
+        Typeface type = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
 
         tabOne.setTypeface(type);
         tabLayout.getTabAt(0).setCustomView(tabOne);
@@ -56,7 +59,7 @@ public class SignInUp extends AppCompatActivity {
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabTwo.setText("Sign Up");
-        Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/AvenirNextLTPro-Bold.otf");
+        Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
         tabTwo.setTypeface(type1);
         tabLayout.getTabAt(1).setCustomView(tabTwo);
 
@@ -65,16 +68,19 @@ public class SignInUp extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 tabLayout.setBackgroundColor(getResources().getColor(R.color.grey_800));
             }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 tabLayout.setBackgroundColor(getResources().getColor(R.color.black));
             }
+
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
     }
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new SignIn(), "Log In");
@@ -110,7 +116,6 @@ public class SignInUp extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-
 
 
     @Override

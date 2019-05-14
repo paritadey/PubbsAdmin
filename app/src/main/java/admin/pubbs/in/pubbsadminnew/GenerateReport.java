@@ -22,6 +22,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
+
 public class GenerateReport extends AppCompatActivity implements AsyncResponse, View.OnClickListener {
     String uphone, uadmin;
     TextView admin_type, choose_area_tv, report_tv, financial_report, usage_report;

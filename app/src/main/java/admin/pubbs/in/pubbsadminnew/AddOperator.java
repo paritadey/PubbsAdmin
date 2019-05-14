@@ -31,6 +31,8 @@ import java.util.List;
 
 import admin.pubbs.in.pubbsadminnew.Adapter.AddOperatorAdpater;
 import admin.pubbs.in.pubbsadminnew.List.AreaList;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
 /*created by Parita Dey*/
 
 public class AddOperator extends AppCompatActivity implements AsyncResponse {

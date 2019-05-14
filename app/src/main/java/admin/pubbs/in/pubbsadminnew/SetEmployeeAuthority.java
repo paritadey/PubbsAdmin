@@ -35,6 +35,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.HttpParse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
+
 public class SetEmployeeAuthority extends AppCompatActivity implements AsyncResponse {
     ImageView back;
     private TextView operatorTv;

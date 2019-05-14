@@ -31,6 +31,8 @@ import java.util.List;
 
 import admin.pubbs.in.pubbsadminnew.Adapter.AddNewBicycleAdapter;
 import admin.pubbs.in.pubbsadminnew.List.DeleteStationList;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
 /*created by Parita Dey*/
 
 public class AreaStations extends AppCompatActivity implements AsyncResponse {

@@ -85,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/bank_name"
-        android:layout_marginStart="@dimen/seventy_four_dp"
+        android:layout_marginStart="@dimen/twenty_four_dp"
         android:layout_marginTop="@dimen/twenty_four_dp"
         android:layout_marginEnd="@dimen/twenty_four_dp"
         android:layout_toRightOf="@id/bank_name"

@@ -32,6 +32,8 @@ import java.util.List;
 
 import admin.pubbs.in.pubbsadminnew.Adapter.DeleteStationAdpater;
 import admin.pubbs.in.pubbsadminnew.List.DeleteStationList;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
 /*created by Parita Dey*/
 
 public class DeleteStation extends AppCompatActivity implements AsyncResponse {

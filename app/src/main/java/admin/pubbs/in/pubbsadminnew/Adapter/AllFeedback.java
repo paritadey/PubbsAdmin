@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -10,11 +10,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.FeedbackDetails;
+import admin.pubbs.in.pubbsadminnew.List.Feedbacklist;
+import admin.pubbs.in.pubbsadminnew.R;
 /*created by Parita Dey*/
 
 public class AllFeedback extends RecyclerView.Adapter<AllFeedback.MyViewHolder> {
     private List<Feedbacklist> feedbacklists;
-    private String TAG = AdminAdapter.class.getSimpleName();
+    private String TAG = AllFeedback.class.getSimpleName();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView adminmobile, admin_type;

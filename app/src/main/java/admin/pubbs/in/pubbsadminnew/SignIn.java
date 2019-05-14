@@ -32,6 +32,10 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.HttpParse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
+
 /*created by Parita Dey*/
 
 public class SignIn extends Fragment implements AsyncResponse {
@@ -252,6 +256,7 @@ public class SignIn extends Fragment implements AsyncResponse {
                     editor.putInt("driver", driver);
                     editor.putBoolean("login", true);
                     editor.commit();
+                    clearFields();
                     Log.d("SignIn.java", "SharedPreference stored the value");
                     Intent intent = new Intent(getActivity(), DashBoardActivity.class);
                     intent.putExtra("manager", manager);
@@ -277,4 +282,9 @@ public class SignIn extends Fragment implements AsyncResponse {
         userLoginClass.execute(adminmobile, adminpassword, admin_type);
     }
 
+    public void clearFields(){
+        userid.setText("");
+        password.setText("");
+        choice.setSelection(0);
+    }
 }

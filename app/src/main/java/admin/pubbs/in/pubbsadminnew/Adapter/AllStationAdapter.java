@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
@@ -8,11 +8,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.R;
+import admin.pubbs.in.pubbsadminnew.List.StationList;
 /*created by Parita Dey*/
 
 public class AllStationAdapter extends RecyclerView.Adapter<AllStationAdapter.MyViewHolder> {
     private List<StationList> stationLists;
-    private String TAG = AdminAdapter.class.getSimpleName();
+    private String TAG = AllStationAdapter.class.getSimpleName();
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView full_name, adminmobile, area_name, station_name, station_id;
         public TextView adminmobile_tv, area_name_tv, admin_name_tv;

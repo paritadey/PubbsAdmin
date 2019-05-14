@@ -406,7 +406,6 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                 intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent1);
                 finish();
-
                 // this.finish();
                 // System.exit(0);
                 break;

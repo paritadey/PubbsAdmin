@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.List.AdminSubscriptionHistoryList;
+import admin.pubbs.in.pubbsadminnew.R;
 /*created by Parita Dey*/
 
 public class AreaSubscriptionHistoryAdapter extends RecyclerView.Adapter<AreaSubscriptionHistoryAdapter.MyViewHolder> {

@@ -23,6 +23,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
+
 public class UserProfileTrips extends android.support.v4.app.Fragment implements AsyncResponse {
     private RecyclerView recyclerView;
     private UserProfileTripsAdapter userProfileTripsAdapter;

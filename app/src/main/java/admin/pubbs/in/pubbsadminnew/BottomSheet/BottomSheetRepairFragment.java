@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.BottomSheet;
 
 import android.app.Dialog;
 import android.graphics.Typeface;
@@ -10,6 +10,8 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import admin.pubbs.in.pubbsadminnew.R;
 /*created by Parita Dey*/
 
 //bottomsheet fragment, on clicking a button in any xml this fragment will be shown with its own xml designed

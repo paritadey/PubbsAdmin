@@ -23,6 +23,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
+
 /*created by Parita Dey*/
 public class SplashScreen extends AppCompatActivity implements AsyncResponse {
     //xml based variables' declaration
@@ -128,6 +131,15 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
     @Override
     public void onResponseError(VolleyError error) {
         Log.d(TAG, "Error:" + error.toString());
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     //if error occured due to no internet then show this dialogbox

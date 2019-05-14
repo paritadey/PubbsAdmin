@@ -32,6 +32,8 @@ import java.util.List;
 
 import admin.pubbs.in.pubbsadminnew.Adapter.AreaLegalAdapter;
 import admin.pubbs.in.pubbsadminnew.List.AreaList;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
 /*created by Parita Dey*/
 
 public class AreaLegal extends AppCompatActivity implements AsyncResponse {

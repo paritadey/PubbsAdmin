@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.NetworkCall;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

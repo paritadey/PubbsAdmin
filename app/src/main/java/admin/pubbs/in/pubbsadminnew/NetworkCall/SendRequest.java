@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.NetworkCall;
 
 import android.content.Context;
 import android.util.Log;
@@ -20,6 +20,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
 
 /**
  * Created by DOS20 on 3/31/2017.
