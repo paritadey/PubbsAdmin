@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.List.UserProfileTripsList;
+import admin.pubbs.in.pubbsadminnew.R;
 /*created by Parita Dey*/
 
 public class UserProfileTripsAdapter extends RecyclerView.Adapter<UserProfileTripsAdapter.MyViewHolder> {

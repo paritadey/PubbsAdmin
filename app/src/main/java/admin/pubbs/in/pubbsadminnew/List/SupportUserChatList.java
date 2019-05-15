@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.List;
 
 public class SupportUserChatList {
     private String sender, email, message, date_time, area_id;

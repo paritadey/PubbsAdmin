@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import admin.pubbs.in.pubbsadminnew.BottomSheet.BottomSheetAddNewStation;
 import admin.pubbs.in.pubbsadminnew.BottomSheet.BottomSheetAreaFragment;
 import admin.pubbs.in.pubbsadminnew.NetworkCall.HttpParse;
 /*created by Parita Dey*/
@@ -102,7 +103,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         upArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new BottomSheetAreaFragment().show(getSupportFragmentManager(), "dialog");
+                new BottomSheetAddNewStation().show(getSupportFragmentManager(), "dialog");
 
             }
         });

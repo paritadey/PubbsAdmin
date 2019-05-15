@@ -15,7 +15,7 @@ import admin.pubbs.in.pubbsadminnew.R;
 
 /*created by Parita Dey*/
 //bottomsheet fragment, on clicking a button in any xml this fragment will be shown with its own xml designed
-public class BottomSheetAreaFragment extends BottomSheetDialogFragment {
+public class BottomSheetAddNewStation extends BottomSheetDialogFragment {
     private BottomSheetBehavior mBehavior;
     private TextView descriptionHeader, description_, areaNow, description;
 
@@ -33,15 +33,16 @@ public class BottomSheetAreaFragment extends BottomSheetDialogFragment {
 
         descriptionHeader = view.findViewById(R.id.description_header);
         descriptionHeader.setTypeface(type1);
-
+        descriptionHeader.setText(R.string.add_station_);
         description_ = view.findViewById(R.id.description_);
         description_.setTypeface(type2);
+        description_.setText(R.string.add_station_header);
         description = view.findViewById(R.id.description);
         description.setTypeface(type1);
-
+        description.setText(R.string.add_station_help);
         areaNow = view.findViewById(R.id.area_now);
         areaNow.setTypeface(type1);
-
+        areaNow.setText(R.string.select_station);
         ImageView showMap = (ImageView) view.findViewById(R.id.show_map);
         showMap.setOnClickListener(new View.OnClickListener() {
             @Override

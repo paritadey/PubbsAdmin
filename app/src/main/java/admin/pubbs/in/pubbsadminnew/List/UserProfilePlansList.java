@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.List;
 
 public class UserProfilePlansList {
     String subscription_name, subscription_id, date_time;

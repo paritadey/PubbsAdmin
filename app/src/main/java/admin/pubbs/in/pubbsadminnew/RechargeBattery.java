@@ -29,6 +29,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import admin.pubbs.in.pubbsadminnew.Adapter.RechargeBatteryAdapter;
+import admin.pubbs.in.pubbsadminnew.List.RechargeBatteryList;
 import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
 import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
 
@@ -64,7 +66,7 @@ public class RechargeBattery extends AppCompatActivity implements AsyncResponse 
         back = findViewById(R.id.back_button);
         bicycleTv = findViewById(R.id.bicycle_tv);
         bicycleTv.setTypeface(type1);
-       // inputSearch = findViewById(R.id.input_search);
+        // inputSearch = findViewById(R.id.input_search);
         //inputSearch.setTypeface(type1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -95,6 +97,13 @@ public class RechargeBattery extends AppCompatActivity implements AsyncResponse 
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(RechargeBattery.this, DashBoardActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.List.OperatorList;
+import admin.pubbs.in.pubbsadminnew.R;
 /*created by Parita Dey*/
 
 public class OperatorAdapter extends RecyclerView.Adapter<OperatorAdapter.MyViewHolder> {

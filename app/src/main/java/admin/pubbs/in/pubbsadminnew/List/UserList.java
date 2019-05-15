@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.List;
 /*created by Parita Dey*/
 
 public class UserList {

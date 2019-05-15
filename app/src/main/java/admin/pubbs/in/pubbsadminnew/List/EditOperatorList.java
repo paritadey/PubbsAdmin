@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.List;
 
 public class EditOperatorList {
     private String full_name, admin_mobile, admin_type;

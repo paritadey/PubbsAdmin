@@ -30,16 +30,30 @@
                     android:textSize="@dimen/fourteen_sp" />
 
                 <TextView
-                    android:id="@+id/description"
+                    android:id="@+id/description_"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/description_header"
                     android:paddingBottom="@dimen/eight_dp"
                     android:paddingStart="@dimen/sixteen_dp"
                     android:paddingTop="@dimen/eight_dp"
+                    android:textAlignment="center"
+                    android:text="@string/add_area_tv"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/fourteen_sp" />
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/description_"
+                    android:paddingBottom="@dimen/eight_dp"
+                    android:paddingStart="@dimen/sixteen_dp"
+                    android:paddingEnd="@dimen/sixteen_dp"
+                    android:paddingTop="@dimen/twenty_four_dp"
                     android:text="@string/add_new_area_message"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/fourteen_sp" />
+
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>

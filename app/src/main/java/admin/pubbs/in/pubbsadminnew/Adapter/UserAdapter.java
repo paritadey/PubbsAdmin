@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.List.UserList;
+import admin.pubbs.in.pubbsadminnew.R;
+import admin.pubbs.in.pubbsadminnew.UserProfile;
 /*created by Parita Dey*/
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> {

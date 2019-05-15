@@ -138,8 +138,20 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
                 hideSoftKeyboard(mContext, v);
                 Log.d(TAG, "geoLocate: geolocating");
                 String searchString = inputSearch.getText().toString();
-                List<Address> addressList = null;
-                if (searchString != null || !searchString.equals("")) {
+                Geocoder geocoder = new Geocoder(AddNewArea.this);
+                try {
+                    List<Address> addressList = geocoder.getFromLocationName(searchString, 1);
+                    Address address = addressList.get(0);
+                    double search_latitude = address.getLatitude();
+                    double search_longitude = address.getLongitude();
+                    LatLng latLng = new LatLng(search_latitude, search_longitude);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(searchString).icon(icon));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                /*if (searchString != null || !searchString.equals("")) {
                     Geocoder geocoder = new Geocoder(AddNewArea.this);
                     try {
                         addressList = geocoder.getFromLocationName(searchString, 1);
@@ -149,11 +161,14 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
                     Address address = null;
                     if (addressList != null) {
                         address = addressList.get(0);
-                    }
-                    LatLng latLng = new LatLng(address != null ? address.getLatitude() : 0, address != null ? address.getLongitude() : 0);
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(searchString).icon(icon));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                    }*/
+                    /*LatLng latLng = new LatLng(address != null ? address.getLatitude() : 0, address != null ? address.getLongitude() : 0);
                     mMap.addMarker(new MarkerOptions().position(latLng).title(searchString).icon(icon));
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                }
+                }*/
             }
         });
     }

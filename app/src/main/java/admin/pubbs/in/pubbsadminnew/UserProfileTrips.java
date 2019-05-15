@@ -23,6 +23,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import admin.pubbs.in.pubbsadminnew.Adapter.UserProfileTripsAdapter;
+import admin.pubbs.in.pubbsadminnew.List.UserProfileTripsList;
 import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
 import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
 

@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.List.RedistributionList;
+import admin.pubbs.in.pubbsadminnew.R;
+
 /*created by Parita Dey*/
 public class RedistributionAdapter extends RecyclerView.Adapter<RedistributionAdapter.MyViewHolder> {
 

@@ -101,6 +101,13 @@ public class AreaLegal extends AppCompatActivity implements AsyncResponse {
     }
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AreaLegal.this, DashBoardActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         loadData();

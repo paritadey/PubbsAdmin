@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,10 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.AddLock;
+import admin.pubbs.in.pubbsadminnew.List.SubadminList;
+import admin.pubbs.in.pubbsadminnew.R;
 /*created by Parita Dey*/
 
 public class SubAdminAdpater extends RecyclerView.Adapter<SubAdminAdpater.MyViewHolder> {

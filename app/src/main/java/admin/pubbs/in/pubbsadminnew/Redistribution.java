@@ -15,6 +15,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.Adapter.RedistributionAdapter;
+import admin.pubbs.in.pubbsadminnew.List.RedistributionList;
+
 /*created by Parita Dey*/
 public class Redistribution extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -25,6 +29,7 @@ public class Redistribution extends AppCompatActivity {
     EditText inputSearch;
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +84,14 @@ public class Redistribution extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-       // prepareBicycleData();
+        // prepareBicycleData();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Redistribution.this, DashBoardActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void showDialog(String message) {

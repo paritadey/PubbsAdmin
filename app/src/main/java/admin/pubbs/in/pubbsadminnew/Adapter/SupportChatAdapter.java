@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -11,6 +11,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.List.SupportUserChatList;
+import admin.pubbs.in.pubbsadminnew.R;
+import admin.pubbs.in.pubbsadminnew.SupportChatReply;
 
 public class SupportChatAdapter extends RecyclerView.Adapter<SupportChatAdapter.MyViewHolder> {
     private List<SupportUserChatList> supportUserChatLists;

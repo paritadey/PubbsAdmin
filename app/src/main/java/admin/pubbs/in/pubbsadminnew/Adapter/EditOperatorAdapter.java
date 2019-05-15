@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.Adapter;
 
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.List.EditOperatorList;
+import admin.pubbs.in.pubbsadminnew.R;
 
 public class EditOperatorAdapter extends RecyclerView.Adapter<EditOperatorAdapter.MyViewHolder> {
     private List<EditOperatorList> editOperatorLists;
