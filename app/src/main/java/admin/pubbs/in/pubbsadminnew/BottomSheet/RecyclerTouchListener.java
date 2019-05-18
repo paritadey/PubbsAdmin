@@ -1,4 +1,4 @@
-package admin.pubbs.in.pubbsadminnew;
+package admin.pubbs.in.pubbsadminnew.BottomSheet;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
