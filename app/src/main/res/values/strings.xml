@@ -60,7 +60,7 @@
     <string name="login_btn">Log In</string>
     <string name="fullname_tv">Full Name</string>
     <string name="email_tv">Email</string>
-    <string name="address">Address</string>
+    <string name="address">City</string>
     <string name="get_otp">Get OTP</string>
     <string name="otp_tv">Please enter your phone number here.</string>
     <string name="verify_otp">Verify OTP</string>
