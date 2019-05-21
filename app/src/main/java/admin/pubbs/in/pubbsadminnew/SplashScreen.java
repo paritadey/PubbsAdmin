@@ -37,7 +37,7 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
     private String TAG = SplashScreen.class.getSimpleName();
     // private keyword is the access modifier
     //private variables are only accessible inside the class they are declared or inside inner classes.
-    private String area_id, admin_mobile, admin_type;
+    private String area_id, admin_mobile, admin_type, zone_id;
     private int manager, service, driver;
 
     @Override
@@ -57,7 +57,7 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
             admin_mobile = sharedpreferences.getString("adminmobile", "null");
             admin_type = sharedpreferences.getString("admin_type", "null");
             Log.d(TAG, "Admin mobile and type:" + admin_mobile + "-" + admin_type);
-            loadData(admin_mobile);
+            loadData(admin_mobile, admin_type);
         } else {
             startActivity(new Intent(SplashScreen.this, SignInUp.class));
             internetErrorDialog("Connection Problem !", "Please connect to the internet.");
@@ -66,8 +66,8 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
     }
 
     //if the app user is an employee then show the dashboard's menuitem accordingly,
-    private void showDashboardNavigation(String area_id, int manager, int service, int driver) {
-        Log.d(TAG, "Authority:" + area_id + "\t" + manager + "\t" + "\t" + service + "\t" + driver);
+    private void showDashboardNavigation(String zone_id, String area_id, int manager, int service, int driver) {
+        Log.d(TAG, "Authority:" + zone_id + "\t" + area_id + "\t" + manager + "\t" + "\t" + service + "\t" + driver);
         if (admin_type.equals("Employee") && manager > 0 || service > 0 || driver > 0) {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -86,45 +86,80 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
     }
 
     //load data from server if the user is an employee. It is used to fetch employee rank from the server
-    public void loadData(String adminmobile) {
-        JSONObject jo = new JSONObject();
-        try {
-            jo.put("method", "getEmployeeRank");
-            jo.put("adminmobile", adminmobile);
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public void loadData(String adminmobile, String admin_type) {
+        if (admin_type.equals("Employee")) {
+            JSONObject jo = new JSONObject();
+            try {
+                jo.put("method", "getEmployeeRank");
+                jo.put("adminmobile", adminmobile);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            new SendRequest(getResources().getString(R.string.url), jo, SplashScreen.this,
+                    getApplicationContext()).executeJsonRequest();
+        } else if (admin_type.equals("Super Admin") || admin_type.equals("Sub Admin")) {
+            JSONObject jo = new JSONObject();
+            try {
+                jo.put("method", "get_zone_id");
+                jo.put("adminmobile", adminmobile);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            new SendRequest(getResources().getString(R.string.url), jo, SplashScreen.this,
+                    getApplicationContext()).executeJsonRequest();
         }
-        new SendRequest(getResources().getString(R.string.url), jo, SplashScreen.this,
-                getApplicationContext()).executeJsonRequest();
 
     }
 
     @Override
     public void onResponse(JSONObject jsonObject) {
-        if (jsonObject.has("method")) {
-            try {
-                if (jsonObject.getString("method").equals("getEmployeeRank") && jsonObject.getBoolean("success")) {
-                    JSONArray ja = jsonObject.getJSONArray("data");
-                    if (ja.length() > 0) {
-                        for (int i = 0; i < ja.length(); i++) {
-                            JSONObject jo = ja.getJSONObject(i);
-                            area_id = jo.getString("area_id");
-                            manager = Integer.parseInt(jo.getString("manager"));
-                            service = Integer.parseInt(jo.getString("service"));
-                            driver = Integer.parseInt(jo.getString("driver"));
+        if (admin_type.equals("Employee")) {
+            if (jsonObject.has("method")) {
+                try {
+                    if (jsonObject.getString("method").equals("getEmployeeRank") && jsonObject.getBoolean("success")) {
+                        JSONArray ja = jsonObject.getJSONArray("data");
+                        if (ja.length() > 0) {
+                            for (int i = 0; i < ja.length(); i++) {
+                                JSONObject jo = ja.getJSONObject(i);
+                                zone_id = jo.getString("zone_id");
+                                area_id = jo.getString("area_id");
+                                manager = Integer.parseInt(jo.getString("manager"));
+                                service = Integer.parseInt(jo.getString("service"));
+                                driver = Integer.parseInt(jo.getString("driver"));
+                            }
+                            Log.d(TAG, "Authority List of Employee:" + area_id + "\t" + manager + "\t" + "\t" + service + "\t" + driver);
+                            showDashboardNavigation(zone_id, area_id, manager, service, driver);
                         }
-                        Log.d(TAG, "Authority List of Employee:" + area_id + "\t" + manager + "\t" + "\t" + service + "\t" + driver);
-                        showDashboardNavigation(area_id, manager, service, driver);
+                    } else {
+                        Log.d(TAG, "Not Employee move further");
+                        showDashboardNavigation(zone_id, area_id, manager, service, driver);
                     }
-                } else {
-                    Log.d(TAG, "Not Employee move further");
-                    showDashboardNavigation(area_id, manager, service, driver);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+            }
+        } else if (admin_type.equals("Super Admin") || admin_type.equals("Sub Admin")) {
+            if (jsonObject.has("method")) {
+                try {
+                    if (jsonObject.getString("method").equals("get_zone_id") && jsonObject.getBoolean("success")) {
+                        JSONArray ja = jsonObject.getJSONArray("data");
+                        if (ja.length() > 0) {
+                            for (int i = 0; i < ja.length(); i++) {
+                                JSONObject jo = ja.getJSONObject(i);
+                                zone_id = jo.getString("zone_id");
+                            }
+                            Log.d(TAG, "Zone id:" + zone_id);
+                            showDashboardNavigation(zone_id, area_id, manager, service, driver);
+                        }
+                    } else {
+                        Log.d(TAG, "Zone id is not present");
+                        showDashboardNavigation(zone_id, area_id, manager, service, driver);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
-
     }
 
 
@@ -137,7 +172,7 @@ public class SplashScreen extends AppCompatActivity implements AsyncResponse {
     public void onBackPressed() {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//| Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }

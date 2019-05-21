@@ -41,7 +41,7 @@ public class SendRequest {
         this.jsonObject = jsonObject;
         this.url = url;
         this.asyncResponse = asyncResponse;
-        Log.v("PUBBS_REQUEST",jsonObject.toString());
+        Log.d("PUBBS_REQUEST",jsonObject.toString());
     }
 
     public SendRequest(String url, AsyncResponse asyncResponse,Context context) {
@@ -58,7 +58,7 @@ public class SendRequest {
             public void onResponse(JSONObject response) {
                 //pd.dismiss();
                 asyncResponse.onResponse(response);
-                Log.v("PUBBS_RESPONSE",response.toString());
+                Log.d("PUBBS_RESPONSE",response.toString());
             }
         }, new Response.ErrorListener() {
             @Override

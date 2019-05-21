@@ -193,17 +193,17 @@
                         app:layout_constraintTop_toBottomOf="@id/layout_email">
 
                         <TextView
-                            android:id="@+id/address_tv"
+                            android:id="@+id/city_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="@dimen/twenty_four_dp"
                             android:layout_marginTop="@dimen/tweleve_dp"
-                            android:text="@string/address"
+                            android:text="@string/city"
                             android:textColor="@color/grey_400" />
 
                         <EditText
-                            android:id="@+id/address"
+                            android:id="@+id/city"
                             android:layout_width="220dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/twenty_four_dp"
