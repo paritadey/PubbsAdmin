@@ -147,7 +147,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="@dimen/tweleve_dp"
                     android:layout_marginEnd="@dimen/twenty_four_dp"
-                    android:text="@string/city"
+                    android:text="@string/address"
                     android:textColor="@color/grey_400" />
 
                 <EditText
