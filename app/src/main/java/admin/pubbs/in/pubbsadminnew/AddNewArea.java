@@ -78,7 +78,7 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
     TextView selectAreaTv, bottomsheetText;
     public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
     Button procced;
-    String area_name, station_name, areaNumber, area_Name, adminMobile;
+    String area_name, station_name, areaNumber, area_Name, adminMobile, zone_id;
     SharedPreferences sharedPreferences;
 
     @Override
@@ -88,7 +88,8 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
         //getting the mobile number of the admin/superadmin using the app from sharedpreference
         adminMobile = sharedPreferences.getString("adminmobile", null);
-        Log.d(TAG, "Admin Mobile:" + adminMobile);
+        zone_id = sharedPreferences.getString("zone_id", "null");
+        Log.d(TAG, "Admin Mobile and Zone id:" + adminMobile + "\t" + zone_id);
         selectArea = findViewById(R.id.selectArea);
         getLocationPermission();
         setUpToolbar();
@@ -196,12 +197,13 @@ public class AddNewArea extends AppCompatActivity implements View.OnClickListene
             case R.id.proceed_btn:
                 // proceed to the new activity:- ManageSystem and pass data markerlist, areaNumber, area_Name, adminMobile as intent values
                 Log.d(TAG, "Area name:" + area_Name);
-                Intent intent_rate = new Intent(AddNewArea.this, ManageSystem.class);
-                intent_rate.putExtra("markerList", markerList);
-                intent_rate.putExtra("areaNumber", areaNumber);
-                intent_rate.putExtra("area_Name", area_Name);
-                intent_rate.putExtra("adminMobile", adminMobile);
-                startActivity(intent_rate);
+                Intent intent_add_area = new Intent(AddNewArea.this, ManageSystem.class);
+                intent_add_area.putExtra("markerList", markerList);
+                intent_add_area.putExtra("areaNumber", areaNumber);
+                intent_add_area.putExtra("area_Name", area_Name);
+                intent_add_area.putExtra("adminMobile", adminMobile);
+                intent_add_area.putExtra("zone_id", zone_id);
+                startActivity(intent_add_area);
                 break;
             default:
                 break;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,16 +9,17 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/thirty_six_dp">
+        android:paddingBottom="@dimen/thirty_six_dp"
+        tools:ignore="MissingConstraints">
 
 
         <TextView
             android:id="@+id/station_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/twenty_four_dp"
             android:layout_marginStart="@dimen/twenty_four_dp"
             android:layout_marginTop="@dimen/one_hundred_dp"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
             android:padding="@dimen/four_dp"
             android:text="Give Name of the selected station"
             android:textColor="@color/black"
@@ -30,13 +32,13 @@
             android:id="@+id/station_name"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginEnd="@dimen/twenty_four_dp"
             android:layout_marginStart="@dimen/twenty_four_dp"
             android:layout_marginTop="@dimen/tweleve_dp"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
             android:background="@drawable/edittext_bg"
+            android:paddingStart="@dimen/eight_dp"
             android:paddingTop="@dimen/four_dp"
             android:paddingEnd="@dimen/four_dp"
-            android:paddingStart="@dimen/eight_dp"
             android:paddingBottom="@dimen/four_dp"
             android:textColor="@color/black"
             android:textCursorDrawable="@drawable/custom_cursor"
@@ -45,12 +47,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/station_header" />
 
+    <!--    <Spinner
+            android:id="@+id/choice"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/sixteen_dp"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/station_name" />-->
+
         <Button
             android:id="@+id/ok_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/twenty_four_dp"
             android:layout_marginTop="@dimen/twenty_four_dp"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
             android:background="@drawable/button_bg"
             android:elevation="@dimen/four_dp"
             android:text="Ok"

@@ -12,6 +12,7 @@ import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,9 +21,12 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,7 +66,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     Context mContext;
     View v;
     TextView selectStationTv, bottomsheetText;
-    String station_name, stationid, stationLatitude, stationLongitude, finalResult, adminMobile;
+    String station_name, stationid, stationLatitude, stationLongitude, finalResult, adminMobile, stationType;
     double station_latitude, station_longitude;
     String UserUrl = "http://pubbs.in/api/1.0/AdminStation.php";
     HashMap<String, String> hashMap = new HashMap<>();
@@ -70,6 +74,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     Gson gson;
     List<LatLng> polygon;
     LatLng cordinate;
+    private static final String[] station_type = {"Select Station Type", "Main Station", "Secondary Station"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,6 +182,34 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         stationHeader.setTypeface(type1);
         final EditText stationName = (EditText) dialogView.findViewById(R.id.station_name);
         stationName.setTypeface(type1);
+      /*  final Spinner choice = (Spinner) dialogView.findViewById(R.id.choice);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, station_type);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        choice.setAdapter(adapter);
+        choice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+                        choice.startAnimation(animShake);
+                        break;
+                    case 1:
+                        stationType = choice.getSelectedItem().toString();
+                        Log.d(TAG, "Option:" + stationType);
+                        break;
+                    case 2:
+                        stationType = choice.getSelectedItem().toString();
+                        Log.d(TAG, "Option:" + stationType);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });*/
         Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
         ok.setTypeface(type2);
         ok.setOnClickListener(new View.OnClickListener() {
@@ -205,9 +238,9 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
             public void onMapClick(LatLng latLng) {
                 //if the tapped point is inside the polygonal area then only station will be created
                 // and that will be checked by Ray Casting algorith,
-                boolean point= isPointInPolygon(latLng, polygon);
-                Log.d(TAG, "Point value:"+point);
-                if(point==true) {
+                boolean point = isPointInPolygon(latLng, polygon);
+                Log.d(TAG, "Point value:" + point);
+                if (point == true) {
                     selectStationDialog();
                     stationid = generateStationID(); //generate random number station id
                     BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.station);
@@ -226,7 +259,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
                     stationLongitude = String.valueOf(station_longitude);
 
                     procced.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     showStationIsOutside("Please create station inside the area.");
                 }
 
@@ -354,6 +387,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         dialogBuilder.show();
         dialogBuilder.setCancelable(false);
     }
+
     //if the tapped point is outside the polygonal area then show dialog showing to create the area inside the polygonal area
     private void showStationIsOutside(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
@@ -389,7 +423,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
 
     //on clicking proceed button it will send all the data to the server
     public void addStationData(final String station_id, final String station_name, final String station_latitude, final String station_longitude,
-                                final String adminmobile, final String area_name, final String area_id) {
+                               final String adminmobile, final String area_name, final String area_id) {
 
         class AddNewStation extends AsyncTask<String, Void, String> {
             @Override
