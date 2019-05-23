@@ -66,7 +66,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     Context mContext;
     View v;
     TextView selectStationTv, bottomsheetText;
-    String station_name, stationid, stationLatitude, stationLongitude, finalResult, adminMobile, stationType;
+    String station_name, stationid, stationLatitude, stationLongitude, finalResult, adminMobile;
     double station_latitude, station_longitude;
     String UserUrl = "http://pubbs.in/api/1.0/AdminStation.php";
     HashMap<String, String> hashMap = new HashMap<>();
@@ -74,7 +74,6 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
     Gson gson;
     List<LatLng> polygon;
     LatLng cordinate;
-    private static final String[] station_type = {"Select Station Type", "Main Station", "Secondary Station"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,34 +181,6 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         stationHeader.setTypeface(type1);
         final EditText stationName = (EditText) dialogView.findViewById(R.id.station_name);
         stationName.setTypeface(type1);
-      /*  final Spinner choice = (Spinner) dialogView.findViewById(R.id.choice);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, station_type);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        choice.setAdapter(adapter);
-        choice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
-                        choice.startAnimation(animShake);
-                        break;
-                    case 1:
-                        stationType = choice.getSelectedItem().toString();
-                        Log.d(TAG, "Option:" + stationType);
-                        break;
-                    case 2:
-                        stationType = choice.getSelectedItem().toString();
-                        Log.d(TAG, "Option:" + stationType);
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
         Button ok = (Button) dialogView.findViewById(R.id.ok_btn);
         ok.setTypeface(type2);
         ok.setOnClickListener(new View.OnClickListener() {
