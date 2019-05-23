@@ -29,6 +29,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.Adapter.AreaLegalAdapter;
+import admin.pubbs.in.pubbsadminnew.BottomSheet.CustomDivider;
+import admin.pubbs.in.pubbsadminnew.BottomSheet.RecyclerTouchListener;
+import admin.pubbs.in.pubbsadminnew.List.AreaList;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
 /*created by Parita Dey*/
 
 public class AreaLegal extends AppCompatActivity implements AsyncResponse {
@@ -93,6 +100,13 @@ public class AreaLegal extends AppCompatActivity implements AsyncResponse {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AreaLegal.this, DashBoardActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     @Override

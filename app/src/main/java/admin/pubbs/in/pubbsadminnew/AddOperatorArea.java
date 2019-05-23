@@ -26,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
+
+import admin.pubbs.in.pubbsadminnew.NetworkCall.HttpParse;
 /*created by Parita Dey*/
 
 public class AddOperatorArea extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -39,7 +41,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
     RelativeLayout layoutFullname, layoutMobile, layoutEmail, layoutAddress, layoutPassword;
     Spinner choice;
     private static final String[] operator = {"Select Operator", "Sub Admin", "Employee"};
-    String operator_type, full_name, admin_mobile, admin_email, admin_address, admin_password, finalResult;
+    String operator_type, full_name, admin_mobile, admin_email, admin_address, admin_password, finalResult, zone_id, operator_id;
     ProgressDialog progressDialog;
     String UserUrl = "http://pubbs.in/api/1.0/Operator.php";
     HashMap<String, String> hashMap = new HashMap<>();
@@ -106,6 +108,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
         choice.setAdapter(adapter);
         choice.setOnItemSelectedListener(this);
 
+
     }
 
     @Override
@@ -113,6 +116,38 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
         Intent intent = new Intent(AddOperatorArea.this, SuperAdminAddOperator.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    //generate a random number starting from 1 to 999. This random number will concatenate with the word 'Zone_'.
+    //Every time when the super-admin/ sub-admin create a new operator/sub-admin/employee
+    // with its name then this function will create an zone_id with this random number function
+    public String generateZoneID() {
+        String city = address.getText().toString();
+        String ZoneNumber = "Zone_" + city.substring(0, Math.min(city.length(), 4)) + "_"; //get the first 4 characters from the string
+        String zone;
+        int max = 999;
+        int min = 1;
+        int randomNum = (int) (Math.random() * (max - min)) + min;
+        zone = ZoneNumber + randomNum;
+        Log.d(TAG, "Zone Number: " + zone);
+        return zone;
+
+    }
+
+    //generate a random number starting from 1 to 9999. This random number will concatenate with the word 'pubbsADMIN_'.
+    //Every time when the super-admin/ sub-admin create a new operator/sub-admin/employee
+    // with its name then this function will create an admin_id with this random number function
+    public String generateOperatorID() {
+        String operator_name = fullname.getText().toString().replace(" ", "_");
+        String userNumber = "pubbsADMIN_" + operator_name + "_";
+        String admin_id;
+        int max = 9999;
+        int min = 1;
+        int randomNum = (int) (Math.random() * (max - min)) + min;
+        admin_id = userNumber + randomNum;
+        Log.d(TAG, "Admin ID: " + admin_id);
+        return admin_id;
+
     }
 
     @Override
@@ -173,14 +208,16 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
                         showSnackbar(view_layout, message, duration);
                     }
                 } else {
+                    operator_id = generateOperatorID();
+                    zone_id = generateZoneID();
+                    Log.d(TAG, "Zone and Operator id : " + zone_id + "\t" + operator_id);
                     full_name = fullname.getText().toString().trim();
                     admin_mobile = phone.getText().toString().trim();
                     admin_address = address.getText().toString().trim();
                     admin_email = email.getText().toString().trim();
                     admin_password = password.getText().toString().trim();
-                    Log.d(TAG, "Operator details:" + areaName + "-" + areaId + "-" + full_name + "-" + admin_mobile + "-"
-                            + admin_address + "-" + admin_email + "-" + admin_password + "-" + operator_type);
-                    addOperator(full_name, admin_email, admin_mobile, admin_address, admin_password, operator_type, areaName, areaId);
+                    Log.d(TAG, "Operator details:" + areaName + "-" + areaId + "-" + full_name + "-" + admin_mobile + "-" + admin_address + "-" + admin_email + "-" + admin_password + "-" + operator_type);
+                    addOperator(operator_id, full_name, admin_email, admin_mobile, admin_address, admin_password, zone_id, operator_type, areaName, areaId);
                 }
                 break;
             case R.id.back_button:
@@ -235,9 +272,9 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    //send admin's fullname, phone_number, email, address, password, admin_type, area_name, area_id to the server to store in db
-    public void addOperator(final String adminfullname, final String adminemail, final String adminmobile, final String adminaddress,
-                         final String adminpassword, final String admin_type, final String area_name, final String area_id) {
+    //send admin's operator_id, fullname, phone_number, email, address, password, admin_type, area_name, area_id to the server to store in db
+    public void addOperator(final String operator_id, final String adminfullname, final String adminemail, final String adminmobile, final String adminaddress,
+                            final String adminpassword, final String zone_id, final String admin_type, final String area_name, final String area_id) {
 
         class OperatorClass extends AsyncTask<String, Void, String> {
 
@@ -260,14 +297,16 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
             @Override
             protected String doInBackground(String... params) {
 
-                hashMap.put("adminfullname", params[0]);
-                hashMap.put("adminemail", params[1]);
-                hashMap.put("adminmobile", params[2]);
-                hashMap.put("adminaddress", params[3]);
-                hashMap.put("adminpassword", params[4]);
-                hashMap.put("admin_type", params[5]);
-                hashMap.put("area_name", params[6]);
-                hashMap.put("area_id", params[7]);
+                hashMap.put("operator_id", params[0]);
+                hashMap.put("adminfullname", params[1]);
+                hashMap.put("adminemail", params[2]);
+                hashMap.put("adminmobile", params[3]);
+                hashMap.put("adminaddress", params[4]);
+                hashMap.put("adminpassword", params[5]);
+                hashMap.put("zone_id", params[6]);
+                hashMap.put("admin_type", params[7]);
+                hashMap.put("area_name", params[8]);
+                hashMap.put("area_id", params[9]);
 
                 finalResult = httpParse.postRequest(hashMap, UserUrl);
 
@@ -277,7 +316,7 @@ public class AddOperatorArea extends AppCompatActivity implements View.OnClickLi
 
         OperatorClass operatorClass = new OperatorClass();
 
-        operatorClass.execute(adminfullname, adminemail, adminmobile, adminaddress, adminpassword, admin_type, area_name, area_id);
+        operatorClass.execute(operator_id, adminfullname, adminemail, adminmobile, adminaddress, adminpassword, zone_id, admin_type, area_name, area_id);
     }
 
     @Override

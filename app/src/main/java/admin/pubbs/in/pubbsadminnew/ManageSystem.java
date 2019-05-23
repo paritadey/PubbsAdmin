@@ -3,6 +3,7 @@ package admin.pubbs.in.pubbsadminnew;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -31,6 +32,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import admin.pubbs.in.pubbsadminnew.BottomSheet.BottomSheetManageSystemFragment;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
+
 /*created by Parita Dey*/
 public class ManageSystem extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     //xml based variables
@@ -48,9 +53,10 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
     //java based private variables
     private int currentHour, currentMinute;
     private String amPm, json, markerArray, openHr, closeHr, geofenceFine, max_ride, max_hold, min_wallet, emergencyContact;
-    private String areaNumber, area_Name, adminMobile;
+    private String areaNumber, area_Name, adminMobile, zone_id;
     private final String TAG = ManageSystem.class.getSimpleName();
     public ArrayList<LatLng> markerList = new ArrayList<LatLng>();
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +74,8 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
         areaNumber = intent.getStringExtra("areaNumber");
         area_Name = intent.getStringExtra("area_Name");
         adminMobile = intent.getStringExtra("adminMobile");
-
-        Log.d(TAG, "Data from Rate Chart:" + markerList + "\t" + areaNumber + "\t" + area_Name + "\t" + adminMobile);
+        zone_id = intent.getStringExtra("zone_id");
+        Log.d(TAG, "Data from Add new area:" + markerList + "\t" + areaNumber + "\t" + area_Name + "\t" + adminMobile + "\t" + zone_id);
         Gson gson = new Gson();
         json = gson.toJson(markerList);
         Log.d(TAG, "Marker String:" + json);
@@ -275,7 +281,7 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
                     closeHr = closingHour.getText().toString();
                     geofenceFine = geofencingFine.getText().toString();
                     emergencyContact = emergency_contact.getText().toString();
-                    sendData(areaNumber, area_Name, json, openHr, closeHr, max_ride, max_hold, min_wallet, geofenceFine, adminMobile, emergencyContact);
+                    sendData(zone_id, areaNumber, area_Name, json, openHr, closeHr, max_ride, max_hold, min_wallet, geofenceFine, adminMobile, emergencyContact);
                 }
                 break;
             default:
@@ -283,11 +289,12 @@ public class ManageSystem extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void sendData(String areaNumber, String area_Name, String markerArray, String openHr, String closeHr, String max_ride,
+    public void sendData(String zone_id, String areaNumber, String area_Name, String markerArray, String openHr, String closeHr, String max_ride,
                          String max_hold, String min_wallet, String geofenceFine, String adminMobile, String emergency_contact) {
         JSONObject jo = new JSONObject();
         try {
             jo.put("method", "addnewarea");
+            jo.put("zone_id", zone_id);
             jo.put("area_id", areaNumber);
             jo.put("area_name", area_Name);
             jo.put("area_lat_lon", markerArray);

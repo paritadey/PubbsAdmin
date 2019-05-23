@@ -1,5 +1,6 @@
 package admin.pubbs.in.pubbsadminnew;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +30,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
 
 /**
  * Created by Parita Dey
@@ -114,7 +118,8 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback, A
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.support:
-                Intent intent = new Intent(getContext(), ContactSuperAdmin.class);
+             //   @SuppressLint({"NewApi", "LocalSuppress"})
+                Intent intent = new Intent(getActivity(), ContactSuperAdmin.class);
                 intent.putExtra("adminPhone", adminPhone);
                 intent.putExtra("adminType", adminType);
                 startActivity(intent);

@@ -37,7 +37,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     TextView allBicycleTv;
     private String TAG = DashBoardActivity.class.getSimpleName();
     TextView phone_number, admin_type;
-    String uphone, uadmin, area_id;
+    String uphone, uadmin, area_id, zone_id;
     int check;
     int manager, service, driver;
 
@@ -107,7 +107,8 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
             //initializing admin_type of nav_header_dash_board, if sharedprefernce has admin_type details then set the text with the declared typeface
             admin_type = hView.findViewById(R.id.admin_type);
             uadmin = sharedPreferences.getString("admin_type", "null"); //uadmin is the admin type of the user who is using the app at the moment
-            Log.d(TAG, "Admin Phone number and type:" + uphone + "\t" + uadmin);
+            zone_id = sharedPreferences.getString("zone_id", "null");
+            Log.d(TAG, "Admin Phone number, type, zone:" + uphone + "\t" + uadmin + "\t" + zone_id);
             admin_type.setTypeface(type);
             admin_type.setText(uadmin);
             //depending upon the admin_type stored in the sharedprefernce, the naviagtion drawer sets the menuitems
@@ -250,7 +251,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         } else {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         }
@@ -403,10 +404,9 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                 sharedPreferences.edit().clear().commit();
                 Intent intent1 = new Intent(Intent.ACTION_MAIN);
                 intent1.addCategory(Intent.CATEGORY_HOME);
-                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//| Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent1);
                 finish();
-
                 // this.finish();
                 // System.exit(0);
                 break;

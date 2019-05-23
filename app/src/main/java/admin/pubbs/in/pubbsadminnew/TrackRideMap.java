@@ -24,11 +24,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
+
 /**
  * Created by LORD on 4/8/2018.
  */
 
-public class TrackRideMap extends Fragment implements OnMapReadyCallback,AsyncResponse{
+public class TrackRideMap extends Fragment implements OnMapReadyCallback, AsyncResponse {
     MapView mapView;
     GoogleMap gmap;
     Handler handler = new Handler();

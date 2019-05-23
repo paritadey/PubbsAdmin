@@ -26,6 +26,9 @@ import com.ebanx.swipebtn.SwipeButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
+
 /*created by Parita Dey*/
 public class SupportChatReply extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     private String sender, sender_date_time, sender_message, sender_email, area_id, admin_mobile;

@@ -29,6 +29,9 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
+
 public class AddBankDetails extends AppCompatActivity implements AsyncResponse {
     TextView add_bank_account_tv, description;
     TextView ifsc_layout, account_holder_bank_layout, account_holder_branch_layout, account_number_layout, confirm_account_number_layout, account_holder_layout, phone_number_layout;

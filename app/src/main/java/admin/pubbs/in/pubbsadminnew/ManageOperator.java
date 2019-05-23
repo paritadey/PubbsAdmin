@@ -17,6 +17,9 @@ import com.android.volley.VolleyError;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
 /*created by Parita Dey*/
 
 public class ManageOperator extends AppCompatActivity implements View.OnClickListener, AsyncResponse {

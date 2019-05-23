@@ -25,13 +25,15 @@ import com.google.zxing.Result;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 /**
  * Created by LORD on 8/30/2017.
  */
 
-public class ScanQRFragment extends Fragment implements ZXingScannerView.ResultHandler,AsyncResponse{
+public class ScanQRFragment extends Fragment implements ZXingScannerView.ResultHandler, AsyncResponse {
     private static final int MY_CAMERA_PERMISSION =234 ;
     private ZXingScannerView mScannerView;
     private boolean mFlash;

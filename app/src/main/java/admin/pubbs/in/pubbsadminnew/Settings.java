@@ -64,10 +64,10 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     // if the user's admin_type is other than Super Admin then show the payment layout
     public void showPaymentText(String admintype) {
         if (admintype.equals("Super Admin")) {
-            payments.setVisibility(View.GONE);
+           // payments.setVisibility(View.GONE);
             lock_order_history.setVisibility(View.GONE);
         } else {
-            payments.setVisibility(View.VISIBLE);
+          //  payments.setVisibility(View.VISIBLE);
             lock_order_history.setVisibility(View.VISIBLE);
         }
     }

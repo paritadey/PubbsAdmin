@@ -12,6 +12,7 @@ import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,9 +21,12 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +47,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import admin.pubbs.in.pubbsadminnew.BottomSheet.BottomSheetAddNewStation;
+import admin.pubbs.in.pubbsadminnew.BottomSheet.BottomSheetAreaFragment;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.HttpParse;
 /*created by Parita Dey*/
 
 public class AddStationInMap extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
@@ -99,7 +107,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         upArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new BottomSheetAreaFragment().show(getSupportFragmentManager(), "dialog");
+                new BottomSheetAddNewStation().show(getSupportFragmentManager(), "dialog");
 
             }
         });
@@ -201,9 +209,9 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
             public void onMapClick(LatLng latLng) {
                 //if the tapped point is inside the polygonal area then only station will be created
                 // and that will be checked by Ray Casting algorith,
-                boolean point= isPointInPolygon(latLng, polygon);
-                Log.d(TAG, "Point value:"+point);
-                if(point==true) {
+                boolean point = isPointInPolygon(latLng, polygon);
+                Log.d(TAG, "Point value:" + point);
+                if (point == true) {
                     selectStationDialog();
                     stationid = generateStationID(); //generate random number station id
                     BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.station);
@@ -222,7 +230,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
                     stationLongitude = String.valueOf(station_longitude);
 
                     procced.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     showStationIsOutside("Please create station inside the area.");
                 }
 
@@ -350,6 +358,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
         dialogBuilder.show();
         dialogBuilder.setCancelable(false);
     }
+
     //if the tapped point is outside the polygonal area then show dialog showing to create the area inside the polygonal area
     private void showStationIsOutside(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
@@ -385,7 +394,7 @@ public class AddStationInMap extends AppCompatActivity implements View.OnClickLi
 
     //on clicking proceed button it will send all the data to the server
     public void addStationData(final String station_id, final String station_name, final String station_latitude, final String station_longitude,
-                                final String adminmobile, final String area_name, final String area_id) {
+                               final String adminmobile, final String area_name, final String area_id) {
 
         class AddNewStation extends AsyncTask<String, Void, String> {
             @Override

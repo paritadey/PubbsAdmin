@@ -60,7 +60,7 @@
     <string name="login_btn">Log In</string>
     <string name="fullname_tv">Full Name</string>
     <string name="email_tv">Email</string>
-    <string name="address">Address</string>
+    <string name="address">City</string>
     <string name="get_otp">Get OTP</string>
     <string name="otp_tv">Please enter your phone number here.</string>
     <string name="verify_otp">Verify OTP</string>
@@ -115,15 +115,27 @@
     <string name="station_add">Select Station</string>
     <string name="add_new_bicycle_message">To add a new bicycle click "Add Now"  button. \n Scan the QR code and enter the
         Bicycle ID</string>
-    <string name="add_new_area_message">To add new area, Admin can choose any area by writting the name of the place in the search bar. \n
-    Admin has to choose tweleve coordinates/points in the map of her/his choice. \n
-    A pop-up window will open to set the name of the area. \n
-    Hit OK button and then Proceed button to move forward. \n
-    Set all the timeslabs as well as price for rate chart and press Proceed.\n
-    To create an area of his/her choice, Admin should set the Maximum ride time, Maximum cycle hold time,
-        Minimum amount of money present in the wallet, Opening hour and Closing hour of the service and Geo-Fencing fine\n
-        and then hit Proceed button and Area will be added to the database.
+    <string name="add_area_tv">To add new area</string>
+    <string name="add_new_area_message">\u2192 Admin can Choose area by typing the location in the search bar \n\n
+    \u2192 Tweleve coordinates/points should be choosen in the map to create the polygon. \n\n
+        \u2192 A name of the polygonal area should be given. \n\n
+        \u2192 Admin can proceed to the next screen by clicking ok. \n\n
+        \u2192 The Timeslabs should be set with the price for rate chart. \n\n
+        \u2192 To proceed Ok Button should be clicked. \n\n
+        \u2192 He/She should create the final area by setting \n
+            (1)	Maximum Ride Time \n\n
+            (2)	Maximum Cycle Holding Time\n\n
+            (3)	Minimum amount of money present in online wallet\n\n
+            (4)	Opening Hour\n\n
+            (5)	Closing Hour And \n\n
+            (6)	Geo-fencing Fine\n\n
+        \u2192 Admin should hit the PROCEED Button to add the area to the Server.
     </string>
+    <string name="select_station">Select your station now.</string>
+    <string name="add_station_">How to add a station inside an area?</string>
+    <string name="add_station_header">To add new station</string>
+    <string name="add_station_help">Admin can plot a single coordinate inside the choosen polygonal area.\n A dialog will pop-up in the
+    screen. Admin has to give a name of the station. \n After pressing ok button the station details will be saved in the server.</string>
     <string name="manage_system_message">To create an area of his/her choice, Admin should set the Maximum ride time, Maximum cycle hold time,
         Minimum amount of money present in the wallet, Opening hour and Closing hour of the service and Geo-Fencing fine\n
         and then hit Proceed button and Area will be added to the database.

@@ -17,6 +17,9 @@ import com.android.volley.VolleyError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
+import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
+
 /**
  * Author        : Arpan Bose(arpanbose@hotmail.com)
  * Reviewed by   : Arpan Bose (arpanbose@hotmail.com)
@@ -26,7 +29,7 @@ import org.json.JSONObject;
  * Description   :
  * Execute like  :
  **/
-public class TCFragment extends Fragment implements AsyncResponse{
+public class TCFragment extends Fragment implements AsyncResponse {
     EditText tc;
     Button submit;
     ProgressDialog pd;
