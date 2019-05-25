@@ -222,7 +222,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                 //if the admin_type of the user using the app is "Sub Admin" then all options
                 // will be shown in the app which are present in the drawer menu
                 check = 3;
-                navigationView.getMenu().findItem(R.id.edit_station).setVisible(false);
+                navigationView.getMenu().findItem(R.id.edit_station).setVisible(true);
             }
 
         } else {
@@ -364,11 +364,11 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                     break;
                 }
             case R.id.edit_station:
-                if (check == 1) {
+                if (check == 1 || check == 2) {
                     //   startActivity(new Intent(DashBoardActivity.this, OperatorArea.class));
                     break;
-                } else if (check == 2 || check == 3) {
-                    //still not developed
+                } else if (check == 3) {
+                    startActivity(new Intent(DashBoardActivity.this, EditStation.class));
                     break;
                 }
             case R.id.delete_station:
