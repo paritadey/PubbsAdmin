@@ -1,9 +1,10 @@
 package admin.pubbs.in.pubbsadminnew;
 
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -29,15 +30,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import admin.pubbs.in.pubbsadminnew.Adapter.AddNewBicycleAdapter;
-import admin.pubbs.in.pubbsadminnew.Adapter.EditStationAdpater;
+import admin.pubbs.in.pubbsadminnew.Adapter.EditAreaAdapter;
 import admin.pubbs.in.pubbsadminnew.BottomSheet.CustomDivider;
 import admin.pubbs.in.pubbsadminnew.BottomSheet.RecyclerTouchListener;
-import admin.pubbs.in.pubbsadminnew.List.DeleteStationList;
+import admin.pubbs.in.pubbsadminnew.List.AreaList;
 import admin.pubbs.in.pubbsadminnew.NetworkCall.AsyncResponse;
 import admin.pubbs.in.pubbsadminnew.NetworkCall.SendRequest;
 
-public class EditStation extends AppCompatActivity implements AsyncResponse {
+/*created by Parita Dey*/
+public class EditAreaStation extends AppCompatActivity implements AsyncResponse {
     //xml based variables
     private RecyclerView recyclerView;
     ImageView back;
@@ -45,36 +46,38 @@ public class EditStation extends AppCompatActivity implements AsyncResponse {
     EditText inputSearch;
     ProgressBar circularProgressbar;
     //java based variables
-    String area_name, area_id, areaLatLon;
-    //private modifier-- accessible in the inner class only, where the variable is declared
-    private EditStationAdpater editStationAdpater;
-    private List<DeleteStationList> deleteStationLists = new ArrayList<>();
-    private String TAG = EditStation.class.getSimpleName();
+    SharedPreferences sharedPreferences;
+    String adminmobile, area_id, admin_type;
+    private EditAreaAdapter editAreaAdapter;
+    private List<AreaList> areaLists = new ArrayList<>();
+    private String TAG = EditAreaStation.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_station);
-        initView();
+        setContentView(R.layout.activity_edit_area_station);
+       initView();
+
     }
 
     public void initView() {
-        //setting the toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         //initializing the typeface/fonts for this particular screen
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
         Typeface type2 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Medium.otf");
         Typeface type3 = Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Bold.otf");
-        //getting area_id, area_name, areaLatLon data as intent data from AddNewBicycle class
-        Intent intent = getIntent();
-        area_id = intent.getStringExtra("area_name");
-        area_name = intent.getStringExtra("area_id");
-        areaLatLon = intent.getStringExtra("latlon");
-        Log.d(TAG, "Area details: " + area_id + "\t" + area_name + "\t" + areaLatLon);
+        //setting the toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         back = findViewById(R.id.back_button);
         bicycleTv = findViewById(R.id.bicycle_tv);
         bicycleTv.setTypeface(type1);
+        bicycleTv.setText(R.string.area_list);
+        //sharedpreference will store the admin mobile number who is using the app
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedPreferences), MODE_PRIVATE);
+        adminmobile = sharedPreferences.getString("adminmobile", null);
+        area_id = sharedPreferences.getString("area_id", null);
+        admin_type = sharedPreferences.getString("admin_type", null);
+        Log.d(TAG, "Admin Mobile" + adminmobile + "\t" + area_id + "\t" + admin_type);
         circularProgressbar = findViewById(R.id.circularProgressbar);
         ObjectAnimator progressAnimator = ObjectAnimator.ofInt(circularProgressbar, "progress", 100, 0);
         progressAnimator.setDuration(300);
@@ -82,28 +85,29 @@ public class EditStation extends AppCompatActivity implements AsyncResponse {
         progressAnimator.start();
         //RecyclerView will show the objects
         recyclerView = findViewById(R.id.recycler_view);
-        editStationAdpater = new EditStationAdpater(deleteStationLists);
+        editAreaAdapter = new EditAreaAdapter(areaLists);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new CustomDivider(this, LinearLayoutManager.VERTICAL, 8));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(editStationAdpater);
+        recyclerView.setAdapter(editAreaAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                DeleteStationList lists = deleteStationLists.get(position);
+                AreaList lists = areaLists.get(position);
+
             }
 
             @Override
             public void onLongClick(View view, int position) {
             }
         }));
-        //on clicking the back button redirects back to Dashboard
         back.setOnClickListener(new View.OnClickListener() {
+            //on clicking the back button redirects back to Dashboard
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditStation.this, EditAreaStation.class);
+                Intent intent = new Intent(EditAreaStation.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -111,14 +115,8 @@ public class EditStation extends AppCompatActivity implements AsyncResponse {
     }
 
     @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(EditStation.this, EditAreaStation.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    @Override
     public void onResume() {
+        //on tapping the menu item of 'Add New Bicycle' in DashboardActivity fetch the result from the server
         super.onResume();
         loadData();
     }
@@ -128,46 +126,47 @@ public class EditStation extends AppCompatActivity implements AsyncResponse {
         circularProgressbar.setVisibility(View.VISIBLE);
         JSONObject jo = new JSONObject();
         try {
-            jo.put("method", "getAreaStation");
-            jo.put("area_id", area_name);
+            jo.put("method", "getallmaparea");
+            jo.put("adminmobile", adminmobile);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new SendRequest(getResources().getString(R.string.url), jo, EditStation.this, getApplicationContext()).executeJsonRequest();
+        new SendRequest(getResources().getString(R.string.url), jo, EditAreaStation.this,
+                getApplicationContext()).executeJsonRequest();
 
     }
+
 
     @Override
     public void onResponse(JSONObject jsonObject) {
         circularProgressbar.setVisibility(View.GONE);
-        deleteStationLists.clear();
+        areaLists.clear();
         if (jsonObject.has("method")) {
             try {
-                if (jsonObject.getString("method").equals("getAreaStation") && jsonObject.getBoolean("success")) {
+                if (jsonObject.getString("method").equals("getallmaparea") && jsonObject.getBoolean("success")) {
                     JSONArray ja = jsonObject.getJSONArray("data");
                     if (ja.length() > 0) {
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
-                            DeleteStationList user = new DeleteStationList(jo.getString("station_name"),
-                                    jo.getString("station_id"), jo.getString("area_name"), jo.getString("area_id"));
-                            deleteStationLists.add(user);
+                            AreaList list = new AreaList(jo.getString("area_name"),
+                                    jo.getString("area_id"), jo.getString("area_lat_lon"));
+                            areaLists.add(list);
                         }
                     }
                 } else {
-                    showMessageDialog("No Station has created.");
+                    showMessageDialog("No Area is present.");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        editStationAdpater.notifyDataSetChanged();
+        editAreaAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onResponseError(VolleyError error) {
         showMessageDialog("Server Error !");
     }
-
     //if any error occurred or success msg will show via a dialog box
     private void showMessageDialog(String message) {
         Typeface type1 = Typeface.createFromAsset(getAssets(), "fonts/AvenirLTStd-Book.otf");
@@ -191,7 +190,7 @@ public class EditStation extends AppCompatActivity implements AsyncResponse {
                 if (circularProgressbar.isEnabled()) {
                     circularProgressbar.setVisibility(View.GONE);
                 }
-                Intent intent = new Intent(EditStation.this, AddNewBicycle.class);
+                Intent intent = new Intent(EditAreaStation.this, DashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -200,5 +199,11 @@ public class EditStation extends AppCompatActivity implements AsyncResponse {
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
         dialogBuilder.setCancelable(false);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(EditAreaStation.this, DashBoardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

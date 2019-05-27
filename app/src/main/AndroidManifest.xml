@@ -20,6 +20,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".EditStation"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
             android:name=".AddBankDetails"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
@@ -70,9 +75,9 @@
 
         <activity
             android:name=".DashBoardActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:noHistory="true"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddNewArea"
             android:screenOrientation="portrait"
@@ -89,6 +94,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -127,7 +133,11 @@
             android:name=".RepairCycleScanQr"
             android:screenOrientation="portrait"
             android:theme="@style/MyNoActionBar" />
-        <activity android:name=".EditStation" />
+        <activity
+            android:name=".EditAreaStation"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyNoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".AddNewStation"
             android:screenOrientation="portrait"

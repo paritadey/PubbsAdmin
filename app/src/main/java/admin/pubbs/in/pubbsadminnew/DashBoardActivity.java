@@ -16,15 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.android.volley.VolleyError;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 /*created by Parita Dey*/
 
 public class DashBoardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -368,7 +361,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                     //   startActivity(new Intent(DashBoardActivity.this, OperatorArea.class));
                     break;
                 } else if (check == 3) {
-                    startActivity(new Intent(DashBoardActivity.this, EditStation.class));
+                    startActivity(new Intent(DashBoardActivity.this, EditAreaStation.class));
                     break;
                 }
             case R.id.delete_station:
