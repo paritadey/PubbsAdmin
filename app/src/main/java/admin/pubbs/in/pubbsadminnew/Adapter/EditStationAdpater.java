@@ -13,10 +13,11 @@ import java.util.List;
 
 import admin.pubbs.in.pubbsadminnew.AddBicycle;
 import admin.pubbs.in.pubbsadminnew.List.DeleteStationList;
+import admin.pubbs.in.pubbsadminnew.List.EditStationList;
 import admin.pubbs.in.pubbsadminnew.R;
 
 public class EditStationAdpater extends RecyclerView.Adapter<EditStationAdpater.MyViewHolder> {
-    private List<DeleteStationList> deleteStationLists;
+    private List<EditStationList> editStationLists;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView station_name, station_id, area_name, area_id;
         public RelativeLayout addBicycleLayout;
@@ -35,8 +36,8 @@ public class EditStationAdpater extends RecyclerView.Adapter<EditStationAdpater.
         }
     }
 
-    public EditStationAdpater(List<DeleteStationList> deleteStationLists) {
-        this.deleteStationLists = deleteStationLists;
+    public EditStationAdpater(List<EditStationList> editStationLists) {
+        this.editStationLists = editStationLists;
     }
 
     @Override
@@ -49,7 +50,7 @@ public class EditStationAdpater extends RecyclerView.Adapter<EditStationAdpater.
 
     @Override
     public void onBindViewHolder(EditStationAdpater.MyViewHolder holder, int position) {
-        DeleteStationList deleteStationList = deleteStationLists.get(position);
+        EditStationList deleteStationList = editStationLists.get(position);
         holder.station_name.setText(deleteStationList.getStation_name());
         holder.station_id.setText(deleteStationList.getStation_id());
         String station_name = deleteStationList.getStation_name();
@@ -66,7 +67,7 @@ public class EditStationAdpater extends RecyclerView.Adapter<EditStationAdpater.
 
     @Override
     public int getItemCount() {
-        return deleteStationLists.size();
+        return editStationLists.size();
     }
 
 }

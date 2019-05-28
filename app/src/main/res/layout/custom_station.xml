@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/twenty_four_dp"
+        android:elevation="@dimen/eight_dp">
+
+        <TextView
+            android:id="@+id/station_type_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/thirty_six_dp"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
+            android:padding="@dimen/four_dp"
+            android:text="@string/station_type_tv"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fourteen_sp" />
+
+        <RadioGroup
+            android:id="@+id/station_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/station_type_tv"
+            android:layout_marginStart="@dimen/twenty_four_dp"
+            android:layout_marginTop="@dimen/twenty_four_dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radioPrimaryStation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/four_dp"
+                android:text="Primary Station"
+                android:textSize="@dimen/fourteen_sp" />
+
+            <RadioButton
+                android:id="@+id/radioSecondaryStation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/four_dp"
+                android:text="Secondary Station"
+                android:textSize="@dimen/fourteen_sp" />
+        </RadioGroup>
+
+
+        <Button
+            android:id="@+id/ok_btn"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/station_type"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/twenty_four_dp"
+            android:background="@drawable/button_bg"
+            android:elevation="@dimen/four_dp"
+            android:text="Ok"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fourteen_sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

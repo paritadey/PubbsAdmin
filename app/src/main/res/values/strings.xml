@@ -259,4 +259,5 @@ FAX : +91-3222-255303
     <string name="confirm">CONFIRM</string>
     <string name="primary">Do you want to make this account as primary account?</string>
     <string name="non_primary"></string>
+    <string name="station_type_tv">Set Station Type</string>
 </resources>
